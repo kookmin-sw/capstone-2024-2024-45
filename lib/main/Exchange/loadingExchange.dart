@@ -1,8 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:suntown/main/Exchange/finishExchange.dart';
 
-class LoadingExchange extends StatelessWidget {
+class LoadingExchange extends StatefulWidget {
   const LoadingExchange({super.key});
+
+  @override
+  State<LoadingExchange> createState() => _LoadingExchangeState();
+}
+
+class _LoadingExchangeState extends State<LoadingExchange> {
+  //임시 화면 넘김 코드, 차후 상대방이 선택시 -> 넘어가는 방향으로 수정 예정
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 5), () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => FinishExchange()));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
