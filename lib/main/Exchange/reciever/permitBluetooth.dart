@@ -4,6 +4,8 @@ import 'package:lottie/lottie.dart';
 class PermitBluetooth extends StatelessWidget {
   const PermitBluetooth({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class PermitBluetooth extends StatelessWidget {
             SizedBox(
               height: 250,
               width: 250,
-              child: Lottie.asset("assets/lottie/present.json"),
+              child: Lottie.asset("assets/lottie/bluetooth.json"),
             ),
             SizedBox(height: 20), //padding
             Text('블루투스 연결 허용 메세지'),
