@@ -13,6 +13,7 @@ class _CheckExchangeState extends State<CheckExchange> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffFFFBD3),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

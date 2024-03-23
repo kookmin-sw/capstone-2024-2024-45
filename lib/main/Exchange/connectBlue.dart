@@ -36,7 +36,8 @@ class _ConnectBlueState extends State<ConnectBlue> {
               child: Lottie.asset("assets/lottie/bluetooth.json"),
             ),
             SizedBox(height: 20), //padding
-            Text('블루투스 연결 글귀 들어가는 자리'),
+            Text('블루투스 연결 글귀 들어가는 자리',
+              style: TextStyle(fontSize: 20),),
           ],
         ),
       ),

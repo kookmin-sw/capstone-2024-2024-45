@@ -35,7 +35,9 @@ class _LoadingExchangeState extends State<LoadingExchange> {
               child: Lottie.asset("assets/lottie/loading.json"),
             ),
             SizedBox(height: 20), //padding
-            Text('송금 로딩 글귀 들어가는 자리'),
+            Text('송금 로딩 글귀 들어가는 자리',
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),

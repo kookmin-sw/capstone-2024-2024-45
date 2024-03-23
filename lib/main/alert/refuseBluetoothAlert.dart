@@ -7,7 +7,16 @@ class RefuseBluetoothAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-      Text("연결 거절 alert"),
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("블루투스 취소 alert",
+              style: TextStyle(fontSize: 30),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

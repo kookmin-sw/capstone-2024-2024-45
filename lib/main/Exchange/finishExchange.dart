@@ -18,7 +18,9 @@ class FinishExchange extends StatelessWidget {
               child: Lottie.asset("assets/lottie/handshake.json"),
             ),
             SizedBox(height: 20), //padding
-            Text('송금완료 글귀 들어가는 자리'),
+            Text('송금완료 글귀 들어가는 자리',
+              style: TextStyle(fontSize: 20),
+      ),
           ],
         ),
       ),

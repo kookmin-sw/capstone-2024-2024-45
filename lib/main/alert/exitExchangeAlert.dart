@@ -12,7 +12,16 @@ class _ExitExchangeAlertState extends State<ExitExchangeAlert> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-      Text("송금 취소 alert"),
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("송금 취소 alert",
+              style: TextStyle(fontSize: 30),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

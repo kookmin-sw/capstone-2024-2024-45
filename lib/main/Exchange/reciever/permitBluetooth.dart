@@ -20,7 +20,9 @@ class PermitBluetooth extends StatelessWidget {
               child: Lottie.asset("assets/lottie/bluetooth.json"),
             ),
             SizedBox(height: 20), //padding
-            Text('블루투스 연결 허용 메세지'),
+            Text('블루투스 연결 허용 메세지',
+              style: TextStyle(fontSize: 20),
+            ),
             SizedBox(height: 20), //padding
             //버튼
             SizedBox(

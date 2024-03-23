@@ -18,7 +18,9 @@ class ConnectBlueError extends StatelessWidget {
               child: Lottie.asset("assets/lottie/sad.json"),
             ),
             SizedBox(height: 20), //padding
-            Text('블루투스 에러 메세지 자리'),
+            Text('블루투스 에러 메세지 자리',
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       ),
