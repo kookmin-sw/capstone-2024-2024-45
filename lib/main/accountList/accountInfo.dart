@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/Exchange/inputTransfor.dart';
 import 'package:suntown/main/saving/savingHistory/savingHistory.dart';
+
 class AccountInfo extends StatefulWidget {
   const AccountInfo({super.key});
 
@@ -12,34 +13,107 @@ class _AccountInfoState extends State<AccountInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => InputTransform()));
-              },
-              child: Text('햇살 보내기'),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Column(children: [
+            const Expanded(
+              flex: 30,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                    Card(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 30),
+                          child: Row(
+                            children: [
+                              Text("이모지"),
+                              Spacer(),
+                              //말풍선 텍스트
+                              Expanded(
+                                flex: 3,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child :
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "오늘도 나눔에 앞장서는" + "       ",
+                                          textAlign: TextAlign.right,
+                                        ),
+                                        Text(
+                                          "아름다운 당신을 응원합니다",
+                                          textAlign: TextAlign.left,
+                                        )
+                                      ],
+                                    ),
+                                ),
+                              ),
+                            ],
+                          ),
+                    ),
+                  ),
+                  Center(
+                    child: Card(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 50, horizontal: 20),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text(
+                                  '경로당 창고',
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                                Text(
+                                  '1300',
+                                  style: TextStyle(fontSize: 50),
+                                ),
+                                Text(
+                                  '햇살',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Savinghistory()));
-              },
-              child: Text('거래 확인하기'),
+            Spacer(),
+            SizedBox(
+              // SizedBox 대신 Container를 사용 가능
+              width: 346,
+              height: 73,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InputTransform()));
+                },
+                child: Text('햇살 보내기'),
+              ),
             ),
-          ),
-        ]),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              // SizedBox 대신 Container를 사용 가능
+              width: 346,
+              height: 73,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Savinghistory()));
+                },
+                child: Text('거래 확인하기'),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
