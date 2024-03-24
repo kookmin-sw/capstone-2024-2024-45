@@ -1,8 +1,9 @@
+// 송금할 금액을 입력하는 곳
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:suntown/main/Exchange/connectBlue.dart';
+import 'package:suntown/main/Exchange/checkExchange.dart';
 
-//입력창만들고, 키보드 구현
+// 입력창만들고, 키보드 구현
 
 class InputTransform extends StatefulWidget {
   const InputTransform({super.key});
@@ -33,7 +34,7 @@ class _InputTransformState extends State<InputTransform> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //text
+                      // 송금 안내 문구 -------------
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Column(
@@ -59,7 +60,7 @@ class _InputTransformState extends State<InputTransform> {
                       const SizedBox(
                         height: 20,
                       ),
-                      //입력 창
+                      //입력 창 -------------
                       TextField(
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -75,7 +76,7 @@ class _InputTransformState extends State<InputTransform> {
                 ),
               ),
               // 위젯 넣을 위치
-              //button
+              // 송금 button -------------
               const Spacer(),
               SizedBox(
                 width: 346,
@@ -91,7 +92,7 @@ class _InputTransformState extends State<InputTransform> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ConnectBlue()));
+                            builder: (context) => const CheckExchange()));
                   },
                   child: const Text("송금 확인",
                     textAlign: TextAlign.center,

@@ -1,5 +1,6 @@
+// 선택한 계좌 화면
 import 'package:flutter/material.dart';
-import 'package:suntown/main/Exchange/inputTransfor.dart';
+import 'package:suntown/main/Exchange/connectBlue.dart';
 import 'package:suntown/main/saving/savingHistory/savingHistory.dart';
 
 class AccountInfo extends StatefulWidget {
@@ -22,6 +23,7 @@ class _AccountInfoState extends State<AccountInfo> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // 나눔 장려 문구 -----------------
                     Card(
                       child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -54,6 +56,8 @@ class _AccountInfoState extends State<AccountInfo> {
                           ),
                     ),
                   ),
+
+                  // 계좌정보 표시 하는곳 -----------------
                   Center(
                     child: Card(
                       child: Padding(
@@ -83,6 +87,8 @@ class _AccountInfoState extends State<AccountInfo> {
               ),
             ),
             Spacer(),
+
+            // 송금 버튼 -----------------
             SizedBox(
               // SizedBox 대신 Container를 사용 가능
               width: 346,
@@ -92,11 +98,13 @@ class _AccountInfoState extends State<AccountInfo> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => InputTransform()));
+                          builder: (context) => ConnectBlue()));
                 },
                 child: Text('햇살 보내기'),
               ),
             ),
+
+            // 거래내역 확인 버튼 -----------------
             SizedBox(
               height: 20,
             ),

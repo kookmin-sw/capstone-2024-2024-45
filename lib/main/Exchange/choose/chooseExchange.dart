@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:suntown/main/Exchange/loadingBluetooth.dart';
+import 'package:suntown/main/Exchange/inputTransfor.dart';
 
 class ChooseExchange extends StatefulWidget {
   const ChooseExchange({super.key});
@@ -13,7 +13,7 @@ class _ChooseExchangeState extends State<ChooseExchange> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('main')),
+      appBar: AppBar(title: Text('송금을 누구에게 할지 정하는 곳 ')),
       body: ListView(
         children: <Widget>[
           Card(
@@ -23,7 +23,7 @@ class _ChooseExchangeState extends State<ChooseExchange> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LoadingBluetooth()
+                        builder: (context) => InputTransform()
                     ),
                   );
                 }

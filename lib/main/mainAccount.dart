@@ -1,7 +1,7 @@
-//메인 화면 구현
+//메인 화면 구현 계좌(list)
 
 import 'package:flutter/material.dart';
-import 'package:suntown/main/accountList/account.dart';
+// import 'package:suntown/main/accountList/account.dart';
 import 'package:suntown/main/accountList/accountInfo.dart';
 
 class MainAccount extends StatefulWidget {
@@ -22,7 +22,7 @@ class _MainAccountState extends State<MainAccount> {
         children: <Widget>[
           Card(
             child: ListTile(
-              title: Text('계좌1'),
+              title: Text('경로당 창고'),
               onTap: () {
                 Navigator.push(
                     context,
