@@ -36,8 +36,7 @@ class _InputTransformState extends State<InputTransform> {
                       //text
                       const Align(
                         alignment: Alignment.centerLeft,
-                        child :
-                        Column(
+                        child: Column(
                           children: [
                             Text(
                               "얼마를 보낼까요?" + "       ",
@@ -82,11 +81,28 @@ class _InputTransformState extends State<InputTransform> {
                 width: 346,
                 height: 73,
                 child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Color(0xFF4B4A48),
+                    ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const ConnectBlue()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ConnectBlue()));
                   },
-                  child: const Text('송금 하기'),
+                  child: const Text("송금 확인",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Noto Sans KR',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],
