@@ -1,78 +1,79 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/omXkVCQu)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=14556872&assignment_repo_type=AssignmentRepo)
-# Welcome to GitHub
+ 
+# 매듭 창고
 
-캡스톤 팀 생성을 축하합니다.
-
-## 팀소개 및 페이지를 꾸며주세요.
-
-- 프로젝트 소개
-  - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
-  - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
-
-- 팀페이지 꾸미기
-  - 프로젝트 소개 및 팀원 소개
-  - index.md 예시보고 수정.
-
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
-  - Source를 marster branch
-  - Theme Chooser에서 태마선택
-  - 수정후 팀페이지 확인하여 점검.
-
-**팀페이지 주소** -> https://kookmin-sw.github.io/ '{{자신의 리파지토리 아이디}}'
-
-**예시)** 2023년 0조  https://kookmin-sw.github.io/capstone-2023-00/
+> 허지은(팀장), 오선정, 윤서영, 성예린, 송수인  
+> 개발기간 : 2024.03.05
 
 
-## 내용에 아래와 같은 내용들을 추가하세요.
+<br>
 
-### 1. 프로잭트 소개
+## Introduction 
 
-프로젝트
+**2023년 캡스톤디자인1에서 시간은행 개념을 도입하여 만든 기존의 ‘타임뱅크’ 어플의 단점을 개선하여 성북구 정릉동에 특화된 ‘매듭창고’ 어플을 만들고자 합니다.** 
 
-### 2. 소개 영상
+### 시간은행이란?
+<img width="539" alt="image" src="https://github.com/Heo-jieun/read_me_clone/assets/65994153/d1f0abd1-b9e1-4949-892f-23711ad70cd6">
+<br>
+서로 도움을 주고 받으면 생긴 "시간"이라는 단위를 보관하고, 교환을 도와 줌으로써 사람들이 좀 더 안전하고,편하세 도움을 교환할 수 있도록 해주는 은행으로 "같이"의 "가치"를 중요시합니다. 
 
-프로젝트 소개하는 영상을 추가하세요
+<br>
+<br>
 
-### 3. 팀 소개
+**'매듭창고'는 사용자 편의를 고려해 제작된 앱입니다.**
 
-팀을 소개하세요.
+1. 블루투스 기능을 이용한 송금
+ - 블루투스 기술을 이용하여 내 주변인을 찾아 계좌번호 없는 간편한 송금이 가능.
+   
+2. 구어체 사용
+ - 중장년층 이상이 주로 사용할 것을 고려하여 이해하기 쉬운 구어체 사용.
+ 
+3. 음성 녹음으로 관리자에게 문의
+ - 앱의 주 사용자인 노년층을 위해 음성 녹음하기 기능을 추가하여 편의성을 제공.
+   
+4. 기업계좌 추가, 1인 다계좌 허용
+ - 기존 타임 뱅크와 달리 1인 다계좌 개설을 허용하여 기업용 계좌를 보유하면서도 개인 계좌를 사용 가능.
 
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
-
-### 4. 사용법
-
-소스코드제출시 설치법이나 사용법을 작성하세요.
-
-### 5. 기타
-
-추가적인 내용은 자유롭게 작성하세요.
+5. 오송금 거래 취소 기능 간편화 및 관리자 로그 추가
+ - 관리자가 환불 버튼을 클릭 시, 해당 거래와 반대되는 거래를 발생시켜 환불진행.
+ - 관리자가 발생하는 거래에는 항상 관리자 이름과 거래를 만든 이유를 적게 하여 권한 남용을 방지.
 
 
-## Markdown을 사용하여 내용꾸미기
+<br>  
 
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## 시스템 구조도
+ 
+<br>
+<img width="612" alt="image" src="https://github.com/Heo-jieun/read_me_clone/assets/65994153/73b6cf80-cd96-46a5-91d3-d9084bb5cd74">
+<br>
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Stacks 
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+<br>
+<div align=center> 
+<img src="https://img.shields.io/badge/DART-339AF0?style=for-the-badge&logo=DART&logoColor=white">
+<img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white">
+<img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white">
+<img src="https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white">
+<br>
 
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Support or Contact
+<img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
+<!-- <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"> -->
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
+<img src="https://img.shields.io/badge/django-092E20?style=flat-square&logo=django&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
+<br>
 
-readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<br>
+
+<img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
+<img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
+</div>
+
