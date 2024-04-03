@@ -56,9 +56,9 @@ E-mail : @kookmin.ac.kr
 
 ```
 성예린
-Role : Frontend
-Student ID : ****
-E-mail : @kookmin.ac.kr
+Role : Frontend, 일부 기능 구현
+Student ID : ****1634
+E-mail : hbgraph@kookmin.ac.kr
 ```
 
 ```
