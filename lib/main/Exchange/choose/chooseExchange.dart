@@ -10,15 +10,18 @@ class ChooseExchange extends StatefulWidget {
 }
 
 class _ChooseExchangeState extends State<ChooseExchange> {
+  List<String> people = ['홍길동', '김좌진', '유관순']; // 예시로 3명의 사람 추가
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('송금을 누구에게 할지 정하는 곳 ')),
-      body: ListView(
-        children: <Widget>[
-          Card(
+      body: ListView.builder(
+        itemCount: people.length,
+        itemBuilder: (context, index) {
+          return Card(
             child: ListTile(
-                title: Text('사람1'),
+                title: Text(people[index]),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -29,8 +32,8 @@ class _ChooseExchangeState extends State<ChooseExchange> {
                 }
               //dense: true,
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
