@@ -5,9 +5,6 @@ import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
 import 'package:suntown/User/SendAmount.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
 
-// import 'package:suntown/main/accountList/accountInfo.dart';
-
-
 import '../../User/userData/User.dart';
 import '../../utils/screenSizeUtil.dart';
 import '../alert/correctionAlertDialog.dart';
