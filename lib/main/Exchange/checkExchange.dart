@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
-import 'package:suntown/main/alert/exitExchangeAlert.dart';
 import 'package:suntown/main/accountList/accountInfo.dart';
 
 
