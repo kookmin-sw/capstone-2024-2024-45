@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:suntown/main/signingUp/join.dart';
+import 'package:suntown/main/signingUp/signingScreen.dart';
 
 class startScreen extends StatefulWidget {
   const startScreen({super.key});
@@ -222,7 +222,7 @@ class _startScreenState extends State<startScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Join()));
+                        MaterialPageRoute(builder: (context) => signingUP()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffFFFBD3),
