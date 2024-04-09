@@ -1,18 +1,7 @@
 import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
+import 'package:suntown/main/signingUp/nickNameScreen.dart';
 import 'package:flutter/material.dart';
-
-// import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
-
-// void main() {
-//   // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
-//   WidgetsFlutterBinding.ensureInitialized();
-//   // runApp() 호출 전 Flutter SDK 초기화
-//   KakaoSdk.init(
-//     nativeAppKey: '731616c5419324d656e34dc0a0f35a85',
-//   );
-//   runApp(const MyApp());
-// }
 
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
@@ -33,25 +22,41 @@ class _signingUPState extends State<signingUP> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.network(viewModel.user?.kakaoAccount?.profile?.profileImageUrl ?? ""),
-              Text(
-                '${viewModel.isLogined}',
-                style: Theme.of(context).textTheme.headlineMedium,
+
+              InkWell(
+                onTap: () {
+                  viewModel.login();
+                  //화면 갱신
+                  setState(() {});
+                  print("버튼 클릭");
+                },
+                child: Image.asset("assets/images/kakao_login_large_wide.png"),
+              ),
+              SizedBox(
+                height: 20.0,
               ),
               ElevatedButton(
-                  onPressed: () async{
-                    viewModel.login();
-                    //화면 갱신
-                    setState(() {
-                    });
-                  }, child: const Text("Login")
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    viewModel.logout();
-                    setState(() {
-                    });
-                  }, child: const Text("Logout")),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => nickName()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFD852),
+                  minimumSize: Size.fromHeight(50),
+
+                  foregroundColor: const Color(0xFF4B4A48),
+
+                  textStyle: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                child: const Text("다음"),
+              )
             ],
           ),
         ),
