@@ -13,7 +13,7 @@ class _JoinState extends State<Join> {
     return Scaffold(
 
       body : Padding(
-        padding: EdgeInsets.fromLTRB(20, 60, 20, 40),
+        padding: EdgeInsets.all(20),
         child : Container(
           decoration: BoxDecoration(
             border: Border.all( // 선 설정
@@ -21,6 +21,7 @@ class _JoinState extends State<Join> {
             width: 1.0, // 선 두께
             ),
           ),
+
         )
       )
     );
