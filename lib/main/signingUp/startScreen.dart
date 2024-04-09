@@ -13,9 +13,12 @@ class _startScreenState extends State<startScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 60, 20, 40),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            SizedBox(
+              height: 80.0,
+            ),
             Expanded(
                 child:SingleChildScrollView(
                    child : Column(
@@ -225,15 +228,19 @@ class _startScreenState extends State<startScreen> {
                         MaterialPageRoute(builder: (context) => signingUP()));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFBD3),
-// 버튼의 배경색을 파란색으로 변경
+                    backgroundColor: const Color(0xFFFFD852),
+                    minimumSize: Size.fromHeight(50),
+
                     foregroundColor: const Color(0xFF4B4A48),
+
                     textStyle: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                       height: 0,
                     ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                   ),
                   child: const Text("매듭 창고 시작하기"),
                 )
