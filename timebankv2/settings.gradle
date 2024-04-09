@@ -1,0 +1,2 @@
+rootProject.name = 'timebankv2'
+include 'account-service'
