@@ -229,7 +229,7 @@ class _startScreenState extends State<startScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFFD852),
-                    minimumSize: Size.fromHeight(50),
+                    minimumSize: Size.fromHeight(73),
 
                     foregroundColor: const Color(0xFF4B4A48),
 
