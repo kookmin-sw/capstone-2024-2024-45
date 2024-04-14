@@ -1,17 +1,18 @@
-import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
-import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
-import 'package:suntown/main/signingUp/nickNameScreen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:suntown/main/signingUp/numberScreen.dart';
 
-class signingUP extends StatefulWidget {
-  const signingUP({super.key});
+
+class nameScreen extends StatefulWidget {
+  const nameScreen({super.key});
 
   @override
-  State<signingUP> createState() => _signingUPState();
+  State<nameScreen> createState() => _nameScreenState();
 }
 
-class _signingUPState extends State<signingUP> {
-  final viewModel = MainViewModel(KakaoLogin());
+class _nameScreenState extends State<nameScreen> {
+  String nickName = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,6 @@ class _signingUPState extends State<signingUP> {
         padding: const EdgeInsets.all(20),
         child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
                   child: SingleChildScrollView(
@@ -31,10 +31,10 @@ class _signingUPState extends State<signingUP> {
                               height: 75,
                             ),
                             SizedBox(
-                              width: 97,
+                              width: 119,
                               height: 25,
                               child: Text(
-                                '1. 회원가입',
+                                '2. 창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: 17,
@@ -48,7 +48,7 @@ class _signingUPState extends State<signingUP> {
                               width: 343,
                               height : 51,
                               child: Text(
-                                '카카오로 시작해 주세요.',
+                                '이름을 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: 25,
@@ -59,38 +59,57 @@ class _signingUPState extends State<signingUP> {
                               ),
                             ),
                             SizedBox(
-                              height: 236,
+                              height: 77,
                             ),
-                            InkWell(
-                              onTap: () {
-                                viewModel.login();
-                                //화면 갱신
-                                setState(() {});
-                                print("버튼 클릭");
-                              },
-                              child: Image.asset("assets/images/kakao_login_large_wide.png"),
+                            TextField(
+                                textAlign: TextAlign.center,
+                                // 최대 문자 길이
+                                maxLength :15,
+                                // obscureText: true, 비밀번호 작성할 떄
+                                onChanged: (text) {
+                                  setState(() {
+                                    nickName = text;
+                                    print(nickName);
+                                  });
+                                },
+                                decoration : InputDecoration(
+                                  hintText : '한글 이름 입력',
+                                )
                             ),
                           ]
                       )
                   )
               ),
-
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  var data = {
+                    'nickName' : nickName,
+                  };
+                  var body = jsonEncode(data);
+                  http.Response _res = await http.post(Uri.parse("https://reqres.in/api/users"),
+                      headers: {"Content-Type" : 'application/json'},
+                      body :body
+                  );
+                  print(_res.statusCode);
+                  print(_res.body);
+
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => nickName()));
+                      MaterialPageRoute(builder: (context) => numberScreen())
+                  );
+
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFD852),
-                  minimumSize: Size.fromHeight(50),
-
-                  foregroundColor: const Color(0xFF4B4A48),
+                  backgroundColor: const Color(0xFF4B4A48),
+                  foregroundColor:Colors.white,
+                  minimumSize: Size.fromHeight(73),
 
                   textStyle: TextStyle(
                     fontSize: 25,
                     fontFamily: 'Noto Sans KR',
+                    color: Colors.white,
                     fontWeight: FontWeight.w500,
                     height: 0,
+
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -104,3 +123,4 @@ class _signingUPState extends State<signingUP> {
     );
   }
 }
+

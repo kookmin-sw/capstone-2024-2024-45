@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:suntown/main/signingUp/numberScreen.dart';
+import 'package:suntown/main/signingUp/openAccount.dart';
 
 class nickName extends StatefulWidget {
   const nickName({super.key});
@@ -62,7 +64,7 @@ class _nickNameState extends State<nickName> {
                           TextField(
                               textAlign: TextAlign.center,
                               // 최대 문자 길이
-                              maxLength : 10,
+                              maxLength : 6,
                               // obscureText: true, 비밀번호 작성할 떄
                               onChanged: (text) {
                                 setState(() {
@@ -71,7 +73,7 @@ class _nickNameState extends State<nickName> {
                                 });
                               },
                               decoration : InputDecoration(
-                                hintText : '이름을 입력하세요',
+                                hintText : '별명 입력',
                               )
                           ),
                         ]
@@ -91,8 +93,9 @@ class _nickNameState extends State<nickName> {
                   print(_res.statusCode);
                   print(_res.body);
 
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => signingUP()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => openAccount())
+                  );
 
                 },
                 style: ElevatedButton.styleFrom(
