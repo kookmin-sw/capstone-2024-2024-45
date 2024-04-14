@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 20),
             const Text(
-              '햇살마을',
+              '매듭 창고',
               style: TextStyle(fontSize: 55),
             ),
           ],
