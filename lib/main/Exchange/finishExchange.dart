@@ -1,9 +1,9 @@
 // 송금 완료 화면
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:suntown/main/Exchange/choose/chooseExchange.dart';
-import 'package:suntown/main/accountList/accountInfo.dart';
 
+import '../mainAccount.dart';
+import 'inputTransfor.dart';
 
 class FinishExchange extends StatefulWidget {
   const FinishExchange({super.key});
@@ -15,62 +15,115 @@ class FinishExchange extends StatefulWidget {
 class _FinishExchangeeState extends State<FinishExchange> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffFFFBD3),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '송금 성공!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF4B4A48),
-                  fontSize: 30,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w300,
-                  height: 0,
+    return WillPopScope( //뒤로가기 누를시 홈 화면으로 이동
+      onWillPop: () async {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainAccount()));
+        return false; // 화면을 떠나지 않도록 false를 반환합니다.
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xffFFFBD3),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 50,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '보내기 성공!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF4B4A48),
+                          fontSize: 30,
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w300,
+                          height: 0,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        '매듭 보내기가',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFFFF8D4D),
+                          fontSize: 40,
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w500,
+                          height: 0,
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '완료',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFFFF8D4D),
+                              fontSize: 40,
+                              fontFamily: 'Noto Sans KR',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '되었습니다.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontFamily: 'Noto Sans KR',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        // 패딩 설정
+                        child: SizedBox(
+                          height: 250,
+                          width: 250,
+                          child: Lottie.asset("assets/lottie/handshake.json"),
+                        ),
+                      ),
+                      Text(
+                        '추가로 보낼까요?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF4B4A48),
+                          fontSize: 30,
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w300,
+                          height: 0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0), // 패딩 설정
-                child: SizedBox(
-                  height: 250,
-                  width: 250,
-                  child: Lottie.asset("assets/lottie/handshake.json"),
-                ),
-              ),
-              Text(
-                '추가 송금 하시겠습니까?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF4B4A48),
-                  fontSize: 30,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w300,
-                  height: 0,
-                ),
-              ),
-              Spacer(),
-              SizedBox(
-                // SizedBox 대신 Container를 사용 가능
-                width: 346,
-                height: 73,
-                child: ElevatedButton(
+                Spacer(),
+                SizedBox(height: 20),
+                ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ChooseExchange())
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InputTransform()),
                     );
                   },
-                  child: Text('예, 햇살을 보냅니다.',
+                  child: Text(
+                    '예, 추가로 매듭을 보냅니다.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF4B4A48),
-                      fontSize: 25,
+                      fontSize: 23,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                       height: 0,
@@ -85,28 +138,22 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     backgroundColor: Color(0xFFFFD852),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                // SizedBox 대신 Container를 사용 가능
-                width: 346,
-                height: 73,
-                child: ElevatedButton(
+                SizedBox(height: 20),
+                ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AccountInfo()));
+                        MaterialPageRoute(builder: (context) => MainAccount()));
                   },
-                  child: Text('아니요, 햇살을 그만 보냅니다.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: 'Noto Sans KR',
-                        fontWeight: FontWeight.w500,
-                        height: 0,
-                      )
+                  child: Text(
+                    '아니요, 매듭을 그만 보냅니다.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontFamily: 'Noto Sans KR',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(346, 73),
@@ -117,10 +164,10 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     backgroundColor: Color(0xFF4B4A48),
                   ),
                 ),
-              ),
-            ]
+              ],
+            ),
           ),
-        )
+        ),
       ),
     );
   }
