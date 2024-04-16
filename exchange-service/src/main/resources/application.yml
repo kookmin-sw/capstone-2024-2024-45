@@ -12,13 +12,13 @@ spring:
       hibernate:
         format_sql: true
 
-  datasource-exchange:
+  datasource-remittance:
     jdbc-url: jdbc:mysql://localhost:3306/transaction_history?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: capstone-2024-45
 
-  datasource-bankCore:
+  datasource-bankcore:
     jdbc-url:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username:
