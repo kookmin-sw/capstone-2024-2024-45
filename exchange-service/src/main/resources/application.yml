@@ -1,0 +1,25 @@
+spring:
+  application:
+   name: exchange-service
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource-exchange:
+    jdbc-url: jdbc:mysql://localhost:3306/transaction_history?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: capstone-2024-45
+
+  datasource-bankCore:
+    jdbc-url:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
