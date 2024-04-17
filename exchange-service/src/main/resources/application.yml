@@ -19,7 +19,10 @@ spring:
     password: capstone-2024-45
 
   datasource-bankcore:
-    jdbc-url:
+    jdbc-url: jdbc:mysql://localhost:3306/bankcore?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
+    username: root
+    password: capstone-2024-45
+
+server:
+  port: 8000

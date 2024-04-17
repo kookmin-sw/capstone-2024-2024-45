@@ -1,5 +1,6 @@
 package com.capstone2024.sw.kmu.exchangeservice.config;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,24 +20,22 @@ import javax.sql.DataSource;
         transactionManagerRef = "bankCoreTransactionManager"
 )
 public class BankCoreDBConfig {
-    @Primary
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource-bankcore")
     public DataSource bankCoreDataSource(){
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
     @Bean
     public LocalContainerEntityManagerFactoryBean bankCoreEntityManager() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(bankCoreDataSource());
-        entityManagerFactoryBean.setPackagesToScan("com.capstone2024.sw.kmu.exchangeservice");
+        entityManagerFactoryBean.setPackagesToScan("com.capstone2024.sw.kmu.exchangeservice.domain.bankcore");
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return entityManagerFactoryBean;
     }
 
-    @Primary
     @Bean
     public JpaTransactionManager bankCoreTransactionManager() {
         return new JpaTransactionManager(bankCoreEntityManager().getObject());
