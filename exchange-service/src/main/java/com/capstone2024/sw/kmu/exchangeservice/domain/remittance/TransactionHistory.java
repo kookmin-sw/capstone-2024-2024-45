@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "transactionhistory")
 public class TransactionHistory {
 
     @Id
@@ -34,7 +35,6 @@ public class TransactionHistory {
     private int amount;
 
     @Column(name = "sender_user_id")
-    @NotNull
     private String senderId;
 
     @Column(name = "sender_balance_after")

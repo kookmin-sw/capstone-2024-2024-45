@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Qualifier("transactionHistoryEntityManager")
 public interface TransactionHistoryRepository extends JpaRepository<TransactionHistory, String> {
+    TransactionHistory findByTransId(Long transId);
 }

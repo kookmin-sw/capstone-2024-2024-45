@@ -18,9 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api/exchange/")
 public class RemittanceController {
 
     private final RemittanceService remittanceService;
@@ -41,7 +43,7 @@ public class RemittanceController {
             @RequestHeader String userId,
             @RequestBody RemittanceRequestDto.QRRemittance remit
     ) throws IllegalAccessException {
-        RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.from(remit);
+        RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.converseFrom(remit);
 
         TransactionHistoryResponseDto.RemittanceResult response = remittanceService.remit(dto, userId);
 

@@ -14,11 +14,19 @@ public class RemittanceResponseDto {
         private int amount;
 //        private String password;
 
-        public static Remittance from(RemittanceRequestDto.QRRemittance dto) {
+        public static Remittance converseFrom(RemittanceRequestDto.QRRemittance dto) {
             return Remittance.builder()
                     .senderAccountId(dto.getSenderAccountId())
                     .receiverAccountId(dto.getReceiverAccountId())
                     .amount(dto.getAmount())
+                    .build();
+        }
+
+        public static Remittance converseFrom(TransactionHistoryResponseDto.RemittanceResult remittanceResult){
+            return Remittance.builder()
+                    .senderAccountId(remittanceResult.getReceiverAccountId())
+                    .receiverAccountId(remittanceResult.getSenderAccountId())
+                    .amount(remittanceResult.getAmount())
                     .build();
         }
     }
