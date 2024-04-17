@@ -20,17 +20,19 @@ public class BankCoreService {
     }
 
     public void updateBalance(AccountInfo userInfo, int amount, String type){
-        // 보내는 사람의 잔액 검증
-        if(!validateSenderBalance(userInfo, amount)){
-            return;
-        }
 
         switch (type){
 
             case "DECREASE":
+
+                // 보내는 사람의 잔액 검증
+                if(!validateSenderBalance(userInfo, amount)){
+                    return;
+                }
+
                 userInfo.setBalance(userInfo.getBalance() - amount);
                 bankCoreRepository.save(userInfo);
-                return;
+                break;
 
             case "INCREASE":
                 userInfo.setBalance(userInfo.getBalance() + amount);
