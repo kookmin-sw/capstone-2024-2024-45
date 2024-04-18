@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class RemittanceRequestDto {
 
@@ -22,5 +23,16 @@ public class RemittanceRequestDto {
         @Schema(description = "받는 사람 account Id", example = "11111111-1111-1111-111111111111")
         @NotEmpty
         private String receiverAccountId;
+    }
+
+    @Schema(description = "특정 계좌의 거래 내역 보기")
+    @NoArgsConstructor
+    @Getter
+    public static class History {
+
+        @Schema(description = "계좌 id", example = "550e8400-e294-1d4a-716446655440000")
+        @NotEmpty
+        private String accountId;
+
     }
 }

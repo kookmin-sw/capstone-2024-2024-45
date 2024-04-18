@@ -36,4 +36,25 @@ public class TransactionHistoryResponseDto {
                     .build();
         }
     }
+
+    @Builder
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class RemittanceList{
+
+        private Long transId;
+        private String senderAccountId;
+        private String receiverAccountId;
+        private int amount;
+
+        public static RemittanceList from(TransactionHistory response) {
+            return RemittanceList.builder()
+                    .transId(response.getTransId())
+                    .senderAccountId(response.getSenderAccountId())
+                    .receiverAccountId(response.getReceiverAccountId())
+                    .amount(response.getAmount())
+                    .build();
+        }
+    }
 }
