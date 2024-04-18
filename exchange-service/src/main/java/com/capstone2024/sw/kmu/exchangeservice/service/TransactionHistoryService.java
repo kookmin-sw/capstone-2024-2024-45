@@ -45,4 +45,11 @@ public class TransactionHistoryService {
 
         return APIResponse.of(SuccessCode.SELECT_SUCCESS, list);
     }
+
+    public APIResponse<List<TransactionHistoryResponseDto.RemittanceResult>> getAllHistory() {
+
+        List<TransactionHistory> transactionHistories = transactionHistoryRepository.findAllByOrderByTransIdDesc();
+
+        return APIResponse.of(SuccessCode.SELECT_SUCCESS, transactionHistories);
+    }
 }

@@ -18,4 +18,6 @@ public interface TransactionHistoryRepository extends JpaRepository<TransactionH
     @Query("SELECT t FROM TransactionHistory t " +
             "WHERE t.senderAccountId = :accountId OR t.receiverAccountId = :accountId ORDER BY t.createdAt DESC")
     List<TransactionHistory> findByAccountId(@Param("accountId") String accountId);
+
+    List<TransactionHistory> findAllByOrderByTransIdDesc();
 }
