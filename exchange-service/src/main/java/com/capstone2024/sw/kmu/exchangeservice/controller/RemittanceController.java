@@ -59,4 +59,12 @@ public class RemittanceController {
     ) {
         return ResponseEntity.ok(transactionHistoryService.getUserHistory(dto));
     }
+
+    @Operation(summary = "특정 거래 내역 확인", description = "특정 거래 내역을 확인합니다.")
+    @GetMapping("/remittance/history/{transId}")
+    public ResponseEntity<APIResponse<TransactionHistoryResponseDto.RemittanceResult>> getDetailHistory(
+            @PathVariable Long transId
+    ) {
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS,transactionHistoryService.findTransHistory(transId)));
+    }
 }
