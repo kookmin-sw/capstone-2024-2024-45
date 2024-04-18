@@ -51,13 +51,12 @@ public class RemittanceController {
         return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS, response));
     }
 
-    // 송금
+    // 특정 계좌의 거래 내역 확인
     @Operation(summary = "특정 계좌의 거래 내역 확인", description = "거래 내역을 확인합니다.")
     @PostMapping("/remittance/history")
     public ResponseEntity<APIResponse<List<TransactionHistoryResponseDto.RemittanceList>>> getHistory(
-            @RequestBody RemittanceRequestDto.History dto  // TODO: userID 받아와서 user 검증?
-    ) throws IllegalAccessException {
-
-        return ResponseEntity.ok(transactionHistoryService.getUserHistory(dto)); // TODO: 다른 endpoint 도 이렇게 refactoring
+            @RequestBody RemittanceRequestDto.History dto
+    ) {
+        return ResponseEntity.ok(transactionHistoryService.getUserHistory(dto));
     }
 }

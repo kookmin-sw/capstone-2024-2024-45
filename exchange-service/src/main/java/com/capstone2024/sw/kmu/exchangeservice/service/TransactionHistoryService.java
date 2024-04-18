@@ -3,6 +3,7 @@ package com.capstone2024.sw.kmu.exchangeservice.service;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
+import com.capstone2024.sw.kmu.exchangeservice.domain.TransactionType;
 import com.capstone2024.sw.kmu.exchangeservice.domain.bankcore.AccountInfo;
 import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceRequestDto;
 import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.TransactionHistoryResponseDto;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -36,8 +38,18 @@ public class TransactionHistoryService {
 
     public APIResponse<List<TransactionHistoryResponseDto.RemittanceList>> getUserHistory(RemittanceRequestDto.History dto) {
 
+        List<TransactionHistory> transactionHistories = new ArrayList<>();
 
-        List<TransactionHistory> transactionHistories = transactionHistoryRepository.findByAccountId(dto.getAccountId());
+        switch (dto.getType()){
+            case ALL:
+                transactionHistories = transactionHistoryRepository.findByAccountId(dto.getAccountId());
+                break;
+            case SEND:
+                transactionHistories = transactionHistoryRepository.findBySenderAccountId(dto.getAccountId());
+                break;
+            case RECEIVE:
+                transactionHistories = transactionHistoryRepository.findByReceiverAccountId(dto.getAccountId());
+        }
 
         List<TransactionHistoryResponseDto.RemittanceList> list = transactionHistories.stream()
                 .map(TransactionHistoryResponseDto.RemittanceList::from)
