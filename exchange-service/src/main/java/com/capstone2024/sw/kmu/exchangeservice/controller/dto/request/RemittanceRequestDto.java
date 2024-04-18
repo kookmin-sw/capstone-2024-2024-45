@@ -1,4 +1,4 @@
-package com.capstone2024.sw.kmu.exchangeservice.domain.dto.request;
+package com.capstone2024.sw.kmu.exchangeservice.controller.dto.request;
 
 import com.capstone2024.sw.kmu.exchangeservice.domain.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;

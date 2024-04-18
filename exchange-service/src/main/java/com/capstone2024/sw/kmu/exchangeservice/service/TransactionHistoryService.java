@@ -3,10 +3,9 @@ package com.capstone2024.sw.kmu.exchangeservice.service;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
-import com.capstone2024.sw.kmu.exchangeservice.domain.TransactionType;
 import com.capstone2024.sw.kmu.exchangeservice.domain.bankcore.AccountInfo;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceRequestDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.TransactionHistoryResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceRequestDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.domain.remittance.TransactionHistory;
 import com.capstone2024.sw.kmu.exchangeservice.repository.remittance.TransactionHistoryRepository;
 import lombok.RequiredArgsConstructor;

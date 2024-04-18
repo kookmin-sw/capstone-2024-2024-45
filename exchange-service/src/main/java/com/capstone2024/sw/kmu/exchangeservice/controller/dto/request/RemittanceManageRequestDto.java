@@ -1,11 +1,9 @@
-package com.capstone2024.sw.kmu.exchangeservice.domain.dto.request;
+package com.capstone2024.sw.kmu.exchangeservice.controller.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 public class RemittanceManageRequestDto {
 

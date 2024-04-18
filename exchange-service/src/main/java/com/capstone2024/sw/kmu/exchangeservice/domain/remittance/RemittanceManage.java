@@ -1,12 +1,8 @@
 package com.capstone2024.sw.kmu.exchangeservice.domain.remittance;
 
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceManageRequestDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceManageRequestDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Builder

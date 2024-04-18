@@ -2,17 +2,13 @@ package com.capstone2024.sw.kmu.exchangeservice.controller;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceManageRequestDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceRequestDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.TransactionHistoryResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceManageRequestDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.service.RemittanceAdminService;
-import com.capstone2024.sw.kmu.exchangeservice.service.RemittanceService;
 import com.capstone2024.sw.kmu.exchangeservice.service.TransactionHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +31,7 @@ public class RemittanceAdminController {
             @RequestHeader String adminId,
             @PathVariable Long transId,
             @RequestBody RemittanceManageRequestDto.RemittanceCancellation dto
-    ) throws IllegalAccessException {
+    ) {
 
         remittanceAdminService.cancel(dto , adminId, transId);
 
@@ -46,7 +42,7 @@ public class RemittanceAdminController {
     @Operation(summary = "모든 계좌의 거래 내역 확인", description = "거래 내역을 확인합니다.")
     @GetMapping("/remittance/history")
     public ResponseEntity<APIResponse<List<TransactionHistoryResponseDto.RemittanceResult>>> getAllHistory(
-    ) throws IllegalAccessException {
+    ) {
 
         return ResponseEntity.ok(transactionHistoryService.getAllHistory()); // TODO: 다른 endpoint 도 이렇게 refactoring
     }

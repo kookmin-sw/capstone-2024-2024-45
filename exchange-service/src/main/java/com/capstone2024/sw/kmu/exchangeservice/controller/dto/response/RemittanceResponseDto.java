@@ -1,6 +1,6 @@
-package com.capstone2024.sw.kmu.exchangeservice.domain.dto.response;
+package com.capstone2024.sw.kmu.exchangeservice.controller.dto.response;
 
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceRequestDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 

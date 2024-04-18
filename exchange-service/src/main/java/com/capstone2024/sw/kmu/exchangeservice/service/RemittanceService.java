@@ -2,8 +2,8 @@ package com.capstone2024.sw.kmu.exchangeservice.service;
 
 import com.capstone2024.sw.kmu.exchangeservice.domain.bankcore.AccountInfo;
 import com.capstone2024.sw.kmu.exchangeservice.domain.remittance.TransactionHistory;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.RemittanceResponseDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.TransactionHistoryResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.RemittanceResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

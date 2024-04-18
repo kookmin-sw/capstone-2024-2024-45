@@ -1,8 +1,8 @@
 package com.capstone2024.sw.kmu.exchangeservice.service;
 
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.request.RemittanceManageRequestDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.RemittanceResponseDto;
-import com.capstone2024.sw.kmu.exchangeservice.domain.dto.response.TransactionHistoryResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceManageRequestDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.RemittanceResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.domain.remittance.RemittanceManage;
 import com.capstone2024.sw.kmu.exchangeservice.repository.remittance.RemittanceAdminRepository;
 import lombok.RequiredArgsConstructor;
