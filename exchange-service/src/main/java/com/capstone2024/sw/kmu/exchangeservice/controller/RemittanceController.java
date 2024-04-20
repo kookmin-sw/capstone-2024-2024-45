@@ -37,8 +37,9 @@ public class RemittanceController {
     ) {
         RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.from(remit);
 
-        if(!bankCoreService.validateSenderBalance(dto.getSenderAccountId(), dto.getAmount())){
-            return ResponseEntity.ok(APIResponse.of(ErrorCode.INSUFFICIENT_AMOUNT, "보내는 사람의 잔액이 부족합니다."));
+        APIResponse check = bankCoreService.validateSender(dto.getSenderAccountId(), dto.getAmount());
+        if(check != null){
+            return ResponseEntity.ok(check);
         }
 
         TransactionHistoryResponseDto.RemittanceResult response = remittanceService.remit(dto, userId);

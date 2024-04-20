@@ -44,6 +44,6 @@ public class RemittanceAdminController {
     public ResponseEntity<APIResponse<List<TransactionHistoryResponseDto.RemittanceResult>>> getAllHistory(
     ) {
 
-        return ResponseEntity.ok(transactionHistoryService.getAllHistory()); // TODO: 다른 endpoint 도 이렇게 refactoring
+        return ResponseEntity.ok(transactionHistoryService.getAllHistory());
     }
 }

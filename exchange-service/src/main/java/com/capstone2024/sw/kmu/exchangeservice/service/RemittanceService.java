@@ -21,13 +21,8 @@ public class RemittanceService {
     public TransactionHistoryResponseDto.RemittanceResult remit(RemittanceResponseDto.Remittance dto, String userId) {
 
         int amount = dto.getAmount();
-        String senderAccountId = dto.getSenderAccountId();
-        String receiverAccountId = dto.getReceiverAccountId();
-
-        // 잔액 정보 가져오기
-        AccountInfo senderInfo = bankCoreService.getInfo(senderAccountId);
-        AccountInfo receiverInfo = bankCoreService.getInfo(receiverAccountId);
-
+        AccountInfo senderInfo = bankCoreService.getInfo(dto.getSenderAccountId());
+        AccountInfo receiverInfo = bankCoreService.getInfo(dto.getReceiverAccountId());
 
         // 보내는 사람의 잔액 -
         bankCoreService.updateBalance(senderInfo, amount, "DECREASE");

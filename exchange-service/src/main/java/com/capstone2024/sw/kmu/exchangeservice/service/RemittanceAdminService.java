@@ -24,6 +24,7 @@ public class RemittanceAdminService {
 
         // 반대 거래 발생
         TransactionHistoryResponseDto.RemittanceResult remittanceResult = transactionHistoryService.findTransHistory(transId);
+
         remittanceService.remit(RemittanceResponseDto.Remittance.converseFrom(remittanceResult), null);
 
         // Audit 저장
