@@ -1,7 +1,6 @@
 package com.capstone2024.sw.kmu.exchangeservice.controller;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
-import com.capstone2024.sw.kmu.exchangeservice.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceRequestDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.RemittanceResponseDto;
@@ -37,7 +36,7 @@ public class RemittanceController {
     ) {
         RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.from(remit);
 
-        APIResponse check = bankCoreService.validateSender(dto.getSenderAccountId(), dto.getAmount());
+        APIResponse check = bankCoreService.validateUser(dto.getSenderAccountId(), dto.getReceiverAccountId(), dto.getAmount());
         if(check != null){
             return ResponseEntity.ok(check);
         }

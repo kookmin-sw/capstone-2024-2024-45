@@ -45,16 +45,12 @@ public class BankCoreService {
         bankCoreRepository.save(userInfo);
     }
 
-    public boolean validateSenderBalance(String accountId, int amount) {
-        AccountInfo userInfo = getInfo(accountId);
-        return userInfo.getBalance() >= amount;
-    }
+    public APIResponse validateUser(String senderAccountId, String receiverAccountId, int amount) {
+        AccountInfo senderInfo = getInfo(senderAccountId);
+        AccountInfo receiverInfo = getInfo(receiverAccountId);
 
-    public APIResponse validateSender(String accountId, int amount) {
-        AccountInfo userInfo = getInfo(accountId);
-
-        if(userInfo.isSuspended()){
-            switch (userInfo.getSuspendedType()){
+        if(senderInfo.isSuspended()){
+            switch (senderInfo.getSuspendedType()){
                 case SEND :
                     return APIResponse.of(ErrorCode.BLOCK_ACCOUNT, "잔액이 0 미만이므로 송금이 제한되어 있습니다.");
                 case BOTH:
@@ -63,8 +59,12 @@ public class BankCoreService {
         }
 
         // 정지계좌가 아니면, 잔액 확인
-        if(userInfo.getBalance() < amount){
+        if(senderInfo.getBalance() < amount){
             return APIResponse.of(ErrorCode.INSUFFICIENT_AMOUNT, "보내는 사람의 잔액이 부족합니다.");
+        }
+
+        if(receiverInfo.getSuspendedType().equals(AccountInfo.SuspensionType.BOTH)){
+            return APIResponse.of(ErrorCode.BLOCK_ACCOUNT, "휴면 계좌로 송금할 수 없습니다.");
         }
 
         return null;
