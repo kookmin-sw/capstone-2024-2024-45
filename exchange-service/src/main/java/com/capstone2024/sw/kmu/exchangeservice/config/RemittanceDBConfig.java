@@ -1,16 +1,21 @@
 package com.capstone2024.sw.kmu.exchangeservice.config;
 
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
@@ -22,24 +27,31 @@ public class RemittanceDBConfig {
 
     @Primary
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource-remittance")
+    @ConfigurationProperties(prefix = "spring.datasource.remittance")
     public DataSource transactionHistoryDataSource(){
         return DataSourceBuilder.create().build();
     }
 
     @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean transactionHistoryEntityManager() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(transactionHistoryDataSource());
-        entityManagerFactoryBean.setPackagesToScan("com.capstone2024.sw.kmu.exchangeservice.domain.remittance");
-        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        return entityManagerFactoryBean;
+    public LocalContainerEntityManagerFactoryBean transactionHistoryEntityManager(
+            EntityManagerFactoryBuilder builder
+    ) {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.hbm2ddl.auto", "update");
+
+        return builder
+                .dataSource(transactionHistoryDataSource())
+                .packages("com.capstone2024.sw.kmu.exchangeservice.domain.remittance")
+                .persistenceUnit("remittance")
+                .properties(properties)
+                .build();
     }
 
     @Primary
     @Bean
-    public JpaTransactionManager transactionHistoryTransactionManager() {
-        return new JpaTransactionManager(transactionHistoryEntityManager().getObject());
+    public PlatformTransactionManager transactionHistoryTransactionManager(
+            @Qualifier("transactionHistoryEntityManager") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 }
