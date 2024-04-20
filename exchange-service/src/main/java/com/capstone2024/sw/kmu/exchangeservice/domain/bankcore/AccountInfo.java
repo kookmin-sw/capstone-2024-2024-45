@@ -1,9 +1,6 @@
 package com.capstone2024.sw.kmu.exchangeservice.domain.bankcore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -15,16 +12,17 @@ import lombok.*;
 @Table(name = "bankcore")
 public class AccountInfo {
     @Id
-    @Column(name = "account_id")
+    @Column(name = "account_id", nullable = false)
     private String accountId;
 
-    @Column(name = "balance")
+    @Column(name = "balance", nullable = false)
     private int balance;
 
-    @Column(name = "is_suspended")
+    @Column(name = "is_suspended", nullable = false, columnDefinition = "TINYINT(1)")
     private boolean isSuspended;
 
-    @Column(name = "suspended_type")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "suspended_type", nullable = false, columnDefinition = "ENUM('NONE', 'SEND', 'BOTH')")
     private SuspensionType suspendedType;
 
 

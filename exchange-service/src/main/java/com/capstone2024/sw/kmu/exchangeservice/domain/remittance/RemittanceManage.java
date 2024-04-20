@@ -28,7 +28,7 @@ public class RemittanceManage {
 //    @Column(name = "admin_name", nullable = false)
 //    private int adminName;
 
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment", nullable = false, columnDefinition = "TEXT")
     private String comment;
 
 

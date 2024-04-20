@@ -50,7 +50,7 @@ public class TransactionHistory {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "is_success")
+    @Column(name = "is_success", columnDefinition = "TINYINT(1)")
     @NotNull
     private boolean isSuccess;
 
