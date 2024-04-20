@@ -9,19 +9,25 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      platform: mysql
 
   datasource:
     remittance:
-      jdbc-url: jdbc:mysql://localhost:3306/transaction_history?serverTimezone=Asia/Seoul
+      jdbc-url: jdbc:mysql://mysql:3306/transaction_history?serverTimezone=Asia/Seoul
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password: capstone-2024-45
+      password: ${DATASOURCE_REMITTANCE_PASSWORD}
 
     bankcore:
-      jdbc-url: jdbc:mysql://localhost:3306/bankcore?serverTimezone=Asia/Seoul
+      jdbc-url: jdbc:mysql://mysql:3306/bankcore?serverTimezone=Asia/Seoul
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password: capstone-2024-45
+      password: ${DATASOURCE_BANKCORE_PASSWORD}
 
 server:
   port: 8000
