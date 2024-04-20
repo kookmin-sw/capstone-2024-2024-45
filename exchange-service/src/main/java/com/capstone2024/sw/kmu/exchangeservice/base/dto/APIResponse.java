@@ -43,6 +43,33 @@ public class APIResponse<T> {
         this.data = (T) "";
     }
 
+    @Builder
+    public APIResponse(final ErrorCode code) {
+        this.msg = code.getMessage();
+        this.status = code.getStatus();
+        this.code = code.getDivisionCode();
+        this.detailMsg = "";
+        this.data = (T)new HashMap<String,String>();
+    }
+
+    @Builder
+    public APIResponse(final ErrorCode code, final T data) {
+        this.msg = code.getMessage();
+        this.status = code.getStatus();
+        this.code = code.getDivisionCode();
+        this.data = data;
+        this.detailMsg = "";
+    }
+
+    @Builder
+    public APIResponse(final ErrorCode code, String detailMsg) {
+        this.msg = code.getMessage();
+        this.status = code.getStatus();
+        this.code = code.getDivisionCode();
+        this.detailMsg = detailMsg;
+        this.data = (T) "";
+    }
+
 
     public static APIResponse of(final SuccessCode code) {
         return new APIResponse(code);
@@ -53,6 +80,18 @@ public class APIResponse<T> {
     }
 
     public static APIResponse of(final SuccessCode code, String detailMsg){
+        return new APIResponse(code, detailMsg);
+    }
+
+    public static APIResponse of(final ErrorCode code) {
+        return new APIResponse(code);
+    }
+
+    public static APIResponse of(final ErrorCode code, Object data){
+        return new APIResponse(code, data);
+    }
+
+    public static APIResponse of(final ErrorCode code, String detailMsg){
         return new APIResponse(code, detailMsg);
     }
 }

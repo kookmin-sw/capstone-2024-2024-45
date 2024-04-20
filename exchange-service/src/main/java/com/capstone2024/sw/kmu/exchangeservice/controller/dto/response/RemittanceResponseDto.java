@@ -14,7 +14,7 @@ public class RemittanceResponseDto {
         private int amount;
 //        private String password;
 
-        public static Remittance converseFrom(RemittanceRequestDto.QRRemittance dto) {
+        public static Remittance from(RemittanceRequestDto.QRRemittance dto) {
             return Remittance.builder()
                     .senderAccountId(dto.getSenderAccountId())
                     .receiverAccountId(dto.getReceiverAccountId())

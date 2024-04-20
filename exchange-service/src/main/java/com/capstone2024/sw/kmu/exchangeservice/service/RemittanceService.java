@@ -27,7 +27,7 @@ public class RemittanceService {
         // 잔액 정보 가져오기
         AccountInfo senderInfo = bankCoreService.getInfo(senderAccountId);
         AccountInfo receiverInfo = bankCoreService.getInfo(receiverAccountId);
-        log.info(receiverInfo.getAccountId());
+
 
         // 보내는 사람의 잔액 -
         bankCoreService.updateBalance(senderInfo, amount, "DECREASE");

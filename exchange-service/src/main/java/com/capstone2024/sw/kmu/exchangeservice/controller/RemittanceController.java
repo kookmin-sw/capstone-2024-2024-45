@@ -1,10 +1,12 @@
 package com.capstone2024.sw.kmu.exchangeservice.controller;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
+import com.capstone2024.sw.kmu.exchangeservice.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceRequestDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.RemittanceResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.service.BankCoreService;
 import com.capstone2024.sw.kmu.exchangeservice.service.RemittanceService;
 import com.capstone2024.sw.kmu.exchangeservice.service.TransactionHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +25,7 @@ public class RemittanceController {
 
     private final RemittanceService remittanceService;
     private final TransactionHistoryService transactionHistoryService;
+    private final BankCoreService bankCoreService;
 
     // 송금
     @Operation(summary = "자유 송금", description = "자유 송금을 합니다.")
@@ -32,7 +35,11 @@ public class RemittanceController {
             @RequestHeader String userId,
             @RequestBody RemittanceRequestDto.QRRemittance remit
     ) {
-        RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.converseFrom(remit);
+        RemittanceResponseDto.Remittance dto = RemittanceResponseDto.Remittance.from(remit);
+
+        if(!bankCoreService.validateSenderBalance(dto.getSenderAccountId(), dto.getAmount())){
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.INSUFFICIENT_AMOUNT, "보내는 사람의 잔액이 부족합니다."));
+        }
 
         TransactionHistoryResponseDto.RemittanceResult response = remittanceService.remit(dto, userId);
 
