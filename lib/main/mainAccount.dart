@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../qr/qr_scanner.dart';
-import '../qr/qr_screen.dart';
+import '../qr/qrScanner.dart';
+import '../qr/qrScreen.dart';
+import '../qr/qrScreenContent.dart';
 
 class MainAccount extends StatefulWidget {
   const MainAccount({super.key});
@@ -232,7 +233,7 @@ class _MainAccountState extends State<MainAccount> {
                         onPressed: () {
                           setState(() {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => qr_scanner()));
+                                MaterialPageRoute(builder: (context) => qrScanner()));
                           });
                         },
                         style: ElevatedButton.styleFrom(
@@ -261,7 +262,7 @@ class _MainAccountState extends State<MainAccount> {
                         onPressed: () {
                           setState(() {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => qr_screen()));
+                                builder: (context) => QrScreen()));
                           });
                         },
                         style: ElevatedButton.styleFrom(
