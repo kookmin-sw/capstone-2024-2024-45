@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../User/userData.dart';
 import '../mainAccount.dart';
 import 'inputTransfor.dart';
 
@@ -13,6 +14,8 @@ class FinishExchange extends StatefulWidget {
 }
 
 class _FinishExchangeeState extends State<FinishExchange> {
+  UserData userData = UserData();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope( //뒤로가기 누를시 홈 화면으로 이동
@@ -115,7 +118,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => InputTransform()),
+                      MaterialPageRoute(builder: (context) => InputTransfor(userId: userData.id)),
                     );
                   },
                   child: Text(
