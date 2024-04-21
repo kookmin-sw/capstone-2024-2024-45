@@ -3,29 +3,29 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../User/userData.dart';
+import 'package:suntown/main/mainAccount.dart';
 import '../main/Exchange/inputTransfor.dart';
+import '../main/alert/qrTimeOutDialog.dart';
 
-class qr_scanner extends StatefulWidget {
-  const qr_scanner({super.key});
+class qrScanner extends StatefulWidget {
+  const qrScanner({super.key});
 
   @override
-  State<qr_scanner> createState() => _qr_scannerState();
+  State<qrScanner> createState() => _qrScannerState();
 }
 
-class _qr_scannerState extends State<qr_scanner> {
+class _qrScannerState extends State<qrScanner> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFF6F6),
       appBar: AppBar(
-        title: Text("flutter_qr"
-        ),
+        title: Text("flutter_qr"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -38,21 +38,27 @@ class _qr_scannerState extends State<qr_scanner> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("매듭을 보냅니다!",
+                      Text(
+                        "매듭을 보냅니다!",
                         style: TextStyle(fontSize: 30),
                       ),
                       SizedBox(
                         height: 30,
                       ),
-                      Text("매듭을 보내고 싶은 이웃의",
-                        style: TextStyle(fontSize: 25,
+                      Text(
+                        "매듭을 보내고 싶은 이웃의",
+                        style: TextStyle(
+                          fontSize: 25,
                           color: Color(0xFFFF8D4D),
                           fontFamily: 'Noto Sans KR',
                         ),
                       ),
                       Text.rich(
                         TextSpan(
-                          style: TextStyle(fontSize: 25, color: Color(0xFFFF8D4D), fontFamily: 'Noto Sans KR'),
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Color(0xFFFF8D4D),
+                              fontFamily: 'Noto Sans KR'),
                           children: <TextSpan>[
                             TextSpan(
                               text: '"매듭코드"',
@@ -68,8 +74,7 @@ class _qr_scannerState extends State<qr_scanner> {
                         ),
                       ),
                     ],
-                  )
-              ),
+                  )),
             ),
             Expanded(flex: 3, child: _buildQrView(context)),
           ],
@@ -106,17 +111,52 @@ class _qr_scannerState extends State<qr_scanner> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        // 스캔 결과를 받은 후에는 다음 화면으로 네비게이션합니다.
-        if (result != null) { //이 부분은 나중에 null일 경우 test 하면서 한 번 해봐야 할듯
-          // 스캔 결과를 받은 후에 스캔을 일시 중지합니다.
-          controller.pauseCamera();
-          UserData().initializeData(jsonDecode(result!.code!)); //userdata로 결과 전송
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => InputTransform()),
-          ).then((_) {
-            controller.resumeCamera();
-          });
+        if (result != null) {
+          // QR 코드에서 URL을 받아옴
+          String? url = result!.code;
+          // URL에서 특정 형식을 가진 경우에만 송금 페이지로 이동
+          if (url != null && url.startsWith("helloworld://send")) {
+            // URI 파싱
+            Uri uri = Uri.parse(url);
+            // datetime 쿼리 매개변수 값 가져오기
+            String datetime = uri.queryParameters["datetime"]!;
+            String userId = uri.queryParameters["id"]!;
+
+            print("now 시간 : ${now}");
+
+            // String으로 표현된 dateTime을 DateTime 객체로 변환
+            DateTime parsedDateTime = DateTime.parse(datetime);
+            print("받아온 parsedDateTime : ${parsedDateTime}");
+            // 현재 시간과 parsedDateTime 사이의 차이 계산
+            Duration difference = now.difference(parsedDateTime);
+            print("찾은 difference : ${difference}");
+
+            // 차이가 2분 미만인지 확인
+            if (difference.inSeconds < 0) {
+              print("유효한 코드!");
+              //유효시간보다 많아지면, 즉 now가 더 커져서 양 지난 것이다.
+              // 송금 페이지로 이동하면서 id 값을 전달
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => InputTransfor(userId: userId)),
+              ).then((_) {
+                controller.resumeCamera();
+              });
+            } else {
+              // 1분 이상인 경우, alert dialog
+              QrTimeOutDialog.showExpiredCodeDialog(context, () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                // 재스캔
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => qrScanner()),
+                );
+              });
+            }
+            // 화면으로 이동하기 전에 카메라 일시 중지
+            controller.pauseCamera();
+          }
         }
       });
     });
