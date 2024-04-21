@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
 
 import '../../User/userData.dart';
+import '../alert/correctionAlertDialog.dart';
 import 'inputTransfor.dart';
 
 /*
@@ -165,12 +166,9 @@ class _CheckExchangeState extends State<CheckExchange> {
             height: 73,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => InputTransform()),
-                );
+                CorrectAlertDialog.show(context);
               },
-              child: Text('보낼 매듭을 잘못 입력했어요!',
+              child: Text('수정하고 싶어요!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
