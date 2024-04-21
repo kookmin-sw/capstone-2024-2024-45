@@ -6,20 +6,24 @@ import 'package:suntown/main/CustomKeyboard/KeyboardKeys.dart';
 import 'package:suntown/main/Exchange/checkExchange.dart';
 
 import '../../User/userData.dart';
+import '../../utils/http_request.dart';
 
-class InputTransform extends StatefulWidget {
-  const InputTransform({super.key});
+class InputTransfor extends StatefulWidget {
+  final String userId; // 생성자에 userId 추가
+
+  const InputTransfor({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<InputTransform> createState() => _InputTransformState();
+  State<InputTransfor> createState() => _InputTransforState();
 }
 
-class _InputTransformState extends State<InputTransform> {
+class _InputTransforState extends State<InputTransfor> {
   late UserData userData;
   String alerttext = "";
   int balance = 100000; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
   String amount = '';
   int parsedAmount = 0;
+  bool isDataLoaded = false; // 데이터가 로드되었는지 여부를 나타내는 변수 추가
 
   //키보드 요소 추가
   List<List<dynamic>> keys = [
@@ -40,6 +44,28 @@ class _InputTransformState extends State<InputTransform> {
   void initState() {
     super.initState();
     userData = UserData(); // UserData 인스턴스 생성
+    _fetchUserData(); // initState에서 데이터 가져오도록 호출
+  }
+
+  // API 요청을 보내어 사용자 데이터를 가져오는 메서드
+  Future<void> _fetchUserData() async {
+    // userId를 사용하여 API 요청을 보냄
+    Map<String, dynamic> userdata =
+    await httpGet(path: '/api/users/${widget.userId}');
+    // API 응답을 통해 사용자 데이터 업데이트
+
+    if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
+      // 사용자 데이터를 업데이트
+      userData.initializeData(userdata["data"]);
+
+      // setState를 호출하여 화면을 다시 그림
+      setState(() {
+        isDataLoaded = true; // 데이터가 로드되었음을 표시
+      });
+    } else {
+      // API 요청 실패 처리
+      debugPrint('Failed to fetch user data');
+    }
   }
 
   onKeyTap(val) {
@@ -80,21 +106,26 @@ class _InputTransformState extends State<InputTransform> {
   renderKeyboard() {
     return keys
         .map(
-          (x) => Row(
-        children: x.map(
-              (y) {
-            return KeyboardKeys(
-                label: y,
-                value: y,
-                onTap: (val) {
-                  if (val is Widget) {
-                    onBackspacePress();
-                  } else {
-                    onKeyTap(val);
-                  }
-                });
-          },
-        ).toList(),
+          (x) => Center(
+        child: Row(
+          //키보드에 다음가 같이 center 적용
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: x.map(
+                (y) {
+              return KeyboardKeys(
+                  label: y,
+                  value: y,
+                  onTap: (val) {
+                    if (val is Widget) {
+                      onBackspacePress();
+                    } else {
+                      onKeyTap(val);
+                    }
+                  });
+            },
+          ).toList(),
+        ),
       ),
     )
         .toList();
@@ -158,7 +189,8 @@ class _InputTransformState extends State<InputTransform> {
                   style: textStyle,
                 ),
                 Text(
-                  "잔액 : ${NumberFormat("#,###").format(balance)} 매듭", //api 값 가져오기
+                  "잔액 : ${NumberFormat("#,###").format(balance)} 매듭",
+                  //api 값 가져오기
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Color(0xFF727272),
@@ -218,6 +250,17 @@ class _InputTransformState extends State<InputTransform> {
 
   @override
   Widget build(BuildContext context) {
+    // userData 정보가 설정되었다면 화면을 그림
+    if (!isDataLoaded) {
+      // 데이터가 로드되지 않았으면 로딩 화면을 보여줍니다.
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    // 데이터가 로드되었다면 화면을 그립니다.
     return Scaffold(
       backgroundColor: Color(0xFFFFF6F6),
       body: SafeArea(
