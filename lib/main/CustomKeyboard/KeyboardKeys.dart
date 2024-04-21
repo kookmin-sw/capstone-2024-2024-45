@@ -17,7 +17,6 @@ class KeyboardKeys extends StatefulWidget {
 }
 
 class _KeyboardKeyState extends State<KeyboardKeys> {
-
   renderLabel(){
     if(widget.label is Widget){
       return widget.label;
@@ -25,7 +24,7 @@ class _KeyboardKeyState extends State<KeyboardKeys> {
     return Text(
       widget.label,
       style: TextStyle(
-        fontSize: 25.0,
+        fontSize: 30.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -33,13 +32,16 @@ class _KeyboardKeyState extends State<KeyboardKeys> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return InkWell(
       onTap: (){
         widget.onTap(widget.value);
       },
       child: Container(
-        width :123.429,
-        height: 60,
+        width: screenWidth * 0.28, // 화면 너비의 50%
+        height: screenHeight * 0.08, // 화면 높이의 10%
         child: AspectRatio(
           aspectRatio: 2,
           child: Center(
