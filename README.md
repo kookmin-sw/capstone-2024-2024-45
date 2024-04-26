@@ -55,6 +55,7 @@
 ## 팀 소개
 
 |허지은<br>****|성예린<br>****1634|[오선정](https://github.com/sunJ0120)<br>****2697|송수인<br>****3086|윤서영<br>****0153|
+|-------------|------------------|-------------------------------------------------|-----------------|------------------|
 |Frontend, UI/UX|Frontend|Frontend, UI/UX|Backend|Backend|
 |@kookmin.ac.kr|hbgraph@kookmin.ac.kr|sspure123@kookmin.ac.kr|ingenieur_song@kookmin.ac.kr|ytjdud01@kookmin.ac.kr|
 
