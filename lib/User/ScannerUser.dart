@@ -1,4 +1,7 @@
-
+/*
+Scanner에서 받아오기 위한 User data
+현재는 임시 사항이고, 바로 연결하기 위해 추가 예정
+ */
 class ScannerUser {
   late String id;
   late String email;
@@ -51,3 +54,53 @@ class ScannerUser {
     return data[key].toString();
   }
 }
+
+/*
+user로 교체할때 사용
+blocked값도 추가해야함.
+ */
+
+// class ScannerUser {
+//   late String AccountId;
+//   late String Name; //이름값
+//   late String Profile; //프로필 사진
+//   late String dateTime;
+//
+//   // 싱글톤 인스턴스 생성
+//   static final ScannerUser _instance = ScannerUser._internal();
+//
+//   factory ScannerUser() => _instance;
+//
+//   // 내부 생성자
+//   ScannerUser._internal() {
+//     AccountId = '';
+//     Name = '';
+//     Profile = '';
+//     dateTime = '';
+//   }
+//
+//   // API 데이터 초기화 메서드
+//   void initializeData(Map<String, dynamic> data) {
+//     AccountId = _getStringValue(data, 'AccountId');
+//     Name = _getStringValue(data, 'Name');
+//     Profile = _getStringValue(data, 'Profile');
+//   }
+//
+//   // 새로운 JSON 데이터 추가 메서드, 여기서는 scan을 통해 dataTime을 가져오기 위함
+//   void addNewData(DateTime now) {
+//     dateTime = now.toString() ?? ''; // amount 값이 없으면 기본값 0으로 설정
+//   }
+//   // toJson 메서드 구현
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'AccountId': AccountId,
+//       'Name': Name,
+//       'Profile': Profile,
+//       'dateTime': dateTime,
+//     };
+//   }
+//
+//   String _getStringValue(Map<String, dynamic> data, String key) {
+//     return data[key].toString();
+//   }
+// }
