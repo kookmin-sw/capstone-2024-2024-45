@@ -17,7 +17,7 @@ class QrScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            GreetingSection(), // GreetingSection 위젯 추가
+            QrPageTopSection(), // GreetingSection 위젯 추가
             SizedBox(height: 30),
             ChangeNotifierProvider( // QrScreenProvider를 제공
               create: (context) => QrScreenProvider(),

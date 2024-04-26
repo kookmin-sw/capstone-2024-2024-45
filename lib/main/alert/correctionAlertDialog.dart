@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:suntown/main/Exchange/inputTransfor.dart';
 import 'package:suntown/qr/qrScanner.dart';
+import 'package:suntown/utils/screenSizeUtil.dart';
 
-import '../../User/userData.dart';
+import '../../User/User.dart';
 
-UserData userData = UserData();
+User userData = User();
 
 /*
 dialog 추가된 것, 캡스톤에 옮기기, 그리고 exchange 부분 변경사항 변경하기
@@ -14,9 +15,8 @@ dialog 추가된 것, 캡스톤에 옮기기, 그리고 exchange 부분 변경�
 
 class CorrectAlertDialog {
   static Future<void> show(BuildContext context) async {
-    MediaQueryData mediaQuery = MediaQuery.of(context); //이거 따로 뺄 수 있으면 빼야겠다.
-    double screenWidth = mediaQuery.size.width;
-    double screenHeight = mediaQuery.size.height;
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return await showModalBottomSheet<void>(
       context: context,

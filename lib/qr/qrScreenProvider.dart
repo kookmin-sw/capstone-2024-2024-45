@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../User/ScannerUser.dart';
-import '../../utils/http_request.dart';
+import '../../utils/HttpGet.dart';
 
 class QrScreenProvider extends ChangeNotifier {
   late DateTime expirationTime;

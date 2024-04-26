@@ -121,15 +121,9 @@ class _qrScannerState extends State<qrScanner> {
             // datetime 쿼리 매개변수 값 가져오기
             String datetime = uri.queryParameters["datetime"]!;
             String userId = uri.queryParameters["id"]!;
-
-            print("now 시간 : ${now}");
-
             // String으로 표현된 dateTime을 DateTime 객체로 변환
             DateTime parsedDateTime = DateTime.parse(datetime);
-            print("받아온 parsedDateTime : ${parsedDateTime}");
-            // 현재 시간과 parsedDateTime 사이의 차이 계산
             Duration difference = now.difference(parsedDateTime);
-            print("찾은 difference : ${difference}");
 
             // 차이가 2분 미만인지 확인
             if (difference.inSeconds < 0) {
