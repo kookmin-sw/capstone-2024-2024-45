@@ -4,6 +4,7 @@
 <dict>
  <key>io.flutter.embedded_views_preview</key>
     <true/>
+    <!-- Permission options for the `camera` group -->
     <key>NSCameraUsageDescription</key>
     <string>This app needs camera access to scan QR codes</string>
 	<key>CFBundleDevelopmentRegion</key>
