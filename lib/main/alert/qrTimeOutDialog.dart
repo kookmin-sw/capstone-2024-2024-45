@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/mainAccount.dart';
 
+import '../../utils/screenSizeUtil.dart';
+
 class QrTimeOutDialog {
   static Future<void> showExpiredCodeDialog(
       BuildContext context, Function() onRetry) async {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return showDialog(
         context: context,
         builder: (context) {
@@ -106,11 +111,12 @@ class QrTimeOutDialog {
                         // 메인 화면으로 이동
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => MainAccount()),
+                          MaterialPageRoute(
+                              builder: (context) => MainAccount()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(130, 60),
+                        fixedSize: Size(screenWidth*0.3, screenHeight*0.07),
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         shape: RoundedRectangleBorder(
@@ -132,7 +138,7 @@ class QrTimeOutDialog {
                       ),
                       onPressed: onRetry,
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(130, 60),
+                        fixedSize: Size(screenWidth*0.3, screenHeight*0.07),
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         shape: RoundedRectangleBorder(

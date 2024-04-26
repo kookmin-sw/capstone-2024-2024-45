@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
 
-import '../../User/sendApi.dart';
-import '../../User/userData.dart';
+import '../../User/SendApi.dart';
+import '../../User/User.dart';
 import '../../utils/http_put.dart';
+import '../../utils/screenSizeUtil.dart';
 
 class LoadingExchange extends StatefulWidget {
   const LoadingExchange({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class LoadingExchange extends StatefulWidget {
 }
 
 class _LoadingExchangeState extends State<LoadingExchange> {
-  UserData userData = UserData();
+  User userData = User();
   SendApi sendApi = SendApi();
 
   @override
@@ -52,6 +53,9 @@ class _LoadingExchangeState extends State<LoadingExchange> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return WillPopScope(
       onWillPop: () async {
         return false; // 화면을 떠나지 않도록 false를 반환합니다.
@@ -86,8 +90,8 @@ class _LoadingExchangeState extends State<LoadingExchange> {
               ),
               SizedBox(height: 20),
               SizedBox(
-                height: 250,
-                width: 250,
+                height: screenWidth * 0.5,
+                width: screenWidth * 0.5,
                 child: Lottie.asset("assets/lottie/loading.json"),
               ),
               SizedBox(height: 20),

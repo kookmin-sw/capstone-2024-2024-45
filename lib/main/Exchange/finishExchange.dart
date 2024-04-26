@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../User/userData.dart';
+import '../../User/User.dart';
+import '../../utils/screenSizeUtil.dart';
 import '../mainAccount.dart';
 import 'inputTransfor.dart';
 
@@ -14,10 +15,13 @@ class FinishExchange extends StatefulWidget {
 }
 
 class _FinishExchangeeState extends State<FinishExchange> {
-  UserData userData = UserData();
+  User userData = User();
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return WillPopScope( //뒤로가기 누를시 홈 화면으로 이동
       onWillPop: () async {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainAccount()));
@@ -93,8 +97,8 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         // 패딩 설정
                         child: SizedBox(
-                          height: 250,
-                          width: 250,
+                          height: screenWidth * 0.5,
+                          width: screenWidth * 0.5,
                           child: Lottie.asset("assets/lottie/handshake.json"),
                         ),
                       ),
@@ -133,7 +137,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    fixedSize: Size(346, 73),
+                    fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -159,7 +163,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    fixedSize: Size(346, 73),
+                    fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

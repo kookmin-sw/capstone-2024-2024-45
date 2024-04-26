@@ -5,8 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:suntown/main/CustomKeyboard/KeyboardKeys.dart';
 import 'package:suntown/main/Exchange/checkExchange.dart';
 
-import '../../User/userData.dart';
-import '../../utils/http_request.dart';
+import '../../User/User.dart';
+import '../../utils/HttpGet.dart';
+import '../../utils/screenSizeUtil.dart';
 
 class InputTransfor extends StatefulWidget {
   final String userId; // 생성자에 userId 추가
@@ -18,13 +19,12 @@ class InputTransfor extends StatefulWidget {
 }
 
 class _InputTransforState extends State<InputTransfor> {
-  late UserData userData;
+  late User userData;
   String alerttext = "";
   int balance = 100000; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
   String amount = '';
   int parsedAmount = 0;
   bool isDataLoaded = false; // 데이터가 로드되었는지 여부를 나타내는 변수 추가
-
   //키보드 요소 추가
   List<List<dynamic>> keys = [
     ['1', '2', '3'],
@@ -43,7 +43,7 @@ class _InputTransforState extends State<InputTransfor> {
   @override
   void initState() {
     super.initState();
-    userData = UserData(); // UserData 인스턴스 생성
+    userData = User(); // UserData 인스턴스 생성
     _fetchUserData(); // initState에서 데이터 가져오도록 호출
   }
 
@@ -131,7 +131,7 @@ class _InputTransforState extends State<InputTransfor> {
         .toList();
   }
 
-  renderAmount() {
+  renderAmount(double screenWidth, double screenHeight) {
     String display = "입력해 주세요";
     String nickname = userData.lastName; //api에서 가져온 닉네임 활용
     String printNickname = "$nickname 님에게"; //닉네임 잘 받아오는지 보기
@@ -164,7 +164,7 @@ class _InputTransforState extends State<InputTransfor> {
               children: [
                 CircleAvatar(
                   // 여기에 프로필 이미지 설정
-                  radius: 50, // 이미지 크기 설정
+                  radius: screenWidth * 0.1, // 이미지 크기 설정
                   backgroundImage: NetworkImage(userData.avatar), // 네트워크 이미지 사용 예시
                 ),
                 SizedBox(
@@ -210,46 +210,57 @@ class _InputTransforState extends State<InputTransfor> {
         ));
   }
 
-  renderConfirmButton() {
+  renderConfirmButton(double screenWidth, double screenHeight) {
     //버튼
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: amount.length > 0
-                ? () {
-              // 버튼 활성화 여부에 따라 onPressed 설정
-              userData.amount = int.parse(amount);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CheckExchange()),
-              );
-            }
-                : null,
-            style: ElevatedButton.styleFrom(
-              disabledBackgroundColor: Colors.grey[400],
-              disabledForegroundColor: Colors.grey,
-              foregroundColor: Colors.black,
-              backgroundColor: Colors.orange,
-            ), // 버튼 비활성화
-            child: Padding(
-              padding: const EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: amount.length > 0
+                  ? () {
+                // 버튼 활성화 여부에 따라 onPressed 설정
+                userData.amount = int.parse(amount);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckExchange()),
+                );
+              }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                disabledBackgroundColor: Colors.grey[400],
+                disabledForegroundColor: Colors.grey,
+                foregroundColor: Colors.black,
+                backgroundColor: Color(0xFF4B4A48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ), // 버튼 비활성화
               child: Text(
                 "확인",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25),
+                  color: Colors.white,
+                  fontSize: 25,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     // userData 정보가 설정되었다면 화면을 그림
     if (!isDataLoaded) {
       // 데이터가 로드되지 않았으면 로딩 화면을 보여줍니다.
@@ -267,12 +278,12 @@ class _InputTransforState extends State<InputTransfor> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(children: [
-            renderAmount(),
+            renderAmount(screenWidth,screenHeight),
             ...renderKeyboard(),
             SizedBox(
               height: 20,
             ),
-            renderConfirmButton(),
+            renderConfirmButton(screenWidth,screenHeight),
           ]),
         ),
       ),

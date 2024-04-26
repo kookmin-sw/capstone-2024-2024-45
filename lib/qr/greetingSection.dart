@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GreetingSection extends StatelessWidget {
+  class QrPageTopSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(

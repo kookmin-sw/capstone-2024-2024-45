@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
 
-import '../../User/userData.dart';
+import '../../User/User.dart';
+import '../../utils/screenSizeUtil.dart';
 import '../alert/correctionAlertDialog.dart';
 import 'inputTransfor.dart';
 
@@ -18,10 +19,13 @@ class CheckExchange extends StatefulWidget {
 }
 
 class _CheckExchangeState extends State<CheckExchange> {
-  UserData userData = UserData();
+  User userData = User();
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
       backgroundColor: const Color(0xffFFFBD3),
       body: Padding(
@@ -35,12 +39,12 @@ class _CheckExchangeState extends State<CheckExchange> {
                 children: [
                   CircleAvatar(
                     // 여기에 프로필 이미지 설정
-                    radius: 50, // 이미지 크기 설정
+                    radius: screenWidth * 0.15, // 이미지 크기 설정
                     backgroundImage:
                     NetworkImage(userData.avatar), // 네트워크 이미지 사용 예시
                   ),
                   SizedBox(
-                    height: 50,
+                    height: screenHeight * 0.1,
                   ),
                   Container(
                     child: Row(
@@ -127,64 +131,54 @@ class _CheckExchangeState extends State<CheckExchange> {
             ),
           ),
           Spacer(),
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoadingExchange()));
-              },
-              child: Text(
-                '예, 햇살을 보냅니다.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF4B4A48),
-                  fontSize: 23,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoadingExchange()));
+            },
+            child: Text(
+              '예, 매듭을 보냅니다.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xFF4B4A48),
+                fontSize: 23,
+                fontFamily: 'Noto Sans KR',
+                fontWeight: FontWeight.w500,
+                height: 0,
               ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(346, 73),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: Color(0xFFFFD852),
+            ),
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+              backgroundColor: Color(0xFFFFD852),
             ),
           ),
           SizedBox(
             height: 20,
           ),
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                CorrectAlertDialog.show(context);
-              },
-              child: Text('수정하고 싶어요!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  )),
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(346, 73),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: Color(0xFF4B4A48),
+          ElevatedButton(
+            onPressed: () {
+              CorrectAlertDialog.show(context);
+            },
+            child: Text('수정하고 싶어요!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 23,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                )),
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+              backgroundColor: Color(0xFF4B4A48),
             ),
           ),
         ]),
