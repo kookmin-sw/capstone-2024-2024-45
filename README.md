@@ -56,7 +56,7 @@
 
 |허지은|성예린|[오선정](https://github.com/sunJ0120)|송수인|윤서영|
 |-------------|------------------|-------------------------------------------------|-----------------|------------------|
-|<br>****|<br>****1634|<img width="15%" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>****2697|<br>****3086|<br>****0153|
+|<br>****|<br>****1634|<img width="100" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>****2697|<br>****3086|<br>****0153|
 |Frontend, UI/UX|Frontend|Frontend, UI/UX|Backend|Backend|
 |@kookmin.ac.kr|hbgraph@kookmin.ac.kr|sspure123@kookmin.ac.kr|ingenieur_song@kookmin.ac.kr|ytjdud01@kookmin.ac.kr|
 
