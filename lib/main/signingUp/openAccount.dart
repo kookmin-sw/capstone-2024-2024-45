@@ -35,7 +35,7 @@ class _openAccountState extends State<openAccount> {
                                   width: 294,
                                   height: 72,
                                   child: Text(
-                                    '회원가입을 완료했어요.\n창고 개설을 시작해 볼까요?',
+                                    '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
                                       fontSize: 25,
@@ -65,69 +65,6 @@ class _openAccountState extends State<openAccount> {
                                               Positioned(
                                                 left: 0,
                                                 top: 0,
-                                                child: Container(
-                                                  width: 343,
-                                                  height: 44,
-                                                  child: Stack(
-                                                    children: [
-                                                      Positioned(
-                                                        left: 73,
-                                                        top: 1,
-                                                        child: SizedBox(
-                                                          width: 270,
-                                                          height: 36,
-                                                          child: Text(
-                                                            '회원가입',
-                                                            style: TextStyle(
-                                                              color: Color(0xFF727272),
-                                                              fontSize: 20,
-                                                              fontFamily: 'Noto Sans KR',
-                                                              fontWeight: FontWeight.w500,
-                                                              height: 0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        left: 0,
-                                                        top: 0,
-                                                        child: Container(
-                                                          width: 44,
-                                                          height: 44,
-                                                          decoration: ShapeDecoration(
-                                                            color: Color(0xFFF9F9F9),
-                                                            shape: OvalBorder(
-                                                              side: BorderSide(width: 2, color: Color(0xFF727272)),
-                                                            )
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        left: 6,
-                                                        top: 7,
-                                                        child: SizedBox(
-                                                          width: 31,
-                                                          height: 24,
-                                                          child: Text(
-                                                            '1',
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                              color: Color(0xFF727272),
-                                                              fontSize: 25,
-                                                              fontFamily: 'Noto Sans KR',
-                                                              fontWeight: FontWeight.w500,
-                                                              height: 0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 0,
-                                                top: 104,
                                                 child: Container(
                                                   width: 343,
                                                   height: 44,
@@ -170,7 +107,7 @@ class _openAccountState extends State<openAccount> {
                                                           width: 31,
                                                           height: 24,
                                                           child: Text(
-                                                            '2',
+                                                            '1',
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(
                                                               color: Color(0xFF727272),
@@ -183,25 +120,6 @@ class _openAccountState extends State<openAccount> {
                                                         ),
                                                       ),
                                                     ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 22,
-                                                top: 49,
-                                                child: Transform(
-                                                  transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(1.57),
-                                                  child: Container(
-                                                    width: 51,
-                                                    decoration: ShapeDecoration(
-                                                      shape: RoundedRectangleBorder(
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          strokeAlign: BorderSide.strokeAlignCenter,
-                                                          color: Color(0xFF727272),
-                                                        ),
-                                                      ),
-                                                    ),
                                                   ),
                                                 ),
                                               ),

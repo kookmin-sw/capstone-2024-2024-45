@@ -1,7 +1,11 @@
 import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
-import 'package:suntown/main/signingUp/nickNameScreen.dart';
+import 'package:suntown/main/defaultAccount.dart';
 import 'package:flutter/material.dart';
+
+import 'package:suntown/utils/HttpGet.dart';
+import '../../User/User.dart';
+import '../../User/UserAccountInfo.dart';
 
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
@@ -10,7 +14,10 @@ class signingUP extends StatefulWidget {
   State<signingUP> createState() => _signingUPState();
 }
 
+
 class _signingUPState extends State<signingUP> {
+
+
   final viewModel = MainViewModel(KakaoLogin());
   @override
   Widget build(BuildContext context) {
@@ -31,24 +38,10 @@ class _signingUPState extends State<signingUP> {
                               height: 75,
                             ),
                             SizedBox(
-                              width: 97,
-                              height: 25,
-                              child: Text(
-                                '1. 회원가입',
-                                style: TextStyle(
-                                  color: Color(0xFF4B4A48),
-                                  fontSize: 17,
-                                  fontFamily: 'Noto Sans KR',
-                                  fontWeight: FontWeight.w700,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
                               width: 343,
-                              height : 51,
+                              height : 72,
                               child: Text(
-                                '카카오로 시작해 주세요.',
+                                '로그인하고\n매듭창고 시작하기.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: 25,
@@ -78,7 +71,7 @@ class _signingUPState extends State<signingUP> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => nickName()));
+                      MaterialPageRoute(builder: (context) => defaultAccount()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFFD852),
