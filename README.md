@@ -54,40 +54,9 @@
 
 ## 팀 소개
 
-```
-허지은(팀장)
-Role : Frontend, UI/UX
-Student ID : ****
-E-mail : @kookmin.ac.kr
-```
-
-```
-성예린
-Role : Frontend
-Student ID : ****1634
-E-mail : hbgraph@kookmin.ac.kr
-```
-
-```
-오선정
-Role : Frontend, UI/UX
-Student ID : ****2697
-E-mail : sspure123@kookmin.ac.kr
-```
-
-```
-송수인
-Role : Backend
-Student ID : ****3086
-E-mail : ingenieur_song@kookmin.ac.kr
-```
-
-```
-윤서영
-Role : Backend
-Student ID : ****0153
-E-mail : ytjdud01@kookmin.ac.kr
-```
+|허지은<br>****|성예린<br>****1634|[오선정](https://github.com/sunJ0120)<br>****2697|송수인<br>****3086|윤서영<br>****0153|
+|Frontend, UI/UX|Frontend|Frontend, UI/UX|Backend|Backend|
+|@kookmin.ac.kr|hbgraph@kookmin.ac.kr|sspure123@kookmin.ac.kr|ingenieur_song@kookmin.ac.kr|ytjdud01@kookmin.ac.kr|
 
 
 ## Stacks 
