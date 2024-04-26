@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:suntown/main/signingUp/startScreen.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:suntown/main/signingUp/signingScreen.dart';
 
 void main() {
   // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
@@ -46,7 +46,7 @@ class _SigningState extends State<Signing> {
         child: ElevatedButton(
            onPressed: (){
              Navigator.push(context,
-                 MaterialPageRoute(builder: (context) => startScreen()));
+                 MaterialPageRoute(builder: (context) => signingUP()));
              },
             child: const Text("회원가입"),
          ),
