@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:suntown/User/ScannedUserAmountInfo.dart';
 import 'package:suntown/main/CustomKeyboard/KeyboardKeys.dart';
 import 'package:suntown/main/Exchange/checkExchange.dart';
 
+import '../../User/ScannedUser.dart';
+import '../../User/SendApi.dart';
 import '../../User/User.dart';
 import '../../utils/HttpGet.dart';
 import '../../utils/screenSizeUtil.dart';
@@ -19,9 +22,12 @@ class InputTransfor extends StatefulWidget {
 }
 
 class _InputTransforState extends State<InputTransfor> {
-  late User userData;
+  late ScannedUser scannedUser;
+  late SendApi sendData;
+  late ScannedUserAccountInfo scannedUserAccountInfo; //나중에 이것도 받아오는 fetch 작성해야 함
+
   String alerttext = "";
-  int balance = 100000; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
+  int balance = 1000000; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
   String amount = '';
   int parsedAmount = 0;
   bool isDataLoaded = false; // 데이터가 로드되었는지 여부를 나타내는 변수 추가
@@ -43,20 +49,23 @@ class _InputTransforState extends State<InputTransfor> {
   @override
   void initState() {
     super.initState();
-    userData = User(); // UserData 인스턴스 생성
+    sendData = SendApi();
+    scannedUser = ScannedUser(); // UserData 인스턴스 생성
+    scannedUserAccountInfo = ScannedUserAccountInfo();
     _fetchUserData(); // initState에서 데이터 가져오도록 호출
+    // _fetchAccountData();
   }
 
   // API 요청을 보내어 사용자 데이터를 가져오는 메서드
   Future<void> _fetchUserData() async {
     // userId를 사용하여 API 요청을 보냄
     Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${widget.userId}');
+    await httpGet(path: '/api/users/${widget.userId}'); //여기서 임호화된 데이터를 보내야함
     // API 응답을 통해 사용자 데이터 업데이트
 
     if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
       // 사용자 데이터를 업데이트
-      userData.initializeData(userdata["data"]);
+      scannedUser.initializeData(userdata["data"]);
 
       // setState를 호출하여 화면을 다시 그림
       setState(() {
@@ -67,6 +76,27 @@ class _InputTransforState extends State<InputTransfor> {
       debugPrint('Failed to fetch user data');
     }
   }
+
+  // // API 요청을 보내어 사용자 데이터를 가져오는 메서드
+  // Future<void> _fetchAccountData() async {
+  //   // userId를 사용하여 API 요청을 보냄
+  //   Map<String, dynamic> userdata =
+  //   await httpGet(path: '/api/users/${scannedUser.id}'); //여기서 임호화된 데이터를 보내야함
+  //   // API 응답을 통해 사용자 데이터 업데이트
+  //
+  //   if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
+  //     // 사용자 데이터를 업데이트
+  //     scannedUserAccountInfo.initializeData(userdata["data"]);
+  //
+  //     // setState를 호출하여 화면을 다시 그림
+  //     setState(() {
+  //       isDataLoaded = true; // 데이터가 로드되었음을 표시
+  //     });
+  //   } else {
+  //     // API 요청 실패 처리
+  //     debugPrint('Failed to fetch user data');
+  //   }
+  // }
 
   onKeyTap(val) {
     if (val == "0" && amount.length == 0) {
@@ -133,19 +163,19 @@ class _InputTransforState extends State<InputTransfor> {
 
   renderAmount(double screenWidth, double screenHeight) {
     String display = "입력해 주세요";
-    String nickname = userData.lastName; //api에서 가져온 닉네임 활용
+    String nickname = scannedUser.lastName; //api에서 가져온 닉네임 활용
     String printNickname = "$nickname 님에게"; //닉네임 잘 받아오는지 보기
 
-    TextStyle textStyle = TextStyle(
-      fontSize: 30.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.grey,
-    );
-
     TextStyle nameTextStyle = TextStyle(
-      fontSize: 35.0,
+      fontSize: screenWidth * 0.075,
       fontWeight: FontWeight.bold,
       color: Colors.black,
+    );
+
+    TextStyle textStyle = TextStyle(
+      fontSize: screenWidth * 0.075,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey,
     );
 
     if (this.amount.length > 0) {
@@ -165,24 +195,28 @@ class _InputTransforState extends State<InputTransfor> {
                 CircleAvatar(
                   // 여기에 프로필 이미지 설정
                   radius: screenWidth * 0.1, // 이미지 크기 설정
-                  backgroundImage: NetworkImage(userData.avatar), // 네트워크 이미지 사용 예시
+                  backgroundImage: NetworkImage(scannedUser.avatar), // 네트워크 이미지 사용 예시
                 ),
                 SizedBox(
-                  height: 30,
+                  height: screenHeight * 0.04,
                 ),
                 Text(
                   printNickname,
-                  style: nameTextStyle,
+                  style:  TextStyle(
+                    fontSize: screenWidth * 0.075,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
                 Text(
                   "얼마 만큼의 매듭을 보낼까요?",
                   style: TextStyle(
-                    fontSize: 25.0,
+                    fontSize: screenWidth * 0.06,
                     color: Colors.orange,
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: screenHeight * 0.04,
                 ),
                 Text(
                   display,
@@ -192,17 +226,17 @@ class _InputTransforState extends State<InputTransfor> {
                   "잔액 : ${NumberFormat("#,###").format(balance)} 매듭",
                   //api 값 가져오기
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: screenWidth * 0.045,
                     color: Color(0xFF727272),
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: screenHeight * 0.025,
                 ),
                 Text(
                   alerttext,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: screenWidth * 0.045,
                     color: Colors.red,
                   ),
                 )
@@ -221,7 +255,7 @@ class _InputTransforState extends State<InputTransfor> {
               onPressed: amount.length > 0
                   ? () {
                 // 버튼 활성화 여부에 따라 onPressed 설정
-                userData.amount = int.parse(amount);
+                sendData.amount = int.parse(amount); //입력 받아서 넣을 수 있게
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CheckExchange()),
@@ -243,10 +277,9 @@ class _InputTransforState extends State<InputTransfor> {
                 "확인",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 25,
+                  fontSize: screenWidth * 0.055,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
-                  height: 0,
                 ),
               ),
             ),
@@ -281,7 +314,7 @@ class _InputTransforState extends State<InputTransfor> {
             renderAmount(screenWidth,screenHeight),
             ...renderKeyboard(),
             SizedBox(
-              height: 20,
+              height: screenHeight * 0.025,
             ),
             renderConfirmButton(screenWidth,screenHeight),
           ]),

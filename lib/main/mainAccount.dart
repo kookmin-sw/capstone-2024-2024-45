@@ -10,6 +10,7 @@ import '../qr/qrScanner.dart';
 import '../qr/qrScreen.dart';
 import '../utils/HttpGet.dart';
 import '../utils/screenSizeUtil.dart';
+import 'alert/ApiRequestFailAlert.dart';
 
 /*
 흐름
@@ -35,41 +36,43 @@ class _MainAccountState extends State<MainAccount>{
     super.initState();
     user = User();
     accountInfo = UserAccountInfo();
-    _fetchUserData(); // initState에서 데이터 가져오도록 호출
-    _fetchUserAccountData();
+    _fetchUserData(context); // initState에서 데이터 가져오도록 호출
+    // _fetchUserAccountData(context);
   }
 
   // API 요청을 보내어 사용자 데이터를 가져오는 메서드
-  Future<void> _fetchUserData() async {
+  Future<void> _fetchUserData(BuildContext context) async {
     // userId를 사용하여 API 요청을 보냄
     Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${user.id}'); //name..? 암튼 구별 가능한 데이터
-    // API 응답을 통해 사용자 데이터 업데이트
+    await httpGet(path: '/api/users/2'); //2 -> 로그인 세션을 통한 구분자로 차후 변경
+
+    // //404 not found test
+    // await httpGet(path: '/api/unknown/23'); //name..? 암튼 구별 가능한 데이터
 
     if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
       // 사용자 데이터를 업데이트
       user.initializeData(userdata["data"]);
     } else {
-      // API 요청 실패 처리
+      ApiRequestFailAlert.showExpiredCodeDialog(context);
       debugPrint('Failed to fetch user data');
     }
   }
 
-  // API 요청을 보내어 사용자 데이터를 가져오는 메서드
-  Future<void> _fetchUserAccountData() async {
-    // userId를 사용하여 API 요청을 보냄
-    Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${user.id}'); //accountId로 변경할 것임
-    // API 응답을 통해 사용자 데이터 업데이트
-
-    if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
-      // 사용자 데이터를 업데이트
-      accountInfo.initializeData(userdata["data"]);
-    } else {
-      // API 요청 실패 처리
-      debugPrint('Failed to fetch user data');
-    }
-  }
+  // // API 요청을 보내어 사용자 데이터를 가져오는 메서드
+  // Future<void> _fetchUserAccountData(BuildContext context) async {
+  //   // userId를 사용하여 API 요청을 보냄
+  //   Map<String, dynamic> userdata =
+  //   await httpGet(path: '/api/users/${user.id}'); //accountId로 변경할 것임
+  //   // API 응답을 통해 사용자 데이터 업데이트
+  //
+  //   if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
+  //     // 사용자 데이터를 업데이트
+  //     accountInfo.initializeData(userdata["data"]);
+  //   } else {
+  //     // API 요청 실패 처리
+  //     debugPrint('Failed to fetch user data');
+  //   }
+  // }
 
   // This widget is the root of your application.
   @override
@@ -118,7 +121,7 @@ class _MainAccountState extends State<MainAccount>{
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TopSideBubble(),//말풍선
-                        const SizedBox(height: 30),
+                        SizedBox (height: screenHeight * 0.04),
                         Container(
                           width: screenWidth * 0.85,
                           height: screenHeight * 0.3,
@@ -151,36 +154,32 @@ class _MainAccountState extends State<MainAccount>{
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Color(0xFFFA7931),
-                                            fontSize: 25,
+                                            fontSize: screenWidth * 0.06,
                                             fontFamily: 'Noto Sans KR',
                                             fontWeight: FontWeight.w400,
-                                            height: 0.04,
-                                            letterSpacing: 0.03,
                                           ),
                                         ),
-                                        const SizedBox(height: 30),
+                                        SizedBox(height: screenHeight * 0.005),
                                         Text(
                                           '1,300',
                                           // '${accountInfo.Balance} 창고',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Color(0xFF4B4A48),
-                                            fontSize: 50,
+                                            fontSize: screenWidth * 0.1, // 액수가 많아질 시 넘칠 수 있어서 변경
                                             fontFamily: 'Noto Sans KR',
                                             fontWeight: FontWeight.w700,
-                                            height: 0,
                                           ),
                                         ),
-                                        const SizedBox(height: 30),
+                                        SizedBox(height: screenHeight * 0.005),
                                         Text(
                                           '매듭',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Color(0xFF3C3C3C),
-                                            fontSize: 20,
+                                            fontSize: screenWidth * 0.06,
                                             fontFamily: 'Noto Sans KR',
                                             fontWeight: FontWeight.w300,
-                                            height: 0.06,
                                           ),
                                         ),
                                       ],
@@ -197,14 +196,13 @@ class _MainAccountState extends State<MainAccount>{
                   Column(
                     children: [
                       ElevatedButton(
-                        child: const Text(
+                        child: Text(
                           '매듭 보내기',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
-                            fontSize: 25,
+                            fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
-                            height: 0,
                           ),
                         ),
                         onPressed: () {
@@ -223,17 +221,16 @@ class _MainAccountState extends State<MainAccount>{
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: screenHeight * 0.025,
                       ),
                       ElevatedButton(
-                        child: const Text(
+                        child: Text(
                           '매듭 받기',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
-                            fontSize: 25,
+                            fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
-                            height: 0,
                           ),
                         ),
                         onPressed: () {
@@ -252,17 +249,16 @@ class _MainAccountState extends State<MainAccount>{
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: screenHeight * 0.025,
                       ),
                       ElevatedButton(
-                        child: const Text(
+                        child: Text(
                           '주고 받은 매듭 확인하기',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
-                            height: 0,
                           ),
                         ),
                         onPressed: () {

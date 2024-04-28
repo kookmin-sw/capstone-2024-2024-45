@@ -7,6 +7,7 @@ class User {
   late String firstName;
   late String lastName;
   late String avatar;
+  late String dateTime;
   late int amount;
 
   // 싱글톤 인스턴스 생성
@@ -31,11 +32,17 @@ class User {
     firstName = _getStringValue(data, 'first_name');
     lastName = _getStringValue(data, 'last_name');
     avatar = _getStringValue(data, 'avatar');
+    dateTime = '';
   }
 
+  // // 새로운 JSON 데이터 추가 메서드
+  // void addNewData(Map<String, dynamic> newData) {
+  //   amount = newData['amount'] ?? 0; // amount 값이 없으면 기본값 0으로 설정
+  // }
+
   // 새로운 JSON 데이터 추가 메서드
-  void addNewData(Map<String, dynamic> newData) {
-    amount = newData['amount'] ?? 0; // amount 값이 없으면 기본값 0으로 설정
+  void addNewData(DateTime now) {
+    dateTime = now.toString() ?? ''; // amount 값이 없으면 기본값 0으로 설정
   }
 
   String _getStringValue(Map<String, dynamic> data, String key) {

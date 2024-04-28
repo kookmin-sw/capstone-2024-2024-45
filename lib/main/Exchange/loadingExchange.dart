@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:suntown/User/ScannedUser.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
 
 import '../../User/SendApi.dart';
 import '../../User/User.dart';
+import '../../utils/httpPost.dart';
 import '../../utils/http_put.dart';
 import '../../utils/screenSizeUtil.dart';
+import '../alert/ApiRequestFailAlert.dart';
 
 class LoadingExchange extends StatefulWidget {
   const LoadingExchange({Key? key}) : super(key: key);
@@ -19,6 +22,7 @@ class LoadingExchange extends StatefulWidget {
 class _LoadingExchangeState extends State<LoadingExchange> {
   User userData = User();
   SendApi sendApi = SendApi();
+  ScannedUser scannedUser = ScannedUser();
 
   @override
   void initState() {
@@ -39,17 +43,39 @@ class _LoadingExchangeState extends State<LoadingExchange> {
           MaterialPageRoute(builder: (context) => FinishExchange()),
         );
       } else {
-        print(value);
+        ApiRequestFailAlert.showExpiredCodeDialog(context);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         // 에러가 발생하면 에러 메시지를 출력합니다.
         // 이 경우에는 화면 전환이 필요하지 않으므로 setState()는 호출하지 않습니다.
       }
     } catch (e) {
+      ApiRequestFailAlert.showExpiredCodeDialog(context);
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
       // 에러가 발생하면 에러 메시지를 출력합니다.
       // 이 경우에는 화면 전환이 필요하지 않으므로 setState()는 호출하지 않습니다.
     }
   }
+
+  // //post 방식 추가
+  // Future<void> fetchData() async {
+  //   try {
+  //     // API 요청을 보냅니다.
+  //     final value = await httpPost(path: '/api/users/2', data: sendApi.toJson());
+  //
+  //     if (value == 200) { //post
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => FinishExchange()),
+  //       );
+  //     } else {
+  //       ApiRequestFailAlert.showExpiredCodeDialog(context);
+  //       debugPrint('서버 에러입니다. 다시 시도해주세요');
+  //     }
+  //   } catch (e) {
+  //     ApiRequestFailAlert.showExpiredCodeDialog(context);
+  //     debugPrint('API 요청 중 오류가 발생했습니다: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +96,9 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '화면을 끄지 마시고',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 25,
+                  fontSize: screenWidth * 0.06,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
-                  letterSpacing: 0.03,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -81,43 +106,38 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '잠시 기다려 주세요!',
                 style: TextStyle(
                   color: Color(0xFF727272),
-                  fontSize: 25,
+                  fontSize: screenWidth * 0.06,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
-                  letterSpacing: 0.03,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.025),
               SizedBox(
                 height: screenWidth * 0.5,
                 width: screenWidth * 0.5,
                 child: Lottie.asset("assets/lottie/loading.json"),
               ),
-              SizedBox(height: 20),
+              SizedBox(height:  screenHeight * 0.025),
               Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '${userData.lastName}',
+                      text: '${scannedUser.lastName}',
                       style: TextStyle(
                         color: Color(0xFFFF8D4D),
-                        fontSize: 25,
+                        fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
-                        height: 0,
-                        letterSpacing: 0.03,
                       ),
                     ),
                     TextSpan(
                       text: '님에게',
                       style: TextStyle(
                         color: Color(0xFF4B4A48),
-                        fontSize: 25,
+                        fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
-                        height: 0,
-                        letterSpacing: 0.03,
                       ),
                     ),
                   ],
@@ -128,11 +148,9 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '매듭을 보내고 있습니다..',
                 style: TextStyle(
                   color: Color(0xFF4B4A48),
-                  fontSize: 25,
+                  fontSize: screenWidth * 0.06,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
-                  height: 0,
-                  letterSpacing: 0.03,
                 ),
               ),
             ],
