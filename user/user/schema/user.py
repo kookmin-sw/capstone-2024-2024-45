@@ -22,7 +22,6 @@ class AccountInfo(SQLModel, table = False):
     permission: Permission
 
 class CreateUserIn(SQLModel, table = False):
-    device_id: str
     mobile_number: str
     name: str
     gender: Gender
