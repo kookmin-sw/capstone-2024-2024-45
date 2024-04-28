@@ -23,8 +23,12 @@ class PermissionNotifier with ChangeNotifier {
   void _showCustomAlertDialog(BuildContext context) {
     showDialog(
       context: context,
+      barrierDismissible: false, // 다이얼로그 바깥을 탭하여 닫히는 것을 방지합니다.
       builder: (BuildContext context) {
-        return CustomAlertDialog();
+        return WillPopScope(
+          onWillPop: () async => false, // 뒤로가기 버튼을 무시합니다.
+          child: CustomAlertDialog(),
+        );
       },
     );
   }
@@ -33,6 +37,7 @@ class PermissionNotifier with ChangeNotifier {
   Future<void> checkAndUpdatePermissionStatusFromSettings() async {
     PermissionStatus status = await Permission.camera.status;
     updatePermissionStatus(status.isGranted);
+    notifyListeners(); // 상태 변경을 구독자에게 알림
   }
 }
 
