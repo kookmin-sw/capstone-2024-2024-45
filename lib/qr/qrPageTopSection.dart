@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-  class QrPageTopSection extends StatelessWidget {
+import '../utils/screenSizeUtil.dart';
+
+class QrPageTopSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Align(
       alignment: Alignment.topLeft,
       child: Column(
@@ -10,16 +15,16 @@ import 'package:flutter/material.dart';
         children: [
           Text(
             "매듭을 받습니다!",
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: screenWidth * 0.075),
           ),
           SizedBox(
-            height: 20,
+            height: screenHeight * 0.025,
           ),
           Text.rich(
             TextSpan(
               text: '내 ',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: screenWidth * 0.06,
                 color: Color(0xFFFF8D4D),
                 fontFamily: 'Noto Sans KR',
               ),
@@ -37,13 +42,13 @@ import 'package:flutter/material.dart';
           Text(
             "매듭을 받을 이웃에게 보여주세요!",
             style: TextStyle(
-              fontSize: 25,
+              fontSize: screenWidth * 0.06,
               color: Color(0xFFFF8D4D),
               fontFamily: 'Noto Sans KR',
             ),
           ),
           SizedBox(
-            height: 10,
+            height: screenHeight * 0.012,
           ),
         ],
       ),

@@ -1,8 +1,4 @@
-/*
-Scanner에서 받아오기 위한 User data
-현재는 임시 사항이고, 바로 연결하기 위해 추가 예정
- */
-class ScannerUser {
+class ScannedUser {
   late String id;
   late String email;
   late String firstName;
@@ -11,12 +7,12 @@ class ScannerUser {
   late String dateTime;
 
   // 싱글톤 인스턴스 생성
-  static final ScannerUser _instance = ScannerUser._internal();
+  static final ScannedUser _instance = ScannedUser._internal();
 
-  factory ScannerUser() => _instance;
+  factory ScannedUser() => _instance;
 
   // 내부 생성자
-  ScannerUser._internal() {
+  ScannedUser._internal() {
     id = '';
     email = '';
     firstName = '';

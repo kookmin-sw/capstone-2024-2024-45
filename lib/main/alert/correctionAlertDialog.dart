@@ -31,7 +31,10 @@ class CorrectAlertDialog {
             children: <Widget>[
               Text(
                 "\u{1F440}",
-                style: TextStyle(fontSize: 30, fontFamily: 'Noto Sans KR'),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.075,
+                    fontFamily: 'Noto Sans KR'
+                ),
               ),
               Expanded(
                 flex: 50,
@@ -43,7 +46,7 @@ class CorrectAlertDialog {
                       "매듭을 잘못 입력하셨거나",
                       style: TextStyle(
                         color: Color(0xFF727272),
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
@@ -52,18 +55,18 @@ class CorrectAlertDialog {
                     Text("스캔을 잘못하셨나요?",
                       style: TextStyle(
                         color: Color(0xFF727272),
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
                       ),),
                     SizedBox(
-                      height: 20,
+                      height: screenHeight * 0.025,
                     ),
                     Text("어디로 이동할까요?",
                       style: TextStyle(
                         color: Color(0xFFFF8D4D),
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
@@ -87,7 +90,7 @@ class CorrectAlertDialog {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF4B4A48),
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
@@ -102,7 +105,9 @@ class CorrectAlertDialog {
                       backgroundColor: Color(0xFFFFD852),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: screenHeight * 0.025,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -116,7 +121,7 @@ class CorrectAlertDialog {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF4B4A48),
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
@@ -131,7 +136,9 @@ class CorrectAlertDialog {
                       backgroundColor: Color(0xFFFF8D4D),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height : screenHeight * 0.025,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -141,7 +148,7 @@ class CorrectAlertDialog {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 23,
+                        fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,

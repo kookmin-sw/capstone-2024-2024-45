@@ -4,8 +4,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:suntown/main/mainAccount.dart';
+import '../User/User.dart';
+import '../User/UserAccountInfo.dart';
 import '../main/Exchange/inputTransfor.dart';
 import '../main/alert/qrTimeOutDialog.dart';
+import '../utils/screenSizeUtil.dart';
 
 class qrScanner extends StatefulWidget {
   const qrScanner({super.key});
@@ -21,11 +24,24 @@ class _qrScannerState extends State<qrScanner> {
   DateTime now = DateTime.now();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
       backgroundColor: Color(0xFFFFF6F6),
       appBar: AppBar(
-        title: Text("flutter_qr"),
+        title: Center(
+          child: Text(
+            "매듭 창고",
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -40,7 +56,7 @@ class _qrScannerState extends State<qrScanner> {
                     children: [
                       Text(
                         "매듭을 보냅니다!",
-                        style: TextStyle(fontSize: 30),
+                        style: TextStyle(fontSize: screenWidth * 0.075),
                       ),
                       SizedBox(
                         height: 30,
@@ -48,7 +64,7 @@ class _qrScannerState extends State<qrScanner> {
                       Text(
                         "매듭을 보내고 싶은 이웃의",
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: screenWidth * 0.06,
                           color: Color(0xFFFF8D4D),
                           fontFamily: 'Noto Sans KR',
                         ),
@@ -56,7 +72,7 @@ class _qrScannerState extends State<qrScanner> {
                       Text.rich(
                         TextSpan(
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: screenWidth * 0.06,
                               color: Color(0xFFFF8D4D),
                               fontFamily: 'Noto Sans KR'),
                           children: <TextSpan>[
@@ -127,9 +143,6 @@ class _qrScannerState extends State<qrScanner> {
 
             // 차이가 2분 미만인지 확인
             if (difference.inSeconds < 0) {
-              print("유효한 코드!");
-              //유효시간보다 많아지면, 즉 now가 더 커져서 양 지난 것이다.
-              // 송금 페이지로 이동하면서 id 값을 전달
               Navigator.push(
                 context,
                 MaterialPageRoute(
