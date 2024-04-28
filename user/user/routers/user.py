@@ -10,14 +10,15 @@ user_router = APIRouter(
 )
 
 @user_router.post("/{device_id}")
-async def create_user(info: CreateUserIn,
+async def create_user(device_id,
+                      info: CreateUserIn,
                       session = Depends(get_session)
-                    ) -> MessageOnly:
+                    ):
     user_creator = UserCreator(
         session = session
     )
 
-    user_id = await user_creator.create_user(info)
+    user_id = await user_creator.create_user(device_id, info)
     result = await user_creator.create_profile(user_id, info.profile_info)
 
     return {
@@ -30,8 +31,8 @@ async def create_user(info: CreateUserIn,
     }
 
 @user_router.get("/{device_id}")
-async def get_user_id(device_id, session = Depends(get_session)) -> MessageOnly:
-    user_id = GetUserID(session).get_user_id(device_id)
+async def get_user_id(device_id, session = Depends(get_session)):
+    user_id = await GetUserID(session).get_user_id(device_id)
 
     return {
         "is_success": True,
@@ -42,8 +43,8 @@ async def get_user_id(device_id, session = Depends(get_session)) -> MessageOnly:
         }
     }
 
-@user_router.get("/{user_id}")
-async def get_user_info(user_id, session = Depends(get_session)) -> MessageOnly:
+@user_router.get("/{user_id}/info")
+async def get_user_info(user_id, session = Depends(get_session)):
     user_object = await GetUser(session).get_user_object(user_id)
 
     return {
@@ -53,8 +54,8 @@ async def get_user_info(user_id, session = Depends(get_session)) -> MessageOnly:
         "result": user_object
     }
 
-@user_router.patch("{user_id}/nickname")
-async def change_nickname(user_id, info: UserNicknameIn, session = Depends(get_session)) -> MessageOnly:
+@user_router.patch("/{user_id}/nickname")
+async def change_nickname(user_id, info: UserNicknameIn, session = Depends(get_session)):
     result = await NicknameChanger(session).change_nickname(user_id, info)
 
     return {
@@ -64,6 +65,6 @@ async def change_nickname(user_id, info: UserNicknameIn, session = Depends(get_s
         "result": None
     }
 
-@user_router.patch("{user_id}/")
-async def change_profile_image(user_id) -> MessageOnly:
+@user_router.patch("/{user_id}/")
+async def change_profile_image(user_id):
     pass
