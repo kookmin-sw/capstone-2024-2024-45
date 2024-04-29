@@ -19,7 +19,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  // 회원정보를 확인하고 다음으로 넘어갈 화면을 결정
   late User user;
   late UserAccountInfo accountInfo;
 
@@ -29,6 +28,7 @@ class _HomeState extends State<Home> {
     user = User();
     accountInfo = UserAccountInfo();
     // 차례대로 수행될 수 있도록
+    // _fetchUserData가 완료된 후 _fetchUserAccountData를 호출하도록 함
     _fetchUserData().then((_) {
       _fetchUserAccountData().then((_) {
         _navigateToNextScreen();
@@ -38,35 +38,32 @@ class _HomeState extends State<Home> {
 
   // API 요청을 보내어 사용자 데이터를 가져오는 메서드
   Future<void> _fetchUserData() async {
-    // userId를 사용하여 API 요청을 보냄
+    print('start _fetchUserData');
     Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${user.id}');
-    // API 응답을 통해 사용자 데이터 업데이트
+    await httpGet(path: '/api/users/2}');
     if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
-      // 사용자 데이터를 업데이트
       user.initializeData(userdata["data"]);
     }else if (userdata.containsKey('statusCode') && userdata['statusCode'] == 404){
       user.id = '' ;
     } else {
-      // API 요청 실패 처리
       debugPrint('Failed to fetch user data');
     }
+    print('end _fetchUserData');
   }
-
+  // 회원정보를 확인하고 다음으로 넘어갈 화면을 결정
   // API 요청을 보내어 사용자 데이터를 가져오는 메서드
   Future<void> _fetchUserAccountData() async {
-    // userId를 사용하여 API 요청을 보냄
+    print('start _fetchUserAccountData');
     Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${user.id}'); //accountId로 변경할 것임
+    await httpGet(path: '/api/users/2'); //accountId로 변경할 것임
     if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
-      // 사용자 데이터를 업데이트
       accountInfo.initializeData(userdata["data"]);
     } else if (userdata.containsKey('statusCode') && userdata['statusCode'] == 404){
       accountInfo.AccountId = '' ;
     } else {
-      // API 요청 실패 처리
       debugPrint('Failed to fetch user data');
     }
+    print('end _fetchUserAccountData');
   }
  // 사용자 정보유무, 계좌 개설 여부에 따라 제공되는 화면 달라짐.
   void _navigateToNextScreen() {

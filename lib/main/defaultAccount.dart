@@ -108,14 +108,15 @@ class _defaultAccounttState extends State<defaultAccount>{
                       const SizedBox(height: 30),
                       Container(
                         width: screenWidth * 0.85,
-                        height: screenHeight * 0.3,
+                        height: screenHeight * 0.44,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
+
                               width: screenWidth * 0.85,
-                              height: screenHeight * 0.4,
+                              height: screenHeight * 0.44,
                               padding: const EdgeInsets.symmetric(horizontal: 20),
                               clipBehavior: Clip.antiAlias,
                               decoration: ShapeDecoration(
@@ -133,7 +134,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: 304,
+                                      width: 300,
                                       height: 133,
                                       child: Stack(
                                           children: [
@@ -141,10 +142,10 @@ class _defaultAccounttState extends State<defaultAccount>{
                                               left: 0,
                                               top: 0,
                                               child: SizedBox(
-                                                width: 322,
+                                                width: 300,
                                                 height: 80,
                                                 child: Text(
-                                                  '매듭 창고를\n만들어 보세요.',
+                                                  '매듭 창고를\n만들어 주세요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF4B4A48),
                                                     fontSize: 30,
@@ -159,7 +160,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                               left : 0,
                                               top: 80,
                                               child: SizedBox(
-                                                width: 240,
+                                                width: 200,
                                                 height: 43,
                                                 child: Text(
                                                   '창고를 만들어야, \n매듭창고를 사용할 수 있어요.',

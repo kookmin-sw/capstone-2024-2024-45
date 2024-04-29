@@ -1,17 +1,30 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:suntown/main/signingUp/openAccount.dart';
+import 'package:flutter/services.dart';
+import 'package:suntown/main/mainAccount.dart';
+import 'package:suntown/utils/http_put.dart';
 
 class numberScreen extends StatefulWidget {
-  const numberScreen({super.key});
+  final String username;
+
+  const numberScreen({Key? key, required this.username}) :super(key: key);
 
   @override
-  State<numberScreen> createState() => _numberScreenState();
+  State<numberScreen> createState() => _numberScreenState(username: username);
 }
 
 class _numberScreenState extends State<numberScreen> {
-  String nickName = '';
+  final String username;
+  _numberScreenState({required this.username});
+
+  // 전화번호
+  late TextEditingController _phoneNumberController;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumberController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +46,7 @@ class _numberScreenState extends State<numberScreen> {
                               width: 119,
                               height: 25,
                               child: Text(
-                                '2. 창고만들기',
+                                '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: 17,
@@ -62,15 +75,12 @@ class _numberScreenState extends State<numberScreen> {
                             ),
                             TextField(
                                 textAlign: TextAlign.center,
+                                controller: _phoneNumberController,
+                                keyboardType: TextInputType.phone,
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력하도록 제한
                                 // 최대 문자 길이
                                 maxLength :11,
                                 // obscureText: true, 비밀번호 작성할 떄
-                                onChanged: (text) {
-                                  setState(() {
-                                    nickName = text;
-                                    print(nickName);
-                                  });
-                                },
                                 decoration : InputDecoration(
                                   hintText : '전화번호 입력',
                                 )
@@ -81,21 +91,30 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  String mobile_number = _phoneNumberController.text;
+                  print(mobile_number);
                   var data = {
-                    'nickName' : nickName,
+                    'username' : username,
+                    'mobile_number"' : mobile_number,
+                    "account_name": username
                   };
-                  var body = jsonEncode(data);
-                  http.Response _res = await http.post(Uri.parse("https://reqres.in/api/users"),
-                      headers: {"Content-Type" : 'application/json'},
-                      body :body
-                  );
-                  print(_res.statusCode);
-                  print(_res.body);
-
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => openAccount())
-                  // );
-
+                  try {
+                    // API 요청을 보냅니다.
+                    final value = await httpPut(path: 'api/accounts/register', data:data);
+                    if (value == 201) { //put
+                      // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
+                      print('201 ok');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainAccount()),
+                      );
+                    } else {
+                      print(value);
+                      debugPrint('서버 에러입니다. 다시 시도해주세요');
+                    }
+                  } catch (e) {
+                    debugPrint('API 요청 중 오류가 발생했습니다: $e');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4B4A48),

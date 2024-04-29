@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:suntown/main/signingUp/numberScreen.dart';
-
+import 'package:suntown/utils/http_put.dart';
 
 class nameScreen extends StatefulWidget {
   const nameScreen({super.key});
@@ -12,7 +10,7 @@ class nameScreen extends StatefulWidget {
 }
 
 class _nameScreenState extends State<nameScreen> {
-  String nickName = '';
+  String username = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class _nameScreenState extends State<nameScreen> {
                               width: 119,
                               height: 25,
                               child: Text(
-                                '2. 창고만들기',
+                                '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: 17,
@@ -68,8 +66,8 @@ class _nameScreenState extends State<nameScreen> {
                                 // obscureText: true, 비밀번호 작성할 떄
                                 onChanged: (text) {
                                   setState(() {
-                                    nickName = text;
-                                    print(nickName);
+                                    username = text;
+                                    print(username);
                                   });
                                 },
                                 decoration : InputDecoration(
@@ -83,20 +81,12 @@ class _nameScreenState extends State<nameScreen> {
               ElevatedButton(
                 onPressed: () async {
                   var data = {
-                    'nickName' : nickName,
+                    'username' : username,
                   };
-                  var body = jsonEncode(data);
-                  http.Response _res = await http.post(Uri.parse("https://reqres.in/api/users"),
-                      headers: {"Content-Type" : 'application/json'},
-                      body :body
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => numberScreen(username:username)),
                   );
-                  print(_res.statusCode);
-                  print(_res.body);
-
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => numberScreen())
-                  );
-
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4B4A48),

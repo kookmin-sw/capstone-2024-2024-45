@@ -16,7 +16,7 @@ class User {
 
   // 내부 생성자
   User._internal() {
-    id = '';
+    id = '2';
     email = '';
     firstName = '';
     lastName = '';
