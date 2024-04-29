@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/signingUp/nameScreen.dart';
-
+import '../../utils/screenSizeUtil.dart';
 class openAccount extends StatefulWidget {
   const openAccount({super.key});
 
@@ -11,6 +11,9 @@ class openAccount extends StatefulWidget {
 class _openAccountState extends State<openAccount> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -24,7 +27,7 @@ class _openAccountState extends State<openAccount> {
                     child : Column(
                       children: [
                         Container(
-                          width: 343,
+                          width: screenWidth* 0.85,
                           height: 300,
                           child: Stack(
                             children: [
@@ -38,7 +41,7 @@ class _openAccountState extends State<openAccount> {
                                     '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
-                                      fontSize: 25,
+                                      fontSize: screenWidth * 0.06,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
                                       height: 0,
@@ -74,13 +77,13 @@ class _openAccountState extends State<openAccount> {
                                                         left: 73,
                                                         top: 1,
                                                         child: SizedBox(
-                                                          width: 270,
-                                                          height: 36,
+                                                          width: screenWidth * 0.6, //270
+                                                          height: screenHeight * 0.03,//36,
                                                           child: Text(
                                                             '창고 만들기',
                                                             style: TextStyle(
-                                                              color: Color(0xFFFFD852),
-                                                              fontSize: 20,
+                                                              color: Color(0xFF727272),
+                                                              fontSize: screenWidth * 0.045,
                                                               fontFamily: 'Noto Sans KR',
                                                               fontWeight: FontWeight.w500,
                                                               height: 0,
@@ -111,7 +114,7 @@ class _openAccountState extends State<openAccount> {
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(
                                                               color: Color(0xFF727272),
-                                                              fontSize: 25,
+                                                              fontSize: screenWidth * 0.06,
                                                               fontFamily: 'Noto Sans KR',
                                                               fontWeight: FontWeight.w500,
                                                               height: 0,
@@ -137,33 +140,30 @@ class _openAccountState extends State<openAccount> {
                     )
                 )
             ),
-            SizedBox(
-                width: 343,
-                height: 73,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => nameScreen()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFD852),
-                    minimumSize: Size.fromHeight(73),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => nameScreen()));
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  backgroundColor: const Color(0xFFFFD852),
+                  minimumSize: Size.fromHeight(73),
 
-                    foregroundColor: const Color(0xFF4B4A48),
+                  foregroundColor: const Color(0xFF4B4A48),
 
-                    textStyle: TextStyle(
-                      fontSize: 25,
-                      fontFamily: 'Noto Sans KR',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                  textStyle: TextStyle(
+                    fontSize: screenWidth * 0.055,
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
                   ),
-                  child: const Text("창고 만들기"),
-                )
-            )
-
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                child: const Text("창고 만들기"),
+              )
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:suntown/utils/HttpGet.dart';
 import '../../User/User.dart';
 import '../../User/UserAccountInfo.dart';
+import '../../utils/screenSizeUtil.dart';
 
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
@@ -17,10 +18,12 @@ class signingUP extends StatefulWidget {
 
 class _signingUPState extends State<signingUP> {
 
-
   final viewModel = MainViewModel(KakaoLogin());
   @override
   Widget build(BuildContext context) {
+
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Scaffold(
 
       body: Padding(
@@ -44,7 +47,7 @@ class _signingUPState extends State<signingUP> {
                                 '로그인하고\n매듭창고 시작하기.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: 25,
+                                  fontSize: screenWidth * 0.06,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -80,7 +83,7 @@ class _signingUPState extends State<signingUP> {
                   foregroundColor: const Color(0xFF4B4A48),
 
                   textStyle: TextStyle(
-                    fontSize: 25,
+                    fontSize: screenWidth * 0.06,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w500,
                     height: 0,

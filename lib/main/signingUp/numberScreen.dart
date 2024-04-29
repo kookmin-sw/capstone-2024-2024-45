@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:suntown/main/mainAccount.dart';
 import 'package:suntown/utils/http_put.dart';
-
+import '../../utils/screenSizeUtil.dart';
 class numberScreen extends StatefulWidget {
   final String username;
 
@@ -27,6 +27,9 @@ class _numberScreenState extends State<numberScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
 
       body: Padding(
@@ -49,7 +52,7 @@ class _numberScreenState extends State<numberScreen> {
                                 '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: 17,
+                                  fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -63,7 +66,7 @@ class _numberScreenState extends State<numberScreen> {
                                 '전화번호를 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: 25,
+                                  fontSize: screenWidth * 0.06,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -122,7 +125,7 @@ class _numberScreenState extends State<numberScreen> {
                   minimumSize: Size.fromHeight(73),
 
                   textStyle: TextStyle(
-                    fontSize: 25,
+                    fontSize: screenWidth * 0.055,
                     fontFamily: 'Noto Sans KR',
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
