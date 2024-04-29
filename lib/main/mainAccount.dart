@@ -201,10 +201,10 @@ class _MainAccountState extends State<MainAccount>{
                           ),
                         ),
                         onPressed: () {
-                          setState(() {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => qrScanner()));
-                          });
+                          // setState(() {
+                          //   Navigator.of(context).push(
+                          //       MaterialPageRoute(builder: (context) => qrScanner()));
+                          // });
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
@@ -229,10 +229,10 @@ class _MainAccountState extends State<MainAccount>{
                           ),
                         ),
                         onPressed: () {
-                          setState(() {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => QrScreen()));
-                          });
+                          // setState(() {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (context) => QrScreen()));
+                          // });
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
