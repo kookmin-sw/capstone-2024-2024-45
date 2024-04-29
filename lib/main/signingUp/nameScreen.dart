@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/signingUp/numberScreen.dart';
 import 'package:suntown/utils/http_put.dart';
-
+import '../../utils/screenSizeUtil.dart';
 class nameScreen extends StatefulWidget {
   const nameScreen({super.key});
 
@@ -13,6 +13,9 @@ class _nameScreenState extends State<nameScreen> {
   String username = '';
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
 
       body: Padding(
@@ -35,7 +38,7 @@ class _nameScreenState extends State<nameScreen> {
                                 '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: 17,
+                                  fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -49,7 +52,7 @@ class _nameScreenState extends State<nameScreen> {
                                 '이름을 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: 25,
+                                  fontSize: screenWidth * 0.06,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -94,7 +97,7 @@ class _nameScreenState extends State<nameScreen> {
                   minimumSize: Size.fromHeight(73),
 
                   textStyle: TextStyle(
-                    fontSize: 25,
+                    fontSize: screenWidth * 0.055,
                     fontFamily: 'Noto Sans KR',
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

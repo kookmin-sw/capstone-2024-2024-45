@@ -1,5 +1,4 @@
 //디폴트 계좌 화면
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:suntown/User/UserAccountInfo.dart';
@@ -148,7 +147,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                                   '매듭 창고를\n만들어 주세요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF4B4A48),
-                                                    fontSize: 30,
+                                                    fontSize: screenWidth * 0.075,
                                                     fontFamily: 'Noto Sans KR',
                                                     fontWeight: FontWeight.w700,
                                                     height: 1.1,
@@ -160,13 +159,13 @@ class _defaultAccounttState extends State<defaultAccount>{
                                               left : 0,
                                               top: 80,
                                               child: SizedBox(
-                                                width: 200,
-                                                height: 43,
+                                                width: screenWidth * 0.5,//200,
+                                                height: screenHeight *  0.3,//43,
                                                 child: Text(
                                                   '창고를 만들어야, \n매듭창고를 사용할 수 있어요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF727272),
-                                                    fontSize: 17,
+                                                    fontSize: screenWidth * 0.037,
                                                     fontFamily: 'Noto Sans KR',
                                                     fontWeight: FontWeight.w500,
                                                     height: 1.1,
@@ -178,7 +177,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                           ]
                                       )
                                     ),
-                                    SizedBox(height: 52),
+                                    SizedBox(height: screenHeight * 0.04),
                                     ElevatedButton(
                                       child: const Text(
                                         '창고 만들기',
