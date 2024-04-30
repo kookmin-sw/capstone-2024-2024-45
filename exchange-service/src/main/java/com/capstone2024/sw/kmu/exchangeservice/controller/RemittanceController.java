@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/exchange/")
+@RequestMapping("/api/exchange/remittance")
 public class RemittanceController {
 
     private final RemittanceService remittanceService;
@@ -28,7 +28,7 @@ public class RemittanceController {
 
     // 송금
     @Operation(summary = "자유 송금", description = "자유 송금을 합니다.")
-    @PostMapping("/remittance/qr")
+    @PostMapping("/qr")
     public ResponseEntity<APIResponse<TransactionHistoryResponseDto.RemittanceResult>> QRRemittance(
             @Schema(description = "송금 요청", required = true)
             @RequestHeader String userId,
@@ -48,7 +48,7 @@ public class RemittanceController {
 
     // 특정 계좌의 거래 내역 확인
     @Operation(summary = "특정 계좌의 거래 내역 확인", description = "거래 내역을 확인합니다.")
-    @PostMapping("/remittance/history")
+    @PostMapping("/history")
     public ResponseEntity<APIResponse<List<TransactionHistoryResponseDto.RemittanceList>>> getHistory(
             @RequestBody RemittanceRequestDto.History dto
     ) {
@@ -56,7 +56,7 @@ public class RemittanceController {
     }
 
     @Operation(summary = "특정 거래 내역 확인", description = "특정 거래 내역을 확인합니다.")
-    @GetMapping("/remittance/history/{transId}")
+    @GetMapping("/history/{transId}")
     public ResponseEntity<APIResponse<TransactionHistoryResponseDto.RemittanceResult>> getDetailHistory(
             @PathVariable Long transId
     ) {
