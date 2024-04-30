@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/signingUp/numberScreen.dart';
-import 'package:suntown/utils/http_put.dart';
 import '../../utils/screenSizeUtil.dart';
 class nameScreen extends StatefulWidget {
   const nameScreen({super.key});
@@ -17,7 +16,15 @@ class _nameScreenState extends State<nameScreen> {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return Scaffold(
-
+      appBar: AppBar(
+        // automaticallyImplyLeading: false, // 뒤로가기 아이콘 제거
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // 왼쪽에 추가할 아이콘
+          onPressed: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Container(
@@ -29,15 +36,15 @@ class _nameScreenState extends State<nameScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 75,
+                              height: screenHeight * 0.04,
                             ),
                             SizedBox(
-                              width: 119,
-                              height: 25,
+                              width: screenWidth * 0.85,
+                              height: screenHeight * 0.03, //25
                               child: Text(
                                 '창고만들기',
                                 style: TextStyle(
-                                  color: Color(0xFF4B4A48),
+                                  color: Color(0xFF727272),
                                   fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
@@ -46,8 +53,8 @@ class _nameScreenState extends State<nameScreen> {
                               ),
                             ),
                             SizedBox(
-                              width: 343,
-                              height : 51,
+                              width: screenWidth * 0.85,
+                              height : screenHeight * 0.06, // 50
                               child: Text(
                                 '이름을 입력해주세요.',
                                 style: TextStyle(
@@ -60,7 +67,7 @@ class _nameScreenState extends State<nameScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 77,
+                              height: screenHeight * 0.09,
                             ),
                             TextField(
                                 textAlign: TextAlign.center,
@@ -75,7 +82,10 @@ class _nameScreenState extends State<nameScreen> {
                                 },
                                 decoration : InputDecoration(
                                   hintText : '한글 이름 입력',
-                                )
+                                ),
+                                style :TextStyle(
+                                  fontSize : screenWidth * 0.06,
+                               ),
                             ),
                           ]
                       )
@@ -92,6 +102,8 @@ class _nameScreenState extends State<nameScreen> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
+                  fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   backgroundColor: const Color(0xFF4B4A48),
                   foregroundColor:Colors.white,
                   minimumSize: Size.fromHeight(73),

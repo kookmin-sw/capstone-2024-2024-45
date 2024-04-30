@@ -47,10 +47,10 @@ class TopSideBubble extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TypewriterAnimatedTextKit(
-                    text: ["             오늘도 나눔에 앞장서는 아름다운 당신을 응원합니다!"],
+                    text: ["           오늘도 나눔에 앞장서는 아름다운 당신을 응원합니다!"],
                     textStyle: TextStyle(
                       color: Color(0xFF727272),
-                      fontSize: 17,
+                      fontSize: 16,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                     ),

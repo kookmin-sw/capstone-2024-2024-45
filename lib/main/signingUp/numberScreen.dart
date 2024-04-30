@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:suntown/main/mainAccount.dart';
 import 'package:suntown/utils/http_put.dart';
 import '../../utils/screenSizeUtil.dart';
+import 'accountSuccess.dart';
+
 class numberScreen extends StatefulWidget {
   final String username;
 
@@ -31,7 +34,15 @@ class _numberScreenState extends State<numberScreen> {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return Scaffold(
-
+      appBar: AppBar(
+        // automaticallyImplyLeading: false, // 뒤로가기 아이콘 제거
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // 왼쪽에 추가할 아이콘
+          onPressed: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Container(
@@ -43,15 +54,15 @@ class _numberScreenState extends State<numberScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 75,
+                              height:  screenHeight * 0.04,
                             ),
                             SizedBox(
-                              width: 119,
-                              height: 25,
+                              width: screenWidth * 0.85, // 334
+                              height: screenHeight * 0.03, // 25
                               child: Text(
                                 '창고만들기',
                                 style: TextStyle(
-                                  color: Color(0xFF4B4A48),
+                                  color: Color(0xFF727272),
                                   fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
@@ -60,8 +71,8 @@ class _numberScreenState extends State<numberScreen> {
                               ),
                             ),
                             SizedBox(
-                              width: 343,
-                              height : 51,
+                              width: screenWidth * 0.85,
+                              height :  screenHeight * 0.06, // 50
                               child: Text(
                                 '전화번호를 입력해주세요.',
                                 style: TextStyle(
@@ -74,7 +85,7 @@ class _numberScreenState extends State<numberScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 77,
+                              height:  screenHeight * 0.09, //75
                             ),
                             TextField(
                                 textAlign: TextAlign.center,
@@ -88,7 +99,10 @@ class _numberScreenState extends State<numberScreen> {
                                 // obscureText: true, 비밀번호 작성할 떄
                                 decoration : InputDecoration(
                                   hintText : '전화번호 입력',
-                                )
+                                ),
+                              style :TextStyle(
+                                fontSize : screenWidth * 0.06,
+                              ),
                             ),
                           ]
                       )
@@ -96,6 +110,10 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => accountSuccess()),
+                  );
                   String mobile_number = _phoneNumberController.text;
                   print(mobile_number);
                   var data = {
@@ -107,11 +125,11 @@ class _numberScreenState extends State<numberScreen> {
                     // API 요청을 보냅니다.
                     final value = await httpPut(path: 'api/accounts/register', data:data);
                     if (value == 201) { //put
-                      // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
+                      // 성공적으로 응답을 받았을 때 accountSuccess 화면으로 이동합니다.
                       print('201 ok');
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MainAccount()),
+                        MaterialPageRoute(builder: (context) => accountSuccess()),
                       );
                     } else {
                       print(value);

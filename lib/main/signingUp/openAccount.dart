@@ -32,23 +32,23 @@ class _openAccountState extends State<openAccount> {
         child: Column(
           children: [
             SizedBox(
-              height: 80.0,
+              height: screenHeight * 0.04,
             ),
             Expanded(
                 child:SingleChildScrollView(
                     child : Column(
                       children: [
                         Container(
-                          width: screenWidth* 0.85,
-                          height: 300,
+                          width: screenWidth * 0.85,
+                          height: screenHeight * 0.7,
                           child: Stack(
                             children: [
                               Positioned(
                                 left: 0,
                                 top: 0,
                                 child: SizedBox(
-                                  width: 294,
-                                  height: 72,
+                                  width:  screenWidth* 0.8,
+                                  height: screenHeight * 0.5,
                                   child: Text(
                                     '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
                                     style: TextStyle(
@@ -65,24 +65,24 @@ class _openAccountState extends State<openAccount> {
                                   left: 0,
                                   top: 152,
                                   child: Container(
-                                    width: 343,
-                                    height: 148,
+                                    width: screenWidth* 0.8,
+                                    height: screenHeight * 0.3,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: 343,
-                                          height: 148,
+                                          width: screenWidth* 0.8,
+                                          height: screenHeight * 0.3,
                                           child: Stack(
                                             children: [
                                               Positioned(
                                                 left: 0,
                                                 top: 0,
                                                 child: Container(
-                                                  width: 343,
-                                                  height: 44,
+                                                  width: screenWidth* 0.65,
+                                                  height: screenWidth* 0.3,
                                                   child: Stack(
                                                     children: [
                                                       Positioned(
