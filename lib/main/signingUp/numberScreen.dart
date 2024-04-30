@@ -80,9 +80,11 @@ class _numberScreenState extends State<numberScreen> {
                                 textAlign: TextAlign.center,
                                 controller: _phoneNumberController,
                                 keyboardType: TextInputType.phone,
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력하도록 제한
-                                // 최대 문자 길이
-                                maxLength :11,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly, //숫자만!
+                                  NumberFormatter(), // 자동하이픈
+                                  LengthLimitingTextInputFormatter(13)
+                                ],
                                 // obscureText: true, 비밀번호 작성할 떄
                                 decoration : InputDecoration(
                                   hintText : '전화번호 입력',
@@ -120,6 +122,8 @@ class _numberScreenState extends State<numberScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
+                  fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   backgroundColor: const Color(0xFF4B4A48),
                   foregroundColor:Colors.white,
                   minimumSize: Size.fromHeight(73),
@@ -145,3 +149,36 @@ class _numberScreenState extends State<numberScreen> {
   }
 }
 
+class NumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var text = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = StringBuffer();
+    for (int i = 0; i < text.length; i++) {
+      buffer.write(text[i]);
+      var nonZeroIndex = i + 1;
+      if (nonZeroIndex <= 3) {
+        if (nonZeroIndex % 3 == 0 && nonZeroIndex != text.length) {
+          buffer.write('-'); // Add double spaces.
+        }
+      } else {
+        if (nonZeroIndex % 7 == 0 &&
+            nonZeroIndex != text.length &&
+            nonZeroIndex > 4) {
+          buffer.write('-');
+        }
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(
+        text: string,
+        selection: TextSelection.collapsed(offset: string.length));
+  }
+}
