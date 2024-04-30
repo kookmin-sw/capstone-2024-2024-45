@@ -40,52 +40,78 @@ class _SavinghistoryState extends State<Savinghistory> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('어떤걸 볼까요?'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isSelected = [true, false, false];
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('주고받은 매듭 확인하기'),
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            width: 345,
+            height: 344,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '어떤걸 볼까요?',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isSelected = [false, true, false];
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('받은 매듭만 확인하기'),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isSelected = [false, false, true];
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('보낸 매듭만 확인하기'),
-                  ),
-                ),
+                SizedBox(height: 20),
+                _filterOption('주고받은 매듭 확인하기'),
+                _filterOption('받은 매듭만 확인하기'),
+                _filterOption('보낸 매듭만 확인하기'),
               ],
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _filterOption(String text) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          switch (text) {
+            case '주고받은 매듭 확인하기':
+              isSelected = [true, false, false];
+              break;
+            case '받은 매듭만 확인하기':
+              isSelected = [false, true, false];
+              break;
+            case '보낸 매듭만 확인하기':
+              isSelected = [false, false, true];
+              break;
+          }
+        });
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: 320,
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Color(0xFFFFE2E2), width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Color(0xFF4B4A48),
+            fontSize: 20,
+            fontFamily: 'Noto Sans KR',
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 
@@ -102,91 +128,108 @@ class _SavinghistoryState extends State<Savinghistory> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('주고 받은 매듭 확인하기')),
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            color: Color(0xffF8E4E4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text('\u{1F970} 환불을 원하시면, 해당 거래를 눌러주세요',
-                      textAlign: TextAlign.center),
+      appBar: AppBar(
+        title: Text('주고 받은 매듭 확인하기'),
+        backgroundColor: Color(0xFFFFE795), // Adjusted AppBar color
+      ),
+      body: Container(
+        color: Color(0xFFFFF6F6), // Light pink background for the entire page
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Color(0xFFFFE2E2), // Light pink header background
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Text(
+                '환불을 원하시면,\n해당 거래를 눌러주세요',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
                 ),
-              ],
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
-              child: TextButton.icon(
-                icon: Icon(Icons.arrow_drop_down,
-                    size: 24), // This is the "v" icon
-                label: Text('전체'),
-                onPressed: _showFilterOptions,
-                style: TextButton.styleFrom(
-                  textStyle: TextStyle(fontSize: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                child: TextButton.icon(
+                  icon: Icon(Icons.arrow_drop_down, size: 24),
+                  label: Text('전체'),
+                  onPressed: _showFilterOptions,
+                  style:
+                      TextButton.styleFrom(textStyle: TextStyle(fontSize: 16)),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView(
-              children: groupedTransactions.entries.map((entry) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        entry.key,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Column(
-                      children: entry.value.map((transaction) {
-                        var sign = transaction['type'] == '입금' ? '+' : '-';
-                        var color = transaction['type'] == '입금'
-                            ? Colors.red
-                            : Colors.blue;
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(transaction['imageUrl']),
+            Expanded(
+              child: ListView(
+                children: groupedTransactions.entries.map((entry) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20.0), // Added indentation
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            entry.key,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text('${transaction['name']}'),
+                        ),
+                        Column(
+                          children: entry.value.map((transaction) {
+                            var sign = transaction['type'] == '입금' ? '+' : '-';
+                            var color = transaction['type'] == '입금'
+                                ? Colors.blue
+                                : Colors.red;
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(transaction['imageUrl']),
                               ),
-                              Text('$sign${transaction['amount']}',
-                                  style: TextStyle(color: color)),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TransactionDetailPage(
-                                    transaction: transaction),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text('${transaction['name']}'),
+                                  ),
+                                  Text('$sign${transaction['amount']}',
+                                      style: TextStyle(color: color)),
+                                ],
                               ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TransactionDetailPage(
+                                        transaction: transaction),
+                                  ),
+                                );
+                              },
                             );
-                          },
-                        );
-                      }).toList(),
-                    )
-                  ],
-                );
-              }).toList(),
+                          }).toList(),
+                        )
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
