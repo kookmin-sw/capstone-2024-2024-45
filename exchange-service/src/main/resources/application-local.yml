@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    remittance:
+      jdbc-url: jdbc:mysql://localhost:3306/transaction_history?serverTimezone=Asia/Seoul
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: ${DATASOURCE_REMITTANCE_PASSWORD}
+
+    bankcore:
+      jdbc-url: jdbc:mysql://localhost:3306/bankcore?serverTimezone=Asia/Seoul
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: ${DATASOURCE_BANKCORE_PASSWORD}
+
+server:
+  port: 8070
