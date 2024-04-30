@@ -1,3 +1,9 @@
+# 환경변수
+app:
+  qr:
+    key: ${QR_SECRET_KEY}
+    algorithm: ${QR_ALGORITHM}
+
 spring:
   application:
    name: exchange-service
