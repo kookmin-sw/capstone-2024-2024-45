@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/signingUp/nameScreen.dart';
 import '../../utils/screenSizeUtil.dart';
+
+import 'package:suntown/main/defaultAccount.dart';
+
 class openAccount extends StatefulWidget {
   const openAccount({super.key});
 
@@ -15,6 +18,15 @@ class _openAccountState extends State<openAccount> {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return Scaffold(
+      appBar: AppBar(
+        // automaticallyImplyLeading: false, // 뒤로가기 아이콘 제거
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // 왼쪽에 추가할 아이콘
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
