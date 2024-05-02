@@ -4,18 +4,16 @@ import com.capstone2024.sw.kmu.adminserivce.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.InquireRequestDto;
+import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
 import com.capstone2024.sw.kmu.adminserivce.service.InquireService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,6 +47,20 @@ public class InquireController {
             return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
         } catch (Exception e) {
             return ResponseEntity.ok(APIResponse.of(ErrorCode.INSERT_ERROR));
+        }
+    }
+
+    @Operation(summary = "문의 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
+    @GetMapping("/{type}")
+    public ResponseEntity<APIResponse> getInquires(
+            @Schema(description = "문의 타입", example = "all / general / refund 중 하나 입력")
+            @PathVariable String type
+    ) {
+        try {
+            List<Inquire> inquires = inquireService.getInquires(type);
+            return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));
+        }catch (Exception e){
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.INVALID_PARAMETER, "잘못된 타입을 입력했습니다."));
         }
     }
 }

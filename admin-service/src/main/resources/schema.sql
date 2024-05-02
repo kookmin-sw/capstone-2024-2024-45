@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS admin.administrator (
 CREATE TABLE IF NOT EXISTS admin.inquire (
     inquire_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     inquirer_id BIGINT NOT NULL ,
+    inquire_type TINYINT(1) NOT NULL ,
     inquire_text TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL
 );

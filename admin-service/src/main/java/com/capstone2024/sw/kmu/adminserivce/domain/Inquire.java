@@ -23,6 +23,10 @@ public class Inquire {
     @Column(name = "inquirer_id")
     private Long inquirerId;
 
+    // 1: 일반 문의, 2: 거래 취소 문의
+    @Column(name = "inquire_type")
+    private int inquireType;
+
     @Column(name = "inquire_text")
     private String inquireText;
 
@@ -30,9 +34,10 @@ public class Inquire {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public static Inquire from(Long userId, String inquire) {
+    public static Inquire from(Long userId, int type, String inquire) {
         return Inquire.builder()
                 .inquirerId(userId)
+                .inquireType(type)
                 .inquireText(inquire)
                 .build();
     }
