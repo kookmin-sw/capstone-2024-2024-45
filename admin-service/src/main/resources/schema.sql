@@ -21,5 +21,6 @@ CREATE TABLE IF NOT EXISTS admin.reply (
     inquire_id BIGINT NOT NULL PRIMARY KEY ,
     admin_id BIGINT NOT NULL,
     reply TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NULL
 );

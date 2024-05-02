@@ -23,4 +23,15 @@ public class ReplyService {
         inquireRepository.findByInquireIdAndUpdateIsCompletedToTrue(inquireId);
         replyRepository.save(Reply.from(inquireId,adminId, dto.getReply()));
     }
+
+    public void updateReply(Long inquireId, ReplyRequestDto.Reply dto) {
+        replyRepository.findByInquireIdAndUpdateReply(inquireId, dto.getReply());
+    }
+
+    public boolean isWriter(Long inquireId, Long adminId) {
+
+        Long writerId = replyRepository.findAdminIdByInquireId(inquireId);
+
+        return writerId.equals(adminId);
+    }
 }

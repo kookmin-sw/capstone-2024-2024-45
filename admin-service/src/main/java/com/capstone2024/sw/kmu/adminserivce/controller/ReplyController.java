@@ -35,7 +35,6 @@ public class ReplyController {
         return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
     }
 
-    // TODO: 답변 수정하기
     @Operation(summary = "특정 답변 수정하기", description = "관리자가 특정 문의에 단 답변을 수정합니다.")
     @PatchMapping("/{inquireId}/reply")
     public ResponseEntity<APIResponse> updateReply(
@@ -44,7 +43,10 @@ public class ReplyController {
             @RequestHeader Long adminId,
             @RequestBody ReplyRequestDto.Reply dto
     ) {
-        // TODO: 본인만 수정 가능
+
+        if( !replyService.isWriter(inquireId, adminId))
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.UNAUTHORIZED_ERROR, "답변 작성자만 수정할 수 있습니다."));
+
         try {
             replyService.updateReply(inquireId, dto);
             return ResponseEntity.ok(APIResponse.of(SuccessCode.UPDATE_SUCCESS));
