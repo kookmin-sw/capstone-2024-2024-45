@@ -30,6 +30,9 @@ public class Inquire {
     @Column(name = "inquire_text")
     private String inquireText;
 
+    @Column(name = "is_completed")
+    private boolean isCompleted;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -39,6 +42,7 @@ public class Inquire {
                 .inquirerId(userId)
                 .inquireType(type)
                 .inquireText(inquire)
+                .isCompleted(false)
                 .build();
     }
 }

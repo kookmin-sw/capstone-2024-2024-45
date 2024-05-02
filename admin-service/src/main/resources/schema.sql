@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS admin.inquire (
     inquirer_id BIGINT NOT NULL ,
     inquire_type TINYINT(1) NOT NULL ,
     inquire_text TEXT NOT NULL,
+    is_completed BOOLEAN NOT NULL ,
     created_at TIMESTAMP NOT NULL
 );
 
