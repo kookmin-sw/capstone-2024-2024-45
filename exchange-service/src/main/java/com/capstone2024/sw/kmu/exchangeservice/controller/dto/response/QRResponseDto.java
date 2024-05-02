@@ -16,7 +16,7 @@ public class QRResponseDto {
         @NotEmpty
         private String hmac;
 
-        @Schema(description = "유저 정보", example = "<userId>:<accountId>")
+        @Schema(description = "유저 정보", example = "<userId>:<accountId>:<createdAt>")
         @NotEmpty
         private String userInfo;
 
