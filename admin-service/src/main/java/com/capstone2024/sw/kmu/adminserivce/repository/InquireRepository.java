@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface InquireRepository extends JpaRepository<Inquire, Long> {
-
+    Inquire findByInquireId(Long id);
     List<Inquire> findAllByOrderByCreatedAtDesc();
     List<Inquire> findByInquireTypeOrderByCreatedAtDesc(int type);
 }

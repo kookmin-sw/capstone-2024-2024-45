@@ -25,7 +25,7 @@ public class Reply {
     private Inquire inquire;
 
     @Column(name = "admin_id")
-    private Long AdminId;
+    private Long adminId;
 
     @MapsId("inquire_id")
     @OneToOne
@@ -38,4 +38,12 @@ public class Reply {
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public static Reply from(Long inquireId, Long adminId, String reply) {
+        return Reply.builder()
+                .inquireId(inquireId)
+                .adminId(adminId)
+                .reply(reply)
+                .build();
+    }
 }

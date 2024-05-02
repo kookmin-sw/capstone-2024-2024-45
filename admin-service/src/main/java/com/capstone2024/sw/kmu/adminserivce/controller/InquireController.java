@@ -63,4 +63,15 @@ public class InquireController {
             return ResponseEntity.ok(APIResponse.of(ErrorCode.INVALID_PARAMETER, "잘못된 타입을 입력했습니다."));
         }
     }
+
+    @Operation(summary = "특정 문의 보기", description = "관리자가 특정 문의를 봅니다. (답변하기 버튼에서 사용될 예정. 버튼 누르면 특정 문의와 함께 답변할 수 있는 화면이 뜸)")
+    @GetMapping("/{inquireId}")
+    public ResponseEntity<APIResponse> getInquire(
+            @Schema(description = "문의 id", example = "1")
+            @PathVariable Long inquireId
+    ) {
+
+        Inquire inquire = inquireService.getInquire(inquireId);
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquire));
+    }
 }

@@ -41,4 +41,8 @@ public class InquireService {
             default -> throw new IllegalArgumentException("잘못된 타입을 입력했습니다.: " + type);
         };
     }
+
+    public Inquire getInquire(Long inquireId) {
+        return inquireRepository.findByInquireId(inquireId);
+    }
 }
