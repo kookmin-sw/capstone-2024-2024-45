@@ -30,9 +30,12 @@ public class ReplyController {
             @RequestHeader Long adminId,
             @RequestBody ReplyRequestDto.Reply dto
     ) {
-        // TODO: try-catch
-        replyService.reply(inquireId, adminId, dto);
-        return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
+        try {
+            replyService.reply(inquireId, adminId, dto);
+            return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
+        } catch (Exception e){
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.INSERT_ERROR));
+        }
     }
 
     @Operation(summary = "특정 답변 수정하기", description = "관리자가 특정 문의에 단 답변을 수정합니다. * 답변 작성자만 수정 가능")
