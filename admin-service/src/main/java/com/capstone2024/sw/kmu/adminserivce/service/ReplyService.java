@@ -20,7 +20,7 @@ public class ReplyService {
 
     public void reply(Long inquireId, Long adminId, ReplyRequestDto.Reply dto) {
 
-        inquireRepository.updateIsCompletedByInquireId(inquireId);
+        inquireRepository.findByInquireIdAndUpdateIsCompletedToTrue(inquireId);
         replyRepository.save(Reply.from(inquireId,adminId, dto.getReply()));
     }
 }
