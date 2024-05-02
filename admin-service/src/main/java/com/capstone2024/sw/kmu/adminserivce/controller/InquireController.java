@@ -51,7 +51,7 @@ public class InquireController {
     }
 
     @Operation(summary = "문의 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
-    @GetMapping("/{type}")
+    @GetMapping("/type/{type}")
     public ResponseEntity<APIResponse> getInquires(
             @Schema(description = "문의 타입", example = "all / general / refund 중 하나 입력")
             @PathVariable String type
@@ -65,7 +65,7 @@ public class InquireController {
     }
 
     @Operation(summary = "특정 문의 보기", description = "관리자가 특정 문의를 봅니다. (답변하기 버튼에서 사용될 예정. 버튼 누르면 특정 문의와 함께 답변할 수 있는 화면이 뜸)")
-    @GetMapping("/{inquireId}")
+    @GetMapping("/id/{inquireId}")
     public ResponseEntity<APIResponse> getInquire(
             @Schema(description = "문의 id", example = "1")
             @PathVariable Long inquireId
