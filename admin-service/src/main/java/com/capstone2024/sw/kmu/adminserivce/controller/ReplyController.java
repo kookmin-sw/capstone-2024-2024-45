@@ -1,6 +1,7 @@
 package com.capstone2024.sw.kmu.adminserivce.controller;
 
 import com.capstone2024.sw.kmu.adminserivce.base.dto.APIResponse;
+import com.capstone2024.sw.kmu.adminserivce.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.ReplyRequestDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
@@ -29,8 +30,26 @@ public class ReplyController {
             @RequestHeader Long adminId,
             @RequestBody ReplyRequestDto.Reply dto
     ) {
-
+        // TODO: try-catch
         replyService.reply(inquireId, adminId, dto);
         return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
+    }
+
+    // TODO: 답변 수정하기
+    @Operation(summary = "특정 답변 수정하기", description = "관리자가 특정 문의에 단 답변을 수정합니다.")
+    @PatchMapping("/{inquireId}/reply")
+    public ResponseEntity<APIResponse> updateReply(
+            @Schema(description = "문의 id", example = "1")
+            @PathVariable Long inquireId,
+            @RequestHeader Long adminId,
+            @RequestBody ReplyRequestDto.Reply dto
+    ) {
+        // TODO: 본인만 수정 가능
+        try {
+            replyService.updateReply(inquireId, dto);
+            return ResponseEntity.ok(APIResponse.of(SuccessCode.UPDATE_SUCCESS));
+        } catch (Exception e){
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.UPDATE_ERROR));
+        }
     }
 }
