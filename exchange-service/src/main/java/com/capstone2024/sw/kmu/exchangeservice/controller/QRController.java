@@ -28,10 +28,10 @@ public class QRController {
     @PostMapping("/create")
     public ResponseEntity<APIResponse<QRResponseDto.QRCode>> createQRCode(
             @RequestHeader String userId,
-            @RequestBody String accountId
+            @RequestBody QRRequestDto.BaseInfo dto
     ) throws NoSuchAlgorithmException, InvalidKeyException {
 
-        QRResponseDto.QRCode response = qrService.createQRCode(userId, accountId);
+        QRResponseDto.QRCode response = qrService.createQRCode(userId, dto.getAccountId());
         return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, response));
     }
 

@@ -22,4 +22,13 @@ public class QRRequestDto {
         @NotEmpty
         private String senderAccountId;
     }
+
+    @Schema(description = "qr 생성을 위한 account 정보")
+    @Getter
+    public static class BaseInfo {
+
+        @Schema(description = "유저의 계좌 id", example = "00000000-0000-0000-000000000000")
+        @NotEmpty
+        private String accountId;
+    }
 }
