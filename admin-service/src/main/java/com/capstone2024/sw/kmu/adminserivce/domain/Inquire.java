@@ -1,9 +1,6 @@
 package com.capstone2024.sw.kmu.adminserivce.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,6 +17,7 @@ public class Inquire {
 
     @Id
     @Column(name = "inquire_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inquireId;
 
     @Column(name = "inquirer_id")
@@ -31,4 +29,11 @@ public class Inquire {
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public static Inquire from(Long userId, String inquire) {
+        return Inquire.builder()
+                .inquirerId(userId)
+                .inquireText(inquire)
+                .build();
+    }
 }
