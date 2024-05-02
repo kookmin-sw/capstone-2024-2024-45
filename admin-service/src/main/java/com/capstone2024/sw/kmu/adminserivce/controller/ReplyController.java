@@ -22,7 +22,7 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @Operation(summary = "특정 문의에 답변하기", description = "관리자가 특정 문의에 답변합니다.")
-    @GetMapping("/{inquireId}/reply")
+    @PostMapping("/{inquireId}/reply")
     public ResponseEntity<APIResponse> reply(
             @Schema(description = "문의 id", example = "1")
             @PathVariable Long inquireId,
