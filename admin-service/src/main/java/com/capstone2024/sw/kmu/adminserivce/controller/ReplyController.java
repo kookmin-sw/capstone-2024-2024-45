@@ -35,7 +35,7 @@ public class ReplyController {
         return ResponseEntity.ok(APIResponse.of(SuccessCode.INSERT_SUCCESS));
     }
 
-    @Operation(summary = "특정 답변 수정하기", description = "관리자가 특정 문의에 단 답변을 수정합니다.")
+    @Operation(summary = "특정 답변 수정하기", description = "관리자가 특정 문의에 단 답변을 수정합니다. * 답변 작성자만 수정 가능")
     @PatchMapping("/{inquireId}/reply")
     public ResponseEntity<APIResponse> updateReply(
             @Schema(description = "문의 id", example = "1")
