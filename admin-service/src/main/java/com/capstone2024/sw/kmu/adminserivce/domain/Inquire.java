@@ -37,6 +37,9 @@ public class Inquire {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
     public static Inquire from(Long userId, int type, String inquire) {
         return Inquire.builder()
                 .inquirerId(userId)

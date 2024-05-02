@@ -45,4 +45,12 @@ public class InquireService {
     public Inquire getInquire(Long inquireId) {
         return inquireRepository.findByInquireId(inquireId);
     }
+
+    public boolean isCompleted(Long inquireId) {
+        return inquireRepository.findIsCompletedByInquireId(inquireId);
+    }
+
+    public void updateInquire(Long inquireId, String inquire) {
+        inquireRepository.findByInquireIdAndUpdateInquire(inquireId, inquire);
+    }
 }

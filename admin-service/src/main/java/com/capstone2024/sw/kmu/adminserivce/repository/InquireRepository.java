@@ -20,4 +20,11 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     @Query("UPDATE Inquire i SET i.isCompleted = true WHERE i.inquireId = :id")
     void findByInquireIdAndUpdateIsCompletedToTrue(Long id);
 
+    @Query("SELECT i.isCompleted FROM Inquire i WHERE i.inquireId = :id")
+    boolean findIsCompletedByInquireId(Long id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Inquire i SET i.inquireText = :inquire, i.updatedAt = CURRENT_TIMESTAMP WHERE i.inquireId = :id")
+    void findByInquireIdAndUpdateInquire(Long id, String inquire);
 }

@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS admin.inquire (
     inquire_type TINYINT(1) NOT NULL ,
     inquire_text TEXT NOT NULL,
     is_completed BOOLEAN NOT NULL ,
-    created_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP NOT NULL ,
+    updated_at TIMESTAMP NULL
 );
 
 CREATE TABLE IF NOT EXISTS admin.reply (
