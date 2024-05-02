@@ -31,8 +31,6 @@ public class QRController {
             @RequestBody String accountId
     ) throws NoSuchAlgorithmException, InvalidKeyException {
 
-        // TODO: 인증 시간
-
         QRResponseDto.QRCode response = qrService.createQRCode(userId, accountId);
         return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, response));
     }

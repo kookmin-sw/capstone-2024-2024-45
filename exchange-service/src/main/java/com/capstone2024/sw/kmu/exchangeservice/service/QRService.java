@@ -19,6 +19,10 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.Duration;
 import java.util.Objects;
 
 @Slf4j
@@ -43,7 +47,12 @@ public class QRService {
         Mac hasher = Mac.getInstance(ALGORITHM);
         hasher.init(secretKey);
 
-        String data = userId + ":" + accountId;
+        // 한국 시간대 설정
+        ZonedDateTime nowInKorea = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        // ISO 8601 형식으로 시간 포맷
+        String formattedTime = nowInKorea.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+
+        String data = userId + "%" + accountId + "%" + formattedTime;
 
         byte[] hash = hasher.doFinal(data.getBytes());
         String hashed = HexUtils.toHexString(hash);
@@ -63,9 +72,14 @@ public class QRService {
 
         if (Objects.equals(hashed, dto.getHmac())) {
 
-            String[] parts = dto.getUserInfo().split(":");
+            String[] parts = dto.getUserInfo().split("%");
             String ReceiverUserId = parts[0];
             String ReceiverAccountId = parts[1];
+            String createdAt = parts[2];
+
+            if(!isValid(createdAt)){
+                return APIResponse.of(ErrorCode.INVALID_QR_CODE, "유효시간이 지난 QR 코드 입니다.");
+            }
 
             // TODO: user service 호출, ReceiverUserId 로 닉네임, 프로필 이미지 받아오기 연결
 
@@ -76,7 +90,23 @@ public class QRService {
             return APIResponse.of(SuccessCode.SELECT_SUCCESS, response);
 
         } else {
-            return APIResponse.of(ErrorCode.INVALID_DEAL_STATUS, "QR 코드 인증에 실패했습니다.");
+            return APIResponse.of(ErrorCode.INVALID_QR_CODE, "QR 코드 인증에 실패했습니다.");
         }
+    }
+
+    private boolean isValid(String createdAt) {
+
+        // 문자열을 ZonedDateTime 객체로 파싱
+        ZonedDateTime parsedTime = ZonedDateTime.parse(createdAt, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        // 현재 한국 시간대의 시간
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
+        // 두 시간 사이의 차이 계산
+        Duration duration = Duration.between(parsedTime, now);
+
+        System.out.println(duration);
+
+        // 차이가 2분 이상인지 확인
+        return duration.toMinutes() <= 2;
     }
 }
