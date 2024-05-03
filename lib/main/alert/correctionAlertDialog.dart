@@ -5,13 +5,7 @@ import 'package:suntown/main/Exchange/inputTransfor.dart';
 import 'package:suntown/qr/qrScanner.dart';
 import 'package:suntown/utils/screenSizeUtil.dart';
 
-import '../../User/User.dart';
-
-User userData = User();
-
-/*
-dialog 추가된 것, 캡스톤에 옮기기, 그리고 exchange 부분 변경사항 변경하기
- */
+import '../../User/userData/User.dart';
 
 class CorrectAlertDialog {
   static Future<void> show(BuildContext context) async {
@@ -22,6 +16,7 @@ class CorrectAlertDialog {
       context: context,
       isScrollControlled: true,
       backgroundColor: Color(0xFFFFF6F6),
+      isDismissible: false, // ModalBottomSheet 외부 터치로 닫히지 않도록 설정
       builder: (BuildContext context) {
         return Container(
           padding: EdgeInsets.all(20.0),
@@ -114,7 +109,7 @@ class CorrectAlertDialog {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  InputTransfor(userId: userData.id)));
+                                  InputTransfor()));
                     },
                     child: Text(
                       '보낼 매듭 입력으로 돌아갑니다',
