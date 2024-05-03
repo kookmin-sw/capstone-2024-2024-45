@@ -111,6 +111,15 @@ class TransactionDetailPage extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 20),
+            // 잘못 보내셨나요? 버튼 추가
+            ElevatedButton(
+              onPressed: () {
+                // 버튼이 눌리면 무엇을 할지 정의
+                // 여기서는 도움말을 표시하거나 필요한 작업을 수행할 수 있어요.
+              },
+              child: Text('잘못 보내셨나요?'),
+            ),
           ],
         ),
       ),

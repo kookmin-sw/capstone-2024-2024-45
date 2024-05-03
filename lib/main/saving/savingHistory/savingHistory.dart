@@ -40,16 +40,18 @@ class _SavinghistoryState extends State<Savinghistory> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+        double screenHeight = MediaQuery.of(context).size.height;
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(screenWidth * 0.05),
           ),
           child: Container(
-            width: 345,
-            height: 344,
+            width: screenWidth * 0.9,
+            height: screenHeight * 0.6,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(screenWidth * 0.05),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -57,11 +59,11 @@ class _SavinghistoryState extends State<Savinghistory> {
                 Text(
                   '어떤걸 볼까요?',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: screenWidth * 0.06,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.02),
                 _filterOption('주고받은 매듭 확인하기'),
                 _filterOption('받은 매듭만 확인하기'),
                 _filterOption('보낸 매듭만 확인하기'),
@@ -74,6 +76,8 @@ class _SavinghistoryState extends State<Savinghistory> {
   }
 
   Widget _filterOption(String text) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height; // screenHeight 선언
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -92,21 +96,21 @@ class _SavinghistoryState extends State<Savinghistory> {
         Navigator.of(context).pop();
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        width: 320,
-        height: 60,
+        margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+        width: screenWidth * 0.8,
+        height: screenHeight * 0.08,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Color(0xFFFFE2E2), width: 1),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(screenWidth * 0.1),
         ),
         alignment: Alignment.center,
         child: Text(
           text,
           style: TextStyle(
             color: Color(0xFF4B4A48),
-            fontSize: 20,
+            fontSize: screenWidth * 0.05,
             fontFamily: 'Noto Sans KR',
             fontWeight: FontWeight.w500,
           ),
@@ -137,7 +141,7 @@ class _SavinghistoryState extends State<Savinghistory> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
               decoration: BoxDecoration(
                 color: Color(0xFFFFE2E2), // Light pink header background
                 boxShadow: [
@@ -153,7 +157,7 @@ class _SavinghistoryState extends State<Savinghistory> {
                 '환불을 원하시면,\n해당 거래를 눌러주세요',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -161,13 +165,18 @@ class _SavinghistoryState extends State<Savinghistory> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    top: MediaQuery.of(context).size.width * 0.02,
+                    bottom: MediaQuery.of(context).size.width * 0.02),
                 child: TextButton.icon(
-                  icon: Icon(Icons.arrow_drop_down, size: 24),
+                  icon: Icon(Icons.arrow_drop_down,
+                      size: MediaQuery.of(context).size.width * 0.06),
                   label: Text('전체'),
                   onPressed: _showFilterOptions,
-                  style:
-                      TextButton.styleFrom(textStyle: TextStyle(fontSize: 16)),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.04)),
                 ),
               ),
             ),
@@ -175,17 +184,21 @@ class _SavinghistoryState extends State<Savinghistory> {
               child: ListView(
                 children: groupedTransactions.entries.map((entry) {
                   return Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20.0), // Added indentation
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width *
+                            0.04), // Added indentation
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.02),
                           child: Text(
                             entry.key,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Column(
