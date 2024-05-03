@@ -11,6 +11,7 @@ class QrTimeOutDialog {
 
     return showDialog(
         context: context,
+        barrierDismissible: false, // 다이얼로그 외부 터치로 닫히지 않도록 설정
         builder: (context) {
           return WillPopScope(
             onWillPop: () async {
@@ -20,15 +21,20 @@ class QrTimeOutDialog {
             child: AlertDialog(
               backgroundColor: Color(0xFFFFF6F6),
               contentPadding: EdgeInsets.all(20),
+              title: Center(
+                child: Text("\u{1F62D}",
+                  style: TextStyle(
+                    color: Color(0xFFFF8D4D),
+                    fontSize: screenWidth * 0.075,
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: screenHeight * 0.025
-                  ),
-                  Text(
-                    "\u{1F62D}",
-                    style: TextStyle(fontSize: screenWidth * 0.075, fontFamily: 'Noto Sans KR'),
-                  ),
                   SizedBox(height: screenHeight * 0.025
                   ),
                   Text.rich(
