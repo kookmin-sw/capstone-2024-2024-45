@@ -27,4 +27,6 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     @Transactional
     @Query("UPDATE Inquire i SET i.inquireText = :inquire, i.updatedAt = CURRENT_TIMESTAMP WHERE i.inquireId = :id")
     void findByInquireIdAndUpdateInquire(Long id, String inquire);
+
+    List<Inquire> findByInquirerId(Long userId);
 }

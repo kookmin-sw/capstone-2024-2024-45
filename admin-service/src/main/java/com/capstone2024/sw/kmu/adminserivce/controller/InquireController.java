@@ -51,7 +51,24 @@ public class InquireController {
         }
     }
 
-    // TODO: 내 문의 보기
+    @Operation(summary = "내 문의 보기", description = "사용자가 자신의 문의했던 문의 리스트를 봅니다.")
+    @GetMapping("")
+    public ResponseEntity<APIResponse> getMyInquires(
+            @RequestHeader Long userId
+    ) {
+        List<Inquire> inquires = inquireService.getMyInquires(userId);
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));
+    }
+
+    @Operation(summary = "내 특정 문의 보기", description = "사용자가 자신의 문의했던 특정 문의를 봅니다.")
+    @GetMapping("{inquireId}")
+    public ResponseEntity<APIResponse> getMyInquire(
+            @Schema(description = "문의 id", example = "1")
+            @PathVariable Long inquireId
+    ) {
+        Inquire inquires = inquireService.getInquire(inquireId);
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));
+    }
 
     @Operation(summary = "내 문의 수정하기", description = "사용자가 문의를 수정합니다. * 답변이 달리지 않았을 때만 가능")
     @PatchMapping("/{inquireId}")

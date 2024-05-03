@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS admin.inquire (
     inquire_text TEXT NOT NULL,
     is_completed BOOLEAN NOT NULL ,
     created_at TIMESTAMP NOT NULL ,
-    updated_at TIMESTAMP NULL
+    updated_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS admin.reply (
@@ -23,5 +23,5 @@ CREATE TABLE IF NOT EXISTS admin.reply (
     admin_id BIGINT NOT NULL,
     reply TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NULL
+    updated_at TIMESTAMP NOT NULL
 );

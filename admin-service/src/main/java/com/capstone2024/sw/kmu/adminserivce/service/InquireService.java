@@ -53,4 +53,8 @@ public class InquireService {
     public void updateInquire(Long inquireId, String inquire) {
         inquireRepository.findByInquireIdAndUpdateInquire(inquireId, inquire);
     }
+
+    public List<Inquire> getMyInquires(Long userId) {
+        return inquireRepository.findByInquirerId(userId);
+    }
 }
