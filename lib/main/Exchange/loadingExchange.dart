@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:suntown/User/ScannedUser.dart';
+import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
+import 'package:suntown/utils/api/send/sendPost.dart';
 
-import '../../User/SendApi.dart';
-import '../../User/User.dart';
-import '../../utils/httpPost.dart';
-import '../../utils/http_put.dart';
+import '../../User/SendAmount.dart';
+import '../../User/userData/User.dart';
+import '../../utils/api/base/httpPost.dart';
+import '../../utils/api/base/http_put.dart';
 import '../../utils/screenSizeUtil.dart';
-import '../alert/ApiRequestFailAlert.dart';
+import '../alert/apiFail/ApiRequestFailAlert.dart';
 
 class LoadingExchange extends StatefulWidget {
   const LoadingExchange({Key? key}) : super(key: key);
@@ -34,48 +35,25 @@ class _LoadingExchangeState extends State<LoadingExchange> {
   Future<void> fetchData() async {
     try {
       // API 요청을 보냅니다.
-      final value = await httpPut(path: '/api/users/2', data: sendApi.toJson());
+      final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount);
 
-      if (value == 201) { //put
+      if (value['statusCode'] == 200) {
         // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FinishExchange()),
-        );
+        if(value["status"] == 201){ //검증 완료
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FinishExchange()),
+          );
+        }
       } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context);
+        ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingExchange());
         debugPrint('서버 에러입니다. 다시 시도해주세요');
-        // 에러가 발생하면 에러 메시지를 출력합니다.
-        // 이 경우에는 화면 전환이 필요하지 않으므로 setState()는 호출하지 않습니다.
       }
     } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context);
+      ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingExchange());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
-      // 에러가 발생하면 에러 메시지를 출력합니다.
-      // 이 경우에는 화면 전환이 필요하지 않으므로 setState()는 호출하지 않습니다.
     }
   }
-
-  // //post 방식 추가
-  // Future<void> fetchData() async {
-  //   try {
-  //     // API 요청을 보냅니다.
-  //     final value = await httpPost(path: '/api/users/2', data: sendApi.toJson());
-  //
-  //     if (value == 200) { //post
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => FinishExchange()),
-  //       );
-  //     } else {
-  //       ApiRequestFailAlert.showExpiredCodeDialog(context);
-  //       debugPrint('서버 에러입니다. 다시 시도해주세요');
-  //     }
-  //   } catch (e) {
-  //     ApiRequestFailAlert.showExpiredCodeDialog(context);
-  //     debugPrint('API 요청 중 오류가 발생했습니다: $e');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +101,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '${scannedUser.lastName}',
+                      text: '${scannedUser.name}',
                       style: TextStyle(
                         color: Color(0xFFFF8D4D),
                         fontSize: screenWidth * 0.06,

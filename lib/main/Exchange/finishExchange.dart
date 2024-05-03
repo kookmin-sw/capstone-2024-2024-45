@@ -1,9 +1,10 @@
 // 송금 완료 화면
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:suntown/User/ScannedUser.dart';
+import 'package:suntown/User/scannedUserData/ScannedUser.dart';
+import 'package:suntown/qr/qrScanner.dart';
 
-import '../../User/User.dart';
+import '../../User/userData/User.dart';
 import '../../utils/screenSizeUtil.dart';
 import '../mainAccount.dart';
 import 'inputTransfor.dart';
@@ -122,7 +123,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => InputTransfor(userId: scannedUser.id)),
+                      MaterialPageRoute(builder: (context) => qrScanner()),
                     );
                   },
                   child: Text(

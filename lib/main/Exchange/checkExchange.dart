@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:suntown/User/ScannedUser.dart';
-import 'package:suntown/User/ScannedUserAmountInfo.dart';
-import 'package:suntown/User/SendApi.dart';
+import 'package:suntown/User/scannedUserData/ScannedUser.dart';
+import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
+import 'package:suntown/User/SendAmount.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
 
-import '../../User/User.dart';
+import '../../User/userData/User.dart';
 import '../../utils/screenSizeUtil.dart';
 import '../alert/correctionAlertDialog.dart';
 
@@ -27,8 +27,8 @@ class _CheckExchangeState extends State<CheckExchange> {
   SendApi sendApi = SendApi();
 
   void fetchData(){ //지금까지 받은 데이터 넣기
-    sendApi.receiverAccountId = scannedUser.id;
-    sendApi.sendAccountId = user.id; //나중에 전부 accountId로 바꾸기
+    sendApi.receiverAccountId = scannedUser.accountId;
+    sendApi.sendAccountId = "11111111-1111-1111-111111111111"; //나중에 user 연동시 변경 예정
   }
 
   @override
@@ -57,7 +57,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                     // 여기에 프로필 이미지 설정
                     radius: screenWidth * 0.15, // 이미지 크기 설정
                     backgroundImage:
-                    NetworkImage(scannedUser.avatar), // 네트워크 이미지 사용 예시
+                    NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
                   ),
                   SizedBox(
                     height: screenHeight * 0.1,
@@ -69,7 +69,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${scannedUser.lastName}',
+                          '${scannedUser.name}',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: screenWidth * 0.085,
