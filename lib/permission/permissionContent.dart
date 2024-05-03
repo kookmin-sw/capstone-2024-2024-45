@@ -127,7 +127,7 @@ class _PermissionContentState extends State<PermissionContent> {
                   child: const Text(
                     '앱 시작하기',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color(0xFF4B4A48),
                       fontSize: 23,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w300,
@@ -140,7 +140,7 @@ class _PermissionContentState extends State<PermissionContent> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    backgroundColor: Color(0xFF4B4A48),
+                    backgroundColor: Color(0xFFFF8D4D),
                   ),
                 ),
               ],
