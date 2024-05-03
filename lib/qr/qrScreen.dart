@@ -21,6 +21,13 @@ class QrScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
+        actions: <Widget>[
+          // 빈 아이콘을 추가하여 빈 공간을 만듭니다.
+          IconButton(
+            icon: Container(),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
