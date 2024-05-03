@@ -29,4 +29,7 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     void findByInquireIdAndUpdateInquire(Long id, String inquire);
 
     List<Inquire> findByInquirerId(Long userId);
+
+    void deleteByInquireId(Long inquireId);
+
 }

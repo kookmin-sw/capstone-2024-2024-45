@@ -4,7 +4,6 @@ import com.capstone2024.sw.kmu.adminserivce.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.InquireRequestDto;
-import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.ReplyRequestDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
 import com.capstone2024.sw.kmu.adminserivce.service.InquireService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -89,7 +88,23 @@ public class InquireController {
         }
     }
 
-    // TODO: 내 문의 취소하기
+    @Operation(summary = "내 문의 취소하기", description = "사용자가 문의를 취소합니다. * 답변이 달리지 않았을 때만 가능")
+    @DeleteMapping("/{inquireId}")
+    public ResponseEntity<APIResponse> deleteMyInquire(
+            @Schema(description = "문의 id", example = "1")
+            @PathVariable Long inquireId
+    ) {
+
+        if( inquireService.isCompleted(inquireId))
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.INVALID_INQUIRE_STATUS, "이미 답변이 완료되어 문의를 수정할 수 없습니다."));
+
+        try {
+            inquireService.deleteMyInquire(inquireId);
+            return ResponseEntity.ok(APIResponse.of(SuccessCode.DELETE_SUCCESS));
+        } catch (Exception e){
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.DELETE_ERROR, e));
+        }
+    }
 
     @Operation(summary = "문의 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
     @GetMapping("/type/{type}")

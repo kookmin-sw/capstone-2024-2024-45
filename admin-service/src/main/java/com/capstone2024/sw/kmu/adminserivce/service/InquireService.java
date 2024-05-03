@@ -6,6 +6,7 @@ import com.capstone2024.sw.kmu.adminserivce.repository.InquireRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,5 +57,10 @@ public class InquireService {
 
     public List<Inquire> getMyInquires(Long userId) {
         return inquireRepository.findByInquirerId(userId);
+    }
+
+    @Transactional
+    public void deleteMyInquire(Long inquireId) {
+        inquireRepository.deleteByInquireId(inquireId);
     }
 }
