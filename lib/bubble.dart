@@ -50,7 +50,7 @@ class TopSideBubble extends StatelessWidget {
                     text: ["           오늘도 나눔에 앞장서는 아름다운 당신을 응원합니다!"],
                     textStyle: TextStyle(
                       color: Color(0xFF727272),
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.037,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                     ),

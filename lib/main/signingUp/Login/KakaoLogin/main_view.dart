@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/login_out.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
+import '../firebase_auth_remote_data_source.dart';
 
 class MainViewModel{
+  final _firebaseAuthDataSource = FirebaseAuthRemoteDataSource();
   final SocialLogin _socialLogin;
   // 처음에 로그인은 fasle로 설정
   bool isLogined = false;
-  User? user;
+  kakao.User? user;
 
   MainViewModel(this._socialLogin);
 
@@ -13,7 +16,15 @@ class MainViewModel{
     isLogined = await _socialLogin.login();
     if(isLogined){
       // 현재 로그인된 유저 정보를 가지고옴
-      user = await UserApi.instance.me();
+      user = await kakao.UserApi.instance.me();
+      // 서버로 user정보 보내고 customToken 받아냄.
+      final customToken = await _firebaseAuthDataSource.createCustomToken({
+        'uid' : user!.id.toString(),
+        'displayName' : user!.kakaoAccount!.profile!.nickname,
+        'email' : user!.kakaoAccount!.email!,
+      });
+      // FirebaseAuth와 연결
+      await FirebaseAuth.instance.signInWithCustomToken(customToken);
     }
   }
 
