@@ -36,7 +36,7 @@ public class Reply {
     @Column(name = "reply")
     private String reply;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -45,7 +45,8 @@ public class Reply {
     @UpdateTimestamp 어노테이션이 있는 필드가 자동으로 업데이트되지 않는 이유는,
     @Query를 사용한 사용자 정의 쿼리로 데이터를 직접 업데이트할 때 JPA가 엔티티의 생명주기 이벤트를 트리거하지 않기 때문입니다.
      */
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public static Reply from(Long inquireId, Long adminId, String reply) {
