@@ -2,20 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:suntown/User/ScannedUserAmountInfo.dart';
+import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
 import 'package:suntown/main/CustomKeyboard/KeyboardKeys.dart';
 import 'package:suntown/main/Exchange/checkExchange.dart';
 
-import '../../User/ScannedUser.dart';
-import '../../User/SendApi.dart';
-import '../../User/User.dart';
-import '../../utils/HttpGet.dart';
+import '../../User/scannedUserData/ScannedUser.dart';
+import '../../User/SendAmount.dart';
+import '../../User/userData/User.dart';
 import '../../utils/screenSizeUtil.dart';
 
 class InputTransfor extends StatefulWidget {
-  final String userId; // 생성자에 userId 추가
 
-  const InputTransfor({Key? key, required this.userId}) : super(key: key);
+  const InputTransfor({Key? key}) : super(key: key);
 
   @override
   State<InputTransfor> createState() => _InputTransforState();
@@ -27,7 +25,7 @@ class _InputTransforState extends State<InputTransfor> {
   late ScannedUserAccountInfo scannedUserAccountInfo; //나중에 이것도 받아오는 fetch 작성해야 함
 
   String alerttext = "";
-  int balance = 1000000; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
+  late int balance; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
   String amount = '';
   int parsedAmount = 0;
   bool isDataLoaded = false; // 데이터가 로드되었는지 여부를 나타내는 변수 추가
@@ -51,52 +49,9 @@ class _InputTransforState extends State<InputTransfor> {
     super.initState();
     sendData = SendApi();
     scannedUser = ScannedUser(); // UserData 인스턴스 생성
-    scannedUserAccountInfo = ScannedUserAccountInfo();
-    _fetchUserData(); // initState에서 데이터 가져오도록 호출
-    // _fetchAccountData();
+    balance = int.parse(scannedUser.senderBalance);
   }
 
-  // API 요청을 보내어 사용자 데이터를 가져오는 메서드
-  Future<void> _fetchUserData() async {
-    // userId를 사용하여 API 요청을 보냄
-    Map<String, dynamic> userdata =
-    await httpGet(path: '/api/users/${widget.userId}'); //여기서 임호화된 데이터를 보내야함
-    // API 응답을 통해 사용자 데이터 업데이트
-
-    if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
-      // 사용자 데이터를 업데이트
-      scannedUser.initializeData(userdata["data"]);
-
-      // setState를 호출하여 화면을 다시 그림
-      setState(() {
-        isDataLoaded = true; // 데이터가 로드되었음을 표시
-      });
-    } else {
-      // API 요청 실패 처리
-      debugPrint('Failed to fetch user data');
-    }
-  }
-
-  // // API 요청을 보내어 사용자 데이터를 가져오는 메서드
-  // Future<void> _fetchAccountData() async {
-  //   // userId를 사용하여 API 요청을 보냄
-  //   Map<String, dynamic> userdata =
-  //   await httpGet(path: '/api/users/${scannedUser.id}'); //여기서 임호화된 데이터를 보내야함
-  //   // API 응답을 통해 사용자 데이터 업데이트
-  //
-  //   if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
-  //     // 사용자 데이터를 업데이트
-  //     scannedUserAccountInfo.initializeData(userdata["data"]);
-  //
-  //     // setState를 호출하여 화면을 다시 그림
-  //     setState(() {
-  //       isDataLoaded = true; // 데이터가 로드되었음을 표시
-  //     });
-  //   } else {
-  //     // API 요청 실패 처리
-  //     debugPrint('Failed to fetch user data');
-  //   }
-  // }
 
   onKeyTap(val) {
     if (val == "0" && amount.length == 0) {
@@ -163,7 +118,7 @@ class _InputTransforState extends State<InputTransfor> {
 
   renderAmount(double screenWidth, double screenHeight) {
     String display = "입력해 주세요";
-    String nickname = scannedUser.lastName; //api에서 가져온 닉네임 활용
+    String nickname = scannedUser.name; //api에서 가져온 닉네임 활용
     String printNickname = "$nickname 님에게"; //닉네임 잘 받아오는지 보기
 
     TextStyle nameTextStyle = TextStyle(
@@ -195,7 +150,7 @@ class _InputTransforState extends State<InputTransfor> {
                 CircleAvatar(
                   // 여기에 프로필 이미지 설정
                   radius: screenWidth * 0.1, // 이미지 크기 설정
-                  backgroundImage: NetworkImage(scannedUser.avatar), // 네트워크 이미지 사용 예시
+                  backgroundImage: NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
                 ),
                 SizedBox(
                   height: screenHeight * 0.04,
@@ -293,16 +248,6 @@ class _InputTransforState extends State<InputTransfor> {
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
-
-    // userData 정보가 설정되었다면 화면을 그림
-    if (!isDataLoaded) {
-      // 데이터가 로드되지 않았으면 로딩 화면을 보여줍니다.
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
 
     // 데이터가 로드되었다면 화면을 그립니다.
     return Scaffold(
