@@ -1,8 +1,11 @@
 package com.capstone2024.sw.kmu.adminserivce.service;
 
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.InquireRequestDto;
+import com.capstone2024.sw.kmu.adminserivce.controller.dto.response.InquireReplyResponseDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
+import com.capstone2024.sw.kmu.adminserivce.domain.Reply;
 import com.capstone2024.sw.kmu.adminserivce.repository.InquireRepository;
+import com.capstone2024.sw.kmu.adminserivce.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.List;
 public class InquireService {
 
     private final InquireRepository inquireRepository;
+    private final ReplyRepository replyRepository;
 
     public void createInquire(Long userId, String inquire) {
 
@@ -43,8 +47,15 @@ public class InquireService {
         };
     }
 
-    public Inquire getInquire(Long inquireId) {
-        return inquireRepository.findByInquireId(inquireId);
+    public InquireReplyResponseDto.InquireReply getInquire(Long inquireId) {
+        Reply reply = replyRepository.findByInquireId(inquireId);
+
+        if(reply == null){
+            Inquire inquire = inquireRepository.findByInquireId(inquireId);
+            return InquireReplyResponseDto.InquireReply.IncompletedFrom(inquire);
+        }else{
+            return InquireReplyResponseDto.InquireReply.CompletedFrom(reply);
+        }
     }
 
     public boolean isCompleted(Long inquireId) {

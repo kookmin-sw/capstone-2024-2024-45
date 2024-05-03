@@ -4,6 +4,7 @@ import com.capstone2024.sw.kmu.adminserivce.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.InquireRequestDto;
+import com.capstone2024.sw.kmu.adminserivce.controller.dto.response.InquireReplyResponseDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
 import com.capstone2024.sw.kmu.adminserivce.service.InquireService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +23,7 @@ public class InquireController {
 
     private final InquireService inquireService;
 
-    @Operation(summary = "일반 문의", description = "사용자가 문의하기 기능을 사용합니다.")
+    @Operation(summary = "일반 문의 등록", description = "사용자가 문의하기 기능을 사용합니다.")
     @PostMapping("")
     public ResponseEntity<APIResponse> createInquire(
             @RequestHeader Long userId,
@@ -36,7 +37,7 @@ public class InquireController {
         }
     }
 
-    @Operation(summary = "거래 취소 문의", description = "사용자가 거래 취소 문의하기 기능을 사용합니다.")
+    @Operation(summary = "거래 취소 문의 등록", description = "사용자가 거래 취소 문의하기 기능을 사용합니다.")
     @PostMapping("/remittance")
     public ResponseEntity<APIResponse> createRemittanceInquire(
             @RequestHeader Long userId,
@@ -50,7 +51,7 @@ public class InquireController {
         }
     }
 
-    @Operation(summary = "내 문의 보기", description = "사용자가 자신의 문의했던 문의 리스트를 봅니다.")
+    @Operation(summary = "내 문의 리스트로 보기", description = "사용자가 자신의 문의했던 문의 리스트를 봅니다.")
     @GetMapping("")
     public ResponseEntity<APIResponse> getMyInquires(
             @RequestHeader Long userId
@@ -61,12 +62,12 @@ public class InquireController {
 
     @Operation(summary = "내 특정 문의 보기", description = "사용자가 자신의 문의했던 특정 문의를 봅니다.")
     @GetMapping("{inquireId}")
-    public ResponseEntity<APIResponse> getMyInquire(
+    public ResponseEntity<APIResponse<InquireReplyResponseDto.InquireReply>> getMyInquire(
             @Schema(description = "문의 id", example = "1")
             @PathVariable Long inquireId
     ) {
-        Inquire inquires = inquireService.getInquire(inquireId);
-        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));
+        InquireReplyResponseDto.InquireReply response = inquireService.getInquire(inquireId);
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, response));
     }
 
     @Operation(summary = "내 문의 수정하기", description = "사용자가 문의를 수정합니다. * 답변이 달리지 않았을 때만 가능")
@@ -106,7 +107,7 @@ public class InquireController {
         }
     }
 
-    @Operation(summary = "문의 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
+    @Operation(summary = "(관리자) 문의 리스트로 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
     @GetMapping("/type/{type}")
     public ResponseEntity<APIResponse> getInquires(
             @Schema(description = "문의 타입", example = "all / general / refund 중 하나 입력")
@@ -120,14 +121,13 @@ public class InquireController {
         }
     }
 
-    @Operation(summary = "특정 문의 보기", description = "관리자가 특정 문의를 봅니다. (답변하기 버튼에서 사용될 예정. 버튼 누르면 특정 문의와 함께 답변할 수 있는 화면이 뜸)")
+    @Operation(summary = "(관리자) 특정 문의 보기", description = "관리자가 특정 문의를 봅니다.")
     @GetMapping("/id/{inquireId}")
-    public ResponseEntity<APIResponse> getInquire(
+    public ResponseEntity<APIResponse<InquireReplyResponseDto.InquireReply>> getInquire(
             @Schema(description = "문의 id", example = "1")
             @PathVariable Long inquireId
     ) {
-
-        Inquire inquire = inquireService.getInquire(inquireId);
-        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquire));
+        InquireReplyResponseDto.InquireReply response = inquireService.getInquire(inquireId);
+        return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, response));
     }
 }

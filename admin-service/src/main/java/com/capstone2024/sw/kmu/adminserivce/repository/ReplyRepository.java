@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
+    Reply findByInquireId(Long id);
+
     @Modifying
     @Transactional
     @Query("UPDATE Reply i SET i.reply = :reply, i.updatedAt = CURRENT_TIMESTAMP WHERE i.inquireId = :id")
