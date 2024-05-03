@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,16 +26,18 @@ public class AdminInquireController {
     private final InquireService inquireService;
 
     @Operation(summary = "(관리자) 문의 리스트로 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
-    @GetMapping("/type/{type}")
+    @GetMapping("/all")
     public ResponseEntity<APIResponse> getInquires(
             @Schema(description = "문의 타입", example = "all / general / refund 중 하나 입력")
-            @PathVariable String type
+            @RequestParam(value = "type", defaultValue="all") String type,
+            @RequestParam(value = "completion", required = false) Boolean completion
+
     ) {
         try {
-            List<Inquire> inquires = inquireService.getInquires(type);
+            List<Inquire> inquires = inquireService.getInquires(type, completion);
             return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));
         }catch (Exception e){
-            return ResponseEntity.ok(APIResponse.of(ErrorCode.INVALID_PARAMETER, "잘못된 타입을 입력했습니다."));
+            return ResponseEntity.ok(APIResponse.of(ErrorCode.INVALID_PARAMETER, e + "잘못된 타입을 입력했습니다."));
         }
     }
 

@@ -37,14 +37,17 @@ public class InquireService {
         return "거래 id: " + transId + "\n\n원래 보내려고 했던 금액: " + expectedAmount + "\n\n추가 문의사항: " + inquire;
     }
 
-    public List<Inquire> getInquires(String type) {
+    public List<Inquire> getInquires(String type, Boolean isCompleted) {
 
-        return switch (type) {
-            case "all" -> inquireRepository.findAllByOrderByCreatedAtDesc();
-            case "general" -> inquireRepository.findByInquireTypeOrderByCreatedAtDesc(1);
-            case "refund" -> inquireRepository.findByInquireTypeOrderByCreatedAtDesc(2);
+        Integer typeInt;
+        switch (type) {
+            case "all" -> typeInt = null;
+            case "general" -> typeInt = 1;
+            case "refund" -> typeInt = 2;
             default -> throw new IllegalArgumentException("잘못된 타입을 입력했습니다.: " + type);
         };
+
+        return inquireRepository.findAllByFiltersOrderByCreatedAtDesc(typeInt, isCompleted);
     }
 
     public InquireReplyResponseDto.InquireReply getInquire(Long inquireId) {
