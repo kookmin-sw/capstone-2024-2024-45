@@ -1,10 +1,12 @@
-import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:suntown/qr/qrScreen.dart';
 
+import '../main/alert/apiFail/ApiRequestFailAlert.dart';
 import '../utils/screenSizeUtil.dart';
 import 'qrScreenProvider.dart';
 
@@ -14,6 +16,16 @@ class QrScreenContent extends StatefulWidget {
 }
 
 class _QrScreenContentState extends State<QrScreenContent> {
+  QrScreenProvider qrScreenProvider = QrScreenProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    qrScreenProvider.errorStream.listen((error){ //에러 핸들러..동작 하는지는 미지수(test 필)
+      ApiRequestFailAlert.showExpiredCodeDialog(context,QrScreen());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
@@ -21,9 +33,20 @@ class _QrScreenContentState extends State<QrScreenContent> {
 
     final provider = Provider.of<QrScreenProvider>(context);
     final user = provider.user;
+    final secretData = provider.secretScannedUserData;
 
-    // 타이머가 만료되었는지 확인하여 버튼 활성화 여부 결정
+    // 타이머가 만료되었는지 확인하여 자동 화면 변경
     bool timerExpired = provider.expirationTime.isBefore(DateTime.now());
+
+    if (timerExpired) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        setState(() {
+          provider.refreshQrData();
+        });
+      });
+    }
+
+    // 위젯을 빌드할 때마다 권한 상태를 업데이트
 
     return Container(
       width: screenWidth * 0.8,
@@ -66,24 +89,21 @@ class _QrScreenContentState extends State<QrScreenContent> {
                           height: screenHeight * 0.4,
                           child: QrImageView(
                             data:
-                                "helloworld://send?id=${user.id}&datetime=${user.dateTime}",
-                            embeddedImage:
-                                NetworkImage(user.avatar as String),
-                            embeddedImageStyle: QrEmbeddedImageStyle(
-                              size: Size(
-                                  screenWidth * 0.15, screenWidth * 0.15),
-                            ),
+                                "helloworld://send?hmac=${secretData.hmac}&data=${secretData.incodingData}",
+                            // embeddedImage: NetworkImage(user.avatar as String),
+                            // embeddedImageStyle: QrEmbeddedImageStyle(
+                            //   size:
+                            //       Size(screenWidth * 0.15, screenWidth * 0.15),
+                            // ),
                             version: QrVersions.auto,
                             size: screenWidth * 0.5,
                             dataModuleStyle: QrDataModuleStyle(
                               dataModuleShape: QrDataModuleShape.square,
-                              color:
-                                  timerExpired ? Colors.white : Colors.black,
+                              color: Colors.black,
                             ),
                             eyeStyle: QrEyeStyle(
                               eyeShape: QrEyeShape.square,
-                              color:
-                                  timerExpired ? Colors.white : Colors.black,
+                              color: Colors.black,
                             ),
                           ),
                         )
@@ -91,42 +111,15 @@ class _QrScreenContentState extends State<QrScreenContent> {
                 ),
               ),
               Spacer(),
-              timerExpired
-                  ? ElevatedButton(
-                      onPressed: () {
-                        provider
-                            .refreshQrData(); // refreshQrData() 실행 완료 후에 QrImageView 표시
-                      },
-                      child: Text(
-                        '매듭코드 다시 발급받기',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth * 0.06,
-                          fontFamily: 'Noto Sans KR',
-                          fontWeight: FontWeight.w300,
-                          height: 0,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize:
-                            Size(screenWidth * 0.85, screenHeight * 0.08),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        backgroundColor: Color(0xFF4B4A48),
-                      ),
-                    )
-                  : Text(
-                      '매듭 코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.06,
-                        color: Color(0xFF4B4A48),
-                        fontFamily: 'Noto Sans KR',
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+              Text(
+                '매듭 코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
+                style: TextStyle(
+                  fontSize: screenWidth * 0.06,
+                  color: Color(0xFF4B4A48),
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ],
           ),
         ),
