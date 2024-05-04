@@ -1,6 +1,7 @@
 package com.capstone2024.sw.kmu.exchangeservice.controller.dto.response;
 
 import com.capstone2024.sw.kmu.exchangeservice.domain.remittance.TransactionHistory;
+import com.capstone2024.sw.kmu.exchangeservice.service.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,18 +42,75 @@ public class TransactionHistoryResponseDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    public static class RemittanceResultWithUserInfo{
+
+        private int amount;
+        private boolean isSender;
+
+        private String senderNickname;
+        private String senderProfileImg;
+        private int senderBalanceAfter;
+
+        private String receiverNickname;
+        private String receiverProfileImg;
+        private int receiverBalanceAfter;
+
+        private LocalDateTime createdAt;
+
+
+        public static RemittanceResultWithUserInfo senderInfoFrom(TransactionHistory response, User user) {
+            return RemittanceResultWithUserInfo.builder()
+                    .amount(response.getAmount())
+                    .isSender(false)
+                    .senderNickname(user.getUserNickname())
+                    .senderProfileImg(user.getUserProfileImg())
+                    .senderBalanceAfter(response.getSenderBalanceAfter())
+                    .createdAt(response.getCreatedAt())
+                    .build();
+        }
+
+        public static RemittanceResultWithUserInfo receiverInfoFrom(TransactionHistory response, User user) {
+            return RemittanceResultWithUserInfo.builder()
+                    .amount(response.getAmount())
+                    .isSender(true)
+                    .receiverNickname(user.getUserNickname())
+                    .receiverProfileImg(user.getUserProfileImg())
+                    .receiverBalanceAfter(response.getReceiverBalanceAfter())
+                    .createdAt(response.getCreatedAt())
+                    .build();
+        }
+    }
+
+    @Builder
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class RemittanceList{
 
         private Long transId;
-        private String senderAccountId;
-        private String receiverAccountId;
+        private boolean send;
+        private String senderNickname;
+        private String senderProfileImg;
+        private String receiverNickname;
+        private String receiverProfileImg;
         private int amount;
 
-        public static RemittanceList from(TransactionHistory response) {
+        public static RemittanceList senderInfoFrom(TransactionHistory response, User user) {
             return RemittanceList.builder()
                     .transId(response.getTransId())
-                    .senderAccountId(response.getSenderAccountId())
-                    .receiverAccountId(response.getReceiverAccountId())
+                    .send(false)
+                    .senderNickname(user.getUserNickname())
+                    .senderProfileImg(user.getUserProfileImg())
+                    .amount(response.getAmount())
+                    .build();
+        }
+
+        public static RemittanceList receiverInfoFrom(TransactionHistory response, User user) {
+            return RemittanceList.builder()
+                    .transId(response.getTransId())
+                    .send(true)
+                    .receiverNickname(user.getUserNickname())
+                    .receiverProfileImg(user.getUserProfileImg())
                     .amount(response.getAmount())
                     .build();
         }
