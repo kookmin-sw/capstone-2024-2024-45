@@ -44,3 +44,6 @@ app.*.map.json
 
 google-services.json
 firebase_options.dart
+
+# Ignore secret files
+functions/kepstone-9eb20-firebase-adminsdk-ede2s-2e983bc917.json
