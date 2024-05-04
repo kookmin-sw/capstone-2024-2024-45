@@ -23,9 +23,25 @@ class MainViewModel{
         'displayName' : user!.kakaoAccount!.profile!.nickname,
         'email' : user!.kakaoAccount!.email!,
       });
-      // FirebaseAuth와 연결
-      await FirebaseAuth.instance.signInWithCustomToken(customToken);
-    }
+
+      try {
+        // FirebaseAuth로 사용자를 Custom Token으로 인증
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCustomToken(customToken);
+        User? user = userCredential.user;
+        if (user != null) {
+          String uid = user.uid;
+          String? email = user.email;
+          print("User UID: $uid");
+          if (email != null) {
+            print("User Email: $email");
+          } else {
+            print("User email is not available.");
+          }
+        }
+      }catch (e){
+        print("Error signing in with custom token: $e");}
+      }
+
   }
 
   Future logout() async{

@@ -9,6 +9,8 @@ import '../../User/UserAccountInfo.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'package:firebase_auth/firebase_auth.dart' ;
 import 'Login/GoogleLogin/google_login.dart';
+
+
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
 
@@ -37,7 +39,7 @@ class _signingUPState extends State<signingUP> {
               Expanded(
                   child: SingleChildScrollView(
                       child : StreamBuilder<User?>(
-                        //login 되고 안되고에 따라 새로운 stream이 들어옴.
+                        // login 되고 안되고에 따라 새로운 stream이 들어옴.
                         stream: FirebaseAuth.instance.authStateChanges(),
                         builder: (context, snapshot) {
                           // login이 진행된 경우
@@ -51,10 +53,10 @@ class _signingUPState extends State<signingUP> {
                                 SizedBox(
                                   height: 75,
                                 ),
-                                Text(
-                                  '${viewModel.isLogined}',
-                                  style : Theme.of(context).textTheme.headline4,
-                                ),
+                                // Text(
+                                //   '${viewModel.isLogined}',
+                                //   style : Theme.of(context).textTheme.headline4,
+                                // ),
                                 SizedBox(
                                   width: 343,
                                   height : 72,
@@ -85,8 +87,8 @@ class _signingUPState extends State<signingUP> {
                                   height: 20,
                                 ),
                                 InkWell(
-                                  onTap: () {
-                                    signInWithGoogle();
+                                  onTap: () async{
+                                    await signInWithGoogle();
                                     //화면 갱신
                                     setState(() {});
                                     print("구글 로그인");
