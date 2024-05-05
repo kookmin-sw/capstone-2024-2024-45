@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class RemittanceRequestDto {
 
@@ -38,6 +39,18 @@ public class RemittanceRequestDto {
         @Schema(description = "계좌 id", example = "550e8400-e294-1d4a-716446655440000")
         @NotEmpty
         private String accountId;
+
+    }
+
+    @Schema(description = "is sender or not")
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class isSender {
+
+        @Schema(description = "is sender or not", example = "")
+        @NotEmpty
+        private boolean isSender;
 
     }
 }
