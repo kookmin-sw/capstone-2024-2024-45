@@ -51,15 +51,14 @@ class _SigningState extends State<Signing> {
       body: Center(
         // mainAxisAlignment: MainAxisAlignment.center,
         child: ElevatedButton(
-           onPressed: (){
-             Navigator.push(context,
-                 MaterialPageRoute(builder: (context) => signingUP()));
-             },
-            child: const Text("회원가입"),
-         ),
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => signingUP()));
+          },
+          child: const Text("회원가입"),
+        ),
       ),
     );
   }
 }
-
 

@@ -12,7 +12,7 @@ Future<UserCredential> signInWithGoogle() async {
     throw Exception('Google 사용자가 아닙니다.');
   }
 
-
+  print('Google 사용자가 맞습니다.');
   // Obtain the auth details from the request
   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
@@ -21,7 +21,6 @@ Future<UserCredential> signInWithGoogle() async {
     accessToken: googleAuth.accessToken,
     idToken: googleAuth.idToken,
   );
-
   // Once signed in, return the UserCredential
 
   // FirebaseAuth로 사용자를 Custom Token으로 인증
@@ -37,6 +36,8 @@ Future<UserCredential> signInWithGoogle() async {
     } else {
       print("User email is not available.");
     }
+  }else {
+    print('null');
   }
   // 이미 구글 로그인 정보가 있는 사용자 인지 아닌지
   // int userCheck = await isRegistered(user!.email!);

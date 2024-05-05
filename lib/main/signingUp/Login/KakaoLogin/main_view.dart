@@ -14,10 +14,23 @@ class MainViewModel{
 
   Future login() async {
     isLogined = await _socialLogin.login();
+    print(isLogined);
     if(isLogined){
+      print('isLogined 진입');
       // 현재 로그인된 유저 정보를 가지고옴
       user = await kakao.UserApi.instance.me();
+      if (user != null) {
+        String uid = user!.id.toString();
+        String? email = user!.kakaoAccount!.email!;
+        print("User UID: $uid");
+        if (email != null) {
+          print("User Email: $email");
+        } else {
+          print("User email is not available.");
+        }
+      }
       // 서버로 user정보 보내고 customToken 받아냄.
+      print('2');
       final customToken = await _firebaseAuthDataSource.createCustomToken({
         'uid' : user!.id.toString(),
         'displayName' : user!.kakaoAccount!.profile!.nickname,
@@ -48,6 +61,7 @@ class MainViewModel{
     await _socialLogin.logout();
     isLogined = false;
     user = null;
+    print('로그아웃 완료');
   }
 
 }
