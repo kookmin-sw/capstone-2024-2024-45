@@ -2,7 +2,7 @@
 """
 from database import get_session
 from fastapi import APIRouter, Depends
-from schema import MessageOnly, CreateUserIn, UserNicknameIn
+from schema import CreateUserIn, UserNicknameIn
 from services import UserCreator, GetUser, GetUserID, NicknameChanger
 
 user_router = APIRouter(

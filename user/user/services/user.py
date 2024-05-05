@@ -37,7 +37,8 @@ class UserCreator:
         try:
             self.session.add(user_object)
             self.session.commit()
-        except:
+        except Exception as e:
+            print(e)
             raise UserCreateFailError
 
         return user_id
