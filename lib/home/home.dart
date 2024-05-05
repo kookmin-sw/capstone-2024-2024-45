@@ -18,6 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final page = const MainAccount();
+
   @override
   void initState() {
     super.initState();
@@ -30,9 +31,11 @@ class _HomeState extends State<Home> {
     PermissionStatus cameraPermissionStatus = await Permission.camera.status;
 
     if (cameraPermissionStatus.isGranted) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MainAccount()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MainAccount()));
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => PermissionWidget()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PermissionWidget()));
     }
   }
 
@@ -40,48 +43,24 @@ class _HomeState extends State<Home> {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Scaffold(
-      backgroundColor: const Color(0xffFFFBD3),
+      backgroundColor: const Color(0xffFFFDF3),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: screenHeight * 0.3, // Lottie와 텍스트 간격 조절
-          ),
           Center(
-            child: Lottie.asset(
-              "assets/lottie/house.json",
-              width: screenWidth * 0.5,
-              height: screenWidth * 0.5,
-            ),
-          ),
-          SizedBox(
-            height: screenHeight * 0.05,
-          ),
-          Center(
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '매듭 ',
-                    style: TextStyle(
-                      color: Color(0xFFFF8D4D),
-                      fontSize: screenWidth * 0.15,
-                      fontFamily: 'Cafe24 Supermagic OTF',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '창고\n',
-                    style: TextStyle(
-                      color: Color(0xFF4B4A48),
-                      fontSize: screenWidth * 0.15,
-                      fontFamily: 'Cafe24 Supermagic OTF',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
+              child: Column(children: [
+            SizedBox(
+              width: screenWidth * 0.8,
+              height: screenWidth * 0.8,
+              child: Image(
+                image: AssetImage('assets/images/knotWarehouse.png'),
               ),
             ),
-          ),
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
+          ])),
         ],
       ),
     );

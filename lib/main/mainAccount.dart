@@ -2,15 +2,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:suntown/User/UserAccountInfo.dart';
+import 'package:suntown/User/userData/UserAccountInfo.dart';
 
-import '../User/User.dart';
+import '../User/userData/User.dart';
 import '../bubble.dart';
 import '../qr/qrScanner.dart';
 import '../qr/qrScreen.dart';
-import '../utils/HttpGet.dart';
+import '../utils/api/base/HttpGet.dart';
 import '../utils/screenSizeUtil.dart';
-import 'alert/ApiRequestFailAlert.dart';
+import 'alert/apiFail/ApiRequestFailAlert.dart';
+import 'accountList/exchangeList.dart';
 
 /*
 흐름
@@ -46,19 +47,17 @@ class _MainAccountState extends State<MainAccount>{
     Map<String, dynamic> userdata =
     await httpGet(path: '/api/users/2'); //2 -> 로그인 세션을 통한 구분자로 차후 변경
 
-    // //404 not found test
-    // await httpGet(path: '/api/unknown/23'); //name..? 암튼 구별 가능한 데이터
-
     if (userdata.containsKey('statusCode') && userdata['statusCode'] == 200) {
       // 사용자 데이터를 업데이트
       user.initializeData(userdata["data"]);
     } else {
-      ApiRequestFailAlert.showExpiredCodeDialog(context);
+      ApiRequestFailAlert.showExpiredCodeDialog(context,MainAccount());
       debugPrint('Failed to fetch user data');
     }
   }
 
   // // API 요청을 보내어 사용자 데이터를 가져오는 메서드
+  //여기서 blocked, 여부등을 체크해서 alert 띄워야함
   // Future<void> _fetchUserAccountData(BuildContext context) async {
   //   // userId를 사용하여 API 요청을 보냄
   //   Map<String, dynamic> userdata =
@@ -85,6 +84,7 @@ class _MainAccountState extends State<MainAccount>{
         return false; //일단 뒤로가기 막아둠. 뒤로가기 하면 로딩 화면이나 이런 화면으로 가길래..
       }, //백그라운드 실행도 괜찮은 것 같기는 함
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: false, // 뒤로가기 아이콘 제거
           leading: IconButton(
@@ -113,7 +113,6 @@ class _MainAccountState extends State<MainAccount>{
           child: Center(
               child: Column(
                 children: [
-                  // 나눔 장려 문구 -----------------
                   Expanded(
                     flex: 50,
                     child: Column(
@@ -138,7 +137,7 @@ class _MainAccountState extends State<MainAccount>{
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     side:
-                                    BorderSide(width: 1, color: Color(0xFFF9DEDE)),
+                                    BorderSide(width: 1, color: Color(0xFFD0BAAD)),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
@@ -153,7 +152,7 @@ class _MainAccountState extends State<MainAccount>{
                                           // '${accountInfo.AccountName} 창고',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: Color(0xFFFA7931),
+                                            color: Color(0xFF7D303D),
                                             fontSize: screenWidth * 0.06,
                                             fontFamily: 'Noto Sans KR',
                                             fontWeight: FontWeight.w400,
@@ -199,7 +198,7 @@ class _MainAccountState extends State<MainAccount>{
                         child: Text(
                           '매듭 보내기',
                           style: TextStyle(
-                            color: Color(0xFF4B4A48),
+                            color: Color(0xFFDDE9E2),
                             fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
@@ -217,7 +216,7 @@ class _MainAccountState extends State<MainAccount>{
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          backgroundColor: Color(0xFFFFD852),
+                          backgroundColor: Color(0xFF2C533C),
                         ),
                       ),
                       SizedBox(
@@ -227,7 +226,7 @@ class _MainAccountState extends State<MainAccount>{
                         child: Text(
                           '매듭 받기',
                           style: TextStyle(
-                            color: Color(0xFF4B4A48),
+                            color: Color(0xFF2C533C),
                             fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
@@ -245,7 +244,7 @@ class _MainAccountState extends State<MainAccount>{
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          backgroundColor: Color(0xFFFF8D4D),
+                          backgroundColor: Color(0xFFDDE9E2),
                         ),
                       ),
                       SizedBox(
@@ -255,13 +254,17 @@ class _MainAccountState extends State<MainAccount>{
                         child: Text(
                           '주고 받은 매듭 확인하기',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFF624A43),
                             fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         onPressed: () {
+                          setState(() {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => exchangeList()));
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
@@ -269,7 +272,7 @@ class _MainAccountState extends State<MainAccount>{
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          backgroundColor: Color(0xFF4B4A48),
+                          backgroundColor: Color(0xFFD3C2BD),
                         ),
                       ),
                     ],

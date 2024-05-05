@@ -13,28 +13,26 @@ class CustomAlertDialog extends StatelessWidget {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: Center(
-        child: Text("\u{1F62D}",
-          style: TextStyle(
-            color: Color(0xFFFF8D4D),
-            fontSize: screenWidth * 0.075,
-            fontFamily: 'Noto Sans KR',
-            fontWeight: FontWeight.w400,
-            height: 0,
+        child: SizedBox(
+          width: screenWidth * 0.1,
+          height: screenWidth * 0.1,
+          child: Image(
+            image: AssetImage('assets/images/knot.png'),
           ),
         ),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: screenHeight * 0.025),
           Text.rich(
             TextSpan(
               children: [
                 TextSpan(
                   text: '권한 미허용 시, 매듭 창고',
                   style: TextStyle(
-                    color: Color(0xFFFF8D4D),
+                    color: Color(0xFF7D303D),
                     fontSize: screenWidth * 0.045,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w400,
@@ -53,7 +51,7 @@ class CustomAlertDialog extends StatelessWidget {
                 TextSpan(
                   text: '‘권한 설정 버튼’',
                   style: TextStyle(
-                    color: Color(0xFFFF8D4D),
+                    color: Color(0xFF7D303D),
                     fontSize: screenWidth * 0.045,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w400,
@@ -71,7 +69,7 @@ class CustomAlertDialog extends StatelessWidget {
                 TextSpan(
                   text: "카메라 ",
                   style: TextStyle(
-                    color: Color(0xFFFF8D4D),
+                    color: Color(0xFF7D303D),
                     fontSize: screenWidth * 0.045,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w400,
@@ -99,7 +97,7 @@ class CustomAlertDialog extends StatelessWidget {
               child: Text(
                 '앱 종료',
                 style: TextStyle(
-                  color: Color(0xFFFFF6F6),
+                  color: Color(0xFF2C533C),
                   fontSize: screenWidth * 0.045,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
@@ -117,14 +115,14 @@ class CustomAlertDialog extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                backgroundColor: Color(0xFF4B4A48),
+                backgroundColor: Color(0xFFDDE9E2),
               ),
             ),
             ElevatedButton(
               child: Text(
                 '설정으로',
                 style: TextStyle(
-                  color: Color(0xFF4B4A48),
+                  color: Color(0xFFDDE9E2),
                   fontSize: screenWidth * 0.045,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
@@ -143,7 +141,7 @@ class CustomAlertDialog extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                backgroundColor: Color(0xFFFFD852),
+                backgroundColor: Color(0xFF2C533C),
               ),
             ),
           ],

@@ -19,31 +19,27 @@ class QrTimeOutDialog {
               return true; // true를 반환하여 AlertDialog가 닫히도록 함
             },
             child: AlertDialog(
-              backgroundColor: Color(0xFFFFF6F6),
+              backgroundColor: Colors.white,
               contentPadding: EdgeInsets.all(20),
               title: Center(
-                child: Text("\u{1F62D}",
-                  style: TextStyle(
-                    color: Color(0xFFFF8D4D),
-                    fontSize: screenWidth * 0.075,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+                child: SizedBox(
+                  width: screenWidth * 0.1,
+                  height: screenWidth * 0.1,
+                  child: Image(
+                    image: AssetImage('assets/images/knot.png'),
                   ),
                 ),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: screenHeight * 0.025
-                  ),
                   Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                           text: '유효기간',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w600,
@@ -52,7 +48,7 @@ class QrTimeOutDialog {
                         TextSpan(
                           text: '이 지난 코드에요!\n',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w400,
@@ -68,16 +64,16 @@ class QrTimeOutDialog {
                           ),
                         ),
                         TextSpan(
-                          text: '"다시스캔하기"를\n',
+                          text: '"다시스캔하기"',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                         TextSpan(
-                          text: '홈으로 돌아가려면\n',
+                          text: '를\n홈으로 돌아가려면\n',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: screenWidth * 0.045,
@@ -86,9 +82,18 @@ class QrTimeOutDialog {
                           ),
                         ),
                         TextSpan(
-                          text: '"홈으로"를 눌러주세요',
+                          text: '"홈으로"',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
+                            fontSize: screenWidth * 0.045,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '를 눌러주세요',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w400,
@@ -107,7 +112,7 @@ class QrTimeOutDialog {
                       child: Text(
                         '홈으로',
                         style: TextStyle(
-                          color: Color(0xFFFFF6F6),
+                          color: Color(0xFF2C533C),
                           fontSize: screenWidth * 0.045,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
@@ -129,14 +134,14 @@ class QrTimeOutDialog {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFF4B4A48),
+                        backgroundColor: Color(0xFFDDE9E2),
                       ),
                     ),
                     ElevatedButton(
                       child: Text(
                         '다시스캔',
                         style: TextStyle(
-                          color: Color(0xFF4B4A48),
+                          color: Color(0xFFDDE9E2),
                           fontSize: screenWidth * 0.045,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
@@ -150,7 +155,7 @@ class QrTimeOutDialog {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFFFFD852),
+                        backgroundColor: Color(0xFF2C533C),
                       ),
                     ),
                   ],

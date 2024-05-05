@@ -51,7 +51,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
     return Container(
       width: screenWidth * 0.8,
       height: screenHeight * 0.6,
-      decoration: BoxDecoration(color: Color(0xFFFFE2E2)),
+      decoration: BoxDecoration(color: Color(0xFFF6E8E3)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
@@ -61,7 +61,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
               Container(
                 width: screenWidth * 0.8,
                 height: screenHeight * 0.07,
-                decoration: BoxDecoration(color: Color(0xFFFFF6F6)),
+                decoration: BoxDecoration(color: Color(0xFFD3C2BD)),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +71,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
                       "${user.lastName}의 매듭 코드",
                       style: TextStyle(
                         fontSize: screenWidth * 0.06,
-                        color: Color(0xFF4B4A48),
+                        color: Color(0xFF624A43),
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w300,
                       ),
@@ -90,11 +90,6 @@ class _QrScreenContentState extends State<QrScreenContent> {
                           child: QrImageView(
                             data:
                                 "helloworld://send?hmac=${secretData.hmac}&data=${secretData.incodingData}",
-                            // embeddedImage: NetworkImage(user.avatar as String),
-                            // embeddedImageStyle: QrEmbeddedImageStyle(
-                            //   size:
-                            //       Size(screenWidth * 0.15, screenWidth * 0.15),
-                            // ),
                             version: QrVersions.auto,
                             size: screenWidth * 0.5,
                             dataModuleStyle: QrDataModuleStyle(

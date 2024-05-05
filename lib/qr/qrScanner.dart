@@ -106,7 +106,7 @@ class _qrScannerState extends State<qrScanner> {
                         "매듭을 보내고 싶은 이웃의",
                         style: TextStyle(
                           fontSize: screenWidth * 0.06,
-                          color: Color(0xFFFF8D4D),
+                          color: Color(0xFF7D303D),
                           fontFamily: 'Noto Sans KR',
                         ),
                       ),
@@ -114,7 +114,7 @@ class _qrScannerState extends State<qrScanner> {
                         TextSpan(
                           style: TextStyle(
                               fontSize: screenWidth * 0.06,
-                              color: Color(0xFFFF8D4D),
+                              color: Color(0xFF7D303D),
                               fontFamily: 'Noto Sans KR'),
                           children: <TextSpan>[
                             TextSpan(
@@ -152,7 +152,7 @@ class _qrScannerState extends State<qrScanner> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Color(0xFFFF8D4D),
+          borderColor: Color(0xFF2C533C),
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,

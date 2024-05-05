@@ -124,13 +124,13 @@ class _InputTransforState extends State<InputTransfor> {
     TextStyle nameTextStyle = TextStyle(
       fontSize: screenWidth * 0.075,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Color(0xff4B4A48),
     );
 
     TextStyle textStyle = TextStyle(
       fontSize: screenWidth * 0.075,
       fontWeight: FontWeight.bold,
-      color: Colors.grey,
+      color: Color(0xffD3C2BD),
     );
 
     if (this.amount.length > 0) {
@@ -167,7 +167,7 @@ class _InputTransforState extends State<InputTransfor> {
                   "얼마 만큼의 매듭을 보낼까요?",
                   style: TextStyle(
                     fontSize: screenWidth * 0.06,
-                    color: Colors.orange,
+                    color: Color(0xFF7D303D),
                   ),
                 ),
                 SizedBox(
@@ -223,7 +223,7 @@ class _InputTransforState extends State<InputTransfor> {
                 disabledBackgroundColor: Colors.grey[400],
                 disabledForegroundColor: Colors.grey,
                 foregroundColor: Colors.black,
-                backgroundColor: Color(0xFF4B4A48),
+                backgroundColor: Color(0xFF2C533C),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -231,7 +231,7 @@ class _InputTransforState extends State<InputTransfor> {
               child: Text(
                 "확인",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFFDDE9E2),
                   fontSize: screenWidth * 0.055,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
@@ -251,7 +251,7 @@ class _InputTransforState extends State<InputTransfor> {
 
     // 데이터가 로드되었다면 화면을 그립니다.
     return Scaffold(
-      backgroundColor: Color(0xFFFFF6F6),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

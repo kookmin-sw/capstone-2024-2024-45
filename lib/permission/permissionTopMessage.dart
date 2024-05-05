@@ -40,7 +40,7 @@ class PermissionTopMessage extends StatelessWidget {
                 TextSpan(
                   text: '“매듭 보내기”',
                   style: TextStyle(
-                    color: Color(0xFFFF8D4D),
+                    color: Color(0xFF7D303D),
                     fontSize: 23,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class PermissionTopMessage extends StatelessWidget {
                 TextSpan(
                   text: '허용',
                   style: TextStyle(
-                    color: Color(0xFFFF8D4D),
+                    color: Color(0xFF7D303D),
                     fontSize: 23,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w600,

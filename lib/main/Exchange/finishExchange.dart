@@ -30,7 +30,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
         return false; // 화면을 떠나지 않도록 false를 반환합니다.
       },
       child: Scaffold(
-        backgroundColor: const Color(0xffFFFBD3),
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
@@ -58,7 +58,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         '매듭 보내기가',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color(0xFFFF8D4D),
+                          color: Color(0xFF7D303D),
                           fontSize: screenWidth * 0.1,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
@@ -74,7 +74,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                             '완료',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xFFFF8D4D),
+                              color: Color(0xFF7D303D),
                               fontSize: screenWidth * 0.1,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w500,
@@ -85,7 +85,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                             ' 되었습니다.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Color(0xFF4B4A48),
                               fontSize: screenWidth * 0.075,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w500,
@@ -130,7 +130,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     '예, 추가로 매듭을 보냅니다.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF4B4A48),
+                      color: Color(0xFFDDE9E2),
                       fontSize: screenWidth * 0.055,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
@@ -143,7 +143,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    backgroundColor: Color(0xFFFFD852),
+                    backgroundColor: Color(0xFF2C533C),
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.025),
@@ -156,7 +156,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     '아니요, 매듭을 그만 보냅니다.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color(0xff2C533C),
                       fontSize: screenWidth * 0.055,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
@@ -169,7 +169,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    backgroundColor: Color(0xFF4B4A48),
+                    backgroundColor: Color(0xFFDDE9E2),
                   ),
                 ),
               ],

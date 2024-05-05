@@ -65,7 +65,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
         return false; // 화면을 떠나지 않도록 false를 반환합니다.
       },
       child: Scaffold(
-        backgroundColor: const Color(0xffFFFBD3),
+        backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +103,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                     TextSpan(
                       text: '${scannedUser.name}',
                       style: TextStyle(
-                        color: Color(0xFFFF8D4D),
+                        color: Color(0xFF7D303D),
                         fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,

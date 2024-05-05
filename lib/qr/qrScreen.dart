@@ -13,7 +13,7 @@ class QrScreen extends StatelessWidget {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return Scaffold(
-      backgroundColor: Color(0xFFFFF6F6),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Center(
           child: Text(
