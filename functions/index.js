@@ -12,14 +12,13 @@ admin.initializeApp({
 
  exports.createCustomToken = functions.https.onRequest(async(request, response) => {
     const user = request.body;
-
+    pinrt(user.id);
     // firbase에 user가 추가되고 userid를 가지고 token을 만들어줌.
     const uid = 'kakao:${user.uid}';
     const updateParams = {
         email : user.email,
-        displayName : user.dispalyName,
+        displayName : user.displayName,
     }
-
     try{
     // 기존 user들은 정보 업데이트만
         await admin.auth().updateUser(uid, updateParams);

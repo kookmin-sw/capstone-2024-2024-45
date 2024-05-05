@@ -22,6 +22,12 @@ class KakaoLogin implements SocialLogin {
           if (e is PlatformException && e.code == 'CANCELED') {
             print('카카오톡으로 로그인 실패 $e');
           }
+          // 카카오톡에 연결된 카카오 계정이 없는 경우, 카카오계정으로 로그인.
+          try{
+            await kakao.UserApi.instance.loginWithKakaoAccount();
+          }catch (e){
+            print("카카오 로그인 실패 $e");
+          }
         }
       } else {
         // 카톡 설치 안되어있으면 카카오 계정으로 진행
@@ -37,7 +43,7 @@ class KakaoLogin implements SocialLogin {
           // );
           return true;
         } catch(e){
-          return false;
+          print('카카오계정으로 로그인 실패 $e');
         }
 
       }

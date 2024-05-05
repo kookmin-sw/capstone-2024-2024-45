@@ -68,7 +68,7 @@ class _missConnectAlertState extends State<missConnectAlert> {
                                   ),
                                 ),
                                 onPressed: (){
-                                  null
+
                                   // Navigator.push(context,
                                   //     MaterialPageRoute(builder: (context) => AccountInfo()));
                                 },
@@ -89,7 +89,7 @@ class _missConnectAlertState extends State<missConnectAlert> {
                                     color: Colors.white,
                                     fontSize: 25,
                                     fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w50결,
+                                    fontWeight: FontWeight * 50,
                                     height: 0,
                                   ),
                                 ),

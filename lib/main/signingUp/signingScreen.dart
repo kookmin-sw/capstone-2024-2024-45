@@ -43,20 +43,16 @@ class _signingUPState extends State<signingUP> {
                         stream: FirebaseAuth.instance.authStateChanges(),
                         builder: (context, snapshot) {
                           // login이 진행된 경우
-                          if (snapshot.hasData){
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => defaultAccount()));
-                          }
+                          // if (snapshot.hasData){
+                          //   Navigator.push(context,
+                          //       MaterialPageRoute(builder: (context) => defaultAccount()));
+                          // }
                           return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
                                   height: 75,
                                 ),
-                                // Text(
-                                //   '${viewModel.isLogined}',
-                                //   style : Theme.of(context).textTheme.headline4,
-                                // ),
                                 SizedBox(
                                   width: 343,
                                   height : 72,
@@ -77,8 +73,6 @@ class _signingUPState extends State<signingUP> {
                                 InkWell(
                                   onTap: () {
                                     viewModel.login();
-                                    //화면 갱신
-                                    setState(() {});
                                     print("카카오 로그인");
                                   },
                                   child: Image.asset("assets/images/kakao_login_large_wide.png"),
@@ -87,13 +81,18 @@ class _signingUPState extends State<signingUP> {
                                   height: 20,
                                 ),
                                 InkWell(
-                                  onTap: () async{
-                                    await signInWithGoogle();
-                                    //화면 갱신
-                                    setState(() {});
+                                  onTap: () {
+                                    signInWithGoogle();
                                     print("구글 로그인");
                                   },
                                   child: Image.asset('assets/images/google_login_wide.png')
+                                ),
+                                InkWell(
+                                    onTap: () async{
+                                      viewModel.logout();
+                                      print("카카오 로그아웃");
+                                    },
+                                    child: Text('카카오 로그아웃')
                                 ),
                               ]
                           );
