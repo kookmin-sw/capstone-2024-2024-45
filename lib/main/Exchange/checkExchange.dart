@@ -43,7 +43,7 @@ class _CheckExchangeState extends State<CheckExchange> {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xffFFFBD3),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(children: [
@@ -102,7 +102,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                             '${NumberFormat("#,###").format(sendApi.amount)}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xFFFF8D4D),
+                              color: Color(0xFF7D303D),
                               fontSize: screenWidth * 0.09,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w700,
@@ -151,7 +151,7 @@ class _CheckExchangeState extends State<CheckExchange> {
               '예, 매듭을 보냅니다.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xFF4B4A48),
+                color: Color(0xFFDDE9E2),
                 fontSize: screenWidth * 0.055,
                 fontFamily: 'Noto Sans KR',
                 fontWeight: FontWeight.w500,
@@ -163,7 +163,7 @@ class _CheckExchangeState extends State<CheckExchange> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              backgroundColor: Color(0xFFFFD852),
+              backgroundColor: Color(0xFF2C533C),
             ),
           ),
           SizedBox(
@@ -176,7 +176,7 @@ class _CheckExchangeState extends State<CheckExchange> {
             child: Text('수정하고 싶어요!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF2C533C),
                   fontSize: screenWidth * 0.055,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
@@ -187,7 +187,7 @@ class _CheckExchangeState extends State<CheckExchange> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              backgroundColor: Color(0xFF4B4A48),
+              backgroundColor: Color(0xFFDDE9E2),
             ),
           ),
         ]),

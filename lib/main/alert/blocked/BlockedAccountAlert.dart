@@ -25,28 +25,24 @@ class ApiRequestFailAlert {
               backgroundColor: Color(0xFFFFF6F6),
               contentPadding: EdgeInsets.all(20),
               title: Center(
-                child: Text("\u{1F62D}",
-                  style: TextStyle(
-                    color: Color(0xFFFF8D4D),
-                    fontSize: screenWidth * 0.075,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+                child: SizedBox(
+                  width: screenWidth * 0.1,
+                  height: screenWidth * 0.1,
+                  child: Image(
+                    image: AssetImage('assets/images/knot.png'),
                   ),
                 ),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: screenHeight * 0.025
-                  ),
                   Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                           text: '창고의 매듭이 부족해서\n"매듭 보내기"',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w600,
@@ -55,7 +51,7 @@ class ApiRequestFailAlert {
                         TextSpan(
                           text: '를 할 수 없어요!\n',
                           style: TextStyle(
-                            color: Color(0xFF4B4A48),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w400,
@@ -73,7 +69,7 @@ class ApiRequestFailAlert {
                         TextSpan(
                           text: '0매듭 이상 ',
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.045,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w600,
@@ -98,14 +94,13 @@ class ApiRequestFailAlert {
                 Row(
                   children: [
                     ElevatedButton(
-                      child: const Text(
+                      child: Text(
                         '홈으로',
                         style: TextStyle(
-                          color: Color(0xFFFFF6F6),
-                          fontSize: 20,
+                          color: Color(0xFF2C533C),
+                          fontSize: screenWidth * 0.045,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
-                          height: 0,
                         ),
                       ),
                       onPressed: () {
@@ -122,11 +117,11 @@ class ApiRequestFailAlert {
                       ),
                     ),
                     ElevatedButton(
-                      child: const Text(
+                      child: Text(
                         '문의하기',
                         style: TextStyle(
-                          color: Color(0xFFFFF6F6),
-                          fontSize: 20,
+                          color: Color(0xFF2C533C),
+                          fontSize: screenWidth * 0.045,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
                           height: 0,
@@ -142,7 +137,7 @@ class ApiRequestFailAlert {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFF4B4A48),
+                        backgroundColor: Color(0xFF2C533C),
                       ),
                     ),
                   ],

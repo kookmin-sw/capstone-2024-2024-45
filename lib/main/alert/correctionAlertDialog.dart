@@ -15,7 +15,7 @@ class CorrectAlertDialog {
     return await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Color(0xFFFFF6F6),
+      backgroundColor: Colors.white,
       isDismissible: false, // ModalBottomSheet 외부 터치로 닫히지 않도록 설정
       builder: (BuildContext context) {
         return Container(
@@ -24,11 +24,11 @@ class CorrectAlertDialog {
           width: screenWidth,
           child: Column(
             children: <Widget>[
-              Text(
-                "\u{1F440}",
-                style: TextStyle(
-                    fontSize: screenWidth * 0.075,
-                    fontFamily: 'Noto Sans KR'
+              SizedBox(
+                width: screenWidth * 0.1,
+                height: screenWidth * 0.1,
+                child: Image(
+                  image: AssetImage('assets/images/knot.png'),
                 ),
               ),
               Expanded(
@@ -60,7 +60,7 @@ class CorrectAlertDialog {
                     ),
                     Text("어디로 이동할까요?",
                       style: TextStyle(
-                        color: Color(0xFFFF8D4D),
+                        color: Color(0xFF7D303D),
                         fontSize: screenWidth * 0.06,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
@@ -84,7 +84,7 @@ class CorrectAlertDialog {
                       '매듭 코드 스캔으로 돌아갑니다',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Color(0xFF4B4A48),
+                        color: Color(0xFFDDE9E2),
                         fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
@@ -97,7 +97,7 @@ class CorrectAlertDialog {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: Color(0xFFFFD852),
+                      backgroundColor: Color(0xFF2C533C),
                     ),
                   ),
                   SizedBox(
@@ -115,7 +115,7 @@ class CorrectAlertDialog {
                       '보낼 매듭 입력으로 돌아갑니다',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Color(0xFF4B4A48),
+                        color: Color(0xFF2C533C),
                         fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
@@ -128,7 +128,7 @@ class CorrectAlertDialog {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: Color(0xFFFF8D4D),
+                      backgroundColor: Color(0xFFDDE9E2),
                     ),
                   ),
                   SizedBox(
@@ -142,7 +142,7 @@ class CorrectAlertDialog {
                       '"매듭 보내기"를 계속합니다',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xff624A43),
                         fontSize: screenWidth * 0.055,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
@@ -155,7 +155,7 @@ class CorrectAlertDialog {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: Color(0xFF4B4A48),
+                      backgroundColor: Color(0xFFD0BAAD),
                     ),
                   ),
                 ],

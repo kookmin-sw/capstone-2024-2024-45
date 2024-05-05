@@ -67,10 +67,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/lottie/
+    - assets/images/
   fonts:
-    - family: Cafe24 Supermagic OTF
+    - family: KimjungchulMyungjo
       fonts:
-        - asset: assets/fonts/Cafe24Supermagic-Bold-v1.0.ttf
+        - asset: assets/fonts/KimjungchulMyungjo-Bold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
