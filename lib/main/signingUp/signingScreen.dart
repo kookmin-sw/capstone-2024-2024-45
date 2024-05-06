@@ -93,13 +93,6 @@ class _signingUPState extends State<signingUP> {
                                   },
                                   child: Image.asset('assets/images/google_login_wide.png')
                                 ),
-                                InkWell(
-                                    onTap: () async{
-                                      viewModel.logout();
-                                      print("카카오 로그아웃");
-                                    },
-                                    child: Text('카카오 로그아웃')
-                                ),
                               ]
                           );
                         }
