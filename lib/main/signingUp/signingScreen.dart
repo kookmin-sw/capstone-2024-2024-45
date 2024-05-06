@@ -4,8 +4,6 @@ import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
 import 'package:suntown/main/defaultAccount.dart';
 import 'package:flutter/material.dart';
 
-import 'package:suntown/utils/HttpGet.dart';
-import '../../User/UserAccountInfo.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'package:firebase_auth/firebase_auth.dart' ;
 import 'Login/GoogleLogin/google_login.dart';
@@ -22,6 +20,16 @@ class signingUP extends StatefulWidget {
 class _signingUPState extends State<signingUP> {
 
   final viewModel = MainViewModel(KakaoLogin());
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -33,7 +41,6 @@ class _signingUPState extends State<signingUP> {
         padding: const EdgeInsets.all(20),
         child: Container(
           child: Column(
-            
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
@@ -51,11 +58,11 @@ class _signingUPState extends State<signingUP> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 75,
+                                  height: screenHeight * 0.09,
                                 ),
                                 SizedBox(
-                                  width: 343,
-                                  height : 72,
+                                  width: screenWidth * 0.85,
+                                  height : screenHeight * 0.09,
                                   child: Text(
                                     '로그인하고\n매듭창고 시작하기.',
                                     style: TextStyle(
@@ -63,12 +70,11 @@ class _signingUPState extends State<signingUP> {
                                       fontSize: screenWidth * 0.06,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
-                                      height: 0,
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 236,
+                                  height: screenHeight * 0.27,
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -78,7 +84,7 @@ class _signingUPState extends State<signingUP> {
                                   child: Image.asset("assets/images/kakao_login_large_wide.png"),
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  height: screenHeight * 0.024,
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -87,42 +93,12 @@ class _signingUPState extends State<signingUP> {
                                   },
                                   child: Image.asset('assets/images/google_login_wide.png')
                                 ),
-                                InkWell(
-                                    onTap: () async{
-                                      viewModel.logout();
-                                      print("카카오 로그아웃");
-                                    },
-                                    child: Text('카카오 로그아웃')
-                                ),
                               ]
                           );
                         }
                       )
                   )
               ),
-
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => defaultAccount()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFD852),
-                  minimumSize: Size.fromHeight(50),
-
-                  foregroundColor: const Color(0xFF4B4A48),
-
-                  textStyle: TextStyle(
-                    fontSize: screenWidth * 0.06,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-                child: const Text("다음"),
-              )
             ],
           ),
         ),
