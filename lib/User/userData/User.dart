@@ -1,10 +1,8 @@
 /*
-로그인 세션을 통새 자신의 정보를 얻어옴
-이 부분을 세분화 해서
-
-** 고민...dateTime이 어디에 들어가야 할지...
-
+이거 삭제해도 될듯.,..?
+순서 정확히 맞춰보고 삭제하기
  */
+
 class User {
   late String id;
   late String email;

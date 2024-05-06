@@ -87,6 +87,7 @@ class _MainAccountState extends State<MainAccount>{
         return false; //일단 뒤로가기 막아둠. 뒤로가기 하면 로딩 화면이나 이런 화면으로 가길래..
       }, //백그라운드 실행도 괜찮은 것 같기는 함
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('매듭창고'),
           centerTitle: true,
@@ -146,7 +147,7 @@ class _MainAccountState extends State<MainAccount>{
                                         // '${accountInfo.AccountName} 창고',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Color(0xFFFA7931),
+                                          color: Color(0xFF624A43),
                                           fontSize: screenWidth * 0.06,
                                           fontFamily: 'Noto Sans KR',
                                           fontWeight: FontWeight.w400,
@@ -193,7 +194,7 @@ class _MainAccountState extends State<MainAccount>{
                         child: Text(
                           '매듭 보내기',
                           style: TextStyle(
-                            color: Color(0xFF4B4A48),
+                            color: Color(0xFFDDE9E2),
                             fontSize: screenWidth * 0.055,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
