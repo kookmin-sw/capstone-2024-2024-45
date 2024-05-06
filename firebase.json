@@ -1,3 +1,4 @@
+
 {
   "flutter": {
     "platforms": {
@@ -52,3 +53,6 @@
     }
   ]
 }
+
+//{"flutter":{"platforms":{"android":{"default":{"projectId":"capstone2024-783c5","appId":"1:746747507982:android:cc2aac9cea495ed504935f","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"capstone2024-783c5","configurations":{"android":"1:746747507982:android:cc2aac9cea495ed504935f","ios":"1:746747507982:ios:7f803f4277ae79ac04935f","macos":"1:746747507982:ios:7f803f4277ae79ac04935f","web":"1:746747507982:web:4a37cd3be9255b7804935f","windows":"1:746747507982:web:bec730ff2134687b04935f"}}}}}}
+//

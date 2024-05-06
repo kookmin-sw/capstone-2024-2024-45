@@ -92,15 +92,13 @@ class _nameScreenState extends State<nameScreen> {
                   )
               ),
               ElevatedButton(
-                onPressed: () async {
-                  var data = {
-                    'username' : username,
-                  };
+                onPressed: username.length > 0 ? () async {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => numberScreen(username:username)),
                   );
-                },
+                }
+                : null,
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

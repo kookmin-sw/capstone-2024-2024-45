@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746747507982",
+    "project_id": "capstone2024-783c5",
+    "storage_bucket": "capstone2024-783c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746747507982:android:cc2aac9cea495ed504935f",
+        "android_client_info": {
+          "package_name": "com.example.suntown"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwLEo2mTVfw2Z7Sk_rqaGxXswwk_KmhA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

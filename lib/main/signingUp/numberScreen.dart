@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:suntown/main/signingUp/register/accountInfoRegister.dart';
 
-import 'package:suntown/main/mainAccount.dart';
-import 'package:suntown/utils/http_put.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
+import 'register/userInfoRegister.dart';
 
 class numberScreen extends StatefulWidget {
   final String username;
-
   const numberScreen({Key? key, required this.username}) :super(key: key);
 
   @override
@@ -19,14 +18,16 @@ class _numberScreenState extends State<numberScreen> {
   final String username;
   _numberScreenState({required this.username});
 
-  // 전화번호
   late TextEditingController _phoneNumberController;
+  late String mobile_number;
 
   @override
   void initState() {
     super.initState();
     _phoneNumberController = TextEditingController();
+    mobile_number = _phoneNumberController.text;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +97,11 @@ class _numberScreenState extends State<numberScreen> {
                                   NumberFormatter(), // 자동하이픈
                                   LengthLimitingTextInputFormatter(13)
                                 ],
+                                onChanged: (text) {
+                                  setState(() {
+                                    mobile_number = text;
+                                  });
+                                },
                                 // obscureText: true, 비밀번호 작성할 떄
                                 decoration : InputDecoration(
                                   hintText : '전화번호 입력',
@@ -109,36 +115,22 @@ class _numberScreenState extends State<numberScreen> {
                   )
               ),
               ElevatedButton(
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => accountSuccess()),
-                  );
-                  String mobile_number = _phoneNumberController.text;
-                  print(mobile_number);
-                  var data = {
-                    'username' : username,
-                    'mobile_number"' : mobile_number,
-                    "account_name": username
-                  };
-                  try {
-                    // API 요청을 보냅니다.
-                    final value = await httpPut(path: 'api/accounts/register', data:data);
-                    if (value == 201) { //put
-                      // 성공적으로 응답을 받았을 때 accountSuccess 화면으로 이동합니다.
-                      print('201 ok');
+                onPressed: mobile_number.length ==  13 ? () async {
+                    bool userResuccess = await UserInfoRegister().fetchUserData(name:username, mobile_number:mobile_number);
+                    bool accoutnResuccess =  await AccountInfoRegister().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
+;                    if (userResuccess && accoutnResuccess){
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => accountSuccess()),
                       );
-                    } else {
-                      print(value);
-                      debugPrint('서버 에러입니다. 다시 시도해주세요');
                     }
-                  } catch (e) {
-                    debugPrint('API 요청 중 오류가 발생했습니다: $e');
-                  }
-                },
+                    else{
+                      // 알림화면 띄우는걸로 변경 예정
+                      print("오류");
+                    }
+                    print(mobile_number);
+                }
+                : null,
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

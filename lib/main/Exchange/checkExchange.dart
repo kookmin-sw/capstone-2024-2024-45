@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:suntown/User/scannedUserData/ScannedUser.dart';
+import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
+import 'package:suntown/User/SendAmount.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
-import 'package:suntown/main/accountList/accountInfo.dart';
 
+// import 'package:suntown/main/accountList/accountInfo.dart';
+
+
+import '../../User/userData/User.dart';
+import '../../utils/screenSizeUtil.dart';
+import '../alert/correctionAlertDialog.dart';
+
+/*
+송금 확인 화면
+ */
 
 class CheckExchange extends StatefulWidget {
   const CheckExchange({super.key});
@@ -11,10 +24,29 @@ class CheckExchange extends StatefulWidget {
 }
 
 class _CheckExchangeState extends State<CheckExchange> {
+  User user = User();
+  ScannedUser scannedUser = ScannedUser();
+  ScannedUserAccountInfo scannedUserAccountInfo = ScannedUserAccountInfo();
+  SendApi sendApi = SendApi();
+
+  void fetchData(){ //지금까지 받은 데이터 넣기
+    sendApi.receiverAccountId = scannedUser.accountId;
+    sendApi.sendAccountId = "11111111-1111-1111-111111111111"; //나중에 user 연동시 변경 예정
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenHeight = ScreenSizeUtil.screenHeight(context);
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xffFFFBD3),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(children: [
@@ -24,175 +56,141 @@ class _CheckExchangeState extends State<CheckExchange> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '뫄뫄 님에게',
-                    style: TextStyle(fontSize: 40),
+                  CircleAvatar(
+                    // 여기에 프로필 이미지 설정
+                    radius: screenWidth * 0.15, // 이미지 크기 설정
+                    backgroundImage:
+                    NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
                   ),
                   SizedBox(
-                    height: 5,
+                    height: screenHeight * 0.1,
                   ),
-                  Text(
-                    '1000 햇살을',
-                    style: TextStyle(fontSize: 40),
+                  Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${scannedUser.name}',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: screenWidth * 0.085,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                          ),
+                        ),
+                        Text(
+                          ' 님에게',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: screenWidth * 0.075,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible( //넘칠 경우를 대비...거의 없을듯 싶지만 혹시 모르니
+                          child: Text(
+                            '${NumberFormat("#,###").format(sendApi.amount)}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF7D303D),
+                              fontSize: screenWidth * 0.09,
+                              fontFamily: 'Noto Sans KR',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          ' 매듭을',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: screenWidth * 0.075,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: screenHeight * 0.006,
                   ),
                   Text(
                     '보낼까요?',
-                    style: TextStyle(fontSize: 40),
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Color(0xFF4B4A48),
+                      fontSize: screenWidth * 0.09,
+                      fontFamily: 'Noto Sans KR',
+                      fontWeight: FontWeight.w300,
+                      height: 0,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
           Spacer(),
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoadingExchange()));
-              },
-              child: Text('예, 햇살을 보냅니다.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF4B4A48),
-                    fontSize: 25,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoadingExchange()));
+            },
+            child: Text(
+              '예, 매듭을 보냅니다.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xFFDDE9E2),
+                fontSize: screenWidth * 0.055,
+                fontFamily: 'Noto Sans KR',
+                fontWeight: FontWeight.w500,
               ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(346, 73),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: Color(0xFFFFD852),
+            ),
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+              backgroundColor: Color(0xFF2C533C),
             ),
           ),
           SizedBox(
             height: 20,
           ),
-          SizedBox(
-            // SizedBox 대신 Container를 사용 가능
-            width: 346,
-            height: 73,
-            child: ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 418,
-                      child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              const Text(
-                                '해당 페이지를 벗어나면 햇살을 보낼 수 없어요',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF727272),
-                                  fontSize: 25,
-                                  fontFamily: 'Noto Sans KR',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                  letterSpacing: 0.03,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              const Text(
-                                '송금을 취소할까요?.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFFFF8D4D),
-                                  fontSize: 25,
-                                  fontFamily: 'Noto Sans KR',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                  letterSpacing: 0.03,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              ElevatedButton(
-                                child: const Text(
-                                  '예, 송금을 취소합니다',
-                                  style: TextStyle(
-                                    color: Color(0xFF4B4A48),
-                                    fontSize: 25,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0,
-                                  ),
-                                ),
-                                onPressed: (){
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => AccountInfo()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(346, 73),
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  backgroundColor: Color(0xFFFFD852),
-                                ),
-                              ),
-                              SizedBox(height: 20), // 간견주기 왜 안됨?
-                              ElevatedButton(
-                                child: const Text(
-                                  '아니요, 송금을 계속합니다',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0,
-                                  ),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(346, 73),
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  backgroundColor: Color(0xFF4B4A48),
-                                ),
-                              ),
-                            ],
-
-                          )
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text('아니요, 햇살을 보내지 않습니다.',
+          ElevatedButton(
+            onPressed: () {
+              CorrectAlertDialog.show(context);
+            },
+            child: Text('수정하고 싶어요!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontFamily: 'Noto Sans KR',
-                fontWeight: FontWeight.w500,
-                height: 0,
-              )
-            ),
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(346, 73),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: Color(0xFF4B4A48),
+                  color: Color(0xFF2C533C),
+                  fontSize: screenWidth * 0.055,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w500,
+                )),
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+              backgroundColor: Color(0xFFDDE9E2),
             ),
           ),
         ]),

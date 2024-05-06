@@ -13,8 +13,15 @@ void main() async{
   KakaoSdk.init(
     nativeAppKey: '731616c5419324d656e34dc0a0f35a85',
   );
+  // Firebase 앱이 이미 초기화되었는지 확인
+  // if (Firebase.apps.isEmpty) {
+  //   await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // }
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+      name: "dev project",
+      options: DefaultFirebaseOptions.currentPlatform
   );
   runApp(const MyApp());
 }
