@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:suntown/main/alert/filter/listFilteringAlert.dart';
 import 'package:suntown/main/accountList/listDetail.dart';
 
-import '../../User/exchangeListUser/testUser.dart';
+import '../../User/exchangeListUser/exchangeListUser.dart';
 import '../../bubble.dart';
 import '../../utils/api/exchangeList/listPost.dart';
 import '../../utils/screenSizeUtil.dart';

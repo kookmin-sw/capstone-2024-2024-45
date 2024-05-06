@@ -1,18 +1,4 @@
 
-/*
-"data": [
-    {
-      "transId": 14,
-      "send": true,
-      "senderNickname": null,
-      "senderProfileImg": null,
-      "receiverNickname": "받은이",
-      "receiverProfileImg": "받은이 프로필 이미지 url 이 들어갈 예정",
-      "amount": 50
-    },
-  ]
- */
-
 class exchangeListUser {
   late int transId;
   late bool send;
