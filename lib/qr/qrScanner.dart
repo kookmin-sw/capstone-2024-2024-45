@@ -10,7 +10,7 @@ import '../User/userData/UserAccountInfo.dart';
 import '../main/Exchange/inputTransfor.dart';
 import '../main/alert/apiFail/ApiRequestFailAlert.dart';
 import '../main/alert/qrTimeOutDialog.dart';
-import '../utils/api/send/qrScanPost.dart';
+import '../utils/api/info/qrScanPost.dart';
 import '../utils/screenSizeUtil.dart';
 
 class qrScanner extends StatefulWidget {
