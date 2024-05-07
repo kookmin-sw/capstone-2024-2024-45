@@ -40,6 +40,7 @@ class AccountInfoRegister{
       if (value["statusCode"] == 200) {
         accountInfoUpdate = true;
       } else {
+        print("account 서버 에러");
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }

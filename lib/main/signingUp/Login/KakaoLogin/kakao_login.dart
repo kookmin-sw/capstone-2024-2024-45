@@ -1,10 +1,11 @@
 import 'package:suntown/main/signingUp/Login/KakaoLogin/login_out.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
-import 'package:firebase_auth/firebase_auth.dart' ;
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
+
+
 class KakaoLogin implements SocialLogin {
-
-
+  final url = Uri.https('kapi.kakao.com', '/v2/user/me');
   @override
   Future<bool> login() async {
     try{
@@ -14,7 +15,13 @@ class KakaoLogin implements SocialLogin {
       if (isInstalled){
         // 카카오톡 설치 되어 있으면 진행
         try {
-          await kakao.UserApi.instance.loginWithKakaoTalk();
+          kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoTalk();
+          // final response = await http.get(
+          //     url,
+          //     headers: {
+          //       HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
+          //     },
+          // );
           return true;
         } catch(e) {
           // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
@@ -24,7 +31,7 @@ class KakaoLogin implements SocialLogin {
           }
           // 카카오톡에 연결된 카카오 계정이 없는 경우, 카카오계정으로 로그인.
           try{
-            await kakao.UserApi.instance.loginWithKakaoAccount();
+            kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoAccount();
           }catch (e){
             print("카카오 로그인 실패 $e");
           }
@@ -32,15 +39,7 @@ class KakaoLogin implements SocialLogin {
       } else {
         // 카톡 설치 안되어있으면 카카오 계정으로 진행
         try {
-          // kakao.OAuthToken token =
            await kakao.UserApi.instance.loginWithKakaoAccount();
-          // var provider = OAuthProvider('oidc.kakao'); // 제공 업체 id
-          // print(provider);
-          // var credential = provider.credential(
-          //   idToken: token.idToken,
-          //   // 카카오 로그인에서 발급된 idToken
-          //   accessToken: token.accessToken, // 카카오 로그인에서 발급된 accessToken
-          // );
           return true;
         } catch(e){
           print('카카오계정으로 로그인 실패 $e');

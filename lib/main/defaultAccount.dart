@@ -132,7 +132,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                       child: const Text(
                                         '창고 만들기',
                                         style: TextStyle(
-                                          color: Color(0xFF4B4A48),
+                                          color: Colors.white,
                                           fontSize: 25,
                                           fontFamily: 'Noto Sans KR',
                                           fontWeight: FontWeight.w500,
@@ -151,7 +151,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(20),
                                         ),
-                                        backgroundColor: Color(0xFFFFD852),
+                                        backgroundColor:Color(0xFF2C533C),
                                       ),
                                     ),
                                   ],

@@ -36,7 +36,7 @@ class _signingUPState extends State<signingUP> {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Scaffold(
-
+      backgroundColor: const Color(0xffFFFDF3),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Container(

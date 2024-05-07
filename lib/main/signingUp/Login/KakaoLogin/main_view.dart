@@ -18,7 +18,9 @@ class MainViewModel{
     if(isLogined){
       print('isLogined 진입');
       // 현재 로그인된 유저 정보를 가지고옴
+
       user = await kakao.UserApi.instance.me();
+      // 카카오 예외처리 해야함.
       if (user != null) {
         String uid = user!.id.toString();
         String? email = user!.kakaoAccount!.email!;
@@ -30,7 +32,6 @@ class MainViewModel{
         }
       }
       // 서버로 user정보 보내고 customToken 받아냄.
-      print('2');
       final customToken = await _firebaseAuthDataSource.createCustomToken({
         'uid' : user!.id.toString(),
         'displayName' : user!.kakaoAccount!.profile!.nickname,
