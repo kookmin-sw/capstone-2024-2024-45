@@ -4,7 +4,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:suntown/utils/api/send/qrPost.dart';
+import 'package:suntown/utils/api/info/qrPost.dart';
 
 import '../User/scannedUserData/SecretScannedUserData.dart';
 import '../User/userData/User.dart';

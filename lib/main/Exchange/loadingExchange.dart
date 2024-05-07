@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
-import 'package:suntown/utils/api/send/sendPost.dart';
+import 'package:suntown/utils/api/info/sendPost.dart';
 
 import '../../User/SendAmount.dart';
 import '../../User/userData/User.dart';

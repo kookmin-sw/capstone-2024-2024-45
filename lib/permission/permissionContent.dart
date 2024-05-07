@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:suntown/main/mainAccount.dart';
 import 'package:suntown/permission/permissionNotifier.dart';
-
+import 'package:suntown/main/signingUp/signingScreen.dart';
 import '../utils/screenSizeUtil.dart';
 
 class PermissionContent extends StatefulWidget {
@@ -119,9 +119,9 @@ class _PermissionContentState extends State<PermissionContent> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            // SizedBox(
+            //   height: screenHeight * 0.02,
+            // ),
             Spacer(),
             !isAgree
                 ? ElevatedButton(
@@ -153,7 +153,7 @@ class _PermissionContentState extends State<PermissionContent> {
                 : ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MainAccount()));
+                          builder: (context) => signingUP()));
                     },
                     child: const Text(
                       '앱 시작하기',
