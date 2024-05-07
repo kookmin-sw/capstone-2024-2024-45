@@ -21,7 +21,7 @@ class _nameScreenState extends State<nameScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back), // 왼쪽에 추가할 아이콘
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+            Navigator.pop(context);
           },
         ),
       ),
@@ -44,7 +44,7 @@ class _nameScreenState extends State<nameScreen> {
                               child: Text(
                                 '창고만들기',
                                 style: TextStyle(
-                                  color: Color(0xFF727272),
+                                  color: Color(0xFFD3C2BD),
                                   fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
@@ -81,9 +81,11 @@ class _nameScreenState extends State<nameScreen> {
                                   });
                                 },
                                 decoration : InputDecoration(
+                                  hintStyle: TextStyle(color: Color(0xFFD3C2BD)),
                                   hintText : '한글 이름 입력',
                                 ),
                                 style :TextStyle(
+                                  color: Color(0xFF624A43), //Color(0xFF624A43),
                                   fontSize : screenWidth * 0.06,
                                ),
                             ),
@@ -102,22 +104,25 @@ class _nameScreenState extends State<nameScreen> {
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  backgroundColor: const Color(0xFF4B4A48),
+                  backgroundColor: const Color(0xFFD3C2BD),
                   foregroundColor:Colors.white,
                   minimumSize: Size.fromHeight(73),
 
                   textStyle: TextStyle(
                     fontSize: screenWidth * 0.055,
-                    fontFamily: 'Noto Sans KR',
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
-                child: const Text("다음"),
+                child: const Text(
+                    "다음",
+                  style : TextStyle(
+                    color: Color(0xFF624A43),
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w600,
+                    height: 0,
+                  )
+                ),
               )
             ],
           ),

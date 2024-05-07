@@ -44,6 +44,7 @@ class UserInfoRegister{
       if (value["statusCode"] == 200) {
         userInfoUpdate = true;
       } else {
+        print("user info 에러");
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }

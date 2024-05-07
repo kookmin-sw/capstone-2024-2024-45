@@ -22,7 +22,7 @@ class _accountSuccessState extends State<accountSuccess> {
       // appBar: AppBar(
       //   automaticallyImplyLeading: false, // 뒤로가기 아이콘 제거
       // ),
-      backgroundColor: const Color(0xffFFFBD3),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Container(
@@ -39,7 +39,7 @@ class _accountSuccessState extends State<accountSuccess> {
                       '창고 만들기가',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Color(0xFFFF8D4D),
+                        color: Color(0xFF7D303D),
                         fontSize: screenWidth * 0.1,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
@@ -55,7 +55,7 @@ class _accountSuccessState extends State<accountSuccess> {
                           '완료',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xFFFF8D4D),
+                            color: Color(0xFF7D303D),
                             fontSize: screenWidth * 0.1,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
@@ -111,12 +111,11 @@ class _accountSuccessState extends State<accountSuccess> {
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  backgroundColor: const Color(0xFFFFD852),
-                  foregroundColor: const Color(0xFF4B4A48),
+                  backgroundColor: const Color(0xFF2C533C),
+                  foregroundColor: Colors.white,
                   minimumSize: Size.fromHeight(73),
 
                   textStyle: TextStyle(
-
                     fontSize: screenWidth * 0.055,
                     fontFamily: 'Noto Sans KR',
                     color: Colors.white,
