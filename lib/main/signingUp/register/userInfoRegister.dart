@@ -40,11 +40,13 @@ class UserInfoRegister{
     getUserPriInfo(name: name, mobile_number: mobile_number);
 
     try {
-      final value = await userInfoPost( oauth_id: userId, mobile_number: mobile_number, name : name,nickname : nickName,  image_url : image_url); //여기서 2가 id이다.
+      final value = await userInfoPost( oauth_id: userId, mobile_number: mobile_number, name : name, nickname : nickName,  image_url : image_url);
       if (value["statusCode"] == 200) {
+        print(value['message']);
         userInfoUpdate = true;
       } else {
         print("user info 에러");
+        print(value['message']);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }

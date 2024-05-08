@@ -5,28 +5,29 @@ import 'package:suntown/main/signingUp/register/accountInfoRegister.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
 import 'register/userInfoRegister.dart';
-import 'passwordScreen.dart';
 
-class numberScreen extends StatefulWidget {
+class passwordScreen extends StatefulWidget {
   final String username;
-  const numberScreen({Key? key, required this.username}) :super(key: key);
+  final String mobile_number ;
+  const passwordScreen({Key? key, required this.username, required this.mobile_number}) :super(key: key);
 
   @override
-  State<numberScreen> createState() => _numberScreenState(username: username);
+  State<passwordScreen> createState() => _passwordScreenState(username: username,  mobile_number : mobile_number);
 }
 
-class _numberScreenState extends State<numberScreen> {
+class _passwordScreenState extends State<passwordScreen> {
   final String username;
-  _numberScreenState({required this.username});
+  final String mobile_number;
+  _passwordScreenState({required this.username, required this.mobile_number});
 
-  late TextEditingController _phoneNumberController;
-  late String mobile_number;
+  late TextEditingController _passwordController;
+  late String password;
 
   @override
   void initState() {
     super.initState();
-    _phoneNumberController = TextEditingController();
-    mobile_number = _phoneNumberController.text;
+    _passwordController = TextEditingController();
+    password = _passwordController.text;
   }
 
 
@@ -74,9 +75,9 @@ class _numberScreenState extends State<numberScreen> {
                             ),
                             SizedBox(
                               width: screenWidth * 0.85,
-                              height :  screenHeight * 0.06, // 50
+                              height :  screenHeight * 0.05, // 50
                               child: Text(
-                                '전화번호를 입력해주세요.',
+                                '비밀번호 6자리를 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
                                   fontSize: screenWidth * 0.06,
@@ -87,57 +88,68 @@ class _numberScreenState extends State<numberScreen> {
                               ),
                             ),
                             SizedBox(
-                              height:  screenHeight * 0.09, //75
-                            ),
-                            TextField(
-                                textAlign: TextAlign.center,
-                                controller: _phoneNumberController,
-                                keyboardType: TextInputType.phone,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly, //숫자만!
-                                  NumberFormatter(), // 자동하이픈
-                                  LengthLimitingTextInputFormatter(13)
-                                ],
-                                onChanged: (text) {
-                                  setState(() {
-                                    mobile_number = text;
-                                  });
-                                },
-                                // obscureText: true, 비밀번호 작성할 떄
-                                decoration : InputDecoration(
-                                  hintStyle: TextStyle(color: Color(0xFFD3C2BD)),
-                                  hintText : '전화번호 입력',
+                              width: screenWidth * 0.85,
+                              height :  screenHeight * 0.06, // 50
+                              child: Text(
+                                '시간 보내기와 앱 시작할 때 사용합니다.',
+                                style: TextStyle(
+                                  color: Color(0xFF624A43),
+                                  fontSize: screenWidth * 0.037,
+                                  fontFamily: 'Noto Sans KR',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
                                 ),
-                              style :TextStyle(
-                                color: Color(0xFF624A43),
-                                fontSize : screenWidth * 0.06,
                               ),
                             ),
+                            SizedBox(
+                              height:  screenHeight * 0.05, //75
+                            ),
+                            TextField(
+                              obscureText: true,
+                              textAlign: TextAlign.center,
+                              controller: _passwordController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly, //숫자만!
+                                LengthLimitingTextInputFormatter(6)
+                              ],
+                              onChanged: (text) {
+                                setState(() {
+                                  password = text;
+                                });
+                              },
+                              decoration : InputDecoration(
+                                // border: OutlineInputBorder(),
+                                hintStyle: TextStyle(color: Color(0xFFD3C2BD)),
+                                hintText : '비밀번호 입력',
+                              ),
+                              style :TextStyle(
+                                color: Color(0xFF624A43),
+                                fontSize : screenWidth * 0.075,
+                              ),
+                            ),
+
                           ]
                       )
                   )
               ),
               ElevatedButton(
-                onPressed: mobile_number.length ==  13 ? () async {
-                    bool userResuccess = await UserInfoRegister().fetchUserData(name:username, mobile_number:mobile_number);
-                    bool accoutnResuccess =  await AccountInfoRegister().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
-;                    if (userResuccess){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => accountSuccess()),
-                      );
-                    }
-                    else{
-                      // 알림화면 띄우는걸로 변경 예정
-                      print("오류");
-                    }
-                    print(mobile_number);
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => passwordScreen(username : username,mobile_number:mobile_number )),
-//                   );
+                onPressed: password.length ==  6 ? () async {
+                  // bool userResuccess = await UserInfoRegister().fetchUserData(name:username, mobile_number:mobile_number);
+                  // bool accoutnResuccess =  await AccountInfoRegister().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
+                  // if (userResuccess && accoutnResuccess){
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => accountSuccess()),
+                  //   );
+                  // }
+                  // else{
+                  //   // 알림화면 띄우는걸로 변경 예정
+                  //   print("오류");
+                  // }
+                  // print(pasward);
                 }
-                : null,
+                    : null,
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

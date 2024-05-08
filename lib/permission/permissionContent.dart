@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:suntown/main/mainAccount.dart';
+
 import 'package:suntown/permission/permissionNotifier.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
 import '../utils/screenSizeUtil.dart';

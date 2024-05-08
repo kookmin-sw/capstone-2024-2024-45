@@ -38,9 +38,11 @@ class AccountInfoRegister{
     try {
         final value = await accountInfoPost(password: password, username: username, mobile_number : mobile_number, user_id : user_id,  account_name : username);
       if (value["statusCode"] == 200) {
+        print(value['message']);
         accountInfoUpdate = true;
       } else {
         print("account 서버 에러");
+        print(value['message']);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }
