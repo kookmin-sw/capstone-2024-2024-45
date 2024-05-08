@@ -55,7 +55,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                 children: [
                   CircleAvatar(
                     // 여기에 프로필 이미지 설정
-                    radius: screenWidth * 0.15, // 이미지 크기 설정
+                    radius: 60, // 이미지 크기 설정
                     backgroundImage:
                     NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
                   ),
@@ -72,10 +72,9 @@ class _CheckExchangeState extends State<CheckExchange> {
                           '${scannedUser.name}',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
-                            fontSize: screenWidth * 0.085,
+                            fontSize: 35,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
-                            height: 0,
                           ),
                         ),
                         Text(
@@ -83,7 +82,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
-                            fontSize: screenWidth * 0.075,
+                            fontSize: 30,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w300,
                           ),
@@ -103,7 +102,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF7D303D),
-                              fontSize: screenWidth * 0.09,
+                              fontSize: 35,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w700,
                             ),
@@ -114,10 +113,9 @@ class _CheckExchangeState extends State<CheckExchange> {
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
-                            fontSize: screenWidth * 0.075,
+                            fontSize: 30,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w300,
-                            height: 0,
                           ),
                         ),
                       ],
@@ -131,10 +129,9 @@ class _CheckExchangeState extends State<CheckExchange> {
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color: Color(0xFF4B4A48),
-                      fontSize: screenWidth * 0.09,
+                      fontSize: 30,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w300,
-                      height: 0,
                     ),
                   ),
                 ],
@@ -152,7 +149,7 @@ class _CheckExchangeState extends State<CheckExchange> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFFDDE9E2),
-                fontSize: screenWidth * 0.055,
+                fontSize: 20,
                 fontFamily: 'Noto Sans KR',
                 fontWeight: FontWeight.w500,
               ),
@@ -177,7 +174,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF2C533C),
-                  fontSize: screenWidth * 0.055,
+                  fontSize: 20,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
                 )),

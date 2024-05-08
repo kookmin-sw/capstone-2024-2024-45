@@ -83,7 +83,7 @@ class _exchangeListState extends State<exchangeList> {
           children: [
             TopSideBubble(),
             SizedBox(
-              height: screenHeight * 0.025,
+              height:(screenWidth < screenHeight) ? screenWidth * 0.025 : screenHeight * 0.025,
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -108,7 +108,7 @@ class _exchangeListState extends State<exchangeList> {
                         filterType,
                         style: TextStyle(
                           color: Color(0xff624A43),
-                          fontSize: screenWidth * 0.055,
+                          fontSize: 20,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
                         ),
@@ -116,7 +116,7 @@ class _exchangeListState extends State<exchangeList> {
                       Icon(
                         Icons.keyboard_arrow_down,
                         color: Color(0xff624A43),
-                        size: screenWidth * 0.08,
+                        size: 30,
                       ),
                     ],
                   ),
@@ -140,6 +140,7 @@ class _exchangeListState extends State<exchangeList> {
                       title: Row(
                         children: [
                           Expanded(
+                            flex: 2,
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
                                 users[index].send == true ? users[index].receiverProfileImg : users[index].senderProfileImg,
@@ -147,17 +148,27 @@ class _exchangeListState extends State<exchangeList> {
                               radius: 30, // 원의 반지름 설정
                             ),
                           ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
+                            flex: 4,
                             child: Text(users[index].send == true ? users[index].receiverNickname : users[index].senderNickname
                               ,textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20
+                              ),
                             ),
                           ),
                           Spacer(),
                           Expanded(
+                            flex: 4,
                             child: Text(users[index].send == true ? '- ${users[index].amount}매듭' : '+ ${users[index].amount}매듭',
                               style: TextStyle(
                                 color: users[index].send == true ?  Color(0xff7D303D) : Color(0xff2C533C),
+                                fontSize: 20
                               ),
+
                               textAlign: TextAlign.right,
                             ),
                           ),

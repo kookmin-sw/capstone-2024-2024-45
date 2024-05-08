@@ -16,7 +16,7 @@ class QrPageTopSection extends StatelessWidget {
           Text(
             "매듭을 받습니다!",
             style: TextStyle(
-              fontSize: screenWidth * 0.075,
+              fontSize: 30,
               color: Color(0xFF4B4A48),
             ),
           ),
@@ -27,7 +27,7 @@ class QrPageTopSection extends StatelessWidget {
             TextSpan(
               text: '내 ',
               style: TextStyle(
-                fontSize: screenWidth * 0.06,
+                fontSize: 20,
                 color: Color(0xFF7D303D),
                 fontFamily: 'Noto Sans KR',
               ),
@@ -45,7 +45,7 @@ class QrPageTopSection extends StatelessWidget {
           Text(
             "매듭을 받을 이웃에게 보여주세요!",
             style: TextStyle(
-              fontSize: screenWidth * 0.06,
+              fontSize: 20,
               color: Color(0xFF7D303D),
               fontFamily: 'Noto Sans KR',
             ),
