@@ -3,7 +3,7 @@ import "package:suntown/utils/api/info/userInfoPost.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-class UserInfoRegister{
+class UserInfoMange{
   static String _userId = '';
   String? email = '' ;
   String? nickName = '';
