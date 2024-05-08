@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:suntown/utils/api/info/userInfoPost.dart";
 import 'package:firebase_auth/firebase_auth.dart';
-
+import "package:suntown/utils/api/info/userInfoGet.dart";
 
 class UserInfoMange{
   static String _userId = '';
@@ -19,10 +19,32 @@ class UserInfoMange{
 
   // userId를 설정하는 정적 메서드를 추가합니다.
   static void setUserId(String userId) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setUserId(user.uid);
+    }
     _userId = userId;
   }
+
+  getUserInfo() async {
+    try {
+      final value = await userInfoGet(oauth_id:_userId);
+      print(value);
+      if (value["statusCode"] == 200) {
+        print(value['message']);
+      } else {
+        print("getUserInfo 에러");
+        print(value['message']);
+        debugPrint('서버 에러입니다. 다시 시도해주세요');
+        throw Exception('서버 에러입니다. 다시 시도해주세요');
+      }
+    } catch (e) {
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
+
   // 현재 사용자 정보를 firebase에서 가져옴.
-  void getUserInfo() {
+  void getUserInfoFirebase() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       setUserId(user.uid);
@@ -45,7 +67,7 @@ class UserInfoMange{
 
   // user 정보를 서버에 등록 할 때 사용.(회원가입 계좌 정도 저장)
   fetchUserData({required name, required mobile_number}) async {
-    getUserInfo();
+    getUserInfoFirebase();
     getUserPriInfo(name: name, mobile_number: mobile_number);
 
     try {

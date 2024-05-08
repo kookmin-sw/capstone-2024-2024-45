@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:suntown/main/signingUp/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
 
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
-import 'manage/userInfoManage.dart';
+import '../manage/userInfoManage.dart';
 
 
 class numberScreen extends StatefulWidget {
