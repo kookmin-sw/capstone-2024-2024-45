@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class UserInfoRegister{
-  String userId = '';
+  static String _userId = '';
   String? email = '' ;
   String? nickName = '';
   String? image_url = '' ;
@@ -12,15 +12,24 @@ class UserInfoRegister{
   String mobile_number = '';
   bool userInfoUpdate = false;
 
+  // userId를 가져오는 정적 메서드를 추가합니다.
+  static String getUserId() {
+    return _userId;
+  }
+
+  // userId를 설정하는 정적 메서드를 추가합니다.
+  static void setUserId(String userId) {
+    _userId = userId;
+  }
   // 현재 사용자 정보를 firebase에서 가져옴.
   void getUserInfo() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      userId = user.uid;
+      setUserId(user.uid);
       email = user.email;
       nickName = user.displayName;
       image_url = user.photoURL;
-      print('User ID: ${userId}');
+      print('User ID: ${getUserId}');
       print('User Email: ${email}');
       print('User Display Name: ${nickName}');
       print('User Photo URL: ${image_url}');
@@ -40,7 +49,7 @@ class UserInfoRegister{
     getUserPriInfo(name: name, mobile_number: mobile_number);
 
     try {
-      final value = await userInfoPost( oauth_id: userId, mobile_number: mobile_number, name : name, nickname : nickName,  image_url : image_url);
+      final value = await userInfoPost( oauth_id: getUserId, mobile_number: mobile_number, name : name, nickname : nickName,  image_url : image_url);
       if (value["statusCode"] == 200) {
         print(value['message']);
         userInfoUpdate = true;
