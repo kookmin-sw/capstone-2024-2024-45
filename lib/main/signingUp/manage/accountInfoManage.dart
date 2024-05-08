@@ -3,7 +3,7 @@ import '../../../utils/api/info/accountInfoPost.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-class AccountInfoRegister{
+class AccountInfoMange{
   String user_id = '';
   String username = '';
   String mobile_number = '';

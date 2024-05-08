@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:suntown/main/signingUp/register/accountInfoRegister.dart';
+import 'package:suntown/main/signingUp/manage/accountInfoManage.dart';
 
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
-import 'register/userInfoRegister.dart';
-import 'passwordScreen.dart';
+import 'manage/userInfoManage.dart';
+
 
 class numberScreen extends StatefulWidget {
   final String username;
@@ -119,8 +119,8 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: mobile_number.length ==  13 ? () async {
-                    bool userResuccess = await UserInfoRegister().fetchUserData(name:username, mobile_number:mobile_number);
-                    bool accoutnResuccess =  await AccountInfoRegister().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
+                    bool userResuccess = await UserInfoMange().fetchUserData(name:username, mobile_number:mobile_number);
+                    bool accoutnResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
 ;                    if (userResuccess){
                       Navigator.push(
                         context,
