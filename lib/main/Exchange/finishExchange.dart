@@ -45,10 +45,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF4B4A48),
-                          fontSize: screenWidth * 0.075,
+                          fontSize: 30,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w300,
-                          height: 0,
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.025),
@@ -57,10 +56,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF7D303D),
-                          fontSize: screenWidth * 0.1,
+                          fontSize: 30,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
-                          height: 0,
                         ),
                       ),
                       Row(
@@ -73,10 +71,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF7D303D),
-                              fontSize: screenWidth * 0.1,
+                              fontSize: 30,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w500,
-                              height: 0,
                             ),
                           ),
                           Text(
@@ -84,10 +81,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF4B4A48),
-                              fontSize: screenWidth * 0.075,
+                              fontSize: 30,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w500,
-                              height: 0,
                             ),
                           ),
                         ],
@@ -106,10 +102,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF4B4A48),
-                          fontSize: screenWidth * 0.075,
+                          fontSize: 30,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w300,
-                          height: 0,
                         ),
                       ),
                     ],
@@ -129,10 +124,9 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFFDDE9E2),
-                      fontSize: screenWidth * 0.055,
+                      fontSize: 20,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
-                      height: 0,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -155,7 +149,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xff2C533C),
-                      fontSize: screenWidth * 0.055,
+                      fontSize: 20,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                       height: 0,

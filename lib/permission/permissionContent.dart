@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-
+import 'package:suntown/main/mainAccount.dart';
 import 'package:suntown/permission/permissionNotifier.dart';
-import 'package:suntown/main/signingUp/signingScreen.dart';
+
 import '../utils/screenSizeUtil.dart';
 
 class PermissionContent extends StatefulWidget {
@@ -107,7 +107,7 @@ class _PermissionContentState extends State<PermissionContent> {
                   ,
                 ),
                 Text(
-                  '권한 허용 후, 매듭 창고를 시작합니다.\n아래 “권한 설정하기” 버튼을 눌러서\n권한을 허용해주세요',
+                  '권한 허용 후, 매듭 창고를 시작합니다.\n아래 “권한 설정하기” 버튼을 눌러서 권한을 허용해주세요',
                   style: TextStyle(
                     color: Color(0xFF727272),
                     fontSize: 17,
@@ -119,9 +119,6 @@ class _PermissionContentState extends State<PermissionContent> {
                 ),
               ],
             ),
-            // SizedBox(
-            //   height: screenHeight * 0.02,
-            // ),
             Spacer(),
             !isAgree
                 ? ElevatedButton(
@@ -134,7 +131,7 @@ class _PermissionContentState extends State<PermissionContent> {
                       '권한 설정',
                       style: TextStyle(
                         color: Color(0xffDDE9E2),
-                        fontSize: 23,
+                        fontSize: 20,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
                         height: 0,
@@ -153,13 +150,13 @@ class _PermissionContentState extends State<PermissionContent> {
                 : ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => signingUP()));
+                          builder: (context) => MainAccount()));
                     },
                     child: const Text(
                       '앱 시작하기',
                       style: TextStyle(
                         color: Color(0xFF2C533C),
-                        fontSize: 23,
+                        fontSize: 20,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
                         height: 0,

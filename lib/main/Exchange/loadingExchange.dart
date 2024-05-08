@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
-import 'package:suntown/utils/api/info/sendPost.dart';
 
 import '../../User/SendAmount.dart';
 import '../../User/userData/User.dart';
+import '../../utils/api/info/sendPost.dart';
 import '../../utils/screenSizeUtil.dart';
 import '../alert/apiFail/ApiRequestFailAlert.dart';
 
@@ -72,7 +72,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '화면을 끄지 마시고',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: screenWidth * 0.06,
+                  fontSize: 30,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
                 ),
@@ -82,7 +82,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '잠시 기다려 주세요!',
                 style: TextStyle(
                   color: Color(0xFF727272),
-                  fontSize: screenWidth * 0.06,
+                  fontSize: 30,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
                 ),
@@ -102,7 +102,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                       text: '${scannedUser.name}',
                       style: TextStyle(
                         color: Color(0xFF7D303D),
-                        fontSize: screenWidth * 0.06,
+                        fontSize: 30,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
                       ),
@@ -111,7 +111,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                       text: '님에게',
                       style: TextStyle(
                         color: Color(0xFF4B4A48),
-                        fontSize: screenWidth * 0.06,
+                        fontSize: 30,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
                       ),
@@ -124,7 +124,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 '매듭을 보내고 있습니다..',
                 style: TextStyle(
                   color: Color(0xFF4B4A48),
-                  fontSize: screenWidth * 0.06,
+                  fontSize: 30,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w400,
                 ),

@@ -97,7 +97,9 @@ class _qrScannerState extends State<qrScanner> {
                     children: [
                       Text(
                         "매듭을 보냅니다!",
-                        style: TextStyle(fontSize: screenWidth * 0.075),
+                        style: TextStyle(
+                            fontSize: 30
+                        ),
                       ),
                       SizedBox(
                         height: 30,
@@ -105,7 +107,7 @@ class _qrScannerState extends State<qrScanner> {
                       Text(
                         "매듭을 보내고 싶은 이웃의",
                         style: TextStyle(
-                          fontSize: screenWidth * 0.06,
+                          fontSize: 20,
                           color: Color(0xFF7D303D),
                           fontFamily: 'Noto Sans KR',
                         ),
@@ -113,7 +115,7 @@ class _qrScannerState extends State<qrScanner> {
                       Text.rich(
                         TextSpan(
                           style: TextStyle(
-                              fontSize: screenWidth * 0.06,
+                              fontSize: 20,
                               color: Color(0xFF7D303D),
                               fontFamily: 'Noto Sans KR'),
                           children: <TextSpan>[

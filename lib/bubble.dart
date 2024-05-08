@@ -12,11 +12,11 @@ class TopSideBubble extends StatelessWidget {
 
     return Container(
       width: screenWidth * 0.85,
-      height: screenHeight * 0.09,
+      height: 70,
       padding: const EdgeInsets.only(
         top: 10,
         left: 10,
-        right: 20,
+        right: 15,
         bottom: 10,
       ),
       decoration: ShapeDecoration(
@@ -37,17 +37,15 @@ class TopSideBubble extends StatelessWidget {
         children: [
           Expanded(
             child: SizedBox(
-              width: screenWidth * 0.2,
-              height: screenWidth * 0.2,
+              width: 50,
+              height: 50,
               child: Image(
                 image: AssetImage('assets/images/knot.png'),
               ),
             ),
           ),
-          Spacer(),
-          //말풍선 텍스트
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Align(
               alignment: Alignment.bottomRight,
               // 텍스트를 말풍선 아래에 위치시킴
@@ -58,7 +56,7 @@ class TopSideBubble extends StatelessWidget {
                     text: ["오늘도 나눔에 앞장서는\n아름다운 당신을 응원합니다!"],
                     textStyle: TextStyle(
                       color: Color(0xff624A43),
-                      fontSize: screenWidth * 0.037,
+                      fontSize: 15,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w500,
                     ),

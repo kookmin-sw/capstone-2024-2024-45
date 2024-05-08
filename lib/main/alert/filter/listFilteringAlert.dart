@@ -21,20 +21,22 @@ class listFilteringAlert {
             },
             child: AlertDialog(
               backgroundColor: Colors.white,
-              contentPadding: EdgeInsets.all(20),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               title: Column(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
                             "어떤걸 볼까요?",
                             style: TextStyle(
                               color: Color(0xFF624A43),
-                              fontSize: screenWidth * 0.06,
+                              fontSize: 25,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w600,
                               height: 0,
@@ -42,7 +44,6 @@ class listFilteringAlert {
                           ),
                         ),
                       ),
-                      Spacer(),
                       Expanded(
                         child: Align(
                           alignment: Alignment.topRight,
@@ -57,107 +58,111 @@ class listFilteringAlert {
                     ],
                   ),
                   SizedBox(
-                    height: screenHeight * 0.005,
+                    height: 10,
                   ),
                   Container(
                     height: 1.0,
-                    width: screenWidth * 1.0,
+                    width: 250, //고정값으로 변경..
                     color: Color(0xff624A43),
                   ),
                 ],
               ),
               content: Column(mainAxisSize: MainAxisSize.min, children: [
-                Column(
-                  children: [
-                    ElevatedButton(
-                      child: Text(
-                        '주고받은 매듭 확인하기',
-                        style: TextStyle(
-                          color: Color(0xFF4B4A48),
-                          fontSize: screenWidth * 0.05,
-                          fontFamily: 'Noto Sans KR',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onPressed: () {
-                        updateTypeCallback("ALL", "전체");
-                        Navigator.of(context).pop(); // 다이얼로그 닫기
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(screenWidth * 0.8, screenHeight * 0.07),
-                        padding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: BorderSide(
-                            color: Color(0xFFD3C2BD),
-                            width: 1.0, // 선 굵기
-                          ), // 선 추가
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
-                    ElevatedButton(
-                      child: Text(
-                        '보낸 매듭 확인하기',
-                        style: TextStyle(
-                          color: Color(0xFF4B4A48),
-                          fontSize: screenWidth * 0.05,
-                          fontFamily: 'Noto Sans KR',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onPressed: () {
-                        updateTypeCallback("SEND", "보낸 매듭");
-                        Navigator.of(context).pop(); // 다이얼로그 닫기
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(screenWidth * 0.8, screenHeight * 0.07),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: BorderSide(
-                            color: Color(0xFFD3C2BD),
-                            width: 1.0,
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        child: Text(
+                          '주고받은 매듭 확인하기',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: 20,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
+                        onPressed: () {
+                          updateTypeCallback("ALL", "전체");
+                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(250,60),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            side: BorderSide(
+                              color: Color(0xFFD3C2BD),
+                              width: 1.0, // 선 굵기
+                            ), // 선 추가
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
+                      ElevatedButton(
+                        child: Text(
+                          '보낸 매듭 확인하기',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: 20,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        onPressed: () {
+                          updateTypeCallback("SEND", "보낸 매듭");
+                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(250,60),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            side: BorderSide(
+                              color: Color(0xFFD3C2BD),
+                              width: 1.0,
+                            ),
+                          ),
 
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
-                    ElevatedButton(
-                      child: Text(
-                        '받은 매듭 확인하기',
-                        style: TextStyle(
-                          color: Color(0xFF4B4A48),
-                          fontSize: screenWidth * 0.05,
-                          fontFamily: 'Noto Sans KR',
-                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onPressed: () {
-                        updateTypeCallback("RECEIVE", "받은 매듭");
-                        Navigator.of(context).pop(); // 다이얼로그 닫기
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(screenWidth * 0.8, screenHeight * 0.07),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: BorderSide(
-                            color: Color(0xFFD3C2BD),
-                            width: 1.0,
-                          ), // 선 추가
+                      SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
+                      ElevatedButton(
+                        child: Text(
+                          '받은 매듭 확인하기',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: 20,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        onPressed: () {
+                          updateTypeCallback("RECEIVE", "받은 매듭");
+                          Navigator.of(context).pop(); // 다이얼로그 닫기
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(250,60),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            side: BorderSide(
+                              color: Color(0xFFD3C2BD),
+                              width: 1.0,
+                            ), // 선 추가
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ]),
             ),
