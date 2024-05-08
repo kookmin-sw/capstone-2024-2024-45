@@ -92,7 +92,7 @@ class _TestWidget2State extends State<listDetail> {
                                 ? testDetailUser.receiverProfileImg
                                 : testDetailUser.senderProfileImg,
                           ),
-                          radius: screenWidth * 0.2, // 원의 반지름 설정
+                          radius: 60, // 원의 반지름 설정
                         ),
                         SizedBox(height: screenHeight * 0.03),
                         Text(
@@ -101,7 +101,7 @@ class _TestWidget2State extends State<listDetail> {
                               : testDetailUser.senderNickname,
                           style: TextStyle(
                               color: Color(0xff4B4A48),
-                              fontSize: screenWidth * 0.07,
+                              fontSize: 30,
                               fontFamily: 'Noto Sans KR',
                               fontWeight: FontWeight.w600,
                           ),
@@ -114,7 +114,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 color: testDetailUser.sender == true ? Color(0xff7D303D) : Color(0xff2C533C),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w500,
                               ),
@@ -127,7 +127,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: testDetailUser.sender == true ? Color(0xff7D303D) : Color(0xff2C533C),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w500,
                               ),
@@ -140,8 +140,6 @@ class _TestWidget2State extends State<listDetail> {
                           width: screenWidth * 1.0,
                           color: Color(0xff624A43),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-                        SizedBox(height: screenHeight * 0.01),
                         Row(children: [
                           Expanded(
                             child: Text(
@@ -149,7 +147,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 color: Color(0xff4B4A48),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w400,
                               ),
@@ -167,7 +165,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Color(0xff4B4A48),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w400,
                               ),
@@ -182,7 +180,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 color: Color(0xff4B4A48),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w400,
                               ),
@@ -196,7 +194,7 @@ class _TestWidget2State extends State<listDetail> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Color(0xff4B4A48),
-                                fontSize: screenWidth * 0.05,
+                                fontSize: 20,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w400,
                               ),
@@ -211,7 +209,7 @@ class _TestWidget2State extends State<listDetail> {
                         '잘못 보내셨나요?',
                         style: TextStyle(
                           color: Color(0xff624A43),
-                          fontSize: screenWidth * 0.055,
+                          fontSize: 20,
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w500,
                         ),

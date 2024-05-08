@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -21,8 +21,9 @@ class _QrScreenContentState extends State<QrScreenContent> {
   @override
   void initState() {
     super.initState();
-    qrScreenProvider.errorStream.listen((error){ //에러 핸들러..동작 하는지는 미지수(test 필)
-      ApiRequestFailAlert.showExpiredCodeDialog(context,QrScreen());
+    qrScreenProvider.errorStream.listen((error) {
+      //에러 핸들러..동작 하는지는 미지수(test 필)
+      ApiRequestFailAlert.showExpiredCodeDialog(context, QrScreen());
     });
   }
 
@@ -50,7 +51,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
 
     return Container(
       width: screenWidth * 0.8,
-      height: screenHeight * 0.6,
+      height: screenHeight * 0.57,
       decoration: BoxDecoration(color: Color(0xFFF6E8E3)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -58,63 +59,64 @@ class _QrScreenContentState extends State<QrScreenContent> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: screenWidth * 0.8,
-                height: screenHeight * 0.07,
-                decoration: BoxDecoration(color: Color(0xFFD3C2BD)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${user.lastName}의 매듭 코드",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.06,
-                        color: Color(0xFF624A43),
-                        fontFamily: 'Noto Sans KR',
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Spacer(),
               Expanded(
-                flex: 10,
+                child: Container(
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.57 * 0.1,
+                  decoration: BoxDecoration(color: Color(0xFFD3C2BD)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${user.lastName}의 매듭 코드",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF624A43),
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 5,
                 child: Center(
-                  child: provider.dataupdate
-                      ? Container(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.4,
-                          child: QrImageView(
-                            data:
-                                "helloworld://send?hmac=${secretData.hmac}&data=${secretData.incodingData}",
-                            version: QrVersions.auto,
-                            size: screenWidth * 0.5,
-                            dataModuleStyle: QrDataModuleStyle(
-                              dataModuleShape: QrDataModuleShape.square,
-                              color: Colors.black,
-                            ),
-                            eyeStyle: QrEyeStyle(
-                              eyeShape: QrEyeShape.square,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )
-                      : Lottie.asset("assets/lottie/loading.json"),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        provider.dataupdate
+                            ? QrImageView(
+                                data:
+                                    "helloworld://send?hmac=${secretData.hmac}&data=${secretData.incodingData}",
+                                version: QrVersions.auto,
+                                size: screenHeight * 0.6 * 0.6,
+                                dataModuleStyle: QrDataModuleStyle(
+                                  dataModuleShape: QrDataModuleShape.square,
+                                  color: Colors.black,
+                                ),
+                                eyeStyle: QrEyeStyle(
+                                  eyeShape: QrEyeShape.square,
+                                  color: Colors.black,
+                                ),
+                              )
+                            : Lottie.asset("assets/lottie/loading.json"),
+                      ]),
                 ),
               ),
-              Spacer(),
               Text(
-                '매듭 코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.06,
-                  color: Color(0xFF4B4A48),
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w300,
+                  '매듭 코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Color(0xFF4B4A48),
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

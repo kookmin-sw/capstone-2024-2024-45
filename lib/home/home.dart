@@ -50,8 +50,8 @@ class _HomeState extends State<Home> {
           Center(
               child: Column(children: [
                 SizedBox(
-                  width: screenWidth * 0.8,
-                  height: screenWidth * 0.8,
+                  width: 300,
+                  height: 300,
                   child: Image(
                     image: AssetImage('assets/images/knotWarehouse.png'),
                   ),
