@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:suntown/main/signingUp/register/accountInfoRegister.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
 
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
-import 'register/userInfoRegister.dart';
+import '../manage/userInfoManage.dart';
 
 class passwordScreen extends StatefulWidget {
   final String username;

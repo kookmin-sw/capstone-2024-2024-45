@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
+import '../signingUp/manage/userInfoManage.dart';
 
 
-class defatulDrawer extends StatelessWidget {
-  const defatulDrawer({super.key});
+class defaultDrawer extends StatefulWidget {
+  const defaultDrawer({super.key});
+
+  @override
+  State<defaultDrawer> createState() => _defaultDrawerState();
+}
+
+class _defaultDrawerState extends State<defaultDrawer> {
+  // late bool status;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _getUserInfo();
+  // }
+  //
+  // Future<void> _getUserInfo() async {
+  //   status = await UserInfoMange().getUserInfo();
+  //   setState(() {}); // 상태 갱신
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +39,19 @@ class defatulDrawer extends StatelessWidget {
             accountName: Text('jieun'),
             accountEmail: Text('abcd1234@naver.com'),
             decoration: BoxDecoration(
-              color: Color(0xFFFFD852),
+              color: Color(0xFFDDE8E1),
             ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.question_answer,
+              color: Colors.grey[850],
+            ),
+            title: Text('관리자 문의'),
+            onTap: () {
+              print('관리자 문의 클릭');
+            },
+            trailing: Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
             leading: Icon(
@@ -33,7 +63,7 @@ class defatulDrawer extends StatelessWidget {
               try{
                 FirebaseAuth.instance.signOut();
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => signingUP()));
+                    MaterialPageRoute(builder: (context) => signingUP()));
               }catch (e){
                 print("로그아웃 실패 : $e");
               }

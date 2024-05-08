@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
+import '../signingUp/manage/userInfoManage.dart';
 
-class mainDrawer extends StatelessWidget {
+
+class mainDrawer extends StatefulWidget {
   const mainDrawer({super.key});
+
+  @override
+  State<mainDrawer> createState() => _mainDrawerState();
+}
+
+class _mainDrawerState extends State<mainDrawer> {
+  // late bool status;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _getUserInfo();
+  // }
+  //
+  // Future<void> _getUserInfo() async {
+  //   status = await UserInfoMange().getUserInfo();
+  //   setState(() {}); // 상태 갱신
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +39,7 @@ class mainDrawer extends StatelessWidget {
             accountName: Text('jieun'),
             accountEmail: Text('abcd1234@naver.com'),
             decoration: BoxDecoration(
-              color: Color(0xFFFFD852),
+              color: Color(0xFFDDE8E1),
             ),
           ),
 

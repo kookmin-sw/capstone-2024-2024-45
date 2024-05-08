@@ -25,7 +25,6 @@ Future<Map<String, dynamic>> userInfoPost({required oauth_id, required mobile_nu
     try {
       Map<String, dynamic> resBody =
       jsonDecode(utf8.decode(response.bodyBytes));
-      print('-----');
       print(response.statusCode);
       resBody['statusCode'] = response.statusCode;
       return resBody;

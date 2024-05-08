@@ -42,7 +42,7 @@ class _defaultAccounttState extends State<defaultAccount>{
             ),
           ],
         ),
-        drawer : defatulDrawer(),
+        drawer : defaultDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
