@@ -17,7 +17,7 @@ class PermissionTopMessage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 30,
+              fontSize: 25,
               fontFamily: 'Noto Sans KR',
               fontWeight: FontWeight.w400,
               height: 0,
@@ -31,7 +31,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '매듭 창고에서 \n',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w300,
                     height: 0,
@@ -41,7 +41,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '“매듭 보내기”',
                   style: TextStyle(
                     color: Color(0xFF7D303D),
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w600,
                     height: 0,
@@ -51,7 +51,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '를 하기 위해서는, ',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w300,
                     height: 0,
@@ -68,7 +68,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '다음 권한들을 ',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w300,
                     height: 0,
@@ -78,7 +78,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '허용',
                   style: TextStyle(
                     color: Color(0xFF7D303D),
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w600,
                     height: 0,
@@ -88,7 +88,7 @@ class PermissionTopMessage extends StatelessWidget {
                   text: '해주셔야 해요!',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 23,
+                    fontSize: 20,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w300,
                     height: 0,

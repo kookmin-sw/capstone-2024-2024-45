@@ -4,11 +4,10 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:suntown/utils/api/send/qrPost.dart';
 
 import '../User/scannedUserData/SecretScannedUserData.dart';
 import '../User/userData/User.dart';
-import '../main/alert/apiFail/ApiRequestFailAlert.dart';
+import '../utils/api/info/qrPost.dart';
 
 class QrScreenProvider extends ChangeNotifier {
   late DateTime expirationTime;

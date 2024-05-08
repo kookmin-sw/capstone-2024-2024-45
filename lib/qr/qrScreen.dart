@@ -29,17 +29,19 @@ class QrScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            QrPageTopSection(), // GreetingSection 위젯 추가
-            SizedBox(height: screenHeight * 0.04),
-            ChangeNotifierProvider( // QrScreenProvider를 제공
-              create: (context) => QrScreenProvider(),
-              child: QrScreenContent(), // _QrScreenContent 위젯 추가
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              QrPageTopSection(), // GreetingSection 위젯 추가
+              SizedBox(height: screenHeight * 0.04),
+              ChangeNotifierProvider( // QrScreenProvider를 제공
+                create: (context) => QrScreenProvider(),
+                child: QrScreenContent(), // _QrScreenContent 위젯 추가
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -120,14 +120,9 @@ class _InputTransforState extends State<InputTransfor> {
     String nickname = scannedUser.name; //api에서 가져온 닉네임 활용
     String printNickname = "$nickname 님에게"; //닉네임 잘 받아오는지 보기
 
-    TextStyle nameTextStyle = TextStyle(
-      fontSize: screenWidth * 0.075,
-      fontWeight: FontWeight.bold,
-      color: Color(0xff4B4A48),
-    );
 
     TextStyle textStyle = TextStyle(
-      fontSize: screenWidth * 0.075,
+      fontSize: 30,
       fontWeight: FontWeight.bold,
       color: Color(0xffD3C2BD),
     );
@@ -148,16 +143,16 @@ class _InputTransforState extends State<InputTransfor> {
               children: [
                 CircleAvatar(
                   // 여기에 프로필 이미지 설정
-                  radius: screenWidth * 0.1, // 이미지 크기 설정
+                  radius: 40, // 이미지 크기 설정
                   backgroundImage: NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
                 ),
                 SizedBox(
-                  height: screenHeight * 0.04,
+                  height: screenHeight * 0.02,
                 ),
                 Text(
                   printNickname,
                   style:  TextStyle(
-                    fontSize: screenWidth * 0.075,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -165,7 +160,7 @@ class _InputTransforState extends State<InputTransfor> {
                 Text(
                   "얼마 만큼의 매듭을 보낼까요?",
                   style: TextStyle(
-                    fontSize: screenWidth * 0.06,
+                    fontSize: 25,
                     color: Color(0xFF7D303D),
                   ),
                 ),
@@ -180,7 +175,7 @@ class _InputTransforState extends State<InputTransfor> {
                   "잔액 : ${NumberFormat("#,###").format(balance)} 매듭",
                   //api 값 가져오기
                   style: TextStyle(
-                    fontSize: screenWidth * 0.045,
+                    fontSize: 17,
                     color: Color(0xFF727272),
                   ),
                 ),
@@ -190,8 +185,8 @@ class _InputTransforState extends State<InputTransfor> {
                 Text(
                   alerttext,
                   style: TextStyle(
-                    fontSize: screenWidth * 0.045,
-                    color: Colors.red,
+                    fontSize: 18,
+                    color: Color(0xFF2C533C),
                   ),
                 )
               ]),
@@ -231,7 +226,7 @@ class _InputTransforState extends State<InputTransfor> {
                 "확인",
                 style: TextStyle(
                   color: Color(0xFFDDE9E2),
-                  fontSize: screenWidth * 0.055,
+                  fontSize: 20,
                   fontFamily: 'Noto Sans KR',
                   fontWeight: FontWeight.w500,
                 ),

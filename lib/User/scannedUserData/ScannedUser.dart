@@ -17,7 +17,7 @@ class ScannedUser {
   ScannedUser._internal() {
     accountId = '';
     name = '';
-    profile = 'https://reqres.in/img/faces/7-image.jpg';
+    profile = 'https://reqres.in/img/faces/7-image.jpg'; //임시..
     senderBalance = '';
   }
 
