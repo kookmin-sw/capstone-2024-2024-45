@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import '../../../utils/api/info/accountInfoPost.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'userInfoManage.dart';
 
 class AccountInfoMange{
-  String user_id = '';
-  String username = '';
-  String mobile_number = '';
-  String password = "";
-  String account_name ="";
+  late String user_id;
+  late String username ;
+  late String mobile_number;
+  late String password ;
+  late String account_name;
   bool accountInfoUpdate = false;
 
 
-  // 현재 사용자 정보를 firebase에서 가져옴.
-  void getUserInfo() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      user_id = user.uid;
-      print('User ID: ${user_id}');
-    } else {
-      print('No user is currently signed in.');
-    }
-  }
 
   // 계좌 개인 정보
   void getAccountPriInfo({required username, required mobile_number, required password}){
@@ -32,7 +22,8 @@ class AccountInfoMange{
 
   // account 정보를 서버에 등록 할 때 사용
   fetchAccountData({required username, required mobile_number, required password}) async {
-    getUserInfo();
+    UserInfoManage.setUserId();
+    user_id = UserInfoManage.getUserId();
     getAccountPriInfo(username: username, mobile_number: mobile_number, password :password );
 
     try {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:suntown/main/signingUp/signingScreen.dart';
-import '../signingUp/manage/userInfoManage.dart';
 
+import 'package:suntown/main/signingUp/signingScreen.dart';
+import '../manage/userInfoManage.dart';
+import 'persInfo/persInfoCheck.dart';
 
 class mainDrawer extends StatefulWidget {
   const mainDrawer({super.key});
@@ -50,6 +51,8 @@ class _mainDrawerState extends State<mainDrawer> {
             ),
             title: Text('개인정보 수정'),
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => persInfo()));
               print('개인정보 수정 클릭');
             },
             trailing: Icon(Icons.arrow_forward_ios),
