@@ -80,19 +80,19 @@ class _persInfoState extends State<persInfo> {
                         backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
                         radius: screenWidth * 0.15, // 원의 반지름 설정
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: screenHeight * 0.024,),
                       // 이름
                       Container(
-                        width: 343,
-                        height: 77,
+                        width: screenWidth * 0.85,
+                        height: screenHeight * 0.09,
                         child: Stack(
                           children: [
                             Positioned(
                               left: 0,
                               top: 0,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   '이름',
                                   style: TextStyle(
@@ -109,8 +109,8 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 39,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   // testUser.firstName,
                                   "김국민",
@@ -128,7 +128,7 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 77,
                               child: Container(
-                                width: 343,
+                                width: screenWidth * 0.85,
                                 decoration: ShapeDecoration(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
@@ -143,19 +143,19 @@ class _persInfoState extends State<persInfo> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: screenHeight * 0.024),
                       // 이메일
                       Container(
-                        width: 343,
-                        height: 77,
+                        width: screenWidth * 0.85,
+                        height: screenHeight * 0.09,
                         child: Stack(
                           children: [
                             Positioned(
                               left: 0,
                               top: 0,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   '이메일',
                                   style: TextStyle(
@@ -172,8 +172,8 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 39,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   'asdf1234@google.com',
                                   style: TextStyle(
@@ -190,7 +190,7 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 77,
                               child: Container(
-                                width: 343,
+                                width: screenWidth * 0.85,
                                 decoration: ShapeDecoration(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
@@ -205,19 +205,19 @@ class _persInfoState extends State<persInfo> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: screenHeight * 0.024),
                       // 전화번호
                       Container(
-                        width: 343,
-                        height: 77,
+                        width: screenWidth * 0.85,
+                        height: screenHeight * 0.09,
                         child: Stack(
                           children: [
                             Positioned(
                               left: 0,
                               top: 0,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   '전화번호',
                                   style: TextStyle(
@@ -234,8 +234,8 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 39,
                               child: SizedBox(
-                                width: 294,
-                                height: 35,
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.045,
                                 child: Text(
                                   '010-1234-5678',
                                   style: TextStyle(
@@ -252,7 +252,7 @@ class _persInfoState extends State<persInfo> {
                               left: 0,
                               top: 77,
                               child: Container(
-                                width: 343,
+                                width: screenWidth * 0.85,
                                 decoration: ShapeDecoration(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
@@ -271,31 +271,32 @@ class _persInfoState extends State<persInfo> {
                   )
                 ),
               ),
-              ElevatedButton(
-                child: Text(
-                  '수정하기',
-                  style: TextStyle(
-                    color: Color(0xff624A43),
-                    fontSize: screenWidth * 0.055,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                onPressed: () {
-                  // setState(() {
-                  //   Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (context) => testWidget()));
-                  // });
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: Color(0xFFD3C2BD),
-                ),
-              ),
+              // 2차배포 때 활성화 시키기
+              // ElevatedButton(
+              //   child: Text(
+              //     '수정하기',
+              //     style: TextStyle(
+              //       color: Color(0xff624A43),
+              //       fontSize: screenWidth * 0.055,
+              //       fontFamily: 'Noto Sans KR',
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //   ),
+              //   onPressed: () {
+              //     // setState(() {
+              //     //   Navigator.of(context).push(MaterialPageRoute(
+              //     //       builder: (context) => testWidget()));
+              //     // });
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     backgroundColor: Color(0xFFD3C2BD),
+              //   ),
+              // ),
             ],
           ),
         ),

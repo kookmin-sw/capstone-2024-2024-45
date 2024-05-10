@@ -54,7 +54,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TopSideBubble(),//말풍선
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30),
                       Container(
                         width: screenWidth * 0.85,
                         height: screenHeight * 0.44,
@@ -97,7 +97,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                                   '매듭 창고를\n만들어 주세요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF4B4A48),
-                                                    fontSize: screenWidth * 0.075,
+                                                    fontSize: 30,
                                                     fontFamily: 'Noto Sans KR',
                                                     fontWeight: FontWeight.w700,
                                                     height: 1.1,
@@ -115,7 +115,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                                   '창고를 만들어야, \n매듭창고를 사용할 수 있어요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF727272),
-                                                    fontSize: screenWidth * 0.037,
+                                                    fontSize: 16,
                                                     fontFamily: 'Noto Sans KR',
                                                     fontWeight: FontWeight.w500,
                                                     height: 1.1,

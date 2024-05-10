@@ -40,7 +40,7 @@ class _accountSuccessState extends State<accountSuccess> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF7D303D),
-                        fontSize: screenWidth * 0.1,
+                        fontSize: 35,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w500,
                         height: 0,
@@ -56,7 +56,7 @@ class _accountSuccessState extends State<accountSuccess> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF7D303D),
-                            fontSize: screenWidth * 0.1,
+                            fontSize: 35,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                             height: 0,
@@ -67,7 +67,7 @@ class _accountSuccessState extends State<accountSuccess> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: screenWidth * 0.075,
+                            fontSize: 30,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                             height: 0,
@@ -90,7 +90,7 @@ class _accountSuccessState extends State<accountSuccess> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF4B4A48),
-                        fontSize: screenWidth * 0.045,
+                        fontSize: 20,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w300,
                         height: 0,

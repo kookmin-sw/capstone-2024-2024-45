@@ -45,7 +45,7 @@ class _nameScreenState extends State<nameScreen> {
                                 '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFFD3C2BD),
-                                  fontSize: screenWidth * 0.037,
+                                  fontSize: 17,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -59,7 +59,7 @@ class _nameScreenState extends State<nameScreen> {
                                 '이름을 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: screenWidth * 0.06,
+                                  fontSize: 25,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -86,7 +86,7 @@ class _nameScreenState extends State<nameScreen> {
                                 ),
                                 style :TextStyle(
                                   color: Color(0xFF624A43), //Color(0xFF624A43),
-                                  fontSize : screenWidth * 0.06,
+                                  fontSize : 25,
                                ),
                             ),
                           ]
