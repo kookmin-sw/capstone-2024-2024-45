@@ -8,10 +8,10 @@ spring:
       password: ${DATASOURCE_REMITTANCE_PASSWORD}
 
     bankcore:
-      jdbc-url: jdbc:mysql://mysql:3306/bankcore?serverTimezone=Asia/Seoul
+      jdbc-url: jdbc:mysql://${CORE_DB_PATH}/core
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: root
-      password: ${DATASOURCE_BANKCORE_PASSWORD}
+      username: ${CORE_DB_USERNAME}
+      password: ${CORE_DB_PASSWORD}
 
 server:
   port: 8000
