@@ -53,7 +53,7 @@ class _openAccountState extends State<openAccount> {
                                     '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
-                                      fontSize: screenWidth * 0.06,
+                                      fontSize: 25,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
                                       height: 0,
@@ -95,7 +95,7 @@ class _openAccountState extends State<openAccount> {
                                                             '창고 만들기',
                                                             style: TextStyle(
                                                               color:Color(0xFF624A43),
-                                                              fontSize: screenWidth * 0.045,
+                                                              fontSize: 20,
                                                               fontFamily: 'Noto Sans KR',
                                                               fontWeight: FontWeight.w500,
                                                               height: 0,

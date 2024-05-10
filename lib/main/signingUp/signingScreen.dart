@@ -67,7 +67,7 @@ class _signingUPState extends State<signingUP> {
                                     '로그인하고\n매듭창고 시작하기.',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
-                                      fontSize: screenWidth * 0.06,
+                                      fontSize: 25,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
                                     ),

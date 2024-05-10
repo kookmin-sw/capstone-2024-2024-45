@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
 import '../manage/userInfoManage.dart';
 import 'persInfo/persInfoCheck.dart';
-
+import '../../utils/screenSizeUtil.dart';
 
 class defaultDrawer extends StatefulWidget {
   const defaultDrawer({super.key});
@@ -28,14 +28,16 @@ class _defaultDrawerState extends State<defaultDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              // backgroundImage:  사용자 이미지
+              // backgroundImage: NetworkImage(testUser.avatar),
+              backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
+              radius: screenWidth * 0.1, // 원의 반지름 설정
             ),
             accountName: Text('jieun'),
             accountEmail: Text('abcd1234@naver.com'),

@@ -65,7 +65,7 @@ class _numberScreenState extends State<numberScreen> {
                                 '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFFD3C2BD),
-                                  fontSize: screenWidth * 0.037,
+                                  fontSize: 17,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -79,7 +79,7 @@ class _numberScreenState extends State<numberScreen> {
                                 '전화번호를 입력해주세요.',
                                 style: TextStyle(
                                   color: Color(0xFF4B4A48),
-                                  fontSize: screenWidth * 0.06,
+                                  fontSize: 25,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -110,7 +110,7 @@ class _numberScreenState extends State<numberScreen> {
                                 ),
                               style :TextStyle(
                                 color: Color(0xFF624A43),
-                                fontSize : screenWidth * 0.06,
+                                fontSize : 25,
                               ),
                             ),
                           ]
