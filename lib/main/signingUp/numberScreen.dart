@@ -119,7 +119,7 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: mobile_number.length ==  13 ? () async {
-                    bool userResuccess = await UserInfoMange().fetchUserData(name:username, mobile_number:mobile_number);
+                    bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number);
                     bool accoutnResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
 ;                    if (userResuccess){
                       Navigator.push(

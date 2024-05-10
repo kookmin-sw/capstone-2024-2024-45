@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
-import '../signingUp/manage/userInfoManage.dart';
+import '../manage/userInfoManage.dart';
+import 'persInfo/persInfoCheck.dart';
 
 
 class defaultDrawer extends StatefulWidget {
@@ -49,6 +50,8 @@ class _defaultDrawerState extends State<defaultDrawer> {
             ),
             title: Text('관리자 문의'),
             onTap: () {
+              // Navigator.of(context).push(
+              //     MaterialPageRoute(builder: (context) => persInfoCheck()));
               print('관리자 문의 클릭');
             },
             trailing: Icon(Icons.arrow_forward_ios),
