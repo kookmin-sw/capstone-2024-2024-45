@@ -8,14 +8,14 @@ import '../../utils/screenSizeUtil.dart';
 import '../../User/userData/UserF.dart';
 import '../alert/apiFail/ApiRequestFailAlert.dart';
 
-class mainDrawer extends StatefulWidget {
-  const mainDrawer({super.key});
+class defaultDrawer extends StatefulWidget {
+  const defaultDrawer({super.key});
 
   @override
-  State<mainDrawer> createState() => _mainDrawerState();
+  State<defaultDrawer> createState() => _defaultDrawerState();
 }
 
-class _mainDrawerState extends State<mainDrawer> {
+class _defaultDrawerState extends State<defaultDrawer> {
   late String userName ;
   late String mobile_number;
   late UserF user;
@@ -51,8 +51,8 @@ class _mainDrawerState extends State<mainDrawer> {
               // backgroundImage: NetworkImage(testUser.avatar),
               backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
             ),
-            accountName: Text('jieun'),
-            accountEmail: Text('abcd1234@naver.com'),
+            accountName: Text(''),
+            accountEmail: Text(''),
             decoration: BoxDecoration(
               color: Color(0xFFDDE8E1),
             ),

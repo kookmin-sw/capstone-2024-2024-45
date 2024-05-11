@@ -1,13 +1,14 @@
 /*
-oauth_id로 user_id를 가져오는 api
+user_id로 account id 가져오는 api
 */
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
-Future<Map<String, dynamic>> oauthIdGet({required String oauth_id}) async {
-  String baseUrl = 'http://223.130.133.30:8000/api/user/$oauth_id'; //base
+Future<Map<String, dynamic>> accountIdGet({required user_id}) async {
+  String baseUrl = 'http://223.130.133.30:8000/api/user/$user_id/account'; //base
   try {
     http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",

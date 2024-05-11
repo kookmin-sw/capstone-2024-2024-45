@@ -7,7 +7,7 @@ import 'package:suntown/main/signingUp/openAccount.dart';
 import '../User/User.dart';
 import '../bubble.dart';
 import '../utils/screenSizeUtil.dart';
-import 'drawer/mainDrawer.dart';
+import 'drawer/defaultDrawer.dart';
 
 class defaultAccount extends StatefulWidget {
   const defaultAccount({super.key});
@@ -42,7 +42,7 @@ class _defaultAccounttState extends State<defaultAccount>{
             ),
           ],
         ),
-        drawer : mainDrawer(),
+        drawer : defaultDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
