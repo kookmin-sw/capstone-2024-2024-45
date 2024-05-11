@@ -27,13 +27,6 @@ services:
       - 8000:8000
     env_file:
       - .env
-    environment:
-      - SPRING_DATASOURCE_REMITTANCE_URL=jdbc:mysql://mysql:3306/transaction_history?allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_REMITTANCE_USERNAME=root
-      - SPRING_DATASOURCE_REMITTANCE_PASSWORD=${DATASOURCE_REMITTANCE_PASSWORD}
-      - SPRING_DATASOURCE_BANKCORE_URL=jdbc:mysql://mysql:3306/bankcore?allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_BANKCORE_USERNAME=root
-      - SPRING_DATASOURCE_BANKCORE_PASSWORD=${DATASOURCE_BANKCORE_PASSWORD}
     links:
       - mysql
     depends_on:
