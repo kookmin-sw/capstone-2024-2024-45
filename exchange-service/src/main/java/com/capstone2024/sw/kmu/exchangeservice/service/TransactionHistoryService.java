@@ -43,8 +43,8 @@ public class TransactionHistoryService {
 
         TransactionHistory transactionHistory = transactionHistoryRepository.findByTransId(transId);
 
-        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(transactionHistory.getReceiverAccountId());
-        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(transactionHistory.getSenderAccountId());
+        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(transactionHistory.getReceiverAccountId()).get(0);
+        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(transactionHistory.getSenderAccountId()).get(0);
 
         if(isSender){
             User user = new User(receiverInfo.getNickname(), receiverInfo.getProfile_img());
@@ -76,12 +76,12 @@ public class TransactionHistoryService {
         List<TransactionHistoryResponseDto.RemittanceList> list = transactionHistories.stream()
                 .map( i -> {
                     if( i.getSenderAccountId().equals(dto.getAccountId())){ // 내가 보낸이면
-                        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(i.getReceiverAccountId());
+                        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(i.getReceiverAccountId()).get(0);
                         user.setUserNickname(receiverInfo.getNickname());
                         user.setUserProfileImg(receiverInfo.getProfile_img());
                         return TransactionHistoryResponseDto.RemittanceList.receiverInfoFrom(i, user);
                     }else{
-                        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(i.getSenderAccountId());
+                        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(i.getSenderAccountId()).get(0);
                         user.setUserNickname(senderInfo.getNickname());
                         user.setUserProfileImg(senderInfo.getProfile_img());
                         return TransactionHistoryResponseDto.RemittanceList.senderInfoFrom(i, user);

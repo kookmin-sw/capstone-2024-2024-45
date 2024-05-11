@@ -84,7 +84,7 @@ public class QRService {
                 return APIResponse.of(ErrorCode.INVALID_QR_CODE, "유효시간이 지난 QR 코드 입니다.");
             }
 
-            UserClientResponseDto.UserInfo userInfo = userClient.getProfile(ReceiverAccountId);
+            UserClientResponseDto.UserInfo userInfo = userClient.getProfile(ReceiverAccountId).get(0);
 
             int senderBalance = bankCoreRepository.findBalanceByAccountId(dto.getSenderAccountId());
 
