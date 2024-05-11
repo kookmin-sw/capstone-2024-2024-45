@@ -5,7 +5,7 @@ import 'package:suntown/main/manage/accountInfoManage.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
 import '../manage/userInfoManage.dart';
-
+import '../alert/apiFail/ApiRequestFailAlert.dart';
 
 class numberScreen extends StatefulWidget {
   final String username;
@@ -119,23 +119,28 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: mobile_number.length ==  13 ? () async {
-                    bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number);
-                    bool accoutnResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
-;                    if (userResuccess){
+                    // bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number); // user register 성공 여부
+                    // bool accountResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: ""); // account register 성공 여부
+                  Map<String, dynamic> account_val = await AccountInfoMange().fetchAccountData( username: username, mobile_number:mobile_number, password: ""); // account register 후 값 return
+                  final String? account_id = account_val["account_id"]; // account 등록 되면 account_id return 해줌
+                  print(account_id);
+                  bool accountResuccess = account_val["accountInfoUpdate"] == true ? true : false; // account register 성공 여부
+                  print(accountResuccess);
+                  if (accountResuccess){ //userResuccess&&accoutnResuccess
+                    // 계좌 생성과 동시에 user 정보와 account 정보 매핑 시켜줌
+                    bool connectResuccess = await AccountInfoMange().connectUserAccount(username: username);
+                    if (connectResuccess){ // 매핑에 성공하면 다음 페이지로
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => accountSuccess()),
                       );
+                    }else{
+                      ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
                     }
-                    else{
-                      // 알림화면 띄우는걸로 변경 예정
-                      print("오류");
-                    }
-                    print(mobile_number);
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => passwordScreen(username : username,mobile_number:mobile_number )),
-//                   );
+                  }
+                  else{
+                    ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
+                  }
                 }
                 : null,
                 style: ElevatedButton.styleFrom(

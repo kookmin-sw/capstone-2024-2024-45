@@ -43,11 +43,11 @@ class UserInfoManage{
       final value_userID = await oauthIdGet(oauth_id: _oauth_id);
       print(value_userID);
       if (value_userID["statusCode"] == 200) {
-        print(200);
         print(value_userID['result']['user_id']);
         _user_id =  value_userID['result']['user_id'];
       } else {
         print("getUserId 에러");
+        print(value_userID['message']);
         print(value_userID['message']);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
@@ -114,13 +114,13 @@ class UserInfoManage{
         print(value['message']);
         userInfoUpdate = true;
       } else if(value["statusCode"] == 400){
+        // 따로 처리 필요
         print('이미 존재하는 유저');
       }else {
         print("fetchUserData 에러");
         print(value['message']);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
-
       }
     } catch (e) {
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
