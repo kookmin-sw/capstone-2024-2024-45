@@ -63,7 +63,7 @@ public class BankCoreService {
             return APIResponse.of(ErrorCode.INSUFFICIENT_AMOUNT, "보내는 사람의 잔액이 부족합니다.");
         }
 
-        if(receiverInfo.getSuspendType().equals(AccountInfo.SuspensionType.BOTH)){
+        if(receiverInfo.getSuspendType() == AccountInfo.SuspensionType.BOTH){
             return APIResponse.of(ErrorCode.BLOCK_ACCOUNT, "휴면 계좌로 송금할 수 없습니다.");
         }
 
