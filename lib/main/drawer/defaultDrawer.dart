@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:suntown/main/signingUp/signingScreen.dart';
 import '../manage/userInfoManage.dart';
 import 'persInfo/persInfoCheck.dart';
 import '../../utils/screenSizeUtil.dart';
+import '../../User/userData/UserF.dart';
+import '../alert/apiFail/ApiRequestFailAlert.dart';
 
-class defaultDrawer extends StatefulWidget {
-  const defaultDrawer({super.key});
+class mainDrawer extends StatefulWidget {
+  const mainDrawer({super.key});
 
   @override
-  State<defaultDrawer> createState() => _defaultDrawerState();
+  State<mainDrawer> createState() => _mainDrawerState();
 }
 
-class _defaultDrawerState extends State<defaultDrawer> {
-  // late bool status;
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _getUserInfo();
-  // }
-  //
-  // Future<void> _getUserInfo() async {
-  //   status = await UserInfoMange().getUserInfo();
-  //   setState(() {}); // 상태 갱신
-  // }
+class _mainDrawerState extends State<mainDrawer> {
+  late String userName ;
+  late String mobile_number;
+  late UserF user;
+  late bool dataload;
+  @override
+  void initState() {
+    dataload = false;
+    user = UserF();
+    fetchData();
+  }
+
+  // userdata 불러오기
+  Future<void> fetchData() async {
+    try {
+      final value = await UserInfoManage().getUserInfo();
+      dataload = true;
+      user.initializeData(value["result"]['user_info']);
+    } catch (e) {
+      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +50,12 @@ class _defaultDrawerState extends State<defaultDrawer> {
             currentAccountPicture: CircleAvatar(
               // backgroundImage: NetworkImage(testUser.avatar),
               backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
-              radius: screenWidth * 0.1, // 원의 반지름 설정
             ),
             accountName: Text('jieun'),
             accountEmail: Text('abcd1234@naver.com'),
             decoration: BoxDecoration(
               color: Color(0xFFDDE8E1),
             ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.question_answer,
-              color: Colors.grey[850],
-            ),
-            title: Text('관리자 문의'),
-            onTap: () {
-              // Navigator.of(context).push(
-              //     MaterialPageRoute(builder: (context) => persInfoCheck()));
-              print('관리자 문의 클릭');
-            },
-            trailing: Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
             leading: Icon(
