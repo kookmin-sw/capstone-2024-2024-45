@@ -37,7 +37,7 @@ public class BankCoreService {
                 userInfo.setBalance(userInfo.getBalance() + amount);
 
                 // if 일시정지 && balance > 0 then 일시정지 해제 <- 송금 시 예외 사항
-                if(userInfo.isSuspended() && userInfo.getSuspendedType() == AccountInfo.SuspensionType.SEND && userInfo.getBalance() > 0){
+                if(userInfo.isSuspended() && userInfo.getSuspendType() == AccountInfo.SuspensionType.SEND && userInfo.getBalance() > 0){
                     userInfo.updateSuspended(AccountInfo.SuspensionType.NONE, false);
                 }
                 break;
@@ -50,7 +50,7 @@ public class BankCoreService {
         AccountInfo receiverInfo = getInfo(receiverAccountId);
 
         if(senderInfo.isSuspended()){
-            switch (senderInfo.getSuspendedType()){
+            switch (senderInfo.getSuspendType()){
                 case SEND :
                     return APIResponse.of(ErrorCode.BLOCK_ACCOUNT, "잔액이 0 미만이므로 송금이 제한되어 있습니다.");
                 case BOTH:
@@ -63,7 +63,7 @@ public class BankCoreService {
             return APIResponse.of(ErrorCode.INSUFFICIENT_AMOUNT, "보내는 사람의 잔액이 부족합니다.");
         }
 
-        if(receiverInfo.getSuspendedType().equals(AccountInfo.SuspensionType.BOTH)){
+        if(receiverInfo.getSuspendType() == AccountInfo.SuspensionType.BOTH){
             return APIResponse.of(ErrorCode.BLOCK_ACCOUNT, "휴면 계좌로 송금할 수 없습니다.");
         }
 

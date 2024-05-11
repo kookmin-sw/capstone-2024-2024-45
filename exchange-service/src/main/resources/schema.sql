@@ -1,10 +1,3 @@
-CREATE TABLE IF NOT EXISTS bankcore.bankcore (
-    account_id CHAR(36) NOT NULL PRIMARY KEY ,
-    balance INT NOT NULL ,
-    is_suspended TINYINT(1) NOT NULL ,
-    suspended_type ENUM('NONE', 'SEND', 'BOTH') NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS transaction_history.transactionhistory (
       trans_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
       sender_account_id CHAR(36) NOT NULL ,

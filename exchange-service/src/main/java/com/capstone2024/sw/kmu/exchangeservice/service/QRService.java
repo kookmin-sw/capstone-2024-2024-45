@@ -3,6 +3,8 @@ package com.capstone2024.sw.kmu.exchangeservice.service;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
+import com.capstone2024.sw.kmu.exchangeservice.client.UserClient;
+import com.capstone2024.sw.kmu.exchangeservice.client.UserClientResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.QRRequestDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.QRResponseDto;
 import com.capstone2024.sw.kmu.exchangeservice.repository.bankcore.BankCoreRepository;
@@ -32,6 +34,7 @@ import java.util.Objects;
 public class QRService {
 
     private final BankCoreRepository bankCoreRepository;
+    private final UserClient userClient;
 
     // secret key
     @Value("${app.qr.key}")
@@ -81,11 +84,11 @@ public class QRService {
                 return APIResponse.of(ErrorCode.INVALID_QR_CODE, "유효시간이 지난 QR 코드 입니다.");
             }
 
-            // TODO: user service 호출, ReceiverUserId 로 닉네임, 프로필 이미지 받아오기 연결
+            UserClientResponseDto.UserInfo userInfo = userClient.getProfile(ReceiverAccountId);
 
             int senderBalance = bankCoreRepository.findBalanceByAccountId(dto.getSenderAccountId());
 
-            QRResponseDto.ScannedData response = QRResponseDto.ScannedData.from(ReceiverAccountId, "김국민(예시)", senderBalance);
+            QRResponseDto.ScannedData response = QRResponseDto.ScannedData.from(ReceiverAccountId, userInfo, senderBalance);
 
             return APIResponse.of(SuccessCode.SELECT_SUCCESS, response);
 

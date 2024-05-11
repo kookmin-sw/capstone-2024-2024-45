@@ -3,6 +3,9 @@ package com.capstone2024.sw.kmu.exchangeservice.service;
 
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.APIResponse;
 import com.capstone2024.sw.kmu.exchangeservice.base.dto.SuccessCode;
+import com.capstone2024.sw.kmu.exchangeservice.client.UserClient;
+import com.capstone2024.sw.kmu.exchangeservice.client.UserClientResponseDto;
+import com.capstone2024.sw.kmu.exchangeservice.domain.User;
 import com.capstone2024.sw.kmu.exchangeservice.domain.bankcore.AccountInfo;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.request.RemittanceRequestDto;
 import com.capstone2024.sw.kmu.exchangeservice.controller.dto.response.TransactionHistoryResponseDto;
@@ -21,6 +24,7 @@ import java.util.List;
 public class TransactionHistoryService {
 
     private final TransactionHistoryRepository transactionHistoryRepository;
+    private final UserClient userClient;
 
 
     public TransactionHistory create(AccountInfo senderInfo, AccountInfo receiverInfo, int amount, String userId) {
@@ -39,16 +43,14 @@ public class TransactionHistoryService {
 
         TransactionHistory transactionHistory = transactionHistoryRepository.findByTransId(transId);
 
-        // TODO: user-service, 해당 정보를 바탕으로 닉네임과 프로필이미지를 받아오는 api
-        User user = new User(null, null);
+        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(transactionHistory.getReceiverAccountId());
+        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(transactionHistory.getSenderAccountId());
 
         if(isSender){
-            user.setUserNickname("받은이");
-            user.setUserProfileImg("받은이 프로필 이미지 url 이 들어갈 예정");
+            User user = new User(receiverInfo.getNickname(), receiverInfo.getProfile_img());
             return TransactionHistoryResponseDto.RemittanceResultWithUserInfo.receiverInfoFrom(transactionHistory, user);
         }else {
-            user.setUserNickname("보낸이");
-            user.setUserProfileImg("보낸이 프로필 이미지 url 이 들어갈 예정");
+            User user = new User(senderInfo.getNickname(), senderInfo.getProfile_img());
             return TransactionHistoryResponseDto.RemittanceResultWithUserInfo.senderInfoFrom(transactionHistory, user);
         }
 
@@ -69,18 +71,19 @@ public class TransactionHistoryService {
                 transactionHistories = transactionHistoryRepository.findByReceiverAccountId(dto.getAccountId());
         }
 
-        // TODO: user-service, 해당 정보를 바탕으로 닉네임과 프로필이미지를 받아오는 api
         User user = new User(null, null);
 
         List<TransactionHistoryResponseDto.RemittanceList> list = transactionHistories.stream()
                 .map( i -> {
                     if( i.getSenderAccountId().equals(dto.getAccountId())){ // 내가 보낸이면
-                        user.setUserNickname("받은이");
-                        user.setUserProfileImg("받은이 프로필 이미지 url 이 들어갈 예정");
+                        UserClientResponseDto.UserInfo receiverInfo = userClient.getProfile(i.getReceiverAccountId());
+                        user.setUserNickname(receiverInfo.getNickname());
+                        user.setUserProfileImg(receiverInfo.getProfile_img());
                         return TransactionHistoryResponseDto.RemittanceList.receiverInfoFrom(i, user);
                     }else{
-                        user.setUserNickname("보낸이");
-                        user.setUserProfileImg("보낸이 프로필 이미지 url 이 들어갈 예정");
+                        UserClientResponseDto.UserInfo senderInfo = userClient.getProfile(i.getSenderAccountId());
+                        user.setUserNickname(senderInfo.getNickname());
+                        user.setUserProfileImg(senderInfo.getProfile_img());
                         return TransactionHistoryResponseDto.RemittanceList.senderInfoFrom(i, user);
                     }
                 })

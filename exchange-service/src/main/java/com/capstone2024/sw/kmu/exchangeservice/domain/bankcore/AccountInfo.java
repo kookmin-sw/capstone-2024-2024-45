@@ -9,7 +9,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "bankcore")
+@Table(name = "account")
 public class AccountInfo {
     @Id
     @Column(name = "account_id", nullable = false)
@@ -18,16 +18,16 @@ public class AccountInfo {
     @Column(name = "balance", nullable = false)
     private int balance;
 
-    @Column(name = "is_suspended", nullable = false, columnDefinition = "TINYINT(1)")
+    @Column(name = "is_suspended", nullable = false)
     private boolean isSuspended;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "suspended_type", nullable = false, columnDefinition = "ENUM('NONE', 'SEND', 'BOTH')")
-    private SuspensionType suspendedType;
+    @Column(name = "suspend_type")
+    private SuspensionType suspendType;
 
 
     public void updateSuspended(SuspensionType suspendedType, boolean isSuspended) {
-        this.suspendedType = suspendedType;
+        this.suspendType = suspendedType;
         this.isSuspended = isSuspended;
     }
 
