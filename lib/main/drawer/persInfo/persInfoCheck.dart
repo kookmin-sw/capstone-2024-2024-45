@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'testUserInfo.dart';
+import '../../manage/userInfoManage.dart';
 import '../../../utils/screenSizeUtil.dart';
 import '../../alert/apiFail/ApiRequestFailAlert.dart';
-import '../../../User/userData/User.dart';
+import '../../../User/userData/UserF.dart';
 
 class persInfo extends StatefulWidget {
 
@@ -14,41 +14,28 @@ class persInfo extends StatefulWidget {
 
 class _persInfoState extends State<persInfo> {
 
-  // late String userName ;
-  // late String mobile_number;
-  // late String email;
-  // late String profile ;
-  // late User testUser;
-  // // late bool dataload;
-  // @override
-  // void initState() {
-  //   // dataload = false;
-  //   testUser = User();
-  //   final value = fetchData();
-  // }
-  //
-  // // userdata 불러오기
-  // Future<void> fetchData() async {
-  //   try {
-  //     final value =
-  //     await testUserGet();
-  //
-  //     if (value["statusCode"] == 200) {
-  //       //서버 응답
-  //       if (value["status"] == 200) {
-  //         testUser.initializeData(value["data"]);
-  //       } else if (value["status"] == 400) {
-  //         ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
-  //       }
-  //     } else {
-  //       ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
-  //       debugPrint('서버 에러입니다. 다시 시도해주세요');
-  //     }
-  //   } catch (e) {
-  //     ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
-  //     debugPrint('API 요청 중 오류가 발생했습니다: $e');
-  //   }
-  // }
+  late String userName ;
+  late String mobile_number;
+  late UserF user;
+  late bool dataload;
+  @override
+  void initState() {
+    dataload = false;
+    user = UserF();
+    fetchData();
+  }
+
+  // userdata 불러오기
+  Future<void> fetchData() async {
+    try {
+      final value = await UserInfoManage().getUserInfo();
+      dataload = true;
+      user.initializeData(value["result"]['user_info']);
+    } catch (e) {
+      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +65,7 @@ class _persInfoState extends State<persInfo> {
                       CircleAvatar(
                         // backgroundImage: NetworkImage(testUser.avatar),
                         backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
-                        radius: screenWidth * 0.15, // 원의 반지름 설정
+                        radius: 50, // 원의 반지름 설정
                       ),
                       SizedBox(height: screenHeight * 0.024,),
                       // 이름
@@ -112,8 +99,7 @@ class _persInfoState extends State<persInfo> {
                                 width: screenWidth * 0.8,
                                 height: screenHeight * 0.045,
                                 child: Text(
-                                  // testUser.firstName,
-                                  "김국민",
+                                  user.name,
                                   style: TextStyle(
                                     color: Color(0xFF624A43),
                                     fontSize: 17,
@@ -144,67 +130,67 @@ class _persInfoState extends State<persInfo> {
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.024),
-                      // 이메일
-                      Container(
-                        width: screenWidth * 0.85,
-                        height: screenHeight * 0.09,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  '이메일',
-                                  style: TextStyle(
-                                    color: Color(0xFFD3C2BD),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 39,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  'asdf1234@google.com',
-                                  style: TextStyle(
-                                    color: Color(0xFF624A43),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 77,
-                              child: Container(
-                                width: screenWidth * 0.85,
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      strokeAlign: BorderSide.strokeAlignCenter,
-                                      color: Color(0xFFD3C2BD),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // // 이메일
+                      // Container(
+                      //   width: screenWidth * 0.85,
+                      //   height: screenHeight * 0.09,
+                      //   child: Stack(
+                      //     children: [
+                      //       Positioned(
+                      //         left: 0,
+                      //         top: 0,
+                      //         child: SizedBox(
+                      //           width: screenWidth * 0.8,
+                      //           height: screenHeight * 0.045,
+                      //           child: Text(
+                      //             '이메일',
+                      //             style: TextStyle(
+                      //               color: Color(0xFFD3C2BD),
+                      //               fontSize: 17,
+                      //               fontFamily: 'Noto Sans KR',
+                      //               fontWeight: FontWeight.w700,
+                      //               height: 0,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Positioned(
+                      //         left: 0,
+                      //         top: 39,
+                      //         child: SizedBox(
+                      //           width: screenWidth * 0.8,
+                      //           height: screenHeight * 0.045,
+                      //           child: Text(
+                      //             'asdf1234@google.com',
+                      //             style: TextStyle(
+                      //               color: Color(0xFF624A43),
+                      //               fontSize: 17,
+                      //               fontFamily: 'Noto Sans KR',
+                      //               fontWeight: FontWeight.w700,
+                      //               height: 0,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Positioned(
+                      //         left: 0,
+                      //         top: 77,
+                      //         child: Container(
+                      //           width: screenWidth * 0.85,
+                      //           decoration: ShapeDecoration(
+                      //             shape: RoundedRectangleBorder(
+                      //               side: BorderSide(
+                      //                 width: 1,
+                      //                 strokeAlign: BorderSide.strokeAlignCenter,
+                      //                 color: Color(0xFFD3C2BD),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(height: screenHeight * 0.024),
                       // 전화번호
                       Container(
@@ -237,7 +223,7 @@ class _persInfoState extends State<persInfo> {
                                 width: screenWidth * 0.8,
                                 height: screenHeight * 0.045,
                                 child: Text(
-                                  '010-1234-5678',
+                                  user.mobile_number,
                                   style: TextStyle(
                                     color: Color(0xFF624A43),
                                     fontSize: 17,
