@@ -23,4 +23,9 @@ spring:
       platform: mysql
 
   profiles:
-    active: prod
+    active: local
+
+
+path:
+  service:
+    user: ${USER_SERVICE_PATH}

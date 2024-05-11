@@ -1,7 +1,7 @@
 package com.capstone2024.sw.kmu.exchangeservice.controller.dto.response;
 
 import com.capstone2024.sw.kmu.exchangeservice.domain.remittance.TransactionHistory;
-import com.capstone2024.sw.kmu.exchangeservice.service.User;
+import com.capstone2024.sw.kmu.exchangeservice.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

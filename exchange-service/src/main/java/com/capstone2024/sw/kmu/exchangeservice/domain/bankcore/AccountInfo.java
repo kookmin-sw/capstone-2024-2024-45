@@ -22,7 +22,7 @@ public class AccountInfo {
     private boolean isSuspended;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "suspend_type", nullable = false)
+    @Column(name = "suspend_type")
     private SuspensionType suspendType;
 
 

@@ -1,5 +1,6 @@
 package com.capstone2024.sw.kmu.exchangeservice.controller.dto.response;
 
+import com.capstone2024.sw.kmu.exchangeservice.client.UserClientResponseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -41,20 +42,19 @@ public class QRResponseDto {
         @NotEmpty
         private String receiverNickname;
 
-        /* TODO: user service 개발 후
         @Schema(description = "송금 받을 사람의 프로필 이미지", example = "")
         @NotEmpty
         private String receiverProfileImg;
-         */
 
         @Schema(description = "송금 보낼 사람의 잔액", example = "500")
         @NotEmpty
         private int senderBalance;
 
-        public static ScannedData from(String receiverAccountId, String receiverNickname, int senderBalance){
+        public static ScannedData from(String receiverAccountId, UserClientResponseDto.UserInfo userInfo, int senderBalance){
             return ScannedData.builder()
                     .receiverAccountId(receiverAccountId)
-                    .receiverNickname(receiverNickname)
+                    .receiverNickname(userInfo.getNickname())
+                    .receiverProfileImg(userInfo.getProfile_img())
                     .senderBalance(senderBalance)
                     .build();
         }
