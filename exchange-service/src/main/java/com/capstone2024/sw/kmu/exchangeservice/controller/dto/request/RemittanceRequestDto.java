@@ -14,15 +14,15 @@ public class RemittanceRequestDto {
     @Builder
     @Getter
     public static class QRRemittance {
-        @Schema(description = "보내는 사람 account Id", example = "00000000-0000-0000-000000000000")
+        @Schema(description = "보내는 사람 account Id", example = "00000000000000000000000000000000")
         @NotEmpty
         private String senderAccountId;
 
-        @Schema(description = "보내는 금액", example = "50")
+        @Schema(description = "보내는 금액", example = "60")
         @NotEmpty
         private int amount;
 
-        @Schema(description = "받는 사람 account Id", example = "11111111-1111-1111-111111111111")
+        @Schema(description = "받는 사람 account Id", example = "11111111111111111111111111111111")
         @NotEmpty
         private String receiverAccountId;
     }
@@ -36,7 +36,7 @@ public class RemittanceRequestDto {
         @NotEmpty
         private TransactionType type;
 
-        @Schema(description = "계좌 id", example = "550e8400-e294-1d4a-716446655440000")
+        @Schema(description = "계좌 id", example = "3f10f03bec6149dfb0e9770f56edd4c6")
         @NotEmpty
         private String accountId;
 

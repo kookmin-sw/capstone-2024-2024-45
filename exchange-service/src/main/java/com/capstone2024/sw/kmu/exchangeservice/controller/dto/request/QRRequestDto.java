@@ -14,11 +14,11 @@ public class QRRequestDto {
         @NotEmpty
         private String hmac;
 
-        @Schema(description = "송금 받을 유저 정보", example = "<userId>:<accountId>")
+        @Schema(description = "송금 받을 유저 정보", example = "<userId>%<accountId>%<createdAt>")
         @NotEmpty
         private String userInfo;
 
-        @Schema(description = "송금 보낼 유저id", example = "00000000-0000-0000-000000000000")
+        @Schema(description = "송금 보낼 유저id", example = "00000000000000000000000000000000")
         @NotEmpty
         private String senderAccountId;
     }
@@ -27,7 +27,7 @@ public class QRRequestDto {
     @Getter
     public static class BaseInfo {
 
-        @Schema(description = "유저의 계좌 id", example = "00000000-0000-0000-000000000000")
+        @Schema(description = "유저의 계좌 id", example = "3f10f03bec6149dfb0e9770f56edd4c6")
         @NotEmpty
         private String accountId;
     }

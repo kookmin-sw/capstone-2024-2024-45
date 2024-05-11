@@ -17,7 +17,7 @@ public class QRResponseDto {
         @NotEmpty
         private String hmac;
 
-        @Schema(description = "유저 정보", example = "<userId>:<accountId>:<createdAt>")
+        @Schema(description = "유저 정보", example = "<userId>%<accountId>%<createdAt>")
         @NotEmpty
         private String userInfo;
 
@@ -34,7 +34,7 @@ public class QRResponseDto {
     @Getter
     public static class ScannedData {
 
-        @Schema(description = "송금 받을 사람의 계좌 Id", example = "00000000-0000-0000-000000000000")
+        @Schema(description = "송금 받을 사람의 계좌 Id", example = "00000000000000000000000000000000")
         @NotEmpty
         private String receiverAccountId;
 
