@@ -94,7 +94,7 @@ class _TestWidget2State extends State<listDetail> {
     print("------------------------------");
     print(testDetailUser.receiverBalanceAfter);
 
-    String amountTimeStr = testDetailUser.sender == false
+    String amountTimeStr = testDetailUser.sender == true
         ? changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[0] == 0 ?
     "${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[1]} 분" :
     "${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[0]} 시간 ${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[1]} 분"

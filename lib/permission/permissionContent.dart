@@ -72,7 +72,7 @@ class _PermissionContentState extends State<PermissionContent> {
                     color: Color(0xffD3C2BD),
                   ),
                   Text(
-                    '“매듭 코드” 송금을 진행 하려면,\n매듭 코드를 카메라로 스캔해야 합니다.\n이를 위해 카메라 권한이 필요합니다.',
+                    '“시간은행” 송금을 진행 하려면,\n타임 코드를 카메라로 스캔해야 합니다.\n이를 위해 카메라 권한이 필요합니다.',
                     style: TextStyle(
                       color: Color(0xff4B4A48),
                       fontSize: 17,
@@ -107,7 +107,7 @@ class _PermissionContentState extends State<PermissionContent> {
                   ,
                 ),
                 Text(
-                  '권한 허용 후, 매듭 창고를 시작합니다.\n아래 “권한 설정하기” 버튼을 눌러서 권한을 허용해주세요',
+                  '권한 허용 후, 시간은행을 시작합니다.\n아래 “권한 설정하기” 버튼을 눌러서\n권한을 허용해주세요',
                   style: TextStyle(
                     color: Color(0xFF727272),
                     fontSize: 17,
