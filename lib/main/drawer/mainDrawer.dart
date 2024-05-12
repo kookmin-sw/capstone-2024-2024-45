@@ -65,7 +65,7 @@ class _mainDrawerState extends State<mainDrawer> {
               Icons.settings,
               color: Colors.grey[850],
             ),
-            title: Text('개인정보 수정'),
+            title: Text('개인정보'),
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => persInfo()));

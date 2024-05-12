@@ -3,7 +3,7 @@ import "package:suntown/utils/api/info/userInfoPost.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:suntown/utils/api/info/oauthIdGet.dart";
 import "package:suntown/utils/api/info/userInfoGet.dart";
-import "../alert/apiFail/ApiRequestFailAlert.dart";
+
 
 class UserInfoManage{
   static late String _oauth_id; // firebase에서 가져오는 uid
@@ -70,9 +70,8 @@ class UserInfoManage{
         // return // user info return
       }
       else {
-        print("getUserInfo 에러");
+        debugPrint("getUserInfo 서버 에러");
         print(value_userInfo['message']);
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }
     }catch (e){
