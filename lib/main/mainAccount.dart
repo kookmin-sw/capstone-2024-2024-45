@@ -24,6 +24,7 @@ import '../utils/time/changeTimeToAmount.dart';
 import 'Exchange/inputTransfor.dart';
 import 'alert/apiFail/ApiRequestFailAlert.dart';
 import 'accountList/exchangeList.dart';
+import 'manage/userInfoManage.dart';
 
 /*
 흐름
@@ -40,14 +41,18 @@ class MainAccount extends StatefulWidget {
 
 Map<String, dynamic>? apiResult; //http 주소 받아올
 
-class _MainAccountState extends State<MainAccount>{
+class _MainAccountState extends State<MainAccount> {
   bool dataLoad = false;
   List<String> userAccountIds = []; //account 정보를 담아옴
 
   late TestAccountData testAccountData;
+  late String userId;
+  late int totalTime;
+  late String timeStr;
 
-  // String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민
-  String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
+
+  String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민
+  // String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
 
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
   ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
@@ -56,7 +61,20 @@ class _MainAccountState extends State<MainAccount>{
   void initState() {
     super.initState();
     testAccountData = TestAccountData();
+    totalTime = 0;
+    timeStr = "";
 
+    //--------------해결해야 하는 부분-------------//
+    //지금 fetchAccountListData(userId); 이걸 그대로 실행하면, _user_id가 초기화 되지 않았다는 에러가 발생함
+    //이 에러는 경험상 late가 되어 있는데도 불구하고 초기화가 진행되지 않았을때 발생해
+    //그래서 UserInfoManage 이 부분을 좀 고쳐야 할 것 같은데 내가 만든 부분이 아니라 내가 만지면 오류가나ㅠㅠ
+    //여기 밑에 보면
+    //print("--------------UserId-------------");
+    //           print(userId);
+    //이게 있는게, 여기서 로그인 한 회원의 userId가 제대로 찍히기만 하면 돼!
+
+    // userId = UserInfoManage.getUserId();
+    // fetchAccountListData(userId);
     fetchAccountListData(testUserId);
   }
 
@@ -69,11 +87,12 @@ class _MainAccountState extends State<MainAccount>{
           userAccountIds.add(response['data'][i]);
           fetchAccountData(userAccountIds[0]);
 
+          print("--------------UserId-------------");
+          print(userId);
           print("--------------accountId-------------");
           print(userAccountIds[0]);
         }
         //일단 이렇게 받아오는 방식을 써야할듯... 그리고 이게 짜피 계좌 하나라 상관 없을 것 같음
-
       } else {
         // Handle error
         print('Error: ${response['statusCode']}');
@@ -86,50 +105,59 @@ class _MainAccountState extends State<MainAccount>{
 
   Future<void> fetchAccountData(String accountId) async {
     try {
-      final Map<String, dynamic> response = await testMainAccountDetailGet(accountId);
+      final Map<String, dynamic> response =
+          await testMainAccountDetailGet(accountId);
 
-      if (response["statusCode"] == 200) { //서버 응답
+      if (response["statusCode"] == 200) {
+        //서버 응답
         testAccountData.initializeData(response["result"]);
         setState(() {
+          changeToTime(testAccountData.balance);
           dataLoad = true;
         });
       } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
+        ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
         debugPrint('서버 에러입니다. 다시 시도해주세요');
       }
     } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
+      ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
+  }
 
+  void changeToTime(int balance){
+    List<int> time =
+    changeAmountToTime.changeAmountToTime(balance);
+
+    int hours = time[0];
+    int minutes = time[1];
+
+    totalTime = changeTimeToAmount.changeTimeToAmount(hours, minutes);
+    timeStr = "${hours} 시간 ${minutes} 분";
   }
 
   // This widget is the root of your application.
-  
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
-    List<int> time = changeAmountToTime.changeAmountToTime(testAccountData.balance);
-
-    int hours = time[0];
-    int minutes = time[1];
-
-    int totalTime = changeTimeToAmount.changeTimeToAmount(hours, minutes);
-
-    String timeStr = "${hours} 시간 ${minutes} 분";
-    
-    return WillPopScope(
-      onWillPop: () async {
-        return false; //일단 뒤로가기 막아둠. 뒤로가기 하면 로딩 화면이나 이런 화면으로 가길래..
-      }, //백그라운드 실행도 괜찮은 것 같기는 함
-      child: Scaffold(
+    return RefreshIndicator(
+      onRefresh: () async {
+        // 새로고침 작업을 수행하는 비동기 함수를 호출합니다.
+        await fetchAccountListData(testUserId); // 데이터를 다시 가져오는 메서드 호출
+      },
+      child: WillPopScope(
+        onWillPop: () async {
+          return false; //일단 뒤로가기 막아둠. 뒤로가기 하면 로딩 화면이나 이런 화면으로 가길래..
+        }, //백그라운드 실행도 괜찮은 것 같기는 함
+        child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text('시간 은행'),
             centerTitle: true,
-            elevation : 0.0,
+            elevation: 0.0,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.notifications), // 메뉴 아이콘
@@ -139,12 +167,12 @@ class _MainAccountState extends State<MainAccount>{
               ),
             ],
           ),
-          drawer : mainDrawer(),
+          drawer: mainDrawer(),
           body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                    child: dataLoad ?
-                    Column(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: dataLoad
+                  ? Column(
                       children: [
                         // 나눔 장려 문구 -----------------
                         Expanded(
@@ -153,72 +181,77 @@ class _MainAccountState extends State<MainAccount>{
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              TopSideBubble(),//말풍선
-                              SizedBox (height: screenHeight * 0.04),
+                              TopSideBubble(), //말풍선
+                              SizedBox(height: screenHeight * 0.04),
                               Container(
-                                  width: screenWidth * 0.85,
-                                  height: screenHeight * 0.3,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: screenWidth * 0.85,
-                                        height: screenHeight * 0.3,
-                                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: ShapeDecoration(
-                                          color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            side:
-                                            BorderSide(width: 1, color: Color(0xFFD0BAAD)),
-                                            borderRadius: BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${testAccountData.accountName}',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Color(0xFF624A43),
-                                                  fontSize: 25,
-                                                  fontFamily: 'Noto Sans KR',
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                timeStr,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Color(0xFF4B4A48),
-                                                  fontSize: 30,
-                                                  fontFamily: 'Noto Sans KR',
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                '( 총 ${totalTime} 분 )',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Color(0xFF3C3C3C),
-                                                  fontSize: 20,
-                                                  fontFamily: 'Noto Sans KR',
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                width: screenWidth * 0.85,
+                                height: screenHeight * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: screenWidth * 0.85,
+                                      height: screenHeight * 0.3,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              width: 1,
+                                              color: Color(0xFFD0BAAD)),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '${testAccountData.accountName}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Color(0xFF624A43),
+                                                fontSize: 25,
+                                                fontFamily: 'Noto Sans KR',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text(
+                                              timeStr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Color(0xFF4B4A48),
+                                                fontSize: 30,
+                                                fontFamily: 'Noto Sans KR',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text(
+                                              '( 총 ${totalTime} 분 )',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Color(0xFF3C3C3C),
+                                                fontSize: 20,
+                                                fontFamily: 'Noto Sans KR',
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
                             ],
                           ),
                         ),
@@ -237,13 +270,18 @@ class _MainAccountState extends State<MainAccount>{
                               ),
                               onPressed: () {
                                 setState(() {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => qrScanner()));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => qrScanner()))
+                                      .then((_) {
+                                    fetchAccountListData(testUserId);
+                                  });
                                 });
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                                fixedSize: Size(
+                                    screenWidth * 0.85, screenHeight * 0.09),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -266,12 +304,17 @@ class _MainAccountState extends State<MainAccount>{
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => QrScreen()));
+                                      builder: (context) => QrScreen())
+                                  ).then((_) {
+                                    fetchAccountListData(testUserId);
+                                  });
                                 });
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                                fixedSize: Size(
+                                    screenWidth * 0.85, screenHeight * 0.09),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -294,12 +337,17 @@ class _MainAccountState extends State<MainAccount>{
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => exchangeList()));
+                                      builder: (context) => exchangeList())).
+                                  then((_) {
+                                    fetchAccountListData(testUserId);
+                                  });
                                 });
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                                fixedSize: Size(
+                                    screenWidth * 0.85, screenHeight * 0.09),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -310,10 +358,11 @@ class _MainAccountState extends State<MainAccount>{
                         )
                       ],
                     )
-                        : Lottie.asset("assets/lottie/loading.json"),
-                ),
-              ),
+                  : Lottie.asset("assets/lottie/loading.json"),
+            ),
           ),
-          );
+        ),
+      ),
+    );
   }
 }

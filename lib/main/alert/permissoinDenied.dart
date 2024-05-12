@@ -29,7 +29,7 @@ class CustomAlertDialog extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: '권한 미허용 시, 매듭 창고',
+                  text: '권한 미허용 시, 시간은행',
                   style: TextStyle(
                     color: Color(0xFF7D303D),
                     fontSize: 18,
@@ -38,7 +38,7 @@ class CustomAlertDialog extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: '를 \n사용할 수 없어요.\n',
+                  text: '을 \n사용할 수 없어요.\n',
                   style: TextStyle(
                     color: Color(0xFF4B4A48),
                     fontSize: 18,
@@ -100,7 +100,7 @@ class CustomAlertDialog extends StatelessWidget {
                   '앱 종료',
                   style: TextStyle(
                     color: Color(0xFF2C533C),
-                    fontSize: 20,
+                    fontSize: 18,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w500,
                   ),
@@ -124,7 +124,7 @@ class CustomAlertDialog extends StatelessWidget {
                   '설정으로',
                   style: TextStyle(
                     color: Color(0xFFDDE9E2),
-                    fontSize: 20,
+                    fontSize: 18,
                     fontFamily: 'Noto Sans KR',
                     fontWeight: FontWeight.w500,
                   ),

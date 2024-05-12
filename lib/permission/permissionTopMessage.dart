@@ -28,7 +28,7 @@ class PermissionTopMessage extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: '매듭 창고에서 \n',
+                  text: '시간은행에서 \n',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -38,7 +38,7 @@ class PermissionTopMessage extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: '“매듭 보내기”',
+                  text: '“시간 보내기”',
                   style: TextStyle(
                     color: Color(0xFF7D303D),
                     fontSize: 20,
