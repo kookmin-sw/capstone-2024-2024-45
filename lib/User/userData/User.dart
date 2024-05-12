@@ -1,6 +1,11 @@
 /*
-이거 삭제해도 될듯.,..?
-순서 정확히 맞춰보고 삭제하기
+"user_id": "155d5adc0512476c957722d8d22a48c2",
+    "role": "User",
+    "gender": "female",
+    "role": "jieun",
+    "oauth_id": "o5MsRMbmmBT0QhuYTofxmSvvs6t1",
+    "mobile_number": "010-1234-5678",
+    "create_at": "2024-05-09"
  */
 
 class User {
@@ -11,6 +16,7 @@ class User {
   late String avatar;
   late String dateTime;
   late int amount;
+
 
   // 싱글톤 인스턴스 생성
   static final User _instance = User._internal();

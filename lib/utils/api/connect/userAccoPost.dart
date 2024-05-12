@@ -1,25 +1,22 @@
+/* connect user account */
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> userInfoPost({required oauth_id, required mobile_number, required name, required nickname, required image_url}) async {
+Future<Map<String, dynamic>> userAccoPost({required user_id, required account_id, required name}) async {
 
-  String baseUrl = 'http://223.130.133.30:8000/api/user/$oauth_id';
+  String baseUrl = 'http://223.130.133.30:8000/api/user/$user_id/account';
 
   try {
     http.Response response =
     await http.post(Uri.parse(baseUrl), body: jsonEncode({
-      "mobile_number": mobile_number,
+      "account_id": account_id,
       "name": name,
-      "gender": "female",
-      "profile_info": {
-        "nickname": nickname,
-        "image_url" : image_url
-      }
+      "permission": "rw",
     }), headers: {
       "Content-Type": "application/json",
-      "oauth_id" : oauth_id, //예시 oauth_id
+      "user_id" : user_id,
     });
 
     try {

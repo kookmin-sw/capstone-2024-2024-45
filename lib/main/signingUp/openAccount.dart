@@ -23,7 +23,7 @@ class _openAccountState extends State<openAccount> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back), // 왼쪽에 추가할 아이콘
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+            Navigator.pop(context);
           },
         ),
       ),
@@ -53,7 +53,7 @@ class _openAccountState extends State<openAccount> {
                                     '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
-                                      fontSize: screenWidth * 0.06,
+                                      fontSize: 25,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
                                       height: 0,
@@ -94,8 +94,8 @@ class _openAccountState extends State<openAccount> {
                                                           child: Text(
                                                             '창고 만들기',
                                                             style: TextStyle(
-                                                              color: Color(0xFF727272),
-                                                              fontSize: screenWidth * 0.045,
+                                                              color:Color(0xFF624A43),
+                                                              fontSize: 20,
                                                               fontFamily: 'Noto Sans KR',
                                                               fontWeight: FontWeight.w500,
                                                               height: 0,
@@ -110,7 +110,7 @@ class _openAccountState extends State<openAccount> {
                                                           width: 44,
                                                           height: 44,
                                                           decoration: ShapeDecoration(
-                                                            color: Color(0xFFFFD852),
+                                                            color: Color(0xFF2C533C),
                                                             shape: OvalBorder(),
                                                           ),
                                                         ),
@@ -125,7 +125,7 @@ class _openAccountState extends State<openAccount> {
                                                             '1',
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(
-                                                              color: Color(0xFF727272),
+                                                              color: Colors.white,
                                                               fontSize: screenWidth * 0.06,
                                                               fontFamily: 'Noto Sans KR',
                                                               fontWeight: FontWeight.w500,
@@ -160,10 +160,10 @@ class _openAccountState extends State<openAccount> {
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  backgroundColor: const Color(0xFFFFD852),
+                  backgroundColor: const Color(0xFF2C533C),
                   minimumSize: Size.fromHeight(73),
 
-                  foregroundColor: const Color(0xFF4B4A48),
+                  foregroundColor: Colors.white ,//Color(0xFF4B4A48),
 
                   textStyle: TextStyle(
                     fontSize: screenWidth * 0.055,

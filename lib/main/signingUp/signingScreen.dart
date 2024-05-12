@@ -36,7 +36,7 @@ class _signingUPState extends State<signingUP> {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Scaffold(
-
+      backgroundColor: const Color(0xffFFFDF3),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Container(
@@ -67,7 +67,7 @@ class _signingUPState extends State<signingUP> {
                                     '로그인하고\n매듭창고 시작하기.',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
-                                      fontSize: screenWidth * 0.06,
+                                      fontSize: 25,
                                       fontFamily: 'Noto Sans KR',
                                       fontWeight: FontWeight.w700,
                                     ),

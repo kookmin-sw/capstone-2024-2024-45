@@ -5,28 +5,29 @@ import 'package:suntown/main/manage/accountInfoManage.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
 import '../manage/userInfoManage.dart';
-import '../alert/apiFail/ApiRequestFailAlert.dart';
 
-class numberScreen extends StatefulWidget {
+class passwordScreen extends StatefulWidget {
   final String username;
-  const numberScreen({Key? key, required this.username}) :super(key: key);
+  final String mobile_number ;
+  const passwordScreen({Key? key, required this.username, required this.mobile_number}) :super(key: key);
 
   @override
-  State<numberScreen> createState() => _numberScreenState(username: username);
+  State<passwordScreen> createState() => _passwordScreenState(username: username,  mobile_number : mobile_number);
 }
 
-class _numberScreenState extends State<numberScreen> {
+class _passwordScreenState extends State<passwordScreen> {
   final String username;
-  _numberScreenState({required this.username});
+  final String mobile_number;
+  _passwordScreenState({required this.username, required this.mobile_number});
 
-  late TextEditingController _phoneNumberController;
-  late String mobile_number;
+  late TextEditingController _passwordController;
+  late String password;
 
   @override
   void initState() {
     super.initState();
-    _phoneNumberController = TextEditingController();
-    mobile_number = _phoneNumberController.text;
+    _passwordController = TextEditingController();
+    password = _passwordController.text;
   }
 
 
@@ -65,7 +66,21 @@ class _numberScreenState extends State<numberScreen> {
                                 '창고만들기',
                                 style: TextStyle(
                                   color: Color(0xFFD3C2BD),
-                                  fontSize: 17,
+                                  fontSize: screenWidth * 0.037,
+                                  fontFamily: 'Noto Sans KR',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.85,
+                              height :  screenHeight * 0.05, // 50
+                              child: Text(
+                                '비밀번호 6자리를 입력해주세요.',
+                                style: TextStyle(
+                                  color: Color(0xFF4B4A48),
+                                  fontSize: screenWidth * 0.06,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -76,10 +91,10 @@ class _numberScreenState extends State<numberScreen> {
                               width: screenWidth * 0.85,
                               height :  screenHeight * 0.06, // 50
                               child: Text(
-                                '전화번호를 입력해주세요.',
+                                '시간 보내기와 앱 시작할 때 사용합니다.',
                                 style: TextStyle(
-                                  color: Color(0xFF4B4A48),
-                                  fontSize: 25,
+                                  color: Color(0xFF624A43),
+                                  fontSize: screenWidth * 0.037,
                                   fontFamily: 'Noto Sans KR',
                                   fontWeight: FontWeight.w700,
                                   height: 0,
@@ -87,62 +102,54 @@ class _numberScreenState extends State<numberScreen> {
                               ),
                             ),
                             SizedBox(
-                              height:  screenHeight * 0.09, //75
+                              height:  screenHeight * 0.05, //75
                             ),
                             TextField(
-                                textAlign: TextAlign.center,
-                                controller: _phoneNumberController,
-                                keyboardType: TextInputType.phone,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly, //숫자만!
-                                  NumberFormatter(), // 자동하이픈
-                                  LengthLimitingTextInputFormatter(13)
-                                ],
-                                onChanged: (text) {
-                                  setState(() {
-                                    mobile_number = text;
-                                  });
-                                },
-                                // obscureText: true, 비밀번호 작성할 떄
-                                decoration : InputDecoration(
-                                  hintStyle: TextStyle(color: Color(0xFFD3C2BD)),
-                                  hintText : '전화번호 입력',
-                                ),
+                              obscureText: true,
+                              textAlign: TextAlign.center,
+                              controller: _passwordController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly, //숫자만!
+                                LengthLimitingTextInputFormatter(6)
+                              ],
+                              onChanged: (text) {
+                                setState(() {
+                                  password = text;
+                                });
+                              },
+                              decoration : InputDecoration(
+                                // border: OutlineInputBorder(),
+                                hintStyle: TextStyle(color: Color(0xFFD3C2BD)),
+                                hintText : '비밀번호 입력',
+                              ),
                               style :TextStyle(
                                 color: Color(0xFF624A43),
-                                fontSize : 25,
+                                fontSize : screenWidth * 0.075,
                               ),
                             ),
+
                           ]
                       )
                   )
               ),
               ElevatedButton(
-                onPressed: mobile_number.length ==  13 ? () async {
-                    // bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number); // user register 성공 여부
-                    // bool accountResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: ""); // account register 성공 여부
-                  Map<String, dynamic> account_val = await AccountInfoMange().fetchAccountData( username: username, mobile_number:mobile_number, password: ""); // account register 후 값 return
-                  final String? account_id = account_val["account_id"]; // account 등록 되면 account_id return 해줌
-                  print(account_id);
-                  bool accountResuccess = account_val["accountInfoUpdate"] == true ? true : false; // account register 성공 여부
-                  print(accountResuccess);
-                  if (accountResuccess){ //userResuccess&&accoutnResuccess
-                    // 계좌 생성과 동시에 user 정보와 account 정보 매핑 시켜줌
-                    bool connectResuccess = await AccountInfoMange().connectUserAccount(username: username);
-                    if (connectResuccess){ // 매핑에 성공하면 다음 페이지로
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => accountSuccess()),
-                      );
-                    }else{
-                      ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
-                    }
-                  }
-                  else{
-                    ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
-                  }
+                onPressed: password.length ==  6 ? () async {
+                  // bool userResuccess = await UserInfoRegister().fetchUserData(name:username, mobile_number:mobile_number);
+                  // bool accoutnResuccess =  await AccountInfoRegister().fetchAccountData( username:  username, mobile_number:mobile_number, password: "");
+                  // if (userResuccess && accoutnResuccess){
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => accountSuccess()),
+                  //   );
+                  // }
+                  // else{
+                  //   // 알림화면 띄우는걸로 변경 예정
+                  //   print("오류");
+                  // }
+                  // print(pasward);
                 }
-                : null,
+                    : null,
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

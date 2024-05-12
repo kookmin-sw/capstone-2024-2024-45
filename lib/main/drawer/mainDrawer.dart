@@ -1,25 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:suntown/main/signingUp/signingScreen.dart';
 
-class mainDrawer extends StatelessWidget {
+import 'package:suntown/main/signingUp/signingScreen.dart';
+import '../manage/userInfoManage.dart';
+import 'persInfo/persInfoCheck.dart';
+import '../../utils/screenSizeUtil.dart';
+import '../../User/userData/UserF.dart';
+import '../alert/apiFail/ApiRequestFailAlert.dart';
+
+class mainDrawer extends StatefulWidget {
   const mainDrawer({super.key});
 
   @override
+  State<mainDrawer> createState() => _mainDrawerState();
+}
+
+class _mainDrawerState extends State<mainDrawer> {
+  late String userName ;
+  late String mobile_number;
+  late UserF user;
+  late bool dataload;
+  @override
+  void initState() {
+    dataload = false;
+    user = UserF();
+    fetchData();
+  }
+
+  // userdata 불러오기
+  Future<void> fetchData() async {
+    try {
+      final value = await UserInfoManage().getUserInfo();
+      dataload = true;
+      user.initializeData(value["result"]['user_info']);
+      userName = user.name;
+      mobile_number = user.mobile_number;
+    } catch (e) {
+      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenWidth = ScreenSizeUtil.screenWidth(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              // backgroundImage:  사용자 이미지
+              // backgroundImage: NetworkImage(testUser.avatar),
+              backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
             ),
-            accountName: Text('jieun'),
-            accountEmail: Text('abcd1234@naver.com'),
+            accountName: Text(user.name),
+            accountEmail: Text(user.mobile_number),
             decoration: BoxDecoration(
-              color: Color(0xFFFFD852),
+              color: Color(0xFFDDE8E1),
             ),
           ),
 
@@ -30,6 +67,8 @@ class mainDrawer extends StatelessWidget {
             ),
             title: Text('개인정보 수정'),
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => persInfo()));
               print('개인정보 수정 클릭');
             },
             trailing: Icon(Icons.arrow_forward_ios),

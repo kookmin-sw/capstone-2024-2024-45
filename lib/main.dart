@@ -16,11 +16,10 @@ void main() async{
     nativeAppKey: '731616c5419324d656e34dc0a0f35a85',
   );
   // Firebase 앱이 이미 초기화되었는지 확인 안되어 있으면 초기화.
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
+  await Firebase.initializeApp(
+      name: "dev project",
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   HttpOverrides.global = NoCheckCertificateHttpOverrides(); // 생성된 HttpOverrides 객체 등록
 
   //세로로 고정
