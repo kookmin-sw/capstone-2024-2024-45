@@ -64,7 +64,7 @@ public class TransactionHistoryResponseDto {
                     .isSender(false)
                     .senderNickname(user.getUserNickname())
                     .senderProfileImg(user.getUserProfileImg())
-                    .senderBalanceAfter(response.getSenderBalanceAfter())
+                    .receiverBalanceAfter(response.getReceiverBalanceAfter())
                     .createdAt(response.getCreatedAt())
                     .build();
         }
@@ -75,7 +75,7 @@ public class TransactionHistoryResponseDto {
                     .isSender(true)
                     .receiverNickname(user.getUserNickname())
                     .receiverProfileImg(user.getUserProfileImg())
-                    .receiverBalanceAfter(response.getReceiverBalanceAfter())
+                    .senderBalanceAfter(response.getSenderBalanceAfter())
                     .createdAt(response.getCreatedAt())
                     .build();
         }
