@@ -64,7 +64,7 @@ class _signingUPState extends State<signingUP> {
                                   width: screenWidth * 0.85,
                                   height : screenHeight * 0.09,
                                   child: Text(
-                                    '로그인하고\n매듭창고 시작하기.',
+                                    '로그인하고\n시간창고 시작하기.',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
                                       fontSize: 25,

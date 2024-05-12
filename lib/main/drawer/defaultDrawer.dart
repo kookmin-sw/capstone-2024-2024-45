@@ -16,28 +16,6 @@ class defaultDrawer extends StatefulWidget {
 }
 
 class _defaultDrawerState extends State<defaultDrawer> {
-  late String userName ;
-  late String mobile_number;
-  late UserF user;
-  late bool dataload;
-  @override
-  void initState() {
-    dataload = false;
-    user = UserF();
-    fetchData();
-  }
-
-  // userdata 불러오기
-  Future<void> fetchData() async {
-    try {
-      final value = await UserInfoManage().getUserInfo();
-      dataload = true;
-      user.initializeData(value["result"]['user_info']);
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

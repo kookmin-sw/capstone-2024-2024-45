@@ -16,12 +16,8 @@ class KakaoLogin implements SocialLogin {
         // 카카오톡 설치 되어 있으면 진행
         try {
           kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoTalk();
-          // final response = await http.get(
-          //     url,
-          //     headers: {
-          //       HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
-          //     },
-          // );
+          print(token);
+
           return true;
         } catch(e) {
           // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
@@ -32,6 +28,7 @@ class KakaoLogin implements SocialLogin {
           // 카카오톡에 연결된 카카오 계정이 없는 경우, 카카오계정으로 로그인.
           try{
             kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoAccount();
+            print(token);
           }catch (e){
             print("카카오 로그인 실패 $e");
           }
@@ -39,7 +36,8 @@ class KakaoLogin implements SocialLogin {
       } else {
         // 카톡 설치 안되어있으면 카카오 계정으로 진행
         try {
-           await kakao.UserApi.instance.loginWithKakaoAccount();
+          kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoAccount();
+          print(token);
           return true;
         } catch(e){
           print('카카오계정으로 로그인 실패 $e');

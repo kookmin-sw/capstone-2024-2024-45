@@ -23,12 +23,12 @@ class AccountInfoMange{
   bool accountInfoUpdate = false;
 
   // account_id 가져오는 정적 메서드
-  static String getaccount_id()  {
+  static String getAccount_id()  {
     return account_id;
   }
 
   // account_id 설정하는 정적 메서드
-  static void setaccount_id({required user_id}) async {
+  static void setAccount_id({required user_id}) async {
     try {
       final value = await accountIdGet(user_id: user_id);
       print("setaccount_id 성공");
@@ -90,7 +90,7 @@ class AccountInfoMange{
   // 처음 계좌 개설 할 때, account 정보와 user 정보를 매핑 할 때 사용.
 connectUserAccount({required username}) async {
   user_id = UserInfoManage.getUserId();
-  setaccount_id(user_id:user_id);
+  setAccount_id(user_id:user_id);
 
     try{
       final value = await userAccoPost(user_id: user_id, account_id : account_id, name: username);
