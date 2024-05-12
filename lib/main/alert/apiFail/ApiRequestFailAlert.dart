@@ -61,7 +61,7 @@ class ApiRequestFailAlert {
                           '홈으로',
                           style: TextStyle(
                             color: Color(0xFF2C533C),
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                           ),
@@ -89,7 +89,7 @@ class ApiRequestFailAlert {
                           '다시시도',
                           style: TextStyle(
                             color: Color(0xFFDDE9E2),
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                           ),

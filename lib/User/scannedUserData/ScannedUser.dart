@@ -18,7 +18,7 @@ class ScannedUser {
     accountId = '';
     name = '';
     profile = 'https://reqres.in/img/faces/7-image.jpg'; //임시..
-    senderBalance = '';
+    senderBalance = ''; //임시
   }
 
   // user에서 얻을 정보

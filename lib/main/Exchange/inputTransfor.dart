@@ -1,241 +1,67 @@
-// 송금할 금액을 입력하는 곳
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
-import 'package:suntown/main/CustomKeyboard/KeyboardKeys.dart';
-import 'package:suntown/main/Exchange/checkExchange.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:suntown/User/test/testAccountData.dart';
+import 'package:suntown/main/Exchange/loadingExchange.dart';
+import 'package:suntown/main/alert/filter/chooseMinute.dart';
+import 'package:suntown/utils/time/changeAmountToTime.dart';
+import 'package:suntown/utils/time/changeTimeToAmount.dart';
 
-import '../../User/scannedUserData/ScannedUser.dart';
 import '../../User/SendAmount.dart';
+import '../../User/scannedUserData/ScannedUser.dart';
+import '../../User/scannedUserData/ScannedUserAccountInfo.dart';
 import '../../utils/screenSizeUtil.dart';
+import '../CustomKeyboard/cusTomKeyboard.dart';
+import 'checkExchange.dart';
+
+//30분 단위 ver
+//추후 삭제 예정...일단 백업용
 
 class InputTransfor extends StatefulWidget {
-
-  const InputTransfor({Key? key}) : super(key: key);
+  final void Function(String)? onValueSelected; // 콜백 함수 정의
+  const InputTransfor({Key? key, this.onValueSelected}) : super(key: key);
 
   @override
   State<InputTransfor> createState() => _InputTransforState();
 }
 
 class _InputTransforState extends State<InputTransfor> {
+  late TextEditingController _textController1;
+  late TextEditingController _textController2;
   late ScannedUser scannedUser;
-  late SendApi sendData;
-  late ScannedUserAccountInfo scannedUserAccountInfo; //나중에 이것도 받아오는 fetch 작성해야 함
 
-  String alerttext = "";
-  late int balance; // 잔액 설정, 나중에 api 연동 값으로 바꿀 예정
-  String amount = '';
-  int parsedAmount = 0;
-  bool isDataLoaded = false; // 데이터가 로드되었는지 여부를 나타내는 변수 추가
-  //키보드 요소 추가
-  List<List<dynamic>> keys = [
-    ['1', '2', '3'],
-    ['4', '5', '6'],
-    ['7', '8', '9'],
-    [
-      '00',
-      '0',
-      Icon(
-        Icons.keyboard_backspace,
-        size: 30,
-      )
-    ],
-  ];
+  late bool minutesInput;
+  late bool hoursInput;
+  late String alerttext;
+  late int balance;
+
+  late int amount;
+
+  late int hours; //입력 받기 위한..
+  late int minutes;
+
+
+  ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
+  ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
 
   @override
   void initState() {
     super.initState();
-    sendData = SendApi();
+    _textController1 = TextEditingController();
+    _textController2 = TextEditingController();
+    minutesInput = false;
+    hoursInput = false;
+
     scannedUser = ScannedUser(); // UserData 인스턴스 생성
     balance = int.parse(scannedUser.senderBalance);
-  }
 
+    alerttext = "";
+    amount = 0;
 
-  onKeyTap(val) {
-    if (val == "0" && amount.length == 0) {
-      return;
-    }
-
-    if (val == "00" && amount.length == 0) {
-      return;
-    }
-    parsedAmount = int.parse(amount + val);
-
-    if (balance < parsedAmount) {
-      setState(() {
-        alerttext = '내가 가진 매듭보다 많아요!';
-      });
-      return;
-    }
-
-    setState(() {
-      amount = amount + val;
-      parsedAmount = int.parse(amount);
-    });
-  }
-
-  onBackspacePress() {
-    if (amount.length == 0) {
-      return;
-    }
-
-    setState(() {
-      amount = amount.substring(0, amount.length - 1);
-      parsedAmount = int.parse(amount.isEmpty ? '0' : amount);
-      alerttext = ""; // 백스페이스를 누르면 초과 텍스트를 다시 지움
-    });
-  }
-
-  renderKeyboard() {
-    return keys
-        .map(
-          (x) => Center(
-        child: Row(
-          //키보드에 다음가 같이 center 적용
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: x.map(
-                (y) {
-              return KeyboardKeys(
-                  label: y,
-                  value: y,
-                  onTap: (val) {
-                    if (val is Widget) {
-                      onBackspacePress();
-                    } else {
-                      onKeyTap(val);
-                    }
-                  });
-            },
-          ).toList(),
-        ),
-      ),
-    )
-        .toList();
-  }
-
-  renderAmount(double screenWidth, double screenHeight) {
-    String display = "입력해 주세요";
-    String nickname = scannedUser.name; //api에서 가져온 닉네임 활용
-    String printNickname = "$nickname 님에게"; //닉네임 잘 받아오는지 보기
-
-
-    TextStyle textStyle = TextStyle(
-      fontSize: 30,
-      fontWeight: FontWeight.bold,
-      color: Color(0xffD3C2BD),
-    );
-
-    if (this.amount.length > 0) {
-      NumberFormat f = NumberFormat("#,###");
-      display = "${f.format(int.parse(amount))}매듭";
-      textStyle = textStyle.copyWith(
-        color: Colors.black,
-      );
-    }
-
-    return Expanded(
-        child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  // 여기에 프로필 이미지 설정
-                  radius: 40, // 이미지 크기 설정
-                  backgroundImage: NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
-                ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                Text(
-                  printNickname,
-                  style:  TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  "얼마 만큼의 매듭을 보낼까요?",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Color(0xFF7D303D),
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.04,
-                ),
-                Text(
-                  display,
-                  style: textStyle,
-                ),
-                Text(
-                  "잔액 : ${NumberFormat("#,###").format(balance)} 매듭",
-                  //api 값 가져오기
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xFF727272),
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.025,
-                ),
-                Text(
-                  alerttext,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color(0xFF2C533C),
-                  ),
-                )
-              ]),
-        ));
-  }
-
-  renderConfirmButton(double screenWidth, double screenHeight) {
-    //버튼
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: amount.length > 0
-                  ? () {
-                // 버튼 활성화 여부에 따라 onPressed 설정
-                sendData.amount = int.parse(amount); //입력 받아서 넣을 수 있게
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CheckExchange()),
-                );
-              }
-                  : null,
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                disabledBackgroundColor: Colors.grey[400],
-                disabledForegroundColor: Colors.grey,
-                foregroundColor: Colors.black,
-                backgroundColor: Color(0xFF2C533C),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ), // 버튼 비활성화
-              child: Text(
-                "확인",
-                style: TextStyle(
-                  color: Color(0xFFDDE9E2),
-                  fontSize: 20,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    hours = 0;
+    minutes = 0;
   }
 
   @override
@@ -243,20 +69,271 @@ class _InputTransforState extends State<InputTransfor> {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
-    // 데이터가 로드되었다면 화면을 그립니다.
+    List<int> time = changeAmountToTime.changeAmountToTime(balance);
+
+    int balanceHours = time[0];
+    int balanceMinutes = time[1];
+
+    int totalTime = changeTimeToAmount.changeTimeToAmount(balanceHours, balanceMinutes); //분 토탈
+
+    String showTimes = "잔액 : ${balanceHours}시간 ${balanceMinutes}분";
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(children: [
-            renderAmount(screenWidth,screenHeight),
-            ...renderKeyboard(),
-            SizedBox(
-              height: screenHeight * 0.025,
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "시간 선택",
+            textAlign: TextAlign.center,
+          ),
+        ),
+        actions: <Widget>[
+          // 빈 아이콘을 추가하여 빈 공간을 만듭니다.
+          IconButton(
+            icon: Container(),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // CircleAvatar(
+                  //   // 여기에 프로필 이미지 설정
+                  //   radius: 40, // 이미지 크기 설정
+                  //   backgroundImage:
+                  //       NetworkImage(scannedUser.profile), // 네트워크 이미지 사용 예시
+                  // ),
+                  SizedBox(
+                    height: screenHeight * 0.03,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        scannedUser.name,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2C533C),
+                        ),
+                      ),
+                      Text(
+                        " 님에게",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xFF4B4A48),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "얼마 만큼의 시간을 보낼까요?",
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Color(0xFF4B4A48),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
-            renderConfirmButton(screenWidth,screenHeight),
-          ]),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Colors.black)), // 아래쪽 테두리를 추가합니다.
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    // 입력 필드의 양쪽 여백을 추가합니다.
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: _textController1,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        border: InputBorder.none, // 입력 필드의 테두리를 없앱니다.
+                      ),
+                      style: TextStyle(
+                        fontSize: 30, // 원하는 크기로 설정
+                        fontFamily: 'Noto Sans KR',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      onChanged: (value) {
+                        // 입력값이 변경될 때마다 호출되는 콜백 함수입니다.
+                        setState(() {
+                          if (value.isEmpty) {
+                            hours = 0;
+                            hoursInput = false;
+                          } else {
+                            hoursInput = true;
+                            hours = int.parse(_textController1.text);
+
+                            print(hours);
+                          }
+                          // 입력한 시간이 잔액 시간보다 많은지 체크하여 알림 텍스트 업데이트
+                          if (hours * 60 + minutes > totalTime) {
+                            alerttext = '잔액 시간을 초과했습니다.';
+                          } else {
+                            alerttext = '';
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Text(
+                  '시간',
+                  style: TextStyle(
+                    color: Color(0xFF4B4A48),
+                    fontSize: 25,
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Colors.black)), // 아래쪽 테두리를 추가합니다.
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    // 입력 필드의 양쪽 여백을 추가합니다.
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      controller: _textController2,
+                      decoration: InputDecoration(
+                        border: InputBorder.none, // 입력 필드의 테두리를 없앱니다.
+                      ),
+                      style: TextStyle(
+                        fontSize: 30, // 원하는 크기로 설정
+                        fontFamily: 'Noto Sans KR',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      onChanged: (value) {
+                        // 입력값이 변경될 때마다 호출되는 콜백 함수입니다.
+                        setState(() {
+                          if (value.isEmpty) {
+                            minutes = 0;
+                            minutesInput = false;
+                          } else {
+                            // 입력값을 저장합니다.
+                            minutes = int.parse(_textController2.text);
+                            minutesInput = true;
+                          }
+                          // 입력한 시간이 잔액 시간보다 많은지 체크하여 알림 텍스트 업데이트
+                          if (hours * 60 + minutes > totalTime) {
+                            alerttext = '잔액 시간을 초과했습니다.';
+                          } else {
+                            alerttext = '';
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Text(
+                  '분',
+                  style: TextStyle(
+                    color: Color(0xFF4B4A48),
+                    fontSize: 25,
+                    fontFamily: 'Noto Sans KR',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    textAlign: TextAlign.start,
+                    showTimes,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFF2C533C),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    textAlign: TextAlign.start,
+                    alerttext,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFF7D303D),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      child: Text(
+                        '확인',
+                        style: TextStyle(
+                          color: Color(0xFFDDE9E2),
+                          fontSize: 20,
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onPressed: (minutesInput || hoursInput) &&
+                              !(minutes == 0 && hours == 0) &&
+                              alerttext.length == 0
+                          ? () {
+                              setState(() {
+                                FocusScope.of(context).unfocus();
+                              });
+
+                              Future.delayed(Duration(milliseconds: 300), () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      CheckExchange(amount: changeTimeToAmount.changeTimeToAmount(hours,minutes)),
+                                ));
+                              });
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        fixedSize:
+                            Size(screenWidth * 0.85, screenHeight * 0.09),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        disabledBackgroundColor: Colors.grey[400],
+                        disabledForegroundColor: Colors.grey,
+                        backgroundColor: Color(0xFF2C533C),
+                      ),
+                    ),
+                  ]),
+            ),
+          ],
         ),
       ),
     );

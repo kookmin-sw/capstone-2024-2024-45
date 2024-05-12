@@ -2,7 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:suntown/main/Exchange/inputTransfor.dart';
+import 'package:flutter/widgets.dart';
+import 'package:lottie/lottie.dart';
+import 'package:suntown/main/Exchange/BeforeinputTransfor.dart';
+import 'package:suntown/main/Exchange/minutesInputTransfor.dart';
 
 import 'package:suntown/main/drawer/mainDrawer.dart';
 
@@ -16,6 +19,9 @@ import '../utils/screenSizeUtil.dart';
 
 import '../qr/qrScanner.dart';
 import '../qr/qrScreen.dart';
+import '../utils/time/changeAmountToTime.dart';
+import '../utils/time/changeTimeToAmount.dart';
+import 'Exchange/inputTransfor.dart';
 import 'alert/apiFail/ApiRequestFailAlert.dart';
 import 'accountList/exchangeList.dart';
 
@@ -40,8 +46,11 @@ class _MainAccountState extends State<MainAccount>{
 
   late TestAccountData testAccountData;
 
-  String testUserId = "7bc63565df6747e5986172da311d37ab"; //차후 직접 가져온 userId를 넣으면 된다.
-  String testAccountId = "3f10f03bec6149dfb0e9770f56edd4c6";
+  // String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민
+  String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
+
+  ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
+  ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
 
   @override
   void initState() {
@@ -49,17 +58,19 @@ class _MainAccountState extends State<MainAccount>{
     testAccountData = TestAccountData();
 
     fetchAccountListData(testUserId);
-    fetchAccountData(testAccountId);
   }
 
   //accountList를 가져오는 method
-  //7bc63565df6747e5986172da311d37ab 이거 넣어도 값이 안 들어오는데 왜?
   Future<void> fetchAccountListData(String userId) async {
     try {
       final Map<String, dynamic> response = await testMainAccountGet(userId);
       if (response['statusCode'] == 200) {
         for (var i = 0; i < response['data'].length; i++) {
           userAccountIds.add(response['data'][i]);
+          fetchAccountData(userAccountIds[0]);
+
+          print("--------------accountId-------------");
+          print(userAccountIds[0]);
         }
         //일단 이렇게 받아오는 방식을 써야할듯... 그리고 이게 짜피 계좌 하나라 상관 없을 것 같음
 
@@ -73,7 +84,6 @@ class _MainAccountState extends State<MainAccount>{
     }
   }
 
-  //3f10f03bec6149dfb0e9770f56edd4c6 이거 넣어도 값이 안 들어오는데 왜?
   Future<void> fetchAccountData(String accountId) async {
     try {
       final Map<String, dynamic> response = await testMainAccountDetailGet(accountId);
@@ -95,11 +105,21 @@ class _MainAccountState extends State<MainAccount>{
   }
 
   // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
+    List<int> time = changeAmountToTime.changeAmountToTime(testAccountData.balance);
+
+    int hours = time[0];
+    int minutes = time[1];
+
+    int totalTime = changeTimeToAmount.changeTimeToAmount(hours, minutes);
+
+    String timeStr = "${hours} 시간 ${minutes} 분";
+    
     return WillPopScope(
       onWillPop: () async {
         return false; //일단 뒤로가기 막아둠. 뒤로가기 하면 로딩 화면이나 이런 화면으로 가길래..
@@ -107,7 +127,7 @@ class _MainAccountState extends State<MainAccount>{
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('매듭창고'),
+            title: Text('시간 은행'),
             centerTitle: true,
             elevation : 0.0,
             actions: <Widget>[
@@ -156,8 +176,7 @@ class _MainAccountState extends State<MainAccount>{
                                           ),
                                         ),
                                         child: Center(
-                                          child :
-                                          Column(
+                                          child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -171,20 +190,20 @@ class _MainAccountState extends State<MainAccount>{
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
-                                              SizedBox(height: screenHeight * 0.005),
+                                              SizedBox(height: 10),
                                               Text(
-                                                '${testAccountData.balance}',
+                                                timeStr,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4B4A48),
-                                                  fontSize: 40,
+                                                  fontSize: 30,
                                                   fontFamily: 'Noto Sans KR',
                                                   fontWeight: FontWeight.w700,
                                                 ),
                                               ),
-                                              SizedBox(height: screenHeight * 0.005),
+                                              SizedBox(height: 10),
                                               Text(
-                                                '매듭',
+                                                '( 총 ${totalTime} 분 )',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF3C3C3C),
@@ -195,7 +214,6 @@ class _MainAccountState extends State<MainAccount>{
                                               ),
                                             ],
                                           ),
-
                                         ),
                                       ),
                                     ],
@@ -209,7 +227,7 @@ class _MainAccountState extends State<MainAccount>{
                           children: [
                             ElevatedButton(
                               child: Text(
-                                '매듭 보내기',
+                                '시간 보내기',
                                 style: TextStyle(
                                   color: Color(0xFFDDE9E2),
                                   fontSize: 20,
@@ -237,7 +255,7 @@ class _MainAccountState extends State<MainAccount>{
                             ),
                             ElevatedButton(
                               child: Text(
-                                '매듭 받기',
+                                '시간 받기',
                                 style: TextStyle(
                                   color: Color(0xFF2C533C),
                                   fontSize: 20,
@@ -265,7 +283,7 @@ class _MainAccountState extends State<MainAccount>{
                             ),
                             ElevatedButton(
                               child: Text(
-                                '주고 받은 매듭 확인하기',
+                                '주고 받은 시간 확인하기',
                                 style: TextStyle(
                                   color: Color(0xFF624A43),
                                   fontSize: 20,
@@ -292,7 +310,7 @@ class _MainAccountState extends State<MainAccount>{
                         )
                       ],
                     )
-                        : Text("로딩중.."), //위치만 잡아둠
+                        : Lottie.asset("assets/lottie/loading.json"),
                 ),
               ),
           ),

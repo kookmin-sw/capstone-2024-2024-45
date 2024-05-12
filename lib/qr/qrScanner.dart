@@ -1,13 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
-import 'package:suntown/main/mainAccount.dart';
-import '../User/userData/User.dart';
-import '../User/userData/UserAccountInfo.dart';
+import '../User/test/testAccountData.dart';
 import '../main/Exchange/inputTransfor.dart';
+import '../main/Exchange/minutesInputTransfor.dart';
 import '../main/alert/apiFail/ApiRequestFailAlert.dart';
 import '../main/alert/qrTimeOutDialog.dart';
 import '../utils/api/info/qrScanPost.dart';
@@ -29,6 +27,8 @@ class _qrScannerState extends State<qrScanner> {
   late bool dataUpdate;
   late bool pushPopup;
 
+  TestAccountData testAccountData = TestAccountData();
+
   @override
   void initState() {
     super.initState();
@@ -37,17 +37,22 @@ class _qrScannerState extends State<qrScanner> {
     pushPopup = false;
   }
 
-  Future<void> fetchData(String hmac, String data) async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
+  Future<void> fetchData(String hmac, String data, String senderAccountId) async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
     try {
-      final value = await qrScanPost(hmac: hmac, data: data); //여기서 2가 id이다.
+      final value = await qrScanPost(hmac: hmac, data: data, senderAccountId: senderAccountId); //여기서 2가 id이다.
       if (value["statusCode"] == 200) { //서버 응답
         if(value["status"] == 200){ //검증 완료
           scannedUser.userInitializeData(value["data"]);
+          // print("-----------------------------------");
+          // print(value);
+          // print(scannedUser.accountId);
+
           // 데이터를 사용하여 setState() 호출
           setState(() {
             dataUpdate = true;
           });
         }else if(value["status"] == 400){ //유효기간 지난 코드
+
           setState(() {
             pushPopup = true;
           });
@@ -72,7 +77,7 @@ class _qrScannerState extends State<qrScanner> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            "매듭 창고",
+            "시간 은행",
             textAlign: TextAlign.center,
           ),
         ),
@@ -96,7 +101,7 @@ class _qrScannerState extends State<qrScanner> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "매듭을 보냅니다!",
+                        "시간을 보냅니다!",
                         style: TextStyle(
                             fontSize: 30
                         ),
@@ -105,7 +110,7 @@ class _qrScannerState extends State<qrScanner> {
                         height: 30,
                       ),
                       Text(
-                        "매듭을 보내고 싶은 이웃의",
+                        "시간을 보내고 싶은 이웃의",
                         style: TextStyle(
                           fontSize: 20,
                           color: Color(0xFF7D303D),
@@ -120,7 +125,7 @@ class _qrScannerState extends State<qrScanner> {
                               fontFamily: 'Noto Sans KR'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '"매듭코드"',
+                              text: '"타임코드"',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             TextSpan(
@@ -172,18 +177,27 @@ class _qrScannerState extends State<qrScanner> {
         result = scanData;
         if (result != null) {
           // QR 코드에서 URL을 받아옴
-          String? url = result!.code;
+          String? str = result!.code;
           // URL에서 특정 형식을 가진 경우에만 송금 페이지로 이동
-          if (url != null && url.startsWith("helloworld://send")) {
+          if (str != null && str.startsWith("helloworld://send")) {
             // URI 파싱
-            Uri uri = Uri.parse(url);
-            String hmac = uri.queryParameters["hmac"]!;
 
-            //queryParameters로 인식 불가. 직접 파싱
-            int dataIndex = uri.toString().indexOf("data=");
-            String data = uri.toString().substring(dataIndex + 5); // "data=" 이후의 문자열을 추출
+            int hmacIndex = str.indexOf("hmac=");
+            String hmac = str.substring(hmacIndex + 5);
+            hmac = hmac.split('&')[0];
 
-            await fetchData(hmac,data);
+            int dataIndex = str.indexOf("data=");
+            String data = str.substring(dataIndex + 5);
+
+            // print("=---------data!!!--------------");
+            // print(data);
+            // print(hmac);
+
+            await fetchData(hmac,data, testAccountData.accountId);
+
+            // print("=-------------------------------");
+            // print(testAccountData.username);
+            // print(testAccountData.accountId);
 
             // 차이가 2분 미만인지 확인
             if (dataUpdate) {

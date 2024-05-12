@@ -19,7 +19,6 @@ class LoadingExchange extends StatefulWidget {
 }
 
 class _LoadingExchangeState extends State<LoadingExchange> {
-  User userData = User();
   SendApi sendApi = SendApi();
   ScannedUser scannedUser = ScannedUser();
 
@@ -38,6 +37,11 @@ class _LoadingExchangeState extends State<LoadingExchange> {
       if (value['statusCode'] == 200) {
         // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
         if(value["status"] == 201){ //검증 완료
+
+          /*print("---------------------------------------");
+          print(value);
+          I/flutter (23869): {status: 201, code: 201, msg: INSERT SUCCESS, detailMsg: , data: {senderAccountId: 11111111-1111-1111-111111111111, receiverAccountId: 00000000-0000-0000-000000000000, amount: 2, senderBalanceAfter: 366, receiverBalanceAfter: 5634, createdAt: 2024-05-11T11:56:25.93111}, statusCode: 200}*/
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FinishExchange()),
@@ -88,20 +92,20 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: screenHeight * 0.025),
+              SizedBox(height: screenHeight * 0.01),
               SizedBox(
-                height: screenWidth * 0.5,
-                width: screenWidth * 0.5,
+                height: 400,
+                width: 400,
                 child: Lottie.asset("assets/lottie/loading.json"),
               ),
-              SizedBox(height:  screenHeight * 0.025),
+              SizedBox(height:  screenHeight * 0.01),
               Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
                       text: '${scannedUser.name}',
                       style: TextStyle(
-                        color: Color(0xFF7D303D),
+                        color: Color(0xFF2C533C),
                         fontSize: 30,
                         fontFamily: 'Noto Sans KR',
                         fontWeight: FontWeight.w400,
@@ -121,7 +125,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                '매듭을 보내고 있습니다..',
+                '시간을 보내고 있습니다..',
                 style: TextStyle(
                   color: Color(0xFF4B4A48),
                   fontSize: 30,

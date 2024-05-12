@@ -15,7 +15,6 @@ class FinishExchange extends StatefulWidget {
 }
 
 class _FinishExchangeeState extends State<FinishExchange> {
-  ScannedUser scannedUser = ScannedUser();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                       ),
                       SizedBox(height: screenHeight * 0.025),
                       Text(
-                        '매듭 보내기가',
+                        '시간 보내기가',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF7D303D),
@@ -92,8 +91,8 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         // 패딩 설정
                         child: SizedBox(
-                          height: screenWidth * 0.5,
-                          width: screenWidth * 0.5,
+                          height: 200,
+                          width: 200,
                           child: Lottie.asset("assets/lottie/handshake.json"),
                         ),
                       ),
@@ -120,7 +119,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                     );
                   },
                   child: Text(
-                    '예, 추가로 매듭을 보냅니다.',
+                    '예, 추가로 시간을 보냅니다.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFFDDE9E2),
@@ -145,7 +144,7 @@ class _FinishExchangeeState extends State<FinishExchange> {
                         MaterialPageRoute(builder: (context) => MainAccount()));
                   },
                   child: Text(
-                    '아니요, 매듭을 그만 보냅니다.',
+                    '아니요, 시간을 그만 보냅니다.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xff2C533C),

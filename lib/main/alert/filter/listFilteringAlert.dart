@@ -75,7 +75,7 @@ class listFilteringAlert {
                     children: [
                       ElevatedButton(
                         child: Text(
-                          '주고받은 매듭 확인하기',
+                          '주고받은 시간 확인하기',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: 20,
@@ -105,7 +105,7 @@ class listFilteringAlert {
                       ),
                       ElevatedButton(
                         child: Text(
-                          '보낸 매듭 확인하기',
+                          '보낸 시간 확인하기',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: 20,
@@ -114,7 +114,7 @@ class listFilteringAlert {
                           ),
                         ),
                         onPressed: () {
-                          updateTypeCallback("SEND", "보낸 매듭");
+                          updateTypeCallback("SEND", "보낸 시간");
                           Navigator.of(context).pop(); // 다이얼로그 닫기
                         },
                         style: ElevatedButton.styleFrom(
@@ -136,7 +136,7 @@ class listFilteringAlert {
                       ),
                       ElevatedButton(
                         child: Text(
-                          '받은 매듭 확인하기',
+                          '받은 시간 확인하기',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: 20,
@@ -145,7 +145,7 @@ class listFilteringAlert {
                           ),
                         ),
                         onPressed: () {
-                          updateTypeCallback("RECEIVE", "받은 매듭");
+                          updateTypeCallback("RECEIVE", "받은 시간");
                           Navigator.of(context).pop(); // 다이얼로그 닫기
                         },
                         style: ElevatedButton.styleFrom(
