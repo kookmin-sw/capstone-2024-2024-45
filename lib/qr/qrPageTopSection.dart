@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../User/test/testAccountData.dart';
 import '../utils/screenSizeUtil.dart';
 
 class QrPageTopSection extends StatelessWidget {
@@ -14,7 +15,7 @@ class QrPageTopSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "매듭을 받습니다!",
+            "시간을 받습니다!",
             style: TextStyle(
               fontSize: 30,
               color: Color(0xFF4B4A48),
@@ -33,7 +34,7 @@ class QrPageTopSection extends StatelessWidget {
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: '"매듭코드"',
+                  text: '"타임코드"',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
@@ -43,7 +44,7 @@ class QrPageTopSection extends StatelessWidget {
             ),
           ),
           Text(
-            "매듭을 받을 이웃에게 보여주세요!",
+            "시간을 받을 이웃에게 보여주세요!",
             style: TextStyle(
               fontSize: 20,
               color: Color(0xFF7D303D),

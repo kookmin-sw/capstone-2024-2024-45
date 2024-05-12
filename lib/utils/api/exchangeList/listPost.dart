@@ -7,13 +7,13 @@ import 'package:http/http.dart' as http;
 /*
 type : ALL, SEND, RECEIVE
  */
-Future<Map<String, dynamic>> listPost(String type) async {
+Future<Map<String, dynamic>> listPost(String type, String accountId) async {
   String baseUrl = 'http://223.130.141.109:8000/api/exchange/remittance/history';
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl), body: jsonEncode({
       "type": type,
-      "accountId": "00000000-0000-0000-000000000000"
+      "accountId": accountId
     }), headers: {
       "Content-Type": "application/json",
       "accept": "*/*",

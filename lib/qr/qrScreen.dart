@@ -17,7 +17,7 @@ class QrScreen extends StatelessWidget {
       appBar: AppBar(
         title: Center(
           child: Text(
-            "매듭 창고",
+            "시간 은행",
             textAlign: TextAlign.center,
           ),
         ),

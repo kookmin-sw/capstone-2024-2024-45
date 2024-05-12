@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:suntown/qr/qrScreen.dart';
 
+import '../User/test/testAccountData.dart';
 import '../main/alert/apiFail/ApiRequestFailAlert.dart';
 import '../utils/screenSizeUtil.dart';
 import 'qrScreenProvider.dart';
@@ -17,6 +18,7 @@ class QrScreenContent extends StatefulWidget {
 
 class _QrScreenContentState extends State<QrScreenContent> {
   QrScreenProvider qrScreenProvider = QrScreenProvider();
+  late TestAccountData testAccountData;
 
   @override
   void initState() {
@@ -25,6 +27,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
       //에러 핸들러..동작 하는지는 미지수(test 필)
       ApiRequestFailAlert.showExpiredCodeDialog(context, QrScreen());
     });
+    testAccountData = TestAccountData();
   }
 
   @override
@@ -33,7 +36,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
     double screenWidth = ScreenSizeUtil.screenWidth(context);
 
     final provider = Provider.of<QrScreenProvider>(context);
-    final user = provider.user;
+    // final user = provider.user;
     final secretData = provider.secretScannedUserData;
 
     // 타이머가 만료되었는지 확인하여 자동 화면 변경
@@ -70,9 +73,9 @@ class _QrScreenContentState extends State<QrScreenContent> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "${user.lastName}의 매듭 코드",
+                        "${testAccountData.username}의 타임코드",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 25,
                           color: Color(0xFF624A43),
                           fontFamily: 'Noto Sans KR',
                           fontWeight: FontWeight.w300,
@@ -109,7 +112,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
                 ),
               ),
               Text(
-                  '매듭 코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
+                  '타임코드 변경 : ${provider.expirationTime.difference(DateTime.now()).inMinutes}분 ${provider.expirationTime.difference(DateTime.now()).inSeconds % 60}초',
                   style: TextStyle(
                     fontSize: 23,
                     color: Color(0xFF4B4A48),

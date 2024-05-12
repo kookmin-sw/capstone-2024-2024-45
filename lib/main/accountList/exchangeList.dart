@@ -8,9 +8,12 @@ import 'package:suntown/main/alert/filter/listFilteringAlert.dart';
 import 'package:suntown/main/accountList/listDetail.dart';
 
 import '../../User/exchangeListUser/exchangeListUser.dart';
+import '../../User/test/testAccountData.dart';
 import '../../bubble.dart';
 import '../../utils/api/exchangeList/listPost.dart';
 import '../../utils/screenSizeUtil.dart';
+import '../../utils/time/changeAmountToTime.dart';
+import '../../utils/time/changeTimeToAmount.dart';
 import '../alert/apiFail/ApiRequestFailAlert.dart';
 
 class exchangeList extends StatefulWidget {
@@ -27,16 +30,21 @@ class _exchangeListState extends State<exchangeList> {
   String filterType = "전체";
   List<exchangeListUser> users = [];
 
+  ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
+  ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
+
+  TestAccountData testAccountData = TestAccountData();
+
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchData(testAccountData.accountId);
     dataUpdate = false;
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchData(String accountId) async {
     try {
-      final Map<String, dynamic> response = await listPost(type);
+      final Map<String, dynamic> response = await listPost(type, accountId);
       if (response['statusCode'] == 200) {
         List<exchangeListUser> fetchedUsers = [];
         for (var i = 0; i < response['data'].length; i++) {
@@ -65,7 +73,7 @@ class _exchangeListState extends State<exchangeList> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            "매듭 창고",
+            "시간 은행",
             textAlign: TextAlign.center,
           ),
         ),
@@ -96,7 +104,7 @@ class _exchangeListState extends State<exchangeList> {
                         type = newType;
                         filterType = newFilteringType;
                       });
-                      fetchData();
+                      fetchData(testAccountData.accountId);
                     },
                   ); // 콜백 함수 전달);
                 },
@@ -135,6 +143,9 @@ class _exchangeListState extends State<exchangeList> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
+                    String timeStr =
+                        changeAmountToTime.changeAmountToTime(users[index].amount)[0] == 0 ? "${changeAmountToTime.changeAmountToTime(users[index].amount)[1]} 분"
+                        : "${changeAmountToTime.changeAmountToTime(users[index].amount)[0]} 시간 ${changeAmountToTime.changeAmountToTime(users[index].amount)[1]} 분";
                     return ListTile(
                       contentPadding: EdgeInsets.all(0), // 패딩 제거
                       title: Row(
@@ -163,7 +174,10 @@ class _exchangeListState extends State<exchangeList> {
                           Spacer(),
                           Expanded(
                             flex: 4,
-                            child: Text(users[index].send == true ? '- ${users[index].amount}매듭' : '+ ${users[index].amount}매듭',
+                            child: Text(
+                              users[index].send == true
+                                  ? '- ${timeStr}'
+                              : '+ ${timeStr}',
                               style: TextStyle(
                                 color: users[index].send == true ?  Color(0xff7D303D) : Color(0xff2C533C),
                                 fontSize: 20

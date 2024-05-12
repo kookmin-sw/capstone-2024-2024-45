@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../User/scannedUserData/SecretScannedUserData.dart';
+import '../User/test/testAccountData.dart';
 import '../User/userData/User.dart';
 import '../utils/api/info/qrPost.dart';
 
@@ -13,9 +14,10 @@ class QrScreenProvider extends ChangeNotifier {
   late DateTime expirationTime;
   late Timer timer;
   bool expired = false;
-  late User user;
   late SecretScannedUserData secretScannedUserData;
   bool dataupdate = false;
+
+  TestAccountData testAccountData = TestAccountData();
 
   QrScreenProvider() {
     _init();
@@ -24,19 +26,22 @@ class QrScreenProvider extends ChangeNotifier {
   void _init() async {
     expirationTime = DateTime.now().add(Duration(minutes: 2));
     secretScannedUserData = SecretScannedUserData();
-    fetchData();
-    user = User();
+    fetchData(testAccountData.accountId, testAccountData.userId);
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       _updateTimer();
     });
   }
 
   //qr에 담을 암호화 정보를 위함
-  Future<void> fetchData() async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
+  Future<void> fetchData(String accountId, String userId) async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
     try {
-      final value = await qrPost(); //여기서 2가 id이다.
+      final value = await qrPost(accountId, userId); //여기서 2가 id이다.
       if (value["statusCode"] == 200) {
         secretScannedUserData.initializeData(value['data']);
+        print("=------------qr 데이터 ---------------");
+        print("hmac = " + secretScannedUserData.hmac);
+        print("incodingData = " + secretScannedUserData.incodingData);
+
         dataupdate = true; //update가 된 뒤에 view가 나오도록 정의!
       } else {
         debugPrint('서버 에러입니다. 다시 시도해주세요');
@@ -60,7 +65,7 @@ class QrScreenProvider extends ChangeNotifier {
 
   void refreshQrData() {
     expirationTime = DateTime.now().add(Duration(minutes: 2));
-    fetchData();
+    fetchData(testAccountData.accountId, testAccountData.userId);
     if(dataupdate){ //데이터 업데이트가 된 후에 다시 업데이트
       expired = false;
       timer = Timer.periodic(Duration(seconds: 1), (timer) {

@@ -5,8 +5,11 @@ import 'package:suntown/User/scannedUserData/ScannedUserAccountInfo.dart';
 import 'package:suntown/User/SendAmount.dart';
 import 'package:suntown/main/Exchange/loadingExchange.dart';
 
+import '../../User/test/testAccountData.dart';
 import '../../User/userData/User.dart';
 import '../../utils/screenSizeUtil.dart';
+import '../../utils/time/changeAmountToTime.dart';
+import '../../utils/time/changeTimeToAmount.dart';
 import '../alert/correctionAlertDialog.dart';
 
 /*
@@ -14,26 +17,40 @@ import '../alert/correctionAlertDialog.dart';
  */
 
 class CheckExchange extends StatefulWidget {
-  const CheckExchange({super.key});
+  final int? amount;
+  const CheckExchange({Key? key, this.amount}) : super(key: key);
 
   @override
   State<CheckExchange> createState() => _CheckExchangeState();
 }
 
 class _CheckExchangeState extends State<CheckExchange> {
-  User user = User();
   ScannedUser scannedUser = ScannedUser();
-  ScannedUserAccountInfo scannedUserAccountInfo = ScannedUserAccountInfo();
-  SendApi sendApi = SendApi();
+
+  late SendApi sendApi;
+  TestAccountData testAccountData = TestAccountData();
+
+  late int showHours;
+  late int showMinutes;
+
+  ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
+  ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
+
 
   void fetchData(){ //지금까지 받은 데이터 넣기
+    sendApi.amount = widget.amount!;
     sendApi.receiverAccountId = scannedUser.accountId;
-    sendApi.sendAccountId = "11111111-1111-1111-111111111111"; //나중에 user 연동시 변경 예정
+    sendApi.sendAccountId = testAccountData.accountId; //나중에 user 연동시 변경 예정
+    // sendApi.sendAccountId = testAccountData.accountId;
   }
 
   @override
   void initState() {
     super.initState();
+    sendApi = SendApi();
+    showHours = 0;
+    showMinutes = 0;
+
     fetchData();
   }
 
@@ -41,6 +58,11 @@ class _CheckExchangeState extends State<CheckExchange> {
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
+
+    List<int> time = changeAmountToTime.changeAmountToTime(widget.amount!);
+
+    showHours = time[0];
+    showMinutes = time[1];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -74,7 +96,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                             color: Color(0xFF4B4A48),
                             fontSize: 35,
                             fontFamily: 'Noto Sans KR',
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -98,7 +120,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                       children: [
                         Flexible( //넘칠 경우를 대비...거의 없을듯 싶지만 혹시 모르니
                           child: Text(
-                            '${NumberFormat("#,###").format(sendApi.amount)}',
+                            '${showHours}시간 ${showMinutes}분',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF7D303D),
@@ -109,7 +131,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                           ),
                         ),
                         Text(
-                          ' 매듭을',
+                          '을',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
@@ -145,7 +167,7 @@ class _CheckExchangeState extends State<CheckExchange> {
                   MaterialPageRoute(builder: (context) => LoadingExchange()));
             },
             child: Text(
-              '예, 매듭을 보냅니다.',
+              '예, 시간을 보냅니다.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFFDDE9E2),

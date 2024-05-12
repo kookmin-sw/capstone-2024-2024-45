@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:suntown/main/Exchange/inputTransfor.dart';
 import 'package:suntown/qr/qrScanner.dart';
 import 'package:suntown/utils/screenSizeUtil.dart';
 
 import '../../User/userData/User.dart';
+import '../Exchange/inputTransfor.dart';
+import '../Exchange/minutesInputTransfor.dart';
 
 class CorrectAlertDialog {
   static Future<void> show(BuildContext context) async {
@@ -38,7 +39,7 @@ class CorrectAlertDialog {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "매듭을 잘못 입력하셨거나",
+                      "시간을 잘못 입력하셨거나",
                       style: TextStyle(
                         color: Color(0xFF727272),
                         fontSize: 20,
@@ -82,7 +83,7 @@ class CorrectAlertDialog {
                                 builder: (context) => qrScanner()));
                       },
                       child: Text(
-                        '매듭 코드 스캔으로 돌아갑니다',
+                        '타임 코드 스캔으로 돌아갑니다',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFFDDE9E2),
@@ -112,7 +113,7 @@ class CorrectAlertDialog {
                                     InputTransfor()));
                       },
                       child: Text(
-                        '보낼 매듭 입력으로 돌아갑니다',
+                        '보낼 시간 입력으로 돌아갑니다',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF2C533C),
@@ -138,7 +139,7 @@ class CorrectAlertDialog {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        '"매듭 보내기"를 계속합니다',
+                        '"시간 보내기"를 계속합니다',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xff624A43),

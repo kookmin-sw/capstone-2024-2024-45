@@ -23,6 +23,8 @@ class listDetailUser {
   late bool sender;
   late int amount;
 
+  late int transId;
+
   // 싱글톤 인스턴스 생성
   static final listDetailUser _instance = listDetailUser._internal();
 
@@ -48,6 +50,7 @@ class listDetailUser {
     amount = 0;
 
     formattedAmount = '';
+    transId = 0;
   }
 
   // user에서 얻을 정보
@@ -72,8 +75,6 @@ class listDetailUser {
     formattedAmount = _getNumberFormatter(amount);
   }
 
-
-
   String _getTimeValue(Map<String, dynamic> data, String key){
     DateTime dateTime = DateTime.parse(data[key] ?? ''.toString());
     DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
@@ -88,5 +89,9 @@ class listDetailUser {
   String _getNumberFormatter(int amount){
     NumberFormat f = NumberFormat("#,###");
     return f.format(amount);
+  }
+
+  void setTransId(int transId){
+    transId = transId;
   }
 }
