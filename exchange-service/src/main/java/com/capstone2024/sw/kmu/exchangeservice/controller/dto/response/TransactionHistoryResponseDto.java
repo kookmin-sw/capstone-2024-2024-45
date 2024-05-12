@@ -88,6 +88,7 @@ public class TransactionHistoryResponseDto {
     public static class RemittanceList{
 
         private Long transId;
+        private LocalDateTime createdAt;
         private boolean send;
         private String senderNickname;
         private String senderProfileImg;
@@ -98,6 +99,7 @@ public class TransactionHistoryResponseDto {
         public static RemittanceList senderInfoFrom(TransactionHistory response, User user) {
             return RemittanceList.builder()
                     .transId(response.getTransId())
+                    .createdAt(response.getCreatedAt())
                     .send(false)
                     .senderNickname(user.getUserNickname())
                     .senderProfileImg(user.getUserProfileImg())
@@ -108,6 +110,7 @@ public class TransactionHistoryResponseDto {
         public static RemittanceList receiverInfoFrom(TransactionHistory response, User user) {
             return RemittanceList.builder()
                     .transId(response.getTransId())
+                    .createdAt(response.getCreatedAt())
                     .send(true)
                     .receiverNickname(user.getUserNickname())
                     .receiverProfileImg(user.getUserProfileImg())
