@@ -7,6 +7,7 @@ import '../../../../utils/api/connect/accessTokenPost.dart';
 
 
 class KakaoLogin implements SocialLogin {
+  String accessToken = "";
   final url = Uri.https('kapi.kakao.com', '/v2/user/me');
   @override
   Future<bool> login() async {
@@ -18,7 +19,9 @@ class KakaoLogin implements SocialLogin {
         // 카카오톡 설치 되어 있으면 진행
         try {
           kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoTalk();
-          acessTokenPost(token:token);
+          // Access Token 추출
+          // accessToken = extractToken(token, 'access_token');
+          print('Access Token: $accessToken');
 
           return true;
         } catch(e) {
@@ -61,4 +64,23 @@ class KakaoLogin implements SocialLogin {
       return false;
     }
   }
+}
+
+String extractToken(String input, String tokenName) {
+  // Find the index of the tokenName in the input string
+  int tokenIndex = input.indexOf(tokenName);
+
+  // Find the start index of the token value
+  int startIndex = input.indexOf(':', tokenIndex) + 1;
+
+  // Find the end index of the token value
+  int endIndex = input.indexOf(',', startIndex);
+  if (endIndex == -1) {
+    endIndex = input.indexOf('}', startIndex);
+  }
+
+  // Extract the token value
+  String tokenValue = input.substring(startIndex, endIndex).trim();
+
+  return tokenValue;
 }
