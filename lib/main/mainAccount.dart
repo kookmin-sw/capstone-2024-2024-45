@@ -72,9 +72,12 @@ class _MainAccountState extends State<MainAccount> {
     //print("--------------UserId-------------");
     //           print(userId);
     //이게 있는게, 여기서 로그인 한 회원의 userId가 제대로 찍히기만 하면 돼!
+
     _initializeUserId();
     // fetchAccountListData(testUserId);
   }
+
+
   // _userId를 초기화하는 메서드
   Future<void> _initializeUserId() async {
     userId = await UserInfoManage().getUserId() ?? '';
