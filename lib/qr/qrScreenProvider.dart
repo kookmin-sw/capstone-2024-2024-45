@@ -25,7 +25,7 @@ class QrScreenProvider extends ChangeNotifier {
   }
 
   void _init() async {
-    expirationTime = DateTime.now().add(Duration(minutes: 2));
+    expirationTime = DateTime.now().add(Duration(minutes: 1, seconds: 30));
     secretScannedUserData = SecretScannedUserData();
     fetchData(testAccountData.accountId, testAccountData.userId);
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -65,7 +65,7 @@ class QrScreenProvider extends ChangeNotifier {
   }
 
   void refreshQrData() {
-    expirationTime = DateTime.now().add(Duration(minutes: 2));
+    expirationTime = DateTime.now().add(Duration(minutes: 1, seconds: 30));
     fetchData(testAccountData.accountId, testAccountData.userId);
     if(dataupdate){ //데이터 업데이트가 된 후에 다시 업데이트
       expired = false;

@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:suntown/main/alert/filter/listFilteringAlert.dart';
 import 'package:suntown/main/accountList/listDetail.dart';
@@ -28,7 +29,10 @@ class _exchangeListState extends State<exchangeList> {
   late exchangeListUser testUser;
   String type = "ALL";
   String filterType = "전체";
-  List<exchangeListUser> users = [];
+  Map<String, List<exchangeListUser>> users = {};
+
+// 데이터를 그룹화할 Map 생성
+  Map<String, List<exchangeListUser>> groupedData = {};
 
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
   ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
@@ -46,12 +50,20 @@ class _exchangeListState extends State<exchangeList> {
     try {
       final Map<String, dynamic> response = await listPost(type, accountId);
       if (response['statusCode'] == 200) {
-        List<exchangeListUser> fetchedUsers = [];
+        groupedData = {}; //한 번 초기화
         for (var i = 0; i < response['data'].length; i++) {
-          fetchedUsers.add(exchangeListUser.fromJson(response['data'][i]));
+          String date =
+              exchangeListUser.fromJson(response['data'][i]).createdAtToDaily;
+          if (!groupedData.containsKey(date)) {
+            groupedData[date] = [];
+          }
+          groupedData[date]!
+              .add(exchangeListUser.fromJson(response['data'][i]));
         }
         setState(() {
-          users = fetchedUsers;
+          users = groupedData;
+          // print("-----------------user 정보------------------------");
+          // print(users);
         });
       } else {
         // Handle error
@@ -91,7 +103,9 @@ class _exchangeListState extends State<exchangeList> {
           children: [
             TopSideBubble(),
             SizedBox(
-              height:(screenWidth < screenHeight) ? screenWidth * 0.025 : screenHeight * 0.025,
+              height: (screenWidth < screenHeight)
+                  ? screenWidth * 0.025
+                  : screenHeight * 0.025,
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -129,12 +143,14 @@ class _exchangeListState extends State<exchangeList> {
                     ],
                   ),
                 ),
-                ),
               ),
+            ),
             SizedBox(height: screenHeight * 0.01),
-            Container( height:1.0,
-              width:screenWidth * 1.0,
-              color:Color(0xff624A43),),
+            Container(
+              height: 1.0,
+              width: screenWidth * 1.0,
+              color: Color(0xff624A43),
+            ),
             SizedBox(height: screenHeight * 0.01),
             Expanded(
               child: SingleChildScrollView(
@@ -143,59 +159,107 @@ class _exchangeListState extends State<exchangeList> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    String timeStr =
-                        changeAmountToTime.changeAmountToTime(users[index].amount)[0] == 0 ? "${changeAmountToTime.changeAmountToTime(users[index].amount)[1]} 분"
-                        : "${changeAmountToTime.changeAmountToTime(users[index].amount)[0]} 시간 ${changeAmountToTime.changeAmountToTime(users[index].amount)[1]} 분";
-                    return ListTile(
-                      contentPadding: EdgeInsets.all(0), // 패딩 제거
-                      title: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                users[index].send == true ? users[index].receiverProfileImg : users[index].senderProfileImg,
-                              ),
-                              radius: 30, // 원의 반지름 설정
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Text(users[index].send == true ? users[index].receiverNickname : users[index].senderNickname
-                              ,textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: 20
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          Expanded(
-                            flex: 4,
-                            child: Text(
-                              users[index].send == true
-                                  ? '- ${timeStr}'
-                              : '+ ${timeStr}',
-                              style: TextStyle(
-                                color: users[index].send == true ?  Color(0xff7D303D) : Color(0xff2C533C),
-                                fontSize: 20
-                              ),
+                    var date = users.keys.elementAt(index);
+                    var transactions = users[date]!;
 
-                              textAlign: TextAlign.right,
-                            ),
+                    return Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                date,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xff737373),
+
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => listDetail(
-                              transId: users[index].transId, send : users[index].send
-                          )),
-                        );
-                      },
+                        ), // 날짜 표시
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: transactions.length,
+                          itemBuilder: (context, index) {
+                            String timeStr = changeAmountToTime
+                                        .changeAmountToTime(
+                                            transactions[index].amount)[0] ==
+                                    0
+                                ? "${changeAmountToTime.changeAmountToTime(transactions[index].amount)[1]} 분"
+                                : "${changeAmountToTime.changeAmountToTime(transactions[index].amount)[0]} 시간 ${changeAmountToTime.changeAmountToTime(transactions[index].amount)[1]} 분";
+
+                            return ListTile(
+                              contentPadding: EdgeInsets.all(0), // 패딩 제거
+                              title: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        transactions[index].send == true
+                                            ? transactions[index]
+                                                .receiverProfileImg
+                                            : transactions[index]
+                                                .senderProfileImg,
+                                      ),
+                                      radius: 30, // 원의 반지름 설정
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      transactions[index].send == true
+                                          ? transactions[index].receiverNickname
+                                          : transactions[index].senderNickname,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      transactions[index].send == true
+                                          ? '- ${timeStr}'
+                                          : '+ ${timeStr}',
+                                      style: TextStyle(
+                                          color:
+                                              transactions[index].send == true
+                                                  ? Color(0xff7D303D)
+                                                  : Color(0xff2C533C),
+                                          fontSize: 20),
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // 각 항목에 대한 추가 구성 요소 추가 가능
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => listDetail(
+                                          transId: transactions[index].transId,
+                                          send: transactions[index].send)),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
                     );
                   },
                 ),
