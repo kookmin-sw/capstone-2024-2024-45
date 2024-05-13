@@ -62,7 +62,7 @@ class _numberScreenState extends State<numberScreen> {
                               width: screenWidth * 0.85, // 334
                               height: screenHeight * 0.03, // 25
                               child: Text(
-                                '창고만들기',
+                                '계좌만들기',
                                 style: TextStyle(
                                   color: Color(0xFFD3C2BD),
                                   fontSize: 17,
