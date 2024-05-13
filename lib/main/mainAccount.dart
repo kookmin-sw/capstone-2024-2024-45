@@ -52,7 +52,7 @@ class _MainAccountState extends State<MainAccount> {
 
 
   // String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민
-  String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
+  // String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
 
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
   ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
@@ -72,10 +72,13 @@ class _MainAccountState extends State<MainAccount> {
     //print("--------------UserId-------------");
     //           print(userId);
     //이게 있는게, 여기서 로그인 한 회원의 userId가 제대로 찍히기만 하면 돼!
-
-    // userId = UserInfoManage.getUserId();
-    // fetchAccountListData(userId);
-    fetchAccountListData(testUserId);
+    _initializeUserId();
+    // fetchAccountListData(testUserId);
+  }
+  // _userId를 초기화하는 메서드
+  Future<void> _initializeUserId() async {
+    userId = await UserInfoManage().getUserId() ?? '';
+    fetchAccountListData(userId);
   }
 
   //accountList를 가져오는 method
@@ -146,7 +149,7 @@ class _MainAccountState extends State<MainAccount> {
     return RefreshIndicator(
       onRefresh: () async {
         // 새로고침 작업을 수행하는 비동기 함수를 호출합니다.
-        await fetchAccountListData(testUserId); // 데이터를 다시 가져오는 메서드 호출
+        await fetchAccountListData(userId); // 데이터를 다시 가져오는 메서드 호출
       },
       child: WillPopScope(
         onWillPop: () async {
@@ -273,7 +276,7 @@ class _MainAccountState extends State<MainAccount> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => qrScanner()))
                                       .then((_) {
-                                    fetchAccountListData(testUserId);
+                                    fetchAccountListData(userId);
                                   });
                                 });
                               },
@@ -306,7 +309,7 @@ class _MainAccountState extends State<MainAccount> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => QrScreen())
                                   ).then((_) {
-                                    fetchAccountListData(testUserId);
+                                    fetchAccountListData(userId);
                                   });
                                 });
                               },
@@ -339,7 +342,7 @@ class _MainAccountState extends State<MainAccount> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => exchangeList())).
                                   then((_) {
-                                    fetchAccountListData(testUserId);
+                                    fetchAccountListData(userId);
                                   });
                                 });
                               },
