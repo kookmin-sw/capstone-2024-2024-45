@@ -86,7 +86,7 @@ class _accountSuccessState extends State<accountSuccess> {
                     ),
                     SizedBox(height: screenHeight * 0.03,),
                     Text(
-                      '이제 매듭 창고를 사용해보세요.',
+                      '이제 시간 창고를 사용해보세요.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF4B4A48),

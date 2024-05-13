@@ -38,11 +38,18 @@ class _defaultAccounttState extends State<defaultAccount>{
   Future<void> _initializeData() async {
     auth.FirebaseAuth.instance.authStateChanges().listen((auth.User? user) async {
       if (user != null) {
-        String user_id = await UserInfoManage().getUserId() ?? '';
-        String account_id = await AccountInfoMange().getAccount_id(user_id:user_id);
-        print('account_id: $account_id , account_id.length : $account_id.length');
-        if(account_id.length > 0){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MainAccount()));
+        try{
+          String user_id = await UserInfoManage().getUserId() ?? '';
+          String account_id = await AccountInfoMange().getAccount_id(user_id:user_id);
+          if(account_id.length > 0){ // 계좌가 생성된 user면 Main계좌 화면으로
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MainAccount()));
+          }else { // 계좌가 생성되지 않은 user면 계좌 만들기 화면으로
+            Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+          }
+        }catch (e) { // 만약 user_id를 가져오거나 account_id를 불러오는데 문제가 생겼다면 아직 회원가입이 안되어 있는 유저일 가능성이 큼. 그래서 게좌 만들고 회원가입하도록
+          print(e);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => defaultAccount()));
         }
       }
     });
