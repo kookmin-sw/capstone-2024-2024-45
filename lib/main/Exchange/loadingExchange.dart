@@ -8,6 +8,7 @@ import 'package:suntown/main/Exchange/finishExchange.dart';
 import '../../User/SendAmount.dart';
 import '../../User/userData/User.dart';
 import '../../utils/api/info/sendPost.dart';
+import '../../utils/hmac/exchangeHmacGenerator.dart';
 import '../../utils/screenSizeUtil.dart';
 import '../alert/apiFail/ApiRequestFailAlert.dart';
 
@@ -21,16 +22,19 @@ class LoadingExchange extends StatefulWidget {
 class _LoadingExchangeState extends State<LoadingExchange> {
   SendApi sendApi = SendApi();
   ScannedUser scannedUser = ScannedUser();
+  late HmacGenerator hmacGenerator; //hmac 암호화 추가
 
   @override
   void initState() {
     super.initState();
     // 데이터를 가져오는 함수 호출. init 부분에서 시행한다.
+    hmacGenerator = HmacGenerator();
     fetchData();
   }
 
   Future<void> fetchData() async {
     try {
+      hmacGenerator.generateHmacAsync(sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
       // API 요청을 보냅니다.
       final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount);
 
