@@ -22,17 +22,18 @@ class AccountInfoMange{
   late String account_name;
   bool accountInfoUpdate = false;
 
-  // account_id 가져오는 정적 메서드
-  static String getAccount_id()  {
+  // account_id 가져오는 메서드
+  Future<String> getAccount_id({required user_id}) async {
+    await setAccount_id(user_id: user_id);
+    print("getAccount_id : $account_id");
     return account_id;
   }
 
-  // account_id 설정하는 정적 메서드
-  static void setAccount_id({required user_id}) async {
+  // account_id 설정하는 메서드
+  static Future<void> setAccount_id({required user_id}) async {
     try {
       final value = await accountIdGet(user_id: user_id);
       print("setaccount_id 성공");
-      print(value);
       if (value["statusCode"] == 200) {
         print(value['result']['account_id_list'][0]);
         account_id =  value['result']['account_id_list'][0];
@@ -53,12 +54,10 @@ class AccountInfoMange{
     username = username;
   }
 
-  // account 정보를 서버에 등록 할 때 사용
+  // account 정보를 account 서버에 등록 할 때 사용
   fetchAccountData({required username, required mobile_number, required password}) async {
-    UserInfoManage.setUserId();
-    user_id = UserInfoManage.getUserId();
+    user_id = await UserInfoManage().getUserId() ?? '';
     getAccountPriInfo(username: username, mobile_number: mobile_number, password :password );
-
     try {
         final value = await accountInfoPost(password: password, username: username, mobile_number : mobile_number, user_id : user_id,  account_name : username);
       if (value["statusCode"] == 200) {
@@ -72,7 +71,6 @@ class AccountInfoMange{
           "account_id" : value['result']['account_id'] // 계좌개설 후 account_id값을 return 해줌.
         };
       } else {
-        print('account 서버 에러"');
         debugPrint("account 서버 에러");
         print(value['message']);
         throw Exception('서버 에러입니다. 다시 시도해주세요');
@@ -87,9 +85,9 @@ class AccountInfoMange{
     };
   }
 
-  // 처음 계좌 개설 할 때, account 정보와 user 정보를 매핑 할 때 사용.
+  // 처음 계좌 개설 할 때, usesr서버에 account 정보와 user 정보를 매핑 할 때 사용.
 connectUserAccount({required username}) async {
-  user_id = UserInfoManage.getUserId();
+  user_id = await UserInfoManage().getUserId() ?? '';
   setAccount_id(user_id:user_id);
 
     try{

@@ -2,12 +2,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:suntown/User/UserAccountInfo.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/openAccount.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
-import '../User/User.dart';
+// import '../User/User.dart';
 import '../bubble.dart';
 import '../utils/screenSizeUtil.dart';
-import 'drawer/defaultDrawer.dart';
+import 'drawer/mainDrawer.dart';
+import 'mainAccount.dart';
+
 
 class defaultAccount extends StatefulWidget {
   const defaultAccount({super.key});
@@ -19,8 +24,30 @@ class defaultAccount extends StatefulWidget {
 Map<String, dynamic>? apiResult; //http 주소 받아올
 
 class _defaultAccounttState extends State<defaultAccount>{
-  late User user;
+
+  // late User user;
   late UserAccountInfo accountInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+  }
+
+  // user가 account_id를 가지고 있으면 바로 mainAccount로 이동
+  Future<void> _initializeData() async {
+    auth.FirebaseAuth.instance.authStateChanges().listen((auth.User? user) async {
+      if (user != null) {
+        String user_id = await UserInfoManage().getUserId() ?? '';
+        String account_id = await AccountInfoMange().getAccount_id(user_id:user_id);
+        print('account_id: $account_id , account_id.length : $account_id.length');
+        if(account_id.length > 0){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MainAccount()));
+        }
+      }
+    });
+  }
+
 
   // This widget is the root of your application.
   @override
@@ -42,7 +69,7 @@ class _defaultAccounttState extends State<defaultAccount>{
             ),
           ],
         ),
-        drawer : defaultDrawer(),
+        drawer : mainDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
