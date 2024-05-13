@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> sendPost({required senderAccountId, required amount, required receiverAccountId}) async {
+Future<Map<String, dynamic>> sendPost({required senderAccountId, required amount, required receiverAccountId, required userId}) async {
 
   String baseUrl = 'http://223.130.141.109:8000/api/exchange/remittance/qr';
 
@@ -15,7 +15,7 @@ Future<Map<String, dynamic>> sendPost({required senderAccountId, required amount
       "receiverAccountId": receiverAccountId
     }), headers: {
       "Content-Type": "application/json",
-      "userId" : "1", //예시 userId
+      "userId" : userId, //예시 userId
     });
 
     try {
