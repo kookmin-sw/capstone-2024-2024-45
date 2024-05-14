@@ -90,7 +90,7 @@ class _openAccountState extends State<openAccount> {
                                                         top: 1,
                                                         child: SizedBox(
                                                           width: screenWidth * 0.6, //270
-                                                          height: screenHeight * 0.03,//36,
+                                                          height: screenHeight * 0.035,//36,
                                                           child: Text(
                                                             '계좌 만들기',
                                                             style: TextStyle(

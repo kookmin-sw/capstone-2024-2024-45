@@ -47,7 +47,6 @@ class _defaultAccounttState extends State<defaultAccount>{
         }catch (e){
           print(e);
         }
-
       }
     });
   }
