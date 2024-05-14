@@ -7,7 +7,7 @@ Future<Map<String, dynamic>> qrScanPost(
     {required String hmac,
     required String data,
     required String senderAccountId}) async {
-  String baseUrl = 'http://223.130.141.109:8000/api/exchange/qr/scan';
+  String baseUrl = 'http://223.130.154.131:8000/api/exchange/qr/scan';
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl),
