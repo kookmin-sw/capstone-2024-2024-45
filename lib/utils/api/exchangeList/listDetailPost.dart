@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 Future<Map<String, dynamic>> listDetailPost(
     {required int transId, required bool send}) async {
   String baseUrl =
-      'http://223.130.141.109:8000/api/exchange/remittance/history/${transId}';
+      'http://223.130.154.131:8000/api/exchange/remittance/history/${transId}';
 
   try {
     http.Response response = await http
