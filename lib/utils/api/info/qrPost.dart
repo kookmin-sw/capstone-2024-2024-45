@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> qrPost(String accountId, String userId) async {
 
-  String baseUrl = 'http://223.130.141.109:8000/api/exchange/qr/create';
+  String baseUrl = 'http://223.130.154.131:8000/api/exchange/qr/create';
 
   try {
     http.Response response =
