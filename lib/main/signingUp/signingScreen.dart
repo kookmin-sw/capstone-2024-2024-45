@@ -1,3 +1,6 @@
+import 'package:suntown/main/mainAccount.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
 
@@ -24,9 +27,9 @@ class _signingUPState extends State<signingUP> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+    FirebaseAuth.instance.authStateChanges().listen((User? user)  {
+      if (user != null) { // 회원가입된 유저가 있다면
+          Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
       }
     });
   }
