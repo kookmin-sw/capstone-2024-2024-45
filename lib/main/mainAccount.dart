@@ -359,7 +359,15 @@ class _MainAccountState extends State<MainAccount> {
                         )
                       ],
                     )
-                  : Lottie.asset("assets/lottie/loading.json"),
+                  : Center( //왜 센터 했는데도 가운데로 안가ㅠㅠ
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Lottie.asset("assets/lottie/loading.json"),
+                      ],
+                    ),
+                  ),
             ),
           ),
         ),

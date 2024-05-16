@@ -3,25 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lottie/lottie.dart';
 import 'package:suntown/User/test/testAccountData.dart';
-import 'package:suntown/main/Exchange/loadingExchange.dart';
-import 'package:suntown/main/alert/filter/chooseMinute.dart';
+
+import 'package:suntown/qr/qrScanner.dart';
 import 'package:suntown/utils/time/changeAmountToTime.dart';
 import 'package:suntown/utils/time/changeTimeToAmount.dart';
 
-import '../../User/SendAmount.dart';
 import '../../User/scannedUserData/ScannedUser.dart';
-import '../../User/scannedUserData/ScannedUserAccountInfo.dart';
+
+import '../../utils/api/info/qrScanPost.dart';
+import '../../utils/api/test/testMainAccountDetailGet.dart';
+import '../../utils/api/test/testMainAccountGet.dart';
 import '../../utils/screenSizeUtil.dart';
-import '../CustomKeyboard/cusTomKeyboard.dart';
+
+import '../../utils/serviceLayer/AccountService.dart';
+import '../alert/apiFail/ApiRequestFailAlert.dart';
+import '../alert/qrTimeOutDialog.dart';
 import 'checkExchange.dart';
 
 //30분 단위 ver
-//추후 삭제 예정...일단 백업용
+//고민점
+//지금은.. main화면에서 accountId를 가져오는데
+//이거 나중에 라우팅 할 경우, 여기서 모든 정보가 필요하므로 한 번 받아오는게 좋지 않을지. -> 성공!
 
 class InputTransfor extends StatefulWidget {
-  final void Function(String)? onValueSelected; // 콜백 함수 정의
-  const InputTransfor({Key? key, this.onValueSelected}) : super(key: key);
+  final String url; // URL 추가
+  // final void Function(String)? onValueSelected; // 콜백 함수 정의
+  const InputTransfor({Key? key, required this.url}) : super(key: key);
 
   @override
   State<InputTransfor> createState() => _InputTransforState();
@@ -31,6 +40,7 @@ class _InputTransforState extends State<InputTransfor> {
   late TextEditingController _textController1;
   late TextEditingController _textController2;
   late ScannedUser scannedUser;
+  late TestAccountData testAccountData;
 
   late bool minutesInput;
   late bool hoursInput;
@@ -42,6 +52,18 @@ class _InputTransforState extends State<InputTransfor> {
   late int hours; //입력 받기 위한..
   late int minutes;
 
+  late bool dataUpdate; //api 검사를 위한
+  late bool pushPopup;
+
+  bool dataLoad = false;
+  List<String> userAccountIds = []; //account 정보를 담아옴
+
+  late String userId;
+  late int totalTime;
+  late String timeStr;
+  bool accountDataLoad = false;
+
+  String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민, 나중에 login 검사 후, userId 받아오는 부분으로 갈아 끼우면 된다.
 
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
   ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
@@ -51,30 +73,119 @@ class _InputTransforState extends State<InputTransfor> {
     super.initState();
     _textController1 = TextEditingController();
     _textController2 = TextEditingController();
+    testAccountData = TestAccountData(); //main 화면을 지나서 오지 않았을 경우, 이 정보가 없어.
     minutesInput = false;
     hoursInput = false;
 
     scannedUser = ScannedUser(); // UserData 인스턴스 생성
-    balance = int.parse(scannedUser.senderBalance);
+    balance = 0;
 
     alerttext = "";
     amount = 0;
 
     hours = 0;
     minutes = 0;
+
+    dataUpdate = false;
+    pushPopup = false;
+
+    // AccountService의 fetchAccountListData를 호출하고, 콜백을 전달합니다.
+    AccountService().fetchAccountListData(testUserId, (isLoaded) {
+      // 콜백이 호출되면 UI를 업데이트합니다.
+      if (isLoaded) {
+        setState(() {
+          reMakeUrl(widget.url);
+        });
+      } else {
+        ApiRequestFailAlert.showExpiredCodeDialog(
+            context, qrScanner()); //수정 필요..
+      }
+    });
+  }
+
+  //qr 스캔 하는 코드
+  Future<void> fetchData(
+      String hmac, String data, String senderAccountId, String url) async {
+    //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
+    try {
+      final value = await qrScanPost(
+          hmac: hmac,
+          data: data,
+          senderAccountId: senderAccountId); //여기서 2가 id이다.
+      if (value["statusCode"] == 200) {
+        //서버 응답
+        if (value["status"] == 200) {
+          //검증 완료
+          scannedUser.userInitializeData(value["data"]);
+          balance = int.parse(scannedUser.senderBalance);
+          print("-----------------------------------");
+          print(value);
+          print(scannedUser.accountId);
+          // 데이터를 사용하여 setState() 호출
+          setState(() {
+            dataUpdate = true;
+          });
+        } else if (value["status"] == 400) {
+          //유효기간 지난 코드
+          setState(() {
+            pushPopup = true;
+          });
+        }
+      } else {
+        ApiRequestFailAlert.showExpiredCodeDialog(
+            context, InputTransfor(url: url));
+        debugPrint('서버 에러입니다. 다시 시도해주세요');
+      }
+    } catch (e) {
+      ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
+
+  void reMakeUrl(String str) async {
+    // URI 파싱
+    int hmacIndex = str.indexOf("hmac=");
+    String hmac = str.substring(hmacIndex + 5);
+    hmac = hmac.split('&')[0];
+
+    int dataIndex = str.indexOf("data=");
+    String data = str.substring(dataIndex + 5);
+
+    print("=---------data!!!--------------");
+    print(data);
+    print(hmac);
+
+    await fetchData(hmac, data, testAccountData.accountId, str);
+
+    print("=-------------fetchData------------------");
+    print(testAccountData.username);
+    print(testAccountData.accountId);
+
+    // 차이가 2분 미만인지 확인..따로 inputState로 다시 이동할 필요는 없
+    if (pushPopup) {
+      // 2분 이상인 경우, alert dialog
+      QrTimeOutDialog.showExpiredCodeDialog(context, () {
+        Navigator.of(context).pop(); // 다이얼로그 닫기
+        // 재스캔
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => qrScanner()),
+        );
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
     double screenWidth = ScreenSizeUtil.screenWidth(context);
-
     List<int> time = changeAmountToTime.changeAmountToTime(balance);
 
     int balanceHours = time[0];
     int balanceMinutes = time[1];
 
-    int totalTime = changeTimeToAmount.changeTimeToAmount(balanceHours, balanceMinutes); //분 토탈
+    int totalTime = changeTimeToAmount.changeTimeToAmount(
+        balanceHours, balanceMinutes); //분 토탈
 
     String showTimes = "잔액 : ${balanceHours}시간 ${balanceMinutes}분";
 
@@ -97,7 +208,7 @@ class _InputTransforState extends State<InputTransfor> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: dataUpdate ? Column(
           children: [
             Align(
               alignment: Alignment.topLeft,
@@ -312,8 +423,9 @@ class _InputTransforState extends State<InputTransfor> {
 
                               Future.delayed(Duration(milliseconds: 300), () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      CheckExchange(amount: changeTimeToAmount.changeTimeToAmount(hours,minutes)),
+                                  builder: (context) => CheckExchange(
+                                      amount: changeTimeToAmount
+                                          .changeTimeToAmount(hours, minutes)),
                                 ));
                               });
                             }
@@ -334,6 +446,14 @@ class _InputTransforState extends State<InputTransfor> {
                   ]),
             ),
           ],
+        ) : Center( //왜 센터 했는데도 가운데로 안가ㅠㅠ
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Lottie.asset("assets/lottie/loading.json"),
+            ],
+          ),
         ),
       ),
     );

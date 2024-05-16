@@ -27,44 +27,12 @@ class _qrScannerState extends State<qrScanner> {
   late bool dataUpdate;
   late bool pushPopup;
 
-  TestAccountData testAccountData = TestAccountData();
-
   @override
   void initState() {
     super.initState();
     scannedUser = ScannedUser();
     dataUpdate = false;
     pushPopup = false;
-  }
-
-  Future<void> fetchData(String hmac, String data, String senderAccountId) async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
-    try {
-      final value = await qrScanPost(hmac: hmac, data: data, senderAccountId: senderAccountId); //여기서 2가 id이다.
-      if (value["statusCode"] == 200) { //서버 응답
-        if(value["status"] == 200){ //검증 완료
-          scannedUser.userInitializeData(value["data"]);
-          // print("-----------------------------------");
-          // print(value);
-          // print(scannedUser.accountId);
-
-          // 데이터를 사용하여 setState() 호출
-          setState(() {
-            dataUpdate = true;
-          });
-        }else if(value["status"] == 400){ //유효기간 지난 코드
-
-          setState(() {
-            pushPopup = true;
-          });
-        }
-      } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
-      }
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
-    }
   }
 
   @override
@@ -180,46 +148,16 @@ class _qrScannerState extends State<qrScanner> {
           String? str = result!.code;
           // URL에서 특정 형식을 가진 경우에만 송금 페이지로 이동
           if (str != null && str.startsWith("helloworld://send")) {
-            // URI 파싱
-
-            int hmacIndex = str.indexOf("hmac=");
-            String hmac = str.substring(hmacIndex + 5);
-            hmac = hmac.split('&')[0];
-
-            int dataIndex = str.indexOf("data=");
-            String data = str.substring(dataIndex + 5);
-
-            // print("=---------data!!!--------------");
-            // print(data);
-            // print(hmac);
-
-            await fetchData(hmac,data, testAccountData.accountId);
-
-            // print("=-------------------------------");
-            // print(testAccountData.username);
-            // print(testAccountData.accountId);
-
-            // 차이가 2분 미만인지 확인
-            if (dataUpdate) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => InputTransfor()),
-              ).then((_) {
-                controller.resumeCamera();
-              });
-            } else if(pushPopup){
-              // 2분 이상인 경우, alert dialog
-              QrTimeOutDialog.showExpiredCodeDialog(context, () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
-                // 재스캔
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => qrScanner()),
-                );
-              });
-            }
+            // 카메라 일시 중지
             controller.pauseCamera();
+            // InputTransfor 페이지로 이동
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InputTransfor(url: str)),
+            ).then((_) {
+              // 페이지에서 돌아온 후에 카메라 재시작
+              controller.resumeCamera();
+            });
           }
         }
       });

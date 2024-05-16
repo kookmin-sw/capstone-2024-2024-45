@@ -104,36 +104,36 @@ class CorrectAlertDialog {
                     SizedBox(
                       height: screenHeight * 0.025,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    InputTransfor()));
-                      },
-                      child: Text(
-                        '보낼 시간 입력으로 돌아갑니다',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFF2C533C),
-                          fontSize: 20,
-                          fontFamily: 'Noto Sans KR',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(screenWidth*0.9, screenHeight*0.08),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        backgroundColor: Color(0xFFDDE9E2),
-                      ),
-                    ),
-                    SizedBox(
-                      height : screenHeight * 0.025,
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) =>
+                    //                 InputTransfor()));
+                    //   },
+                    //   child: Text(
+                    //     '보낼 시간 입력으로 돌아갑니다',
+                    //     textAlign: TextAlign.center,
+                    //     style: TextStyle(
+                    //       color: Color(0xFF2C533C),
+                    //       fontSize: 20,
+                    //       fontFamily: 'Noto Sans KR',
+                    //       fontWeight: FontWeight.w500,
+                    //     ),
+                    //   ),
+                    //   style: ElevatedButton.styleFrom(
+                    //     fixedSize: Size(screenWidth*0.9, screenHeight*0.08),
+                    //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(20),
+                    //     ),
+                    //     backgroundColor: Color(0xFFDDE9E2),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height : screenHeight * 0.025,
+                    // ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
