@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:suntown/main/alert/filter/askStateFIltering.dart';
 import 'package:suntown/main/drawer/inquiry/askQuestion.dart';
+import 'package:suntown/main/drawer/inquiry/questionList.dart';
 import '../../../utils/screenSizeUtil.dart';
 
 class inquiryStart extends StatefulWidget {
@@ -112,7 +114,7 @@ class _inquiryStartState extends State<inquiryStart> {
                           spacing: 45.0, // 원하는 간격
                           onTap: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => askQuestion()));
+                                MaterialPageRoute(builder: (context) => QuestionList()));
                             print('질문내역 보기 클릭');
                           },
                         ),
