@@ -63,18 +63,7 @@ class _MainAccountState extends State<MainAccount> {
     testAccountData = TestAccountData();
     totalTime = 0;
     timeStr = "";
-
-    //--------------해결해야 하는 부분-------------//
-    //지금 fetchAccountListData(userId); 이걸 그대로 실행하면, _user_id가 초기화 되지 않았다는 에러가 발생함
-    //이 에러는 경험상 late가 되어 있는데도 불구하고 초기화가 진행되지 않았을때 발생해
-    //그래서 UserInfoManage 이 부분을 좀 고쳐야 할 것 같은데 내가 만든 부분이 아니라 내가 만지면 오류가나ㅠㅠ
-    //여기 밑에 보면
-    //print("--------------UserId-------------");
-    //           print(userId);
-    //이게 있는게, 여기서 로그인 한 회원의 userId가 제대로 찍히기만 하면 돼!
-
     _initializeUserId();
-    // fetchAccountListData(testUserId);
   }
 
 
@@ -92,7 +81,6 @@ class _MainAccountState extends State<MainAccount> {
         for (var i = 0; i < response['data'].length; i++) {
           userAccountIds.add(response['data'][i]);
           fetchAccountData(userAccountIds[0]);
-
           print("--------------UserId-------------");
           print(userId);
           print("--------------accountId-------------");
