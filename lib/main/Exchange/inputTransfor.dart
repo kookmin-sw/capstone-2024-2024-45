@@ -98,7 +98,7 @@ class _InputTransforState extends State<InputTransfor> {
         });
       } else {
         ApiRequestFailAlert.showExpiredCodeDialog(
-            context, qrScanner()); //수정 필요..
+            context, qrScanner()); //수정 필요.. 이거 서버 요청 실패시 어떻게 할지에 대한 부분임
       }
     });
   }
