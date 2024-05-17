@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:suntown/main/alert/filter/questFilteringAlert.dart';
 import 'package:suntown/main/drawer/inquiry/finishInquiry.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
+import 'package:suntown/utils/api/inquiry/questionPost.dart';
 import '../../../utils/screenSizeUtil.dart';
 
 
@@ -12,17 +14,48 @@ class askQuestion extends StatefulWidget {
 }
 
 class _askQuestionState extends State<askQuestion> {
-  String type = "Default";
-  String filterType = "질문 유형";
+  bool dataload = false;
+  String? user_id ;
 
   late TextEditingController _textEditingController;
-  String memo = "";
+  String memoText = "";
 
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
-    memo = _textEditingController.text;
+    memoText = _textEditingController.text;
+    _initializeUserId();
+  }
+
+  // _userId를 초기화하는 메서드
+  Future<void> _initializeUserId() async {
+    user_id = await UserInfoManage().getUserId() ?? '';
+    setState(() {
+      dataload = true;
+    });
+    print("userid----------$user_id");
+  }
+
+  fetchInquiry({required user_id, required memoText}) async {
+    bool state = false;
+    try {
+      final value = await QuestionPost(user_id: user_id, memoText: memoText);
+      if (value["statusCode"] == 200) {
+        print(value['message']);
+        state = true;
+      } else if(value["statusCode"] == 400){
+        print(value['message']);
+        debugPrint('inquiry post 에러');
+      }else {
+        print(value['message']);
+        debugPrint('서버 에러입니다. 다시 시도해주세요');
+        throw Exception('서버 에러입니다. 다시 시도해주세요');
+      }
+    } catch (e) {
+      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+    }
+    return state;
   }
 
   @override
@@ -86,44 +119,7 @@ class _askQuestionState extends State<askQuestion> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: GestureDetector(
-                            onTap: () {
-                              questFilterAlert.showExpiredCodeDialog(
-                                context,
-                                updateTypeCallback: (newType, newFilteringType) {
-                                  setState(() {
-                                    type = newType;
-                                    filterType = newFilteringType;
-                                  });
-                                },
-                              ); // 콜백 함수 전달);
-                            },
-                            child: Center(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    filterType,
-                                    style: TextStyle(
-                                      color: Color(0xff624A43),
-                                      fontSize: 20,
-                                      fontFamily: 'Noto Sans KR',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Color(0xff624A43),
-                                    size: 30,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+
                         SizedBox(height: screenHeight * 0.01),
                         Container(
                           height: 1.0,
@@ -147,6 +143,7 @@ class _askQuestionState extends State<askQuestion> {
                             ),
                           ),
                         ),
+                        SizedBox(height: screenHeight * 0.01),
                         Container(
                           height: 200,
                           child :TextField(
@@ -157,7 +154,7 @@ class _askQuestionState extends State<askQuestion> {
                             expands: true,
                             onChanged: (text) {
                               setState(() {
-                                memo = text;
+                                memoText = text;
                               });
                             },
                             decoration: InputDecoration(
@@ -179,10 +176,24 @@ class _askQuestionState extends State<askQuestion> {
                 )
             ),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FinishInquiry()));
-              },
+              onPressed: memoText.length > 3 ?() async {
+                if (user_id != null && user_id!.isNotEmpty) {
+                  bool postSuccess = await fetchInquiry(
+                      user_id: user_id, memoText: memoText);
+                  print('userid ---------------$user_id');
+                  if (postSuccess) {
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => FinishInquiry()));
+                    print("성공 -----------");
+                  }
+                  else {
+                    print('실패-----------');
+                  }
+                }else{
+                  print('userId초기화 안됨');
+                }
+              }:null,
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -201,13 +212,13 @@ class _askQuestionState extends State<askQuestion> {
                     borderRadius: BorderRadius.circular(20)),
               ),
               child: const Text("질문하기",
-                  style: TextStyle(
-                  color: Color(0xFF2C533C),
-                    fontSize: 25,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
+                style: TextStyle(
+                color: Color(0xFF2C533C),
+                  fontSize: 25,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
               ),
             )
           ],

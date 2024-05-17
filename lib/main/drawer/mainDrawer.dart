@@ -19,8 +19,10 @@ class mainDrawer extends StatefulWidget {
 class _mainDrawerState extends State<mainDrawer> {
   late String userName ;
   late String mobile_number;
+  late String user_id;
   late UserF user;
   late bool dataload;
+
   @override
   void initState() {
     dataload = false;
@@ -36,6 +38,7 @@ class _mainDrawerState extends State<mainDrawer> {
       user.initializeData(value["result"]['user_info']);
       userName = user.name;
       mobile_number = user.mobile_number;
+      user_id = user.user_id;
     } catch (e) {
       ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
