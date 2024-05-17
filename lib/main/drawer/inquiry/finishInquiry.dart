@@ -50,7 +50,7 @@ class _FinishInquiryState extends State<FinishInquiry> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '    질문 하기가\n완료',
+                              text: '질문이 성공적으로\n  접수',
                               style: TextStyle(
                                 color: Color(0xFF624A43),
                                 fontSize: 30,

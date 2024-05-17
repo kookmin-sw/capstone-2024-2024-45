@@ -22,14 +22,6 @@ class _inquiryStartState extends State<inquiryStart> {
         title: Text('질문하기'),
         centerTitle: true,
         elevation : 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.notifications), // 메뉴 아이콘
-            onPressed: () {
-              // 메뉴를 클릭했을 때 수행할 동작
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
