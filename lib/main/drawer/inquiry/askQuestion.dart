@@ -68,14 +68,6 @@ class _askQuestionState extends State<askQuestion> {
         title: Text('무엇이든 물어보세요!'),
         centerTitle: true,
         elevation : 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.notifications), // 메뉴 아이콘
-            onPressed: () {
-              // 메뉴를 클릭했을 때 수행할 동작
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -134,7 +126,7 @@ class _askQuestionState extends State<askQuestion> {
                             child: Text(
                               '질문 내용',
                               style: TextStyle(
-                                color: Color(0xFF624A43),
+                                color: Color(0xFF2C533C),
                                 fontSize: 17,
                                 fontFamily: 'Noto Sans KR',
                                 fontWeight: FontWeight.w700,
@@ -150,7 +142,7 @@ class _askQuestionState extends State<askQuestion> {
                             controller: _textEditingController, // 컨트롤러 연결
                             maxLines: null, // 여러 줄 입력 허용
                             keyboardType: TextInputType.multiline,
-                            maxLength: 1000,
+                            maxLength: 500,
                             expands: true,
                             onChanged: (text) {
                               setState(() {
@@ -159,7 +151,7 @@ class _askQuestionState extends State<askQuestion> {
                             },
                             decoration: InputDecoration(
                               hintStyle: TextStyle(color: Color(0xFF2C533C)),
-                              hintText: '질문 내용을 입력하세요...',
+                              hintText: '내용을 입력하세요...',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20.0), // 외곽선 둥글기 설정
                                 borderSide: BorderSide(
