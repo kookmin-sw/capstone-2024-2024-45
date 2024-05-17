@@ -14,6 +14,17 @@ class askQuestion extends StatefulWidget {
 class _askQuestionState extends State<askQuestion> {
   String type = "Default";
   String filterType = "질문 유형";
+
+  late TextEditingController _textEditingController;
+  String memo = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+    memo = _textEditingController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
@@ -139,12 +150,18 @@ class _askQuestionState extends State<askQuestion> {
                         Container(
                           height: 200,
                           child :TextField(
-                            // controller: _controller, // 컨트롤러 연결
+                            controller: _textEditingController, // 컨트롤러 연결
                             maxLines: null, // 여러 줄 입력 허용
                             keyboardType: TextInputType.multiline,
                             maxLength: 1000,
                             expands: true,
+                            onChanged: (text) {
+                              setState(() {
+                                memo = text;
+                              });
+                            },
                             decoration: InputDecoration(
+                              hintStyle: TextStyle(color: Color(0xFF2C533C)),
                               hintText: '질문 내용을 입력하세요...',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20.0), // 외곽선 둥글기 설정

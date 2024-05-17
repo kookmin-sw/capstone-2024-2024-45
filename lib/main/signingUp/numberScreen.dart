@@ -30,7 +30,6 @@ class _numberScreenState extends State<numberScreen> {
     mobile_number = _phoneNumberController.text;
   }
 
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
