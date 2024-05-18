@@ -33,8 +33,8 @@ class AccountInfoMange{
   static Future<void> setAccount_id({required user_id}) async {
     try {
       final value = await accountIdGet(user_id: user_id);
-      print("setaccount_id 성공");
       if (value["statusCode"] == 200) {
+        print("setaccount_id 성공");
         print(value['result']['account_id_list'][0]);
         account_id =  value['result']['account_id_list'][0];
       } else {
@@ -61,10 +61,11 @@ class AccountInfoMange{
     try {
         final value = await accountInfoPost(password: password, username: username, mobile_number : mobile_number, user_id : user_id,  account_name : username);
       if (value["statusCode"] == 200) {
-        print("accountInfoPost 여기까지는 성공");
+        print("accountInfoPost 성공");
         print(value['message']);
         accountInfoUpdate = true;
         account_id = value['result']['account_id'];
+        print('account_id----------------$account_id');
         // account id와 성공 여부를 return
         return {
           "accountInfoUpdate" : accountInfoUpdate,
