@@ -82,6 +82,45 @@
 | **Deploy**             |![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white) |
 | **CI/CD**              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
 
+
+
+-----------
+## 사용법
+### 프론트엔드
+--------------
+### 로컬 실행 방법
+프로젝트 레포지터리 클론
+```
+$ git clone https://github.com/kookmin-sw/capstone-2024-45.git
+```
+원격 리포지터리 갱신
+```
+$ git remote update
+```
+마스터 브랜치로 이동
+```
+$ git checkout master
+```
+디렉토리 이동
+프로젝트 디렉토라로 이동합니다.
+```
+$ cd capstone-2024-45
+```
+패키지 설치 및 앱 실행
+```
+$ flutter pub get
+$ flutter run
+```
+### 배포 방법
+앱빌드
+```
+$ flutter build apk # Android
+```
+도커 이미지 빌드<br>
+프로덕션 환경에서 앱을 실행하기 위해 Docker 이미지를 빌드할 수 있습니다.<br>
+도커 허브에 푸쉬<br>
+서버에 배포<br>
+
 -----------
 ## Stacks 
 
