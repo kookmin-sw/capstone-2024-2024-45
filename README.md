@@ -12,7 +12,7 @@
 
 ## 프로젝트 소개
 ### 📌시간은행이란?
-<img width="539" alt="image" src="https://github.com/Heo-jieun/read_me_clone/assets/65994153/d1f0abd1-b9e1-4949-892f-23711ad70cd6">
+<img width="539" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/187dbca8-5fcc-40d5-9b59-0878ab17cae4">
 
 시간은행의 역할은 서로 도움을 주고 받으면서 생긴 '시간(이 어플에서는 **매듭**)' 단위를 보관하고, 거래를 도와주며 기록하는 것이다.  
 
