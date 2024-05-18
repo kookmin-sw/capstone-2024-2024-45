@@ -30,6 +30,7 @@ void main() async{
     DeviceOrientation.portraitDown,
   ]);
 
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 
