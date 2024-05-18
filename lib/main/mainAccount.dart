@@ -110,11 +110,11 @@ class _MainAccountState extends State<MainAccount> {
           dataLoad = true;
         });
       } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
+        ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
         debugPrint('서버 에러입니다. 다시 시도해주세요');
       }
     } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
+      ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
