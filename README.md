@@ -34,11 +34,6 @@
  - 관리자가 환불 버튼을 클릭 시, 해당 거래와 반대되는 거래를 발생시켜 환불진행.
  - 관리자가 발생하는 거래에는 항상 관리자 이름과 거래를 만든 이유를 적게 하여 권한 남용을 방지.
 
-**5. 음성 녹음으로 관리자에게 문의**
- - 앱의 주 사용자인 노년층을 위해 음성 녹음하기 기능을 추가하여 편의성을 제공.
-
-
-
 
 ### 📌프로토 영상 - 송금 기능
 이미지 클릭 시 유튜브로 이동합니다.  
@@ -62,7 +57,6 @@
 |Frontend, UI/UX|Frontend, UI/UX|Backend|Backend|
 
 ## 기술 스택
-----------
 ### Front end
 
 | 역할                     | 종류                                                                                 |
@@ -74,8 +68,6 @@
 
 ### Back end
 
-## Backend
-
 | 역할                   | 종류                                                                                                       |
 |------------------------|------------------------------------------------------------------------------------------------------------|
 | **Framework**          | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) |
@@ -86,11 +78,8 @@
 | **CI/CD**              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
 
 
-
------------
 ## 사용법
 ### 프론트엔드
---------------
 ### 로컬 실행 방법
 프로젝트 레포지터리 클론
 ```
@@ -124,7 +113,6 @@ $ flutter build apk # Android
 도커 허브에 푸쉬<br>
 서버에 배포<br>
 
------------
 ## Stacks 
 
 <br>
