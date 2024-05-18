@@ -3,10 +3,13 @@
  
 이 프로젝트는 2023년 '캡스톤디자인1'에서 시간은행 개념을 도입하여 만든 기존의 '타임뱅크(45조)' 어플의 단점을 개선하여 성북구 정릉동에 특화되도록 만든 '시간은행' 어플이다.
 
-> 개발기간 : 2024.03.12~ present.  
-> ⭐최신자료 **PPT**: https://drive.google.com/file/d/1cGouAPiH7Ox7-vjiIIpCrIVyBsddgzHc/view?usp=sharing   
-> ⭐최신자료 **중간보고서**: https://drive.google.com/file/d/1qVue3BUVo_C4eGvTRo2KZVz8kvaErVCa/view?usp=sharing   
+> 개발기간 : 2024.03.12~ present. <br>
+> ⭐중간발표 **PPT**: https://drive.google.com/file/d/1cGouAPiH7Ox7-vjiIIpCrIVyBsddgzHc/view?usp=sharing <br>
+> ⭐중간보고서 **중간보고서**: https://drive.google.com/file/d/1qVue3BUVo_C4eGvTRo2KZVz8kvaErVCa/view?usp=sharing<br>
+> ⭐기말발표 **PPT**: https://drive.google.com/file/d/1foxIw_RV7WrvAODMt029uvwp2Ok4uQWr/view?usp=sharing<br>
 
+
+> ⭐FIGMA **화면명세**: https://www.figma.com/design/NFf8cyvJen9I37cYv2ZQzn/%ED%96%87%EC%82%B4-%EC%B0%BD%EA%B3%A0_veta?node-id=836%3A7498&t=G4qg1GNqj9hlkFON-1
 
 <br>
 
