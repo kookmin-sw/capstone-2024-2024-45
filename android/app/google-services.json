@@ -1,26 +1,59 @@
 {
   "project_info": {
-    "project_number": "746747507982",
-    "project_id": "capstone2024-783c5",
-    "storage_bucket": "capstone2024-783c5.appspot.com"
+    "project_number": "662443950906",
+    "project_id": "kepstone-9eb20",
+    "storage_bucket": "kepstone-9eb20.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:746747507982:android:cc2aac9cea495ed504935f",
+        "mobilesdk_app_id": "1:662443950906:android:431f049f6387c475780603",
         "android_client_info": {
           "package_name": "com.example.suntown"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "662443950906-845paq970teumpdnro84btdr7f4ntcvh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.suntown",
+            "certificate_hash": "29f4c019bd9ae4acfefa29add7f981ad62d1c61f"
+          }
+        },
+        {
+          "client_id": "662443950906-bpkpnotperrq7hqpo18hjjumi0g8d7hq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.suntown",
+            "certificate_hash": "ada97937e545e7fda96697f6adb2928d207ac53a"
+          }
+        },
+        {
+          "client_id": "662443950906-ncvdln3m89hnhcjov93d5kn03oqfmijp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAwLEo2mTVfw2Z7Sk_rqaGxXswwk_KmhA0"
+          "current_key": "AIzaSyDDXA_iOU6q2IOYy411klIpdaQlTTwme98"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662443950906-ncvdln3m89hnhcjov93d5kn03oqfmijp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662443950906-1jhtsc1giapp9esq2vi7d45cfseb2dd8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.suntown"
+              }
+            }
+          ]
         }
       }
     }
