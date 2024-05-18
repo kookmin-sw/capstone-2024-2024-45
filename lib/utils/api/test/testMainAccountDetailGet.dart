@@ -19,6 +19,7 @@ Future<Map<String, dynamic>> testMainAccountDetailGet(String accountId) async {
       jsonDecode(utf8.decode(response.bodyBytes));
 
       resBody['statusCode'] = response.statusCode;
+
       return resBody;
 
     } catch (e) {
