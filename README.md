@@ -57,7 +57,7 @@
 
 |허지은(https://github.com/Heo-jieun)<br>****|[오선정](https://github.com/sunJ0120)<br>****2697|송수인(https://github.com/IngenieurSong)<br>****3086|윤서영(https://github.com/ytjdud)<br>****0153|
 |:---:|:---:|:---:|:---:|
-|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<br>ingenieur_song@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/988f8fb1-c5b9-4e5b-bc7c-b5621a3a4670"><br>ytjdud01@kookmin.ac.kr|
+|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>ingenieur_song@kookmin.ac.kr|><img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
 |Frontend, UI/UX|Frontend|Frontend, UI/UX|Backend|Backend|
 
 
