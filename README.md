@@ -52,11 +52,12 @@
 <img width="612" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/267d0e05-d15c-4b31-a7c0-4f54f50832d3">
 
 
+
 ## 팀 소개
 
-|허지은<br>****|성예린<br>****1634|[오선정](https://github.com/sunJ0120)<br>****2697|송수인<br>****3086|윤서영<br>****0153|
-|:---:|:---:|:---:|:---:|:---:|
-|<br>@kookmin.ac.kr|<br>hbgraph@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<br>ingenieur_song@kookmin.ac.kr|<br>ytjdud01@kookmin.ac.kr|
+|허지은(https://github.com/Heo-jieun)<br>****|[오선정](https://github.com/sunJ0120)<br>****2697|송수인(https://github.com/IngenieurSong)<br>****3086|윤서영(https://github.com/ytjdud)<br>****0153|
+|:---:|:---:|:---:|:---:|
+|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<br>ingenieur_song@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/988f8fb1-c5b9-4e5b-bc7c-b5621a3a4670"><br>ytjdud01@kookmin.ac.kr|
 |Frontend, UI/UX|Frontend|Frontend, UI/UX|Backend|Backend|
 
 
