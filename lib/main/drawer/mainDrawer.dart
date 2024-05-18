@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:suntown/main/drawer/inquiry/inquiryStart.dart';
 
 import 'package:suntown/main/signingUp/signingScreen.dart';
 import '../manage/userInfoManage.dart';
@@ -18,8 +19,10 @@ class mainDrawer extends StatefulWidget {
 class _mainDrawerState extends State<mainDrawer> {
   late String userName ;
   late String mobile_number;
+  late String user_id;
   late UserF user;
   late bool dataload;
+
   @override
   void initState() {
     dataload = false;
@@ -35,6 +38,7 @@ class _mainDrawerState extends State<mainDrawer> {
       user.initializeData(value["result"]['user_info']);
       userName = user.name;
       mobile_number = user.mobile_number;
+      user_id = user.user_id;
     } catch (e) {
       ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
@@ -80,6 +84,8 @@ class _mainDrawerState extends State<mainDrawer> {
             ),
             title: Text('관리자 문의'),
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => inquiryStart()));
               print('관리자 문의 클릭');
             },
             trailing: Icon(Icons.arrow_forward_ios),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:suntown/main/alert/accountFail/accountCreateFail.dart';
+import 'package:suntown/main/alert/singUpFail/userCreateFailAlert.dart';
 import 'package:suntown/main/manage/accountInfoManage.dart';
 
 import '../../utils/screenSizeUtil.dart';
 import 'accountSuccess.dart';
 import '../manage/userInfoManage.dart';
-import '../alert/apiFail/ApiRequestFailAlert.dart';
 
 class numberScreen extends StatefulWidget {
   final String username;
@@ -28,7 +29,6 @@ class _numberScreenState extends State<numberScreen> {
     _phoneNumberController = TextEditingController();
     mobile_number = _phoneNumberController.text;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _numberScreenState extends State<numberScreen> {
                               width: screenWidth * 0.85, // 334
                               height: screenHeight * 0.03, // 25
                               child: Text(
-                                '창고만들기',
+                                '계좌만들기',
                                 style: TextStyle(
                                   color: Color(0xFFD3C2BD),
                                   fontSize: 17,
@@ -119,27 +119,32 @@ class _numberScreenState extends State<numberScreen> {
               ),
               ElevatedButton(
                 onPressed: mobile_number.length ==  13 ? () async {
-                    // bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number); // user register 성공 여부
-                    // bool accountResuccess =  await AccountInfoMange().fetchAccountData( username:  username, mobile_number:mobile_number, password: ""); // account register 성공 여부
-                  Map<String, dynamic> account_val = await AccountInfoMange().fetchAccountData( username: username, mobile_number:mobile_number, password: ""); // account register 후 값 return
-                  final String? account_id = account_val["account_id"]; // account 등록 되면 account_id return 해줌
-                  print(account_id);
-                  bool accountResuccess = account_val["accountInfoUpdate"] == true ? true : false; // account register 성공 여부
-                  print(accountResuccess);
-                  if (accountResuccess){ //userResuccess&&accoutnResuccess
-                    // 계좌 생성과 동시에 user 정보와 account 정보 매핑 시켜줌
-                    bool connectResuccess = await AccountInfoMange().connectUserAccount(username: username);
-                    if (connectResuccess){ // 매핑에 성공하면 다음 페이지로
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => accountSuccess()),
-                      );
+                  bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number); // user register 성공 여부
+                  print("Number스크린에 유저 생성 여부 ---------------------$userResuccess");
+
+                  if (userResuccess){ // 유저 생성이 true이면
+                    Map<String, dynamic> account_val = await AccountInfoMange().fetchAccountData( username: username, mobile_number:mobile_number, password: "000000"); // account register 후 값 return
+                    final String? account_id = account_val["account_id"]; // account 등록 되면 account_id return 해줌
+                    print("Number스크린의 account id---------------------$account_id");
+                    bool accountResuccess = account_val["accountInfoUpdate"] == true ? true : false; // account register 성공 여부
+                    print("Number스크린에 계좌 생성 여부 ---------------------$accountResuccess");
+                    if(accountResuccess){
+                      bool connectResuccess = await AccountInfoMange().connectUserAccount(username: username);  // 계좌 생성과 동시에 user 정보와 account 정보 매핑 시켜줌
+                      if (connectResuccess){ // 매핑에 성공하면 다음 페이지로
+                        print("Number스크린에 계좌와 유저 정보 매핑 여부 ---------------------$connectResuccess");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => accountSuccess()),
+                        );
+                      }else{
+                        accountCreateFail.showExpiredCodeDialog(context, numberScreen(username : username));
+                      }
                     }else{
-                      ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
+                      accountCreateFail.showExpiredCodeDialog(context, numberScreen(username : username));
                     }
                   }
                   else{
-                    ApiRequestFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
+                    UserCreateFailAlert.showExpiredCodeDialog(context, numberScreen(username : username));
                   }
                 }
                 : null,

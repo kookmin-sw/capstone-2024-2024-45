@@ -2,12 +2,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:suntown/User/UserAccountInfo.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/openAccount.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
-import '../User/User.dart';
+// import '../User/User.dart';
 import '../bubble.dart';
 import '../utils/screenSizeUtil.dart';
 import 'drawer/defaultDrawer.dart';
+import 'mainAccount.dart';
+
 
 class defaultAccount extends StatefulWidget {
   const defaultAccount({super.key});
@@ -19,8 +24,33 @@ class defaultAccount extends StatefulWidget {
 Map<String, dynamic>? apiResult; //http 주소 받아올
 
 class _defaultAccounttState extends State<defaultAccount>{
-  late User user;
+
+  // late User user;
   late UserAccountInfo accountInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+  }
+
+  // user가 account_id를 가지고 있으면 바로 mainAccount로 이동
+  Future<void> _initializeData() async {
+    auth.FirebaseAuth.instance.authStateChanges().listen((auth.User? user) async {
+      if (user != null) {
+        try{
+          String user_id = await UserInfoManage().getUserId() ?? '';
+          String account_id = await AccountInfoMange().getAccount_id(user_id:user_id);
+          if(account_id.length > 0){ // 계좌가 생성된 user면 Main계좌 화면으로
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MainAccount()));
+          }
+        }catch (e){
+          print(e);
+        }
+      }
+    });
+  }
+
 
   // This widget is the root of your application.
   @override
@@ -30,7 +60,7 @@ class _defaultAccounttState extends State<defaultAccount>{
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('매듭창고'),
+          title: Text('시간은행'),
           centerTitle: true,
           elevation : 0.0,
           actions: <Widget>[
@@ -94,7 +124,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                                 width: 300,
                                                 height: 80,
                                                 child: Text(
-                                                  '매듭 창고를\n만들어 주세요.',
+                                                  '시간 계좌를\n만들어 주세요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF4B4A48),
                                                     fontSize: 30,
@@ -112,7 +142,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                                 width: screenWidth * 0.5,//200,
                                                 height: screenHeight *  0.3,//43,
                                                 child: Text(
-                                                  '창고를 만들어야, \n매듭창고를 사용할 수 있어요.',
+                                                  '계좌를 만들어야, \n시간은행을 사용할 수 있어요.',
                                                   style: TextStyle(
                                                     color: Color(0xFF727272),
                                                     fontSize: 16,
@@ -130,7 +160,7 @@ class _defaultAccounttState extends State<defaultAccount>{
                                     SizedBox(height: screenHeight * 0.04),
                                     ElevatedButton(
                                       child: const Text(
-                                        '창고 만들기',
+                                        '계좌 만들기',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 25,

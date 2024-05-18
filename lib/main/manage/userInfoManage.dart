@@ -7,7 +7,7 @@ import "package:suntown/utils/api/info/userInfoGet.dart";
 
 class UserInfoManage{
   static late String _oauth_id; // firebase에서 가져오는 uid
-  static late String _user_id ; // 우리 서버에 저장되어 있는 user_id
+  static String? _user_id ; // 우리 서버에 저장되어 있는 user_id
   late String? email ;
   late String? nickName ;
   late String? image_url ;
@@ -30,51 +30,56 @@ class UserInfoManage{
     }
   }
 
-  // userID를 return
-  static String getUserId(){
-    setUserId();
-    return _user_id;
+  // userID가 초기화 될때 까지 기다렸다가 _user_id를 return
+  Future<String?> getUserId() async {
+    await setUserIdIfNeeded();
+    return _user_id ?? "";
   }
 
-  // _oauth_id로 서버에 요청을 보내 user_id를 얻어옴.
-  static void setUserId() async {
+  // _user_id로 서버에 요청을 보내 user_id를 얻어옴.
+  static Future<void> setUserId() async {
     try {
       setOauthId();
       final value_userID = await oauthIdGet(oauth_id: _oauth_id);
-      print(value_userID);
       if (value_userID["statusCode"] == 200) {
-        print(value_userID['result']['user_id']);
-        _user_id =  value_userID['result']['user_id'];
+        _user_id = value_userID['result']['user_id'];
       } else {
-        print("getUserId 에러");
-        print(value_userID['message']);
-        print(value_userID['message']);
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }
     } catch (e) {
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
+      throw Exception('API 요청 중 오류가 발생했습니다: $e');
+    }
+  }
+
+  static Future<void> setUserIdIfNeeded() async {
+    if (_user_id == null) {
+      await setUserId();
     }
   }
 
   // _user_id로 user정보 가져옴.
   getUserInfo() async {
     try{
-      setUserId();
-      final value_userInfo = await userInfoGet(user_id : _user_id);
-      print(value_userInfo);
-      if (value_userInfo["statusCode"] == 200){
-        print('user info get 200');
-        print(value_userInfo['message']);
-        return value_userInfo;
-        // return // user info return
+      await setUserIdIfNeeded(); // _user_id가 초기화되었는지 확인
+      if (_user_id != null) {
+        print("------if문 진입-------");
+        final value_userInfo = await userInfoGet(user_id: _user_id!);
+        print('value_userInfo : $value_userInfo');
+        if (value_userInfo["statusCode"] == 200){
+          print('user info get 200');
+          print(value_userInfo['message']);
+          return value_userInfo;
+          // return // user info return
+        } else {
+          debugPrint("getUserInfo 서버 에러");
+          print(value_userInfo['message']);
+          throw Exception('서버 에러입니다. 다시 시도해주세요');
+        }
+      } else {
+        debugPrint("getUserInfo _user_id == null 에러");
+        throw Exception('_user_id가 초기화되지 않았습니다.');
       }
-      else {
-        debugPrint("getUserInfo 서버 에러");
-        print(value_userInfo['message']);
-        throw Exception('서버 에러입니다. 다시 시도해주세요');
-      }
-    }catch (e){
+    } catch (e){
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }

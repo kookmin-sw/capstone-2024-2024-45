@@ -1,3 +1,6 @@
+import 'package:suntown/main/mainAccount.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
 
@@ -24,12 +27,13 @@ class _signingUPState extends State<signingUP> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
+    FirebaseAuth.instance.authStateChanges().listen((User? user)  {
+      if (user != null) { // 회원가입된 유저가 있다면
+          Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -64,7 +68,7 @@ class _signingUPState extends State<signingUP> {
                                   width: screenWidth * 0.85,
                                   height : screenHeight * 0.09,
                                   child: Text(
-                                    '로그인하고\n시간창고 시작하기.',
+                                    '로그인하고\n시간은행 시작하기.',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
                                       fontSize: 25,
@@ -76,13 +80,13 @@ class _signingUPState extends State<signingUP> {
                                 SizedBox(
                                   height: screenHeight * 0.27,
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    viewModel.login();
-                                    print("카카오 로그인");
-                                  },
-                                  child: Image.asset("assets/images/kakao_login_large_wide.png"),
-                                ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     viewModel.login();
+                                //     print("카카오 로그인");
+                                //   },
+                                //   child: Image.asset("assets/images/kakao_login_large_wide.png"),
+                                // ),
                                 SizedBox(
                                   height: screenHeight * 0.024,
                                 ),

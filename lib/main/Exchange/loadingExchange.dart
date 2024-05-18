@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
+import 'package:suntown/User/test/testAccountData.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
 
 import '../../User/SendAmount.dart';
@@ -21,6 +22,7 @@ class LoadingExchange extends StatefulWidget {
 
 class _LoadingExchangeState extends State<LoadingExchange> {
   SendApi sendApi = SendApi();
+  TestAccountData testAccountData = TestAccountData();
   ScannedUser scannedUser = ScannedUser();
   late HmacGenerator hmacGenerator; //hmac 암호화 추가
 
@@ -36,7 +38,7 @@ class _LoadingExchangeState extends State<LoadingExchange> {
     try {
       hmacGenerator.generateHmacAsync(sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
       // API 요청을 보냅니다.
-      final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount);
+      final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount, userId: testAccountData.userId);
 
       if (value['statusCode'] == 200) {
         // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.

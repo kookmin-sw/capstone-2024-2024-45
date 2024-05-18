@@ -50,7 +50,7 @@ class _openAccountState extends State<openAccount> {
                                   width:  screenWidth* 0.8,
                                   height: screenHeight * 0.5,
                                   child: Text(
-                                    '매듭거래를 위한\n창고 개설을 시작해 볼까요?',
+                                    '시간거래를 위한\n계좌 개설을 시작해 볼까요?',
                                     style: TextStyle(
                                       color: Color(0xFF4B4A48),
                                       fontSize: 25,
@@ -90,9 +90,9 @@ class _openAccountState extends State<openAccount> {
                                                         top: 1,
                                                         child: SizedBox(
                                                           width: screenWidth * 0.6, //270
-                                                          height: screenHeight * 0.03,//36,
+                                                          height: screenHeight * 0.035,//36,
                                                           child: Text(
-                                                            '창고 만들기',
+                                                            '계좌 만들기',
                                                             style: TextStyle(
                                                               color:Color(0xFF624A43),
                                                               fontSize: 20,
@@ -174,7 +174,7 @@ class _openAccountState extends State<openAccount> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
-                child: const Text("창고 만들기"),
+                child: const Text("계좌 만들기"),
               )
           ],
         ),

@@ -171,7 +171,6 @@ class _exchangeListState extends State<exchangeList> {
                     itemBuilder: (context, index) {
                       var date = users.keys.elementAt(index);
                       var transactions = users[date]!;
-
                       return Column(
                         children: [
                           Align(

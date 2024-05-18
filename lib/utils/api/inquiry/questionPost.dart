@@ -1,37 +1,27 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> refundPost({required transId, required expectedAmount, required inquire}) async {
+Future<Map<String, dynamic>> QuestionPost({required user_id, required memoText }) async {
 
-  String url = dotenv.env['ADMIN_LOCAL_URL']!;
-  String baseUrl = '${url}/api/admin/inquiries/remittance';
+  String baseUrl = 'http://223.130.154.131/api/admin/inquiries';
 
   try {
     http.Response response =
     await http.post(Uri.parse(baseUrl), body: jsonEncode({
-      "transId" : transId,
-      "expectedAmount": expectedAmount,
-      "inquire": inquire,
+      "inquire": memoText,
     }), headers: {
       "Content-Type": "application/json",
-      "userId" : "1", //임시,
-      "accept" : "*/*",
+      "userId" : "1",
     });
 
     try {
       Map<String, dynamic> resBody =
       jsonDecode(utf8.decode(response.bodyBytes));
-
-      print('=====');
-      print(response.body);
-      print(resBody);
-      print('-----');
       print(response.statusCode);
-      print('=====');
-
+      print('----------');
+      print(resBody);
       resBody['statusCode'] = response.statusCode;
       return resBody;
 

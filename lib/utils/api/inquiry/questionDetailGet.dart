@@ -3,20 +3,17 @@ user_id로 account id 가져오는 api
 */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
-Future<Map<String, dynamic>> accountIdGet({required user_id}) async {
-
-  String url = dotenv.env['USER_LOCAL_URL']!;
-  String baseUrl = '${url}/api/user/$user_id/account';
-
+Future<Map<String, dynamic>> QuestionDetailGet({required inquireId}) async {
+  String baseUrl = 'http://223.130.154.131:80/api/admin/inquiries/$inquireId'; //base
   try {
     http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",
       "Content-Type": "application/json",
+      "inquireId" : inquireId
     });
     try {
       Map<String, dynamic> resBody =
