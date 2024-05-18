@@ -12,7 +12,7 @@ Future<Map<String, dynamic>> accountIdGet({required user_id}) async {
 
   String url = dotenv.env['USER_LOCAL_URL']!;
   String baseUrl = '${url}/api/user/$user_id/account';
-
+  print(baseUrl);
   try {
     http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",
