@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> accountInfoPost({required password, required username, required mobile_number, required user_id, required account_name}) async {
 
-  String baseUrl = 'http://223.130.133.30:8080/api/accounts/register';
+  String url = dotenv.env['ACCOUNT_LOCAL_URL']!;
+  String baseUrl = '${url}/api/accounts/register'; //base
 
   try {
     http.Response response =

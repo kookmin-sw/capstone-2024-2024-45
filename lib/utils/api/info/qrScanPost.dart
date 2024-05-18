@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> qrScanPost(
     {required String hmac,
     required String data,
     required String senderAccountId}) async {
-  String baseUrl = 'http://223.130.154.131:8000/api/exchange/qr/scan';
+
+  String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
+  String baseUrl = '${url}/api/exchange/qr/scan'; //base
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl),
