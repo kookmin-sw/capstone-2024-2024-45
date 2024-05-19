@@ -22,7 +22,7 @@ class signingUP extends StatefulWidget {
 
 class _signingUPState extends State<signingUP> {
 
-  final viewModel = MainViewModel(KakaoLogin());
+  // final viewModel = MainViewModel(KakaoLogin());
 
   @override
   void initState() {
@@ -53,11 +53,6 @@ class _signingUPState extends State<signingUP> {
                         // login 되고 안되고에 따라 새로운 stream이 들어옴.
                         stream: FirebaseAuth.instance.authStateChanges(),
                         builder: (context, snapshot) {
-                          // login이 진행된 경우
-                          // if (snapshot.hasData){
-                          //   Navigator.push(context,
-                          //       MaterialPageRoute(builder: (context) => defaultAccount()));
-                          // }
                           return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -81,8 +76,10 @@ class _signingUPState extends State<signingUP> {
                                   height: screenHeight * 0.27,
                                 ),
                                 // InkWell(
-                                //   onTap: () {
-                                //     viewModel.login();
+                                //   onTap: () async {
+                                //      await KakaoLogin().signInWithKakao();
+                                //     // await KakaoLogin.initiateLogin(context);
+                                //     // viewModel.login();
                                 //     print("카카오 로그인");
                                 //   },
                                 //   child: Image.asset("assets/images/kakao_login_large_wide.png"),
@@ -103,6 +100,17 @@ class _signingUPState extends State<signingUP> {
                       )
                   )
               ),
+              // ElevatedButton(
+              //   child: const Text(
+              //     '다음',
+              //   ),
+              //   onPressed: () {
+              //     setState(() {
+              //       Navigator.of(context).push(
+              //           MaterialPageRoute(builder: (context) => defaultAccount()));
+              //     });
+              //   },
+              // ),
             ],
           ),
         ),
