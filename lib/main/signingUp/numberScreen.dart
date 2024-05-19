@@ -122,7 +122,7 @@ class _numberScreenState extends State<numberScreen> {
                   bool userResuccess = await UserInfoManage().fetchUserData(name:username, mobile_number:mobile_number); // user register 성공 여부
                   print("Number스크린에 유저 생성 여부 ---------------------$userResuccess");
 
-                  if (true){ // 유저 생성이 true이면userResuccess
+                  if (userResuccess){ // 유저 생성이 true이면userResuccess
                     Map<String, dynamic> account_val = await AccountInfoMange().fetchAccountData( username: username, mobile_number:mobile_number, password: "000000"); // account register 후 값 return
                     final String? account_id = account_val["account_id"]; // account 등록 되면 account_id return 해줌
                     bool accountResuccess = account_val["accountInfoUpdate"] == true ? true : false; // account register 성공 여부

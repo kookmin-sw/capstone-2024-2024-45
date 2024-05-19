@@ -111,6 +111,7 @@ class _MainAccountState extends State<MainAccount> {
         });
       } else {
         ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
+        print(response);
         debugPrint('서버 에러입니다. 다시 시도해주세요');
       }
     } catch (e) {

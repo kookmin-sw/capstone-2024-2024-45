@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "662443950906-845paq970teumpdnro84btdr7f4ntcvh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.suntown",
+            "certificate_hash": "29f4c019bd9ae4acfefa29add7f981ad62d1c61f"
+          }
+        },
+        {
           "client_id": "662443950906-bpkpnotperrq7hqpo18hjjumi0g8d7hq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
