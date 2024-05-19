@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> accountInfoPost({required password, required username, required mobile_number, required user_id, required account_name}) async {
 
-  String baseUrl = 'https://223.130.133.30:8080/api/accounts/register';
+  String baseUrl = 'http://223.130.133.30:8080/api/accounts/register';
   try {
     http.Response response =
     await http.post(Uri.parse(baseUrl), body: jsonEncode({

@@ -94,11 +94,11 @@ connectUserAccount({required username}) async {
     try{
       final value = await userAccoPost(user_id: user_id, account_id : account_id, name: username);
       if (value['statusCode']==200){
-        print("connectUserAccount 여기까지는 성공");
+        print("------------connectUserAccount 성공------------");
         print(value['message']);
         return true;
       }else{
-        print("connectUserAccount 실패");
+        print("------------connectUserAccount 실패------------");
         debugPrint("connectUserAccount 서버 에러");
         print(value['message']);
         throw Exception('서버 에러입니다. 다시 시도해주세요');
