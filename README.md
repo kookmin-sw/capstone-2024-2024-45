@@ -38,7 +38,7 @@
 ### 📌프로토 영상 - 송금 기능
 이미지 클릭 시 유튜브로 이동합니다.  
 
-[![매듭창고 프로토 영상](https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/a054e323-09b8-4c05-b41d-4a380d6116d4)](https://www.youtube.com/watch?v=fODQUL5DCpY)
+[![매듭창고 프로토 영상](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/a4203f1f-82d5-44aa-802f-a3c3ab921ed2)](https://youtu.be/_o-ZQuQ-7Tg?si=8TNE8q36nFtD4x_z)
 
 
 
