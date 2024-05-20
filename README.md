@@ -35,7 +35,7 @@
  - 관리자가 발생하는 거래에는 항상 관리자 이름과 거래를 만든 이유를 적게 하여 권한 남용을 방지.
 
 
-### 📌프로토 영상 - 송금 기능
+### 📌소개 & 시연 영상
 이미지 클릭 시 유튜브로 이동합니다.  
 
 [![매듭창고 프로토 영상](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/a4203f1f-82d5-44aa-802f-a3c3ab921ed2)](https://youtu.be/_o-ZQuQ-7Tg?si=8TNE8q36nFtD4x_z)
