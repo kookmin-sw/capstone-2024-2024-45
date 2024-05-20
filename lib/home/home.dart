@@ -80,8 +80,8 @@ class _HomeState extends State<Home> {
           Center(
               child: Column(children: [
                 SizedBox(
-                  width: 300,
-                  height: 300,
+                  width: 250,
+                  height: 250,
                   child: Image(
                     image: AssetImage('assets/images/timeBank.png'),
                   ),
