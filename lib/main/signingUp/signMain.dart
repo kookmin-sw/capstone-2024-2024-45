@@ -11,7 +11,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // runApp() 호출 전 Flutter SDK 초기화
   KakaoSdk.init(
-    nativeAppKey: '731616c5419324d656e34dc0a0f35a85',
+    nativeAppKey: 'ba30c405908be1afda46343b5b73b363',
   );
   // Firebase 앱이 이미 초기화되었는지 확인
   // if (Firebase.apps.isEmpty) {

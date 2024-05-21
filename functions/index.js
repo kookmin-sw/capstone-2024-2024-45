@@ -12,9 +12,8 @@ admin.initializeApp({
 
  exports.createCustomToken = functions.https.onRequest(async(request, response) => {
     const user = request.body;
-    pinrt(user.id);
     // firbase에 user가 추가되고 userid를 가지고 token을 만들어줌.
-    const uid = 'kakao:${user.uid}';
+    const uid = 'kakao${user.id}';
     const updateParams = {
         email : user.email,
         displayName : user.displayName,
@@ -28,7 +27,8 @@ admin.initializeApp({
         await admin.auth().createUser(updateParams);
     }
 
-    // uid로 등록된 사용자의 token을 만들어줌
+    // uid로 등록된 사용자의 customtoken을 만들어줌
     const token = await admin.auth().createCustomToken(uid);
+    // 만들어진 token을 배포
     response.send(token);
  });
