@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,7 +21,8 @@ class KakaoAuthService {
     print('-----------------');
     print(authorizationUrl);
     try {
-      final http.Response response = await http.get(Uri.parse(authorizationUrl));
+      final http.Response response = await http.get(
+          Uri.parse(authorizationUrl));
       if (response.statusCode == 200) {
         return authorizationUrl;
       } else {

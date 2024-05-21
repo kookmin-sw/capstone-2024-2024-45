@@ -1,13 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:suntown/main/signingUp/Login/KakaoLogin/KakaoFriebase.dart';
+
+import 'package:suntown/main/mainAccount.dart';
+import 'package:suntown/main/manage/accountInfoManage.dart';
+import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
-import '../../utils/screenSizeUtil.dart';
-import 'Login/GoogleLogin/google_login.dart';
-import 'Login/KakaoLogin/kakaoWebview.dart';
-import 'Login/KakaoLogin/kakao_login.dart';
+import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
+import 'package:suntown/main/signingUp/Login/KakaoLogin/kakaoWebview.dart';
 import 'package:suntown/main/defaultAccount.dart';
+import 'package:flutter/material.dart';
+
+import '../../utils/screenSizeUtil.dart';
+import 'package:firebase_auth/firebase_auth.dart' ;
+import 'Login/GoogleLogin/google_login.dart';
+
 
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
@@ -23,9 +27,12 @@ class _signingUPState extends State<signingUP> {
   late final KakaoAuthService _kakaoAuthService;
   bool isInitialized = false;
 
+  // final viewModel = MainViewModel(KakaoLogin());
+
   @override
   void initState() {
     super.initState();
+
     _initialize();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) { // 회원가입된 유저가 있다면
@@ -38,7 +45,6 @@ class _signingUPState extends State<signingUP> {
     try {
       print('Loading environment variables...');
       await dotenv.load(fileName: ".env");
-
       REST_API_KEY = dotenv.get("KAKAO_REST_API_KEY") ?? '';
       redirectUrl = dotenv.get("KAKAO_REDIRECT_URI") ?? '';
 
@@ -98,6 +104,7 @@ class _signingUPState extends State<signingUP> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
+<<<<<<< HEAD
                 child: SingleChildScrollView(
                   child: StreamBuilder<User?>(
                     // login 되고 안되고에 따라 새로운 stream이 들어옴.
@@ -148,6 +155,7 @@ class _signingUPState extends State<signingUP> {
                     },
                   ),
                 ),
+
               ),
               // ElevatedButton(
               //   child: const Text(

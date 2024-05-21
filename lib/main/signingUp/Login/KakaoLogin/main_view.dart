@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/login_out.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import '../firebase_auth_remote_data_source.dart';
+
 import 'package:http/http.dart' as http;
+
 
 class MainViewModel{
   final _firebaseAuthDataSource = FirebaseAuthRemoteDataSource();
   final SocialLogin _socialLogin;
+
   final url = Uri.https('kapi.kakao.com', '/v2/user/me');
   // 처음에 로그인은 fasle로 설정
   bool isLogined = false;
