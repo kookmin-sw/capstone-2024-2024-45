@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import '../../utils/screenSizeUtil.dart';
 import 'package:firebase_auth/firebase_auth.dart' ;
 import 'Login/GoogleLogin/google_login.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class signingUP extends StatefulWidget {
   const signingUP({super.key});
@@ -104,7 +104,6 @@ class _signingUPState extends State<signingUP> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-<<<<<<< HEAD
                 child: SingleChildScrollView(
                   child: StreamBuilder<User?>(
                     // login 되고 안되고에 따라 새로운 stream이 들어옴.

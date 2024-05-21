@@ -246,7 +246,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
-
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -303,7 +302,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-
   flutter_lints:
     dependency: "direct dev"
     description:
