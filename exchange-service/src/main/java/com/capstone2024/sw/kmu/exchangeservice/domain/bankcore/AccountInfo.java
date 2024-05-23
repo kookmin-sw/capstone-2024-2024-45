@@ -32,7 +32,7 @@ public class AccountInfo {
     }
 
     public enum SuspensionType {
-        NONE, SEND, BOTH,
+        NOTHING, SEND, BOTH,
     }
 
 }

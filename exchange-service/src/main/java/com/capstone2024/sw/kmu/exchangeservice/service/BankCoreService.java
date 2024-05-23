@@ -38,7 +38,7 @@ public class BankCoreService {
 
                 // if 일시정지 && balance > 0 then 일시정지 해제 <- 송금 시 예외 사항
                 if(userInfo.isSuspended() && userInfo.getSuspendType() == AccountInfo.SuspensionType.SEND && userInfo.getBalance() > 0){
-                    userInfo.updateSuspended(AccountInfo.SuspensionType.NONE, false);
+                    userInfo.updateSuspended(AccountInfo.SuspensionType.NOTHING, false);
                 }
                 break;
         }
