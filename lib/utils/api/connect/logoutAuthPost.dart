@@ -1,25 +1,28 @@
 import 'dart:convert';
-
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> loginAuthPost({required String token,}) async {
+Future<Map<String, dynamic>> logoutAuthPost({required String token, required String userId}) async {
 
   String url = dotenv.env['AUTH_URL']!;
-  String baseUrl = '${url}/auth-service/api/v2/auth/signin/kakao';
+  String baseUrl = '${url}/auth-service/api/v2/logOut';
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl),
         body: jsonEncode({
-          "token": token,
+          "Authorization" : token,
+          "userId" : userId
         }),
         headers: {
           "Content-Type": "application/json",
         });
 
-    print("-----------login 보낸 token....------------");
+    print("-----------logOut 보낸 token....------------");
     print(jsonEncode({"token":token}));
+    print("-----------logOut 보낸 userId....------------");
+    print(jsonEncode({"userId":userId}));
 
     try {
       Map<String, dynamic> resBody =

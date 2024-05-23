@@ -1,28 +1,14 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:suntown/main/defaultAccount.dart';
 import 'package:suntown/main/signingUp/signingScreen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:suntown/firebase_options.dart';
-
-
-void main() async{
-  // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // runApp() 호출 전 Flutter SDK 초기화
   KakaoSdk.init(
     nativeAppKey: 'ba30c405908be1afda46343b5b73b363',
-
-  );
-  // Firebase 앱이 이미 초기화되었는지 확인
-  // if (Firebase.apps.isEmpty) {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // }
-  await Firebase.initializeApp(
-      name: "dev project",
-      options: DefaultFirebaseOptions.currentPlatform
   );
   runApp(const MyApp());
 }
@@ -30,7 +16,6 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,16 +37,46 @@ class Signing extends StatefulWidget {
 }
 
 class _SigningState extends State<Signing> {
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      _checkLoginStatus();
+    });
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final token = await secureStorage.read(key: 'kakaoToken');
+    print('token--------$token');
+    if (token != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => defaultAccount()),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => signingUP()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffFFFBD3),
       body: Center(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        child: ElevatedButton(
-          onPressed: (){
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => signingUP()));
+        child:
+        // isLoggedIn
+        //     ? const CircularProgressIndicator()
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => signingUP()),
+            );
           },
           child: const Text("회원가입"),
         ),
@@ -69,4 +84,3 @@ class _SigningState extends State<Signing> {
     );
   }
 }
-

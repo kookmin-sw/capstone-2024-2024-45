@@ -3,13 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:suntown/utils/api/connect/loginAuthPost.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class KakaoAuthService {
   final String clientId;
   final String redirectUri;
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   KakaoAuthService({required this.clientId, required this.redirectUri});
 
+  // 카카오에 인가 코드 받아오는 함수
   Future<String?> requestAuthorizationUrl() async {
     print('requestAuthorizationUrl 실행 중------');
     final String authorizationUrl =
@@ -31,9 +34,9 @@ class KakaoAuthService {
     }
   }
 
+  //카카오 인증 서버에서 로그인 토큰 가져오는 함수
   Future<String> fetchKakaoToken(String code) async {
     await dotenv.load();
-
     // 카카오 인증 서버에서 로그인 토큰 가져오기
     final response = await http.post(
       Uri.parse('https://kauth.kakao.com/oauth/token'),
@@ -64,12 +67,10 @@ class KakaoAuthService {
     }
   }
 
+  // 인가 코드 가져오고 Auth서버로 보내는 함수 호출
   Future<bool> getCodeAndSendToServer() async {
     Uri uri = Uri.parse(redirectUri);
     String code = uri.queryParameters['code']!;
-    // if (code == null) {
-    //   print("Error: code is null");
-    // }
     print("-------------------");
     print(code);
 
@@ -77,6 +78,15 @@ class KakaoAuthService {
       String accessToken = await fetchKakaoToken(code)!; // 반환 값이 null이 아님을 보장함
       final value = await loginAuthPost(token: accessToken);
       if (value["statusCode"] == 200) {
+        // return 해준 값에서 필요한 값 가져오기
+        final Map<String, dynamic> data = value['data'];
+        // 로그인 완료시 secureStorage에 값 저장
+        // accessToken 저장
+        await secureStorage.write(key: 'kakaoToken', value: accessToken);
+        // userId 저장
+        final String userId = data['userId'].toString();
+        await secureStorage.write(key: 'userId', value: userId);
+
         print('login 서버에 무사히 접속');
         print(value);
         return true;
@@ -86,7 +96,6 @@ class KakaoAuthService {
       } else {
         print(value);
         debugPrint('loginAuthPost서버 에러입니다. 다시 시도해주세요');
-        print(value['message']);
         throw Exception('서버 에러입니다. 다시 시도해주세요');
       }
     } catch (e) {

@@ -1,15 +1,9 @@
-
-import 'package:suntown/main/mainAccount.dart';
-import 'package:suntown/main/manage/accountInfoManage.dart';
-import 'package:suntown/main/manage/userInfoManage.dart';
-import 'package:suntown/main/signingUp/Login/KakaoLogin/main_view.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_login.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakaoWebview.dart';
 import 'package:suntown/main/defaultAccount.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/screenSizeUtil.dart';
-import 'package:firebase_auth/firebase_auth.dart' ;
 import 'Login/GoogleLogin/google_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -21,24 +15,15 @@ class signingUP extends StatefulWidget {
 }
 
 class _signingUPState extends State<signingUP> {
-
   late final String REST_API_KEY;
   late final String redirectUrl;
   late final KakaoAuthService _kakaoAuthService;
   bool isInitialized = false;
 
-  // final viewModel = MainViewModel(KakaoLogin());
-
   @override
   void initState() {
     super.initState();
-
     _initialize();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) { // 회원가입된 유저가 있다면
-        Navigator.push(context, MaterialPageRoute(builder: (context) => defaultAccount()));
-      }
-    });
   }
 
   Future<void> _initialize() async {
@@ -105,72 +90,46 @@ class _signingUPState extends State<signingUP> {
             children: <Widget>[
               Expanded(
                 child: SingleChildScrollView(
-                  child: StreamBuilder<User?>(
-                    // login 되고 안되고에 따라 새로운 stream이 들어옴.
-                    stream: FirebaseAuth.instance.authStateChanges(),
-                    builder: (context, snapshot) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.09,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: screenHeight * 0.09,
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.85,
+                        height: screenHeight * 0.09,
+                        child: Text(
+                          '로그인하고\n시간은행 시작하기.',
+                          style: TextStyle(
+                            color: Color(0xFF4B4A48),
+                            fontSize: 25,
+                            fontFamily: 'Noto Sans KR',
+                            fontWeight: FontWeight.w700,
                           ),
-                          SizedBox(
-                            width: screenWidth * 0.85,
-                            height: screenHeight * 0.09,
-                            child: Text(
-                              '로그인하고\n시간은행 시작하기.',
-                              style: TextStyle(
-                                color: Color(0xFF4B4A48),
-                                fontSize: 25,
-                                fontFamily: 'Noto Sans KR',
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.27,
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              await _loginWithKakao();
-                              // viewModel.login();
-                              print("카카오 로그인");
-                            },
-                            child: Image.asset("assets/images/kakao_login_large_wide.png"),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.024,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              signInWithGoogle();
-                              print("구글 로그인");
-                            },
-                            child: Image.asset('assets/images/google_login_wide.png'),
-                          ),
-                        ],
-                      );
-                    },
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.27,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          await _loginWithKakao();
+                          print("카카오 로그인");
+                        },
+                        child: Image.asset("assets/images/kakao_login_large_wide.png"),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.024,
+                      ),
+                    ],
                   ),
                 ),
-
               ),
-              // ElevatedButton(
-              //   child: const Text(
-              //     '다음',
-              //   ),
-              //   onPressed: () {
-              //     setState(() {
-              //       Navigator.of(context).push(
-              //           MaterialPageRoute(builder: (context) => defaultAccount()));
-              //     });
-              //   },
-              // ),
             ],
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

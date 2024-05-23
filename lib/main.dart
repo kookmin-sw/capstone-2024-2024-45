@@ -13,10 +13,12 @@ void main() async {
   KakaoSdk.init(
     nativeAppKey: dotenv.env['KAKAO_NATIVEAPPKEY']!,
   );
-  await Firebase.initializeApp(
-      name: "dev project",
-      options: DefaultFirebaseOptions.currentPlatform
-  );
+  // // Firebase 앱이 이미 초기화되었는지 확인
+  // if (Firebase.apps.isEmpty) {
+  //   await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // }
 
   // 세로로 고정
   await SystemChrome.setPreferredOrientations([
