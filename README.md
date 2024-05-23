@@ -7,10 +7,16 @@
 > ⭐중간발표 **PPT**: https://drive.google.com/file/d/1cGouAPiH7Ox7-vjiIIpCrIVyBsddgzHc/view?usp=sharing <br>
 > ⭐중간보고서 **중간보고서**: https://drive.google.com/file/d/1qVue3BUVo_C4eGvTRo2KZVz8kvaErVCa/view?usp=sharing<br>
 > ⭐기말발표 **PPT**: https://drive.google.com/file/d/1foxIw_RV7WrvAODMt029uvwp2Ok4uQWr/view?usp=sharing<br>
-
-
 > ⭐FIGMA **화면명세**: https://www.figma.com/design/NFf8cyvJen9I37cYv2ZQzn/%ED%96%87%EC%82%B4-%EC%B0%BD%EA%B3%A0_veta?node-id=836%3A7498&t=G4qg1GNqj9hlkFON-1
 
+<br>
+
+## 앱 다운로드
+<img src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/7dbac0fc-1fcb-44ba-9360-c773e2e225fe" width="30%" />
+<br>
+해당 QR을 스캔하면 apk 파일을 다운받을 수 있다.
+
+<br>
 <br>
 
 ## 프로젝트 소개
