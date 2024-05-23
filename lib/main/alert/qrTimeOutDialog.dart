@@ -26,7 +26,7 @@ class QrTimeOutDialog {
                   width: screenWidth * 0.1,
                   height: screenWidth * 0.1,
                   child: Image(
-                    image: AssetImage('assets/images/timeBank.png'),
+                    image: AssetImage('assets/images/timebank.png'),
                   ),
                 ),
               ),

@@ -29,7 +29,7 @@ class SleepAcountAlert {
                   width: 60,
                   height: 60,
                   child: Image(
-                    image: AssetImage('assets/images/timeBank.png'),
+                    image: AssetImage('assets/images/timebank.png'),
                   ),
                 ),
               ),
