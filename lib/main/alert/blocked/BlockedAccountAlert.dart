@@ -29,7 +29,7 @@ class ApiRequestFailAlert {
                   width: 60,
                   height: 60,
                   child: Image(
-                    image: AssetImage('assets/images/knot.png'),
+                    image: AssetImage('assets/images/timeBank.png'),
                   ),
                 ),
               ),
