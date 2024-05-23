@@ -44,8 +44,10 @@
 
 
 ## 시스템 구조도
- 
-<img width="612" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/267d0e05-d15c-4b31-a7c0-4f54f50832d3">
+
+![타임뱅크_1](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/736bda7a-a2ba-433a-b97d-c58827515cfe)
+
+
 
 
 
@@ -112,12 +114,6 @@ $ flutter build apk # Android
 프로덕션 환경에서 앱을 실행하기 위해 Docker 이미지를 빌드할 수 있습니다.<br>
 도커 허브에 푸쉬<br>
 서버에 배포<br>
-
-## Stacks 
-
-<br>
-<img width="612" alt="image" src="https://github.com/Heo-jieun/read_me_clone/assets/65994153/73b6cf80-cd96-46a5-91d3-d9084bb5cd74">
-<br>
 
 <br>
 
