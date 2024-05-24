@@ -1,0 +1,27 @@
+# 환경변수
+app:
+  qr:
+    key: ${QR_SECRET_KEY}
+    algorithm: ${QR_ALGORITHM}
+
+spring:
+  application:
+   name: exchange-service
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      platform: mysql
+
+  profiles:
+    active: prod
+
+
+path:
+  service:
+    user: ${USER_SERVICE_PATH}
