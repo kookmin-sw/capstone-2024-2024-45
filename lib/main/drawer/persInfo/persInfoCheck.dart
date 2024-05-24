@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:suntown/utils/api/user/userProfileGet.dart';
 
-import '../../manage/userInfoManage.dart';
 import '../../../utils/screenSizeUtil.dart';
 import '../../alert/apiFail/ApiRequestFailAlert.dart';
 import '../../../User/userData/User.dart';
@@ -15,19 +14,7 @@ class PersInfo extends StatefulWidget {
 
 class _PersInfoState extends State<PersInfo> {
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-  /*
-  사용자 정보를 얻어옴
-      "userId": 0,
-      "nickName": "string",
-      "gender": "male",
-      "address": "string",
-      "ageRange": 20,
-      "birth": "string",
-      "accountNumber": "string",
-      "profileImage": "string",
-      "blocked": true,
-      "dealCount": 0
-   */
+
   String nickName = 'Loading...';
   String gender = 'Loading...';
   String address = 'Loading...';

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/main/Exchange/BeforeinputTransfor.dart';
 import 'package:suntown/main/Exchange/minutesInputTransfor.dart';
@@ -42,6 +43,7 @@ class MainAccount extends StatefulWidget {
 Map<String, dynamic>? apiResult; //http 주소 받아올
 
 class _MainAccountState extends State<MainAccount> {
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   bool dataLoad = false;
   List<String> userAccountIds = []; //account 정보를 담아옴
 
@@ -66,10 +68,9 @@ class _MainAccountState extends State<MainAccount> {
     _initializeUserId();
   }
 
-
   // _userId를 초기화하는 메서드
   Future<void> _initializeUserId() async {
-    userId = await UserInfoManage().getUserId() ?? '';
+    userId = await secureStorage.read(key: 'userId') ?? "";
     fetchAccountListData(userId);
   }
 

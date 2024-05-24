@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:suntown/main/drawer/inquiry/questionDetail.dart';
-import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/utils/api/inquiry/questionlistGet.dart';
 import '../../../utils/screenSizeUtil.dart';
 import 'package:intl/intl.dart';
@@ -13,7 +13,8 @@ class QuestionList extends StatefulWidget {
 }
 
 class _QuestionListState extends State<QuestionList> {
-  String? user_id;
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  late String userId;
   List<Map<String, dynamic>> extractedData = [];
 
   @override
@@ -24,24 +25,30 @@ class _QuestionListState extends State<QuestionList> {
 
   // 데이터 가져오기
   Future<void> fetchData() async {
-    user_id = await UserInfoManage().getUserId() ?? '';
-    final response = await QuestionListGet(user_id: user_id);
-    if (response['statusCode'] == 200) {
-      List<Map<String, dynamic>> tempList = [];
-      for (var item in response['data']) {
-        if (item['inquireType'] == 1) {
-          tempList.add({
-            'inquireId': item['inquireId'],
-            'createdAt': item['createdAt'],
-            'inquireText': item['inquireText'].replaceFirst('거래 id: 0\n\n', ''),
+    try {
+      userId = await secureStorage.read(key: 'userId') ?? "";
+      if (userId.isNotEmpty) {
+        final response = await QuestionListGet(user_id: userId);
+        if (response['statusCode'] == 200) {
+          List<Map<String, dynamic>> tempList = [];
+          for (var item in response['data']) {
+            if (item['inquireType'] == 1) {
+              tempList.add({
+                'inquireId': item['inquireId'],
+                'createdAt': item['createdAt'],
+                'inquireText': item['inquireText'].replaceFirst('거래 id: 0\n\n', ''),
+              });
+            }
+          }
+          setState(() {
+            extractedData = tempList;
           });
+        } else {
+          throw Exception('Failed to load data');
         }
       }
-      setState(() {
-        extractedData = tempList;
-      });
-    } else {
-      throw Exception('Failed to load data');
+    } catch (error) {
+      debugPrint('Error fetching data: $error');
     }
   }
 
