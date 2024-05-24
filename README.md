@@ -58,9 +58,9 @@
 
 ## 팀 소개
 
-|[허지은](https://github.com/Heo-jieun)<br>****|[오선정](https://github.com/sunJ0120)<br>****2697|[송수인](https://github.com/IngenieurSong)<br>****3086|[윤서영](https://github.com/ytjdud)<br>****0153|
+|[허지은](https://github.com/Heo-jieun)<br>****3228|[오선정](https://github.com/sunJ0120)<br>****2697|[송수인](https://github.com/IngenieurSong)<br>****3086|[윤서영](https://github.com/ytjdud)<br>****0153|
 |:---:|:---:|:---:|:---:|
-|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|><img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
+|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|><img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
 |Frontend, UI/UX|Frontend, UI/UX|Backend|Backend|
 
 ## 기술 스택
@@ -145,4 +145,3 @@ $ flutter build apk # Android
  <img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
  <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
 </div> -->
-
