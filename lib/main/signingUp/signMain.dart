@@ -94,7 +94,7 @@ class _SigningState extends State<Signing> {
         // 새로운 토큰 저장
         print('새로 받아온 카카오 토큰 --------- \n $tokens');
         await secureStorage.write(key: 'refreshToken', value: tokens['refresh_token']);
-        await secureStorage.write(key: 'kakaoToken', value: tokens['access_token']);
+        await secureStorage.write(key: 'accessToken', value: tokens['access_token']);
         try { // 우리 서버에 갱신한 토큰 보내기
           final state = await tokenReissuePost(accessToken: tokens['access_token'], refreshToken: tokens['refresh_token']);
           if (state['statusCode'] == 200) { // 서버에 문제없이 잘 도착한 경우

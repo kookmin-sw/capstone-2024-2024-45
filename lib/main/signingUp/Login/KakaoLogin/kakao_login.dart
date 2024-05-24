@@ -34,17 +34,17 @@ class KakaoAuthService {
     }
   }
 
-  //카카오 인증 서버에서 로그인 토큰 가져오는 함수
+  //카카오 인증 서버에서 로그인 accessToken 토큰 가져오는 함수
   Future<String> fetchKakaoToken(String code) async {
     await dotenv.load();
-    // 카카오 인증 서버에서 로그인 토큰 가져오기
+    // 카카오 인증 서버에서 로그인 accessToken 토큰 가져오기
     final response = await http.post(
       Uri.parse('https://kauth.kakao.com/oauth/token'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
       body: {
-        // 로그인 토큰을 가져오기 위한 5가지 파라미터
+        // 로그인 accessToken 토큰을 가져오기 위한 5가지 파라미터
         'grant_type': 'authorization_code',
         'client_id': dotenv.env['KAKAO_REST_API_KEY']!,
         'redirect_uri': dotenv.env['KAKAO_REDIRECT_URI']!,
@@ -52,7 +52,6 @@ class KakaoAuthService {
         'client_secret': dotenv.env['KAKAO_CLIENT_SECRET']!,
       },
     );
-
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponseMap = jsonDecode(response.body);
       print('로그인 토큰 가져온 값--------');
@@ -81,9 +80,9 @@ class KakaoAuthService {
         // return 해준 값에서 필요한 값 가져오기
         final Map<String, dynamic> data = value['data'];
         // 로그인 완료시 secureStorage에 값 저장
-        // accessToken 저장
+        // auth서버 accessToken 저장
         final String accessToken = data['accessToken'].toString();
-        await secureStorage.write(key: 'kakaoToken', value: accessToken);
+        await secureStorage.write(key: 'accessToken', value: accessToken);
         print('accessToken---------$accessToken');
         // userId 저장
         final String userId = data['userId'].toString();

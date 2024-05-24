@@ -6,7 +6,7 @@ class KaKaoLogoutState {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   Future<bool> fetchKakaoToken() async {
-    final String? token = await secureStorage.read(key: 'kakaoToken');
+    final String? token = await secureStorage.read(key: 'accessToken');
     final String? userId = await secureStorage.read(key: 'userId');
     if (token != null && userId != null) {
       try {
@@ -26,7 +26,7 @@ class KaKaoLogoutState {
     final status = await fetchKakaoToken();
     if (status) {
       // 토큰 삭제
-      await secureStorage.delete(key: 'kakaoToken');
+      await secureStorage.delete(key: 'accessToken');
       await secureStorage.delete(key: 'userId');
       await secureStorage.delete(key: 'refreashToken');
       // 로그인 화면으로 이동
