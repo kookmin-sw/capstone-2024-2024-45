@@ -40,8 +40,9 @@ class _defaultAccounttState extends State<defaultAccount>{
   }
 
   fetchProfileData() async {
-    final accessToken = await secureStorage.read(key: 'kakaoToken');
+    final accessToken = await secureStorage.read(key: 'accessToken');
     final userId = await secureStorage.read(key: 'userId');
+
     final value = await userProfileGet(userId: userId.toString(), accessToken: accessToken.toString());
     print(value);
   }
