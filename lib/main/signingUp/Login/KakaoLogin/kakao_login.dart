@@ -82,10 +82,17 @@ class KakaoAuthService {
         final Map<String, dynamic> data = value['data'];
         // 로그인 완료시 secureStorage에 값 저장
         // accessToken 저장
+        final String accessToken = data['accessToken'].toString();
         await secureStorage.write(key: 'kakaoToken', value: accessToken);
+        print('accessToken---------$accessToken');
         // userId 저장
         final String userId = data['userId'].toString();
         await secureStorage.write(key: 'userId', value: userId);
+        print('userId---------$userId');
+        // refreashToken 저장
+        final String refreshToken = data['refreshToken'].toString();
+        await secureStorage.write(key: 'refreshToken', value: refreshToken);
+        print('refreshToken---------$refreshToken');
 
         print('login 서버에 무사히 접속');
         print(value);

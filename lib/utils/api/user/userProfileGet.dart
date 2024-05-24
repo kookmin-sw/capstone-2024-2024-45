@@ -3,28 +3,23 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
-Future<Map<String, dynamic>> userInfoGet({required int otherUserId, required String userId}) async {
-  String url = dotenv.env['USER_PROFILE_URL']!;
+Future<Map<String, dynamic>> userProfileGet({required String userId,required String accessToken}) async {
+  String url = dotenv.env['AUTH_URL']!;
   String baseUrl = '${url}/haetsal-service/api/v2/profile';
 
-  // otherUserId를 쿼리 파라미터로 추가
-  var params = {'otherUserId': otherUserId.toString()};
-
   try {
-    // 쿼리 파라미터를 URL에 추가
-    url = Uri.http(url, '$baseUrl', params).toString();
-
-    http.Response response = await http.get(Uri.parse(url), headers: {
+    http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",
       "Content-Type": "application/json",
+      "Authorization": "Bearer $accessToken", // JWT 토큰을 헤더에 추가
     });
-
+  print('jwt 값 잘 들어갔나 확인 ------ \n "Bearer $accessToken"');
+  // print('userID -------$userId');
     try {
       Map<String, dynamic> resBody =
       jsonDecode(utf8.decode(response.bodyBytes));
       resBody['statusCode'] = response.statusCode;
       return resBody;
-
     } catch (e) {
       return {'statusCode': 422};
     }

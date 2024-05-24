@@ -1,11 +1,14 @@
 //디폴트 계좌 화면
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:suntown/User/UserAccountInfo.dart';
+import 'package:suntown/main/drawer/mainDrawer.dart';
 import 'package:suntown/main/manage/accountInfoManage.dart';
 import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/main/signingUp/openAccount.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:suntown/utils/api/user/userProfileGet.dart';
 
 // import '../User/User.dart';
 import '../bubble.dart';
@@ -27,11 +30,20 @@ class _defaultAccounttState extends State<defaultAccount>{
 
   // late User user;
   late UserAccountInfo accountInfo;
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   @override
   void initState() {
     super.initState();
     _initializeData();
+    fetchProfileData();
+  }
+
+  fetchProfileData() async {
+    final accessToken = await secureStorage.read(key: 'kakaoToken');
+    final userId = await secureStorage.read(key: 'userId');
+    final value = await userProfileGet(userId: userId.toString(), accessToken: accessToken.toString());
+    print(value);
   }
 
   // user가 account_id를 가지고 있으면 바로 mainAccount로 이동
@@ -72,7 +84,7 @@ class _defaultAccounttState extends State<defaultAccount>{
             ),
           ],
         ),
-        drawer : defaultDrawer(),
+        drawer : MainDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(

@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:suntown/main/alert/singUpFail/logoutFailAlert.dart';
 import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_logout.dart';
 
 import 'package:suntown/main/signingUp/signingScreen.dart';
+import 'package:suntown/utils/api/user/userProfileGet.dart';
 import '../manage/userInfoManage.dart';
 import 'persInfo/persInfoCheck.dart';
 import '../../utils/screenSizeUtil.dart';

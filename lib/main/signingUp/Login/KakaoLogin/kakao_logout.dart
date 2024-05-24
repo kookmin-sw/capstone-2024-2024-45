@@ -28,6 +28,7 @@ class KaKaoLogoutState {
       // 토큰 삭제
       await secureStorage.delete(key: 'kakaoToken');
       await secureStorage.delete(key: 'userId');
+      await secureStorage.delete(key: 'refreashToken');
       // 로그인 화면으로 이동
       print('로그아웃 완료 ');
       return true;

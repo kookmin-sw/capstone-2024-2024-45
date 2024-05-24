@@ -162,7 +162,7 @@ class _MainAccountState extends State<MainAccount> {
               ),
             ],
           ),
-          drawer: mainDrawer(),
+          drawer: MainDrawer(),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
