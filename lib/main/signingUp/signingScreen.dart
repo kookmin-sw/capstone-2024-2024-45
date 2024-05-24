@@ -131,14 +131,14 @@ class _signingUPState extends State<signingUP> {
                           SizedBox(
                             height: screenHeight * 0.27,
                           ),
-                          InkWell(
-                            onTap: () async {
-                              await _loginWithKakao();
-                              // viewModel.login();
-                              print("카카오 로그인");
-                            },
-                            child: Image.asset("assets/images/kakao_login_large_wide.png"),
-                          ),
+                          // InkWell(
+                          //   onTap: () async {
+                          //     await _loginWithKakao();
+                          //     // viewModel.login();
+                          //     print("카카오 로그인");
+                          //   },
+                          //   child: Image.asset("assets/images/kakao_login_large_wide.png"),
+                          // ),
                           SizedBox(
                             height: screenHeight * 0.024,
                           ),
