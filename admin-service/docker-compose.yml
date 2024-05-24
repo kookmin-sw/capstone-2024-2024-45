@@ -26,7 +26,7 @@ services:
     container_name: dev-admin
     hostname: dev-admin
     ports:
-      - 8081:8081
+      - 80:8081
     env_file:
       - .env
     environment:
