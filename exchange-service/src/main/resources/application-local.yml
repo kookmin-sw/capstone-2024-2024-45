@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    remittance:
+      jdbc-url: jdbc:mysql://localhost:3306/transaction_history?serverTimezone=Asia/Seoul
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: ${DATASOURCE_REMITTANCE_PASSWORD}
+
+    bankcore:
+      jdbc-url: jdbc:mysql://${CORE_DB_PATH}/core
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${CORE_DB_USERNAME}
+      password: ${CORE_DB_PASSWORD}
+
+  jpa:
+    #    가로로 한줄에 보여줌
+    show-sql: true
+    #    이거만 하면 아무것도 안뜨고, show-sql 과 함께 쓰면 세로로 정리해서 보여줌
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8070
