@@ -20,7 +20,6 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
   final page = const MainAccount();
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
@@ -119,12 +118,13 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Column(children: [
-              SizedBox(
-                width: 250,
-                height: 250,
-                child: Image(
-                  image: AssetImage('timebank.png'),
+              child: Column(children: [
+                SizedBox(
+                  width: 250,
+                  height: 250,
+                  child: Image(
+                    image: AssetImage('assets/images/timebank.png'),
+                  ),
                 ),
               ),
               SizedBox(
