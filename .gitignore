@@ -9,6 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
+.env
 
 # IntelliJ related
 *.iml
@@ -41,3 +42,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+google-services.json
+firebase_options.dart
+
+# Ignore secret files
+functions/kepstone-9eb20-firebase-adminsdk-ede2s-2e983bc917.json

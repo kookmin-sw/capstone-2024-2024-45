@@ -1,0 +1,58 @@
+
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "kepstone-9eb20",
+          "appId": "1:662443950906:android:431f049f6387c475780603",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "kepstone-9eb20",
+          "appId": "1:662443950906:ios:bf775ee8a71716ef780603",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "kepstone-9eb20",
+          "appId": "1:662443950906:ios:bf775ee8a71716ef780603",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "kepstone-9eb20",
+          "configurations": {
+            "android": "1:662443950906:android:431f049f6387c475780603",
+            "ios": "1:662443950906:ios:bf775ee8a71716ef780603",
+            "macos": "1:662443950906:ios:bf775ee8a71716ef780603",
+            "web": "1:662443950906:web:50e30c478f9f1610780603",
+            "windows": "1:662443950906:web:232a7ccba484aa29780603"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}
+
+//{"flutter":{"platforms":{"android":{"default":{"projectId":"capstone2024-783c5","appId":"1:746747507982:android:cc2aac9cea495ed504935f","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"capstone2024-783c5","configurations":{"android":"1:746747507982:android:cc2aac9cea495ed504935f","ios":"1:746747507982:ios:7f803f4277ae79ac04935f","macos":"1:746747507982:ios:7f803f4277ae79ac04935f","web":"1:746747507982:web:4a37cd3be9255b7804935f","windows":"1:746747507982:web:bec730ff2134687b04935f"}}}}}}
+//
