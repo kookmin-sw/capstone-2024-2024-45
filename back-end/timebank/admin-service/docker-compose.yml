@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql-admin-service
+    hostname: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=Asia/Seoul
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/conf.d:/etc/dev-admin-service/mysql/conf.d
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/dev-admin-service/init.sql
+      - ./mysql/schema.sql:/docker-entrypoint-initdb.d/dev-admin-service/schema.sql
+      - ./mysql/data.sql:/docker-entrypoint-initdb.d/dev-admin-service/data.sql
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dev-admin
+    hostname: dev-admin
+    ports:
+      - 80:8081
+    env_file:
+      - .env
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/admin?serverTimezone=Asia/Seoul
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_ADMIN_PASSWORD}
+    links:
+      - mysql
+    depends_on:
+      - mysql
