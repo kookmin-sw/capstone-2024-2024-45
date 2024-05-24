@@ -35,7 +35,7 @@ class _MainDrawerState extends State<MainDrawer> {
 
   // user profile 불러오기
   Future<void> fetchProfileData() async {
-    final accessToken = await secureStorage.read(key: 'kakaoToken');
+    final accessToken = await secureStorage.read(key: 'accessToken');
     final userId = await secureStorage.read(key: 'userId');
     try {
       final value = await userProfileGet(userId: userId.toString(), accessToken: accessToken.toString());
