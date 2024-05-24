@@ -126,7 +126,6 @@ class _HomeState extends State<Home> {
                     image: AssetImage('assets/images/timebank.png'),
                   ),
                 ),
-              ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
