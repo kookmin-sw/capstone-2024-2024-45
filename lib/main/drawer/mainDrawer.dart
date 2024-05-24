@@ -1,46 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:suntown/main/alert/singUpFail/logoutFailAlert.dart';
 import 'package:suntown/main/drawer/inquiry/inquiryStart.dart';
+import 'package:suntown/main/signingUp/Login/KakaoLogin/kakao_logout.dart';
 
 import 'package:suntown/main/signingUp/signingScreen.dart';
-import '../manage/userInfoManage.dart';
+import 'package:suntown/utils/api/user/userProfileGet.dart';
 import 'persInfo/persInfoCheck.dart';
 import '../../utils/screenSizeUtil.dart';
-import '../../User/userData/UserF.dart';
+import '../../User/userData/User.dart';
 import '../alert/apiFail/ApiRequestFailAlert.dart';
 
-class mainDrawer extends StatefulWidget {
-  const mainDrawer({super.key});
-
+class MainDrawer extends StatefulWidget {
+  const MainDrawer({super.key});
   @override
-  State<mainDrawer> createState() => _mainDrawerState();
+  State<MainDrawer> createState() => _MainDrawerState();
 }
 
-class _mainDrawerState extends State<mainDrawer> {
-  late String userName ;
-  late String mobile_number;
-  late String user_id;
-  late UserF user;
-  late bool dataload;
+class _MainDrawerState extends State<MainDrawer> {
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+  String nickName = 'Loading...';
+  String address = 'Loading...';
+  User user = User();
+  String profileImage = '';
+  bool dataload = false;
 
   @override
   void initState() {
-    dataload = false;
-    user = UserF();
-    fetchData();
+    super.initState();
+    fetchProfileData();
   }
 
-  // userdata 불러오기
-  Future<void> fetchData() async {
+  // user profile 불러오기
+  Future<void> fetchProfileData() async {
+    final accessToken = await secureStorage.read(key: 'kakaoToken');
+    final userId = await secureStorage.read(key: 'userId');
     try {
-      final value = await UserInfoManage().getUserInfo();
-      dataload = true;
-      user.initializeData(value["result"]['user_info']);
-      userName = user.name;
-      mobile_number = user.mobile_number;
-      user_id = user.user_id;
+      final value = await userProfileGet(userId: userId.toString(), accessToken: accessToken.toString());
+      setState(() {
+        user.initializeData(value["data"]);
+        dataload = true;
+        nickName = user.nickName;
+        address = user.address;
+        profileImage = user.profileImage;
+      });
     } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
+      ApiRequestFailAlert.showExpiredCodeDialog(context, PersInfo());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
@@ -54,16 +61,16 @@ class _mainDrawerState extends State<mainDrawer> {
         children: <Widget>[
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              // backgroundImage: NetworkImage(testUser.avatar),
-              backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
+              backgroundImage: profileImage.isNotEmpty
+                  ? NetworkImage(profileImage)
+                  : AssetImage('assets/images/default_profile.jpeg') as ImageProvider,
             ),
-            accountName: Text(user.name),
-            accountEmail: Text(user.mobile_number),
+            accountName: Text(nickName),
+            accountEmail: Text(address),
             decoration: BoxDecoration(
               color: Color(0xFFDDE8E1),
             ),
           ),
-
           ListTile(
             leading: Icon(
               Icons.settings,
@@ -72,7 +79,7 @@ class _mainDrawerState extends State<mainDrawer> {
             title: Text('개인정보'),
             onTap: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => persInfo()));
+                  MaterialPageRoute(builder: (context) => PersInfo()));
               print('개인정보 수정 클릭');
             },
             trailing: Icon(Icons.arrow_forward_ios),
@@ -96,13 +103,18 @@ class _mainDrawerState extends State<mainDrawer> {
               color: Colors.grey[850],
             ),
             title: Text('로그아웃'),
-            onTap: () {
-              try{
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => signingUP()));
-              }catch (e){
+            onTap: () async {
+              try {
+                final state = await KaKaoLogoutState().kakaoLogout();
+                if (state) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => signingUP()));
+                } else {
+                  LogoutFailAlert.showExpiredCodeDialog(context, MainDrawer());
+                }
+              } catch (e) {
                 print("로그아웃 실패 : $e");
+                LogoutFailAlert.showExpiredCodeDialog(context, MainDrawer());
               }
             },
             trailing: Icon(Icons.arrow_forward_ios),

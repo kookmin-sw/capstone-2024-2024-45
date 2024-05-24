@@ -13,7 +13,7 @@ Future<Map<String, dynamic>> QuestionPost({required user_id, required memoText }
       "inquire": memoText,
     }), headers: {
       "Content-Type": "application/json",
-      "userId" : "1",
+      "userId" : user_id,
     });
 
     try {

@@ -1,38 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:suntown/utils/api/user/userProfileGet.dart';
 
-import '../../manage/userInfoManage.dart';
 import '../../../utils/screenSizeUtil.dart';
 import '../../alert/apiFail/ApiRequestFailAlert.dart';
-import '../../../User/userData/UserF.dart';
+import '../../../User/userData/User.dart';
 
-class persInfo extends StatefulWidget {
-
+class PersInfo extends StatefulWidget {
   @override
-  State<persInfo> createState() => _persInfoState();
+  State<PersInfo> createState() => _PersInfoState();
 }
 
-class _persInfoState extends State<persInfo> {
+class _PersInfoState extends State<PersInfo> {
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
-  late String userName ;
-  late String mobile_number;
-  late UserF user;
-  late bool dataload;
+  String nickName = 'Loading...';
+  String gender = 'Loading...';
+  String address = 'Loading...';
+  String ageRange = 'Loading...';
+  String birth = 'Loading...';
+  String profileImage = '';
+  User user = User();
+  bool dataload = false;
+
   @override
   void initState() {
-    dataload = false;
-    user = UserF();
-    fetchData();
+    super.initState();
+    fetchProfileData();
   }
 
-  // userdata 불러오기
-  Future<void> fetchData() async {
+  // user profile 불러오기
+  Future<void> fetchProfileData() async {
+    final accessToken = await secureStorage.read(key: 'accessToken');
+    final userId = await secureStorage.read(key: 'userId');
     try {
-      final value = await UserInfoManage().getUserInfo();
-      dataload = true;
-      user.initializeData(value["result"]['user_info']);
+      final value = await userProfileGet(userId: userId.toString(), accessToken: accessToken.toString());
+      setState(() {
+        user.initializeData(value["data"]);
+        dataload = true;
+        nickName = user.nickName;
+        address = user.address;
+        gender = user.gender;
+        ageRange = user.ageRange;
+        birth = user.birth;
+        profileImage = user.profileImage;
+      });
     } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context, persInfo());
+      ApiRequestFailAlert.showExpiredCodeDialog(context, PersInfo());
       debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
@@ -54,239 +69,129 @@ class _persInfoState extends State<persInfo> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: SingleChildScrollView(
-                  child : Column(
-                    children: <Widget>[
-                      CircleAvatar(
-                        // backgroundImage: NetworkImage(testUser.avatar),
-                        backgroundImage : AssetImage('assets/images/default_profile.jpeg'),
-                        radius: 50, // 원의 반지름 설정
-                      ),
-                      SizedBox(height: screenHeight * 0.024,),
-                      // 이름
-                      Container(
-                        width: screenWidth * 0.85,
-                        height: screenHeight * 0.09,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  '이름',
-                                  style: TextStyle(
-                                    color: Color(0xFFD3C2BD),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 39,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  user.name,
-                                  style: TextStyle(
-                                    color: Color(0xFF624A43),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 77,
-                              child: Container(
-                                width: screenWidth * 0.85,
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      strokeAlign: BorderSide.strokeAlignCenter,
-                                      color: Color(0xFFD3C2BD),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.024),
-                      // // 이메일
-                      // Container(
-                      //   width: screenWidth * 0.85,
-                      //   height: screenHeight * 0.09,
-                      //   child: Stack(
-                      //     children: [
-                      //       Positioned(
-                      //         left: 0,
-                      //         top: 0,
-                      //         child: SizedBox(
-                      //           width: screenWidth * 0.8,
-                      //           height: screenHeight * 0.045,
-                      //           child: Text(
-                      //             '이메일',
-                      //             style: TextStyle(
-                      //               color: Color(0xFFD3C2BD),
-                      //               fontSize: 17,
-                      //               fontFamily: 'Noto Sans KR',
-                      //               fontWeight: FontWeight.w700,
-                      //               height: 0,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Positioned(
-                      //         left: 0,
-                      //         top: 39,
-                      //         child: SizedBox(
-                      //           width: screenWidth * 0.8,
-                      //           height: screenHeight * 0.045,
-                      //           child: Text(
-                      //             'asdf1234@google.com',
-                      //             style: TextStyle(
-                      //               color: Color(0xFF624A43),
-                      //               fontSize: 17,
-                      //               fontFamily: 'Noto Sans KR',
-                      //               fontWeight: FontWeight.w700,
-                      //               height: 0,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Positioned(
-                      //         left: 0,
-                      //         top: 77,
-                      //         child: Container(
-                      //           width: screenWidth * 0.85,
-                      //           decoration: ShapeDecoration(
-                      //             shape: RoundedRectangleBorder(
-                      //               side: BorderSide(
-                      //                 width: 1,
-                      //                 strokeAlign: BorderSide.strokeAlignCenter,
-                      //                 color: Color(0xFFD3C2BD),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      SizedBox(height: screenHeight * 0.024),
-                      // 전화번호
-                      Container(
-                        width: screenWidth * 0.85,
-                        height: screenHeight * 0.09,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  '전화번호',
-                                  style: TextStyle(
-                                    color: Color(0xFFD3C2BD),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 39,
-                              child: SizedBox(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.045,
-                                child: Text(
-                                  user.mobile_number,
-                                  style: TextStyle(
-                                    color: Color(0xFF624A43),
-                                    fontSize: 17,
-                                    fontFamily: 'Noto Sans KR',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 77,
-                              child: Container(
-                                width: screenWidth * 0.85,
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      strokeAlign: BorderSide.strokeAlignCenter,
-                                      color: Color(0xFFD3C2BD),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
+          child: dataload ? buildProfileInfo(screenHeight, screenWidth) : CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildProfileInfo(double screenHeight, double screenWidth) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: profileImage.isNotEmpty
+                      ? NetworkImage(profileImage)
+                      : AssetImage('assets/images/default_profile.jpeg') as ImageProvider,
+                  radius: 50, // 원의 반지름 설정
                 ),
-              ),
-              // 2차배포 때 활성화 시키기
-              // ElevatedButton(
-              //   child: Text(
-              //     '수정하기',
-              //     style: TextStyle(
-              //       color: Color(0xff624A43),
-              //       fontSize: screenWidth * 0.055,
-              //       fontFamily: 'Noto Sans KR',
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              //   onPressed: () {
-              //     // setState(() {
-              //     //   Navigator.of(context).push(MaterialPageRoute(
-              //     //       builder: (context) => testWidget()));
-              //     // });
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
-              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              //     backgroundColor: Color(0xFFD3C2BD),
-              //   ),
-              // ),
-            ],
+                SizedBox(height: screenHeight * 0.024),
+                buildInfoRow('별명', nickName, screenWidth, screenHeight),
+                SizedBox(height: screenHeight * 0.024),
+                buildInfoRow('성별', gender, screenWidth, screenHeight),
+                SizedBox(height: screenHeight * 0.024),
+                buildInfoRow('주소', address, screenWidth, screenHeight),
+                SizedBox(height: screenHeight * 0.024),
+                buildInfoRow('생년월일', birth, screenWidth, screenHeight),
+              ],
+            ),
           ),
         ),
-      )
+        // 2차배포 때 활성화 시키기
+        // ElevatedButton(
+        //   child: Text(
+        //     '수정하기',
+        //     style: TextStyle(
+        //       color: Color(0xff624A43),
+        //       fontSize: screenWidth * 0.055,
+        //       fontFamily: 'Noto Sans KR',
+        //       fontWeight: FontWeight.w500,
+        //     ),
+        //   ),
+        //   onPressed: () {
+        //     // setState(() {
+        //     //   Navigator.of(context).push(MaterialPageRoute(
+        //     //       builder: (context) => testWidget()));
+        //     // });
+        //   },
+        //   style: ElevatedButton.styleFrom(
+        //     fixedSize: Size(screenWidth* 0.85, screenHeight * 0.09),
+        //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(20),
+        //     ),
+        //     backgroundColor: Color(0xFFD3C2BD),
+        //   ),
+        // ),
+      ],
+    );
+  }
+
+  Widget buildInfoRow(String label, String value, double screenWidth, double screenHeight) {
+    return Container(
+      width: screenWidth * 0.85,
+      height: screenHeight * 0.09,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: SizedBox(
+              width: screenWidth * 0.8,
+              height: screenHeight * 0.045,
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: Color(0xFFD3C2BD),
+                  fontSize: 17,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 39,
+            child: SizedBox(
+              width: screenWidth * 0.8,
+              height: screenHeight * 0.045,
+              child: Text(
+                value,
+                style: TextStyle(
+                  color: Color(0xFF624A43),
+                  fontSize: 17,
+                  fontFamily: 'Noto Sans KR',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 77,
+            child: Container(
+              width: screenWidth * 0.85,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                    color: Color(0xFFD3C2BD),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

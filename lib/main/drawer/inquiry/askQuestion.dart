@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:suntown/main/alert/filter/questFilteringAlert.dart';
 import 'package:suntown/main/drawer/inquiry/finishInquiry.dart';
-import 'package:suntown/main/manage/userInfoManage.dart';
 import 'package:suntown/utils/api/inquiry/questionPost.dart';
 import '../../../utils/screenSizeUtil.dart';
-
 
 class askQuestion extends StatefulWidget {
   const askQuestion({super.key});
@@ -14,8 +13,9 @@ class askQuestion extends StatefulWidget {
 }
 
 class _askQuestionState extends State<askQuestion> {
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  late String userId;
   bool dataload = false;
-  String? user_id ;
 
   late TextEditingController _textEditingController;
   String memoText = "";
@@ -29,18 +29,21 @@ class _askQuestionState extends State<askQuestion> {
   }
 
   // _userId를 초기화하는 메서드
-  Future<void> _initializeUserId() async {
-    user_id = await UserInfoManage().getUserId() ?? '';
-    setState(() {
-      dataload = true;
+  void _initializeUserId() {
+    secureStorage.read(key: 'userId').then((value) {
+      setState(() {
+        userId = value ?? ""; // 값이 null인 경우 빈 문자열로 초기화
+        dataload = true;
+      });
+    }).catchError((error) {
+      debugPrint('userId를 읽어오는 중 오류 발생: $error');
     });
-    print("userid----------$user_id");
   }
 
-  fetchInquiry({required user_id, required memoText}) async {
+  fetchInquiry({required userId, required memoText}) async {
     bool state = false;
     try {
-      final value = await QuestionPost(user_id: user_id, memoText: memoText);
+      final value = await QuestionPost(user_id: userId, memoText: memoText);
       if (value["statusCode"] == 200) {
         print(value['message']);
         state = true;
@@ -169,21 +172,21 @@ class _askQuestionState extends State<askQuestion> {
             ),
             ElevatedButton(
               onPressed: memoText.length > 3 ?() async {
-                if (user_id != null && user_id!.isNotEmpty) {
+                if (userId.isNotEmpty) {
                   bool postSuccess = await fetchInquiry(
-                      user_id: user_id, memoText: memoText);
-                  print('userid ---------------$user_id');
+                      userId: userId, memoText: memoText);
+                  print('userid ---------------$userId');
                   if (postSuccess) {
                     Navigator.push(context,
                         MaterialPageRoute(
                             builder: (context) => FinishInquiry()));
-                    print("성공 -----------");
+                    print("질문 등록 성공 -----------");
                   }
                   else {
-                    print('실패-----------');
+                    print('질문 등록 실패-----------');
                   }
                 }else{
-                  print('userId초기화 안됨');
+                  print('userId 초기화 안됨');
                 }
               }:null,
               style: ElevatedButton.styleFrom(

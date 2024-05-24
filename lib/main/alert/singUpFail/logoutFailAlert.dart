@@ -1,16 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:suntown/main/mainAccount.dart';
-import 'package:suntown/main/signingUp/signingScreen.dart';
-
-import '../../../utils/screenSizeUtil.dart';
-
 /*
-유저생성 실패했을 때  요청 실패했을 경우, 띄워야 하는 alert
+로그아웃 실패했을 경우, 띄워야 하는 alert
  */
 
-class UserCreateFailAlert {
+class LogoutFailAlert {
   static Future<void> showExpiredCodeDialog(
       BuildContext context, Widget retryWidget) async {
 
@@ -38,8 +32,8 @@ class UserCreateFailAlert {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
+                    '사용자 정보가 올바르지 않습니다.\n 잠시후 다시 시도해주세요!',
                     textAlign: TextAlign.center,
-                    '사용자 정보가 올바르지 않습니다.\n로그아웃 후, 다시 로그인 해주세요!',
                     style: TextStyle(
                       color: Color(0xFF7D303D8),
                       fontSize: 17,
@@ -57,7 +51,7 @@ class UserCreateFailAlert {
                     children: [
                       ElevatedButton(
                         child: Text(
-                          '홈으로',
+                          '확인',
                           style: TextStyle(
                             color: Color(0xFF2C533C),
                             fontSize: 17,
@@ -67,11 +61,6 @@ class UserCreateFailAlert {
                         ),
                         onPressed: () {
                           Navigator.of(context).pop(); // 다이얼로그 닫기
-                          // 메인 화면으로 이동
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => signingUP()),
-                          );
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(233, 60),
@@ -83,34 +72,6 @@ class UserCreateFailAlert {
                           backgroundColor: Color(0xFFDDE9E2),
                         ),
                       ),
-                      // ElevatedButton(
-                      //   child: Text(
-                      //     '다시시도',
-                      //     style: TextStyle(
-                      //       color: Color(0xFFDDE9E2),
-                      //       fontSize: 17,
-                      //       fontFamily: 'Noto Sans KR',
-                      //       fontWeight: FontWeight.w500,
-                      //     ),
-                      //   ),
-                      //   onPressed: () {
-                      //     Navigator.of(context).pop(); // 다이얼로그 닫기
-                      //     // 메인 화면으로 이동
-                      //     Navigator.pushReplacement(
-                      //       context,
-                      //       MaterialPageRoute(builder: (context) => retryWidget),
-                      //     );
-                      //   },
-                      //   style: ElevatedButton.styleFrom(
-                      //     fixedSize: Size(115, 60),
-                      //     padding:
-                      //     EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(15),
-                      //     ),
-                      //     backgroundColor: Color(0xFF2C533C),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

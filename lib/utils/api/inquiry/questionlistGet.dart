@@ -13,7 +13,7 @@ Future<Map<String, dynamic>> QuestionListGet({required user_id}) async {
     http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",
       "Content-Type": "application/json",
-      "userId" : "1"
+      "userId" : user_id,
     });
     try {
       Map<String, dynamic> resBody =

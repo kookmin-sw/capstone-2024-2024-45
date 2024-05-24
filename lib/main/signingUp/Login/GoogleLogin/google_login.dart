@@ -5,7 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'dart:convert';
 
-Future<UserCredential> signInWithGoogle() async {
+import 'package:suntown/utils/api/connect/loginAuthPost.dart';
+
+Future<bool> signInWithGoogle() async {
+
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
   // 구글 사용자 인지 확인
   if (googleUser == null) {
@@ -16,50 +19,49 @@ Future<UserCredential> signInWithGoogle() async {
   // Obtain the auth details from the request
   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-  // accessToken, idToken 가져와서 firebase 인증 진행
-  final oauthCredential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-  // Once signed in, return the UserCredential
-
-  // FirebaseAuth로 사용자를 Custom Token으로 인증
-  final userCredential = await FirebaseAuth.instance.signInWithCredential(
-      oauthCredential);
-  final user = userCredential.user;
-  if (user != null) {
-    String uid = user.uid;
-    String? email = user.email;
-    print("User UID: $uid");
-    if (email != null) {
-      print("User Email: $email");
+  // 서버로 accesstoken 보내기
+  try {
+    final value = await loginAuthPost(token: googleAuth.accessToken!);
+    if (value["statusCode"] == 200) {
+      print('login 서버에 무사히 접속');
+      print(value);
+      return true;
+    } else if (value["statusCode"] == 400) {
+      print(value);
+      debugPrint('loginAuthPost서버 에러입니다. 다시 시도해주세요');
     } else {
-      print("User email is not available.");
+      print(value);
+      debugPrint('loginAuthPost서버 에러입니다. 다시 시도해주세요');
+      print(value['message']);
+      throw Exception('서버 에러입니다. 다시 시도해주세요');
     }
-  }else {
-    print('null');
+  } catch (e) {
+    print('fetchKakaoToken 에러------------');
+    print(e);
   }
-  // 이미 구글 로그인 정보가 있는 사용자 인지 아닌지
-  // int userCheck = await isRegistered(user!.email!);
-  // if(userCheck != 0){
-  //   Get.to(HomeScreen());
-  // }else{
-  //   Get.to(SignupScreen());
+
+  return false;
+  // // accessToken, idToken 가져와서 firebase 인증 진행
+  // final oauthCredential = GoogleAuthProvider.credential(
+  //   accessToken: googleAuth.accessToken,
+  //   idToken: googleAuth.idToken,
+  // );
+
+  // final userCredential = await FirebaseAuth.instance.signInWithCredential(
+  //     oauthCredential);
+  // final user = userCredential.user;
+  // if (user != null) {
+  //   String uid = user.uid;
+  //   String? email = user.email;
+  //   print("User UID: $uid");
+  //   if (email != null) {
+  //     print("User Email: $email");
+  //   } else {
+  //     print("User email is not available.");
+  //   }
+  // }else {
+  //   print('null');
   // }
 
-  return userCredential;
-  // }catch (e){
-  //   print("Error signing in with custom token: $e");}
-}
 
-//
-// Future<int> isRegistered(String email) async{
-//   final response = await http.post(
-//     Uri.parse('$baseUrl/user/email?email=$email'),
-//   );
-//   if (response.statusCode == 201 && response.body.length>0) {
-//     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-//     return jsonResponse['id'];
-//   } else {
-//     return 0;
-//   }}
+}
