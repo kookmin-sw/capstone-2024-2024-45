@@ -58,7 +58,7 @@
 허지은(팀장)
 Role : Frontend, UI/UX
 Student ID : ****
-E-mail : @kookmin.ac.kr
+E-mail : jieunheo192@kookmin.ac.kr
 ```
 
 ```
