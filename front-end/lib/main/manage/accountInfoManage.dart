@@ -8,10 +8,10 @@
 } */
 
 import 'package:flutter/material.dart';
-import '../../../utils/api/info/accountInfoPost.dart';
+import '../../utils/api/info/accountInfoPost.dart';
 import 'userInfoManage.dart';
-import '../../../utils/api/connect/userAccoPost.dart';
-import '../../../utils/api/info/accountIdGet.dart';
+import '../../utils/api/connect/userAccoPost.dart';
+import '../../utils/api/info/accountIdGet.dart';
 
 class AccountInfoMange{
   static late String account_id;
