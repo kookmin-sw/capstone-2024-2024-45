@@ -1,6 +1,7 @@
 # 타임뱅크 v 2.0
  
-이 프로젝트는 '시간은행' 개념을 도입하여 2023학년도 캡스톤디자인1 팀45가 만든 기존의 '타임뱅크' 어플의 단점을 개선하고, 성북구 정릉동에 특화되도록 만든 어플이다.
+이 프로젝트는 '시간은행' 개념을 도입하여 2023학년도 캡스톤디자인1 팀45가 만든 기존의 '타임뱅크' 어플의  
+단점을 개선하고, 성북구 정릉동에 특화되도록 만든 어플이다.
 
 <br>
 
@@ -19,11 +20,11 @@
 <img alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/187dbca8-5fcc-40d5-9b59-0878ab17cae4">
       
 
-#### 🌟 시간 은행은 커뮤니티 내에서 서로 도움을 주고받을 수 있는 문화를 장려합니다!  
+#### 시간 은행은 커뮤니티 내에서 서로 도움을 주고받을 수 있는 문화를 장려합니다!  
 예를 들어, 커뮤니티에서 "조명 갈아주세요, 거래시간:30분" 을 의뢰한 사람은 도움을 준 사람에게 30분을 주게 됩니다.  
 이 시스템에서 개개인의 시간을 은행에 기록하고 관리합니다.
 
-#### 🌟 시간 은행은 화폐로 매개되지 않는 노동의 가치를 인정합니다!
+#### 시간 은행은 화폐로 매개되지 않는 노동의 가치를 인정합니다!
 고립된 현대사회, 이웃의 개념이 사라진 현재 고독사 인구 수는 연간 3,000명 이상이며, 증가 추세에 있습니다.  
 이웃간의 나눔을 촉진하여 공동체의 개념을 되살리는 것 만이 이 심각한 사회 문제의 해결방법입니다.
   
@@ -122,7 +123,7 @@
 
 |[허지은](https://github.com/Heo-jieun)<br>****3228|[오선정](https://github.com/sunJ0120)<br>****2697|[송수인](https://github.com/IngenieurSong)<br>****3086|[윤서영](https://github.com/ytjdud)<br>****0153|
 |:---:|:---:|:---:|:---:|
-|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
+|<img width="100" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="100" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="100" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|<img width="100" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
 |Frontend, UI/UX|Frontend, UI/UX|Backend|Backend|
 
 ## ⚒️  기술 스택
