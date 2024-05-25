@@ -103,17 +103,15 @@
 </table>
 <br>
 
-## ⚙️  시스템 구조도 (업데이트 예정)
+## ⚙️  시스템 구조도
 
-![타임뱅크_1](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/736bda7a-a2ba-433a-b97d-c58827515cfe)
+![시스템 아키텍쳐](https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/7f3c491c-61fe-495b-a7a7-8770de3cd76d)
 
 
 ## 📹  소개 & 시연 영상
 이미지 클릭 시 유튜브로 이동합니다.  
 
 [![매듭창고 프로토 영상](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/a4203f1f-82d5-44aa-802f-a3c3ab921ed2)](https://youtu.be/_o-ZQuQ-7Tg?si=8TNE8q36nFtD4x_z)
-
-
 
 <hr/><br>
 
