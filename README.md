@@ -1,7 +1,7 @@
-# 타임뱅크 v2.0 (2024 다학제간캡스톤디자인1 45팀)
+# 타임뱅크 v 2.0 (2024 다학제간캡스톤디자인1 45팀)
  
-이 프로젝트는 '시간은행' 개념을 도입하여 2023학년도 캡스톤디자인1 팀45가 만든 기존의 '타임뱅크' 어플의 단점을 개선하고  
-성북구 정릉동에 특화되도록 만든 어플이다.
+이 프로젝트는 '시간은행' 개념을 도입하여 2023학년도 캡스톤디자인1 팀45가 만든 기존의 '타임뱅크' 어플의  
+단점을 개선하고 성북구 정릉동에 특화되도록 만든 어플이다.
 
 <br>
 
@@ -11,24 +11,25 @@
 
 
 ## 📣  프로젝트 소개
->  정릉3동주민자치회의 **「정릉3동 마을시간은행 활성화 사업」**  
->  생활권 동네 단위로 이뤄지는 마을시간은행은 서로 돕고 챙겨주는 복지 품앗이 활동으로 정릉3동의 브랜드 사업이다.  
+>  정릉3동주민자치회의 **「정릉3동 마을시간은행 활성화 사업」** 은 생활권 동네 단위로 이뤄져있으며,  
+>  마을시간은행은 서로 돕고 챙겨주는 복지 품앗이 활동으로 정릉3동의 브랜드 사업이다.
+
 ### 📌 시간은행이란?
 시간은행은 도움을 주고받는 댓가로 서로의 시간을 교환함으로써 이웃 간의 상호 지원을 촉진하는 사회적 운동이다.  
-</br>
+<br>
 <img alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/187dbca8-5fcc-40d5-9b59-0878ab17cae4">
       
 
-#### 🌟 시간 은행은 커뮤니티 내에서 서로 도움을 주고받을 수 있는 문화를 장려합니다!  
-예를 들어, 커뮤니티 어플에서 "조명 갈아주세요, 거래시간:30분" 을 의뢰한 사람은 도움을 준 사람에게 30분을 주게됩니다.  
+#### 🌟 시간은행은 커뮤니티 내에서 서로 도움을 주고받을 수 있는 문화를 장려합니다!  
+예를 들어, 커뮤니티에서 "조명 갈아주세요, 거래시간:30분" 을 의뢰한 사람은 도움을 준 사람에게 30분을 주게 됩니다.  
 이 시스템에서 개개인의 시간을 은행에 기록하고 관리합니다.
 
-#### 🌟 시간 은행은 화폐로 매개되지 않는 노동의 가치를 인정합니다!
+#### 🌟 시간은행은 화폐로 매개되지 않는 노동의 가치를 인정합니다!
 고립된 현대사회, 이웃의 개념이 사라진 현재 고독사 인구 수는 연간 3,000명 이상이며, 증가 추세에 있습니다.  
 이웃간의 나눔을 촉진하여 공동체의 개념을 되살리는 것 만이 이 심각한 사회 문제의 해결방법입니다.
   
 
-</br>  
+<br>  
 
 ## 👍🏻  개선, 추가한 기능
 
@@ -63,7 +64,7 @@
         </tr>
         <tr>
             <td colspan="2">· 거래 상세 내역에서 오송금 취소 혹은 수정 요청 가능!<br>· 오송금 가능성을 두려워하는 시니어 유저들이 안심하고 사용</td>
-            <td>· 관리자가 개입/생성하는 거래는 관리자 정보가 함께 기록되며,<br>· 거래 사유를 작성하게 권한 남용을 방지<br>· 만약 관리자의 송금 실수가 있더라도 기록 추적가능!</td>
+            <td>· 관리자가 개입/생성하는 거래는 관리자 정보가 함께 기록<br>· 거래 사유 필수 작성으로 권한 남용을 방지<br>· 만약 관리자의 송금 실수가 있더라도 기록 추적가능!</td>
         </tr>
     </tbody>
 </table>
@@ -122,7 +123,7 @@
 
 |[허지은](https://github.com/Heo-jieun)<br>****3228|[오선정](https://github.com/sunJ0120)<br>****2697|[송수인](https://github.com/IngenieurSong)<br>****3086|[윤서영](https://github.com/ytjdud)<br>****0153|
 |:---:|:---:|:---:|:---:|
-|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|<img width="150" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
+|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
 |Frontend, UI/UX|Frontend, UI/UX|Backend|Backend|
 
 ## ⚒️  기술 스택
@@ -139,11 +140,11 @@
 
 | 역할                   | 종류                                                                                                       |
 |------------------------|------------------------------------------------------------------------------------------------------------|
-| **Framework**          | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) |
-| **Database**           | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
-| **Programming Language**| ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) |
-| **Deploy**             |![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white) |
-| **CI/CD**              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
+| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) |
+| Database            | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
+| Programming Language| ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) |
+| Deploy             |![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white) |
+| CI/CD              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
 
 
 # 사용법
@@ -172,7 +173,7 @@ $ flutter pub get
 $ flutter run
 ```
 ## 배포 방법
-앱빌드
+앱 빌드
 ```
 $ flutter build apk # Android
 ```
