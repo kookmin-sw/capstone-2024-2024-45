@@ -7,14 +7,15 @@ import 'package:http/http.dart' as http;
 Future<Map<String, dynamic>> sendPost({required senderAccountId, required amount, required receiverAccountId, required userId}) async {
 
   String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
-  String baseUrl = '${url}/api/exchange/remittance/qr';
+  String baseUrl = '${url}/timebank-service/api/remittance/qr';
 
   try {
     http.Response response =
     await http.post(Uri.parse(baseUrl), body: jsonEncode({
-      "senderAccountId": senderAccountId,
+      "accountNumber": senderAccountId,
       "amount": amount,
-      "receiverAccountId": receiverAccountId
+      "password": "1234", //차후 삭제될듯
+      "receiverAccountNumber": receiverAccountId
     }), headers: {
       "Content-Type": "application/json",
       "userId" : userId, //예시 userId

@@ -40,8 +40,7 @@ class _CheckExchangeState extends State<CheckExchange> {
   void fetchData(){ //지금까지 받은 데이터 넣기
     sendApi.amount = widget.amount!;
     sendApi.receiverAccountId = scannedUser.accountId;
-    sendApi.sendAccountId = testAccountData.accountId; //나중에 user 연동시 변경 예정
-    // sendApi.sendAccountId = testAccountData.accountId;
+    sendApi.sendAccountId = testAccountData.accountNumber; //나중에 user 연동시 변경 예정
   }
 
   @override

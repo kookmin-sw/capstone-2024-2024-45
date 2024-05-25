@@ -42,7 +42,7 @@ class _exchangeListState extends State<exchangeList> {
   @override
   void initState() {
     super.initState();
-    fetchData(testAccountData.accountId);
+    fetchData(testAccountData.accountNumber);
     dataUpdate = false;
   }
 
@@ -79,7 +79,7 @@ class _exchangeListState extends State<exchangeList> {
     // 여기에서 새로고침 로직을 구현합니다.
     await Future.delayed(Duration(seconds: 2)); // 예시로 2초를 기다립니다.
     setState(() {
-      fetchData(testAccountData.accountId); //새로운 데이터 불러오기
+      fetchData(testAccountData.accountNumber); //새로운 데이터 불러오기
     });
   }
 
@@ -128,7 +128,7 @@ class _exchangeListState extends State<exchangeList> {
                           type = newType;
                           filterType = newFilteringType;
                         });
-                        fetchData(testAccountData.accountId);
+                        fetchData(testAccountData.accountNumber);
                       },
                     ); // 콜백 함수 전달);
                   },

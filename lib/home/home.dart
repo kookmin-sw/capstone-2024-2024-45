@@ -48,18 +48,22 @@ class _HomeState extends State<Home> {
     print('refreshToken--------$refreshToken');
     if (refreshToken != null) {
       final state = await tokenRefreash(refreshToken:refreshToken);
-      if(state){ // accessToken 재발급 받은 경우
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => defaultAccount()),
-        );
-      }
-      else{ // accessToken 재발급 실패한 경우
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => signingUP()),
-        );
-      }
+      // if(state){ // accessToken 재발급 받은 경우
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => defaultAccount()),
+      //   );
+      // }
+      // else{ // accessToken 재발급 실패한 경우
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => signingUP()),
+      //   );
+      // }
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => signingUP()),
+      );
     } else { // 로그인 안되어 있는 경우
       Navigator.push(
         context,

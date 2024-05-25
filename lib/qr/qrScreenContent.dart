@@ -73,7 +73,7 @@ class _QrScreenContentState extends State<QrScreenContent> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "${testAccountData.username}의 타임코드",
+                        "${testAccountData.nickName}의 타임코드",
                         style: TextStyle(
                           fontSize: 25,
                           color: Color(0xFF624A43),

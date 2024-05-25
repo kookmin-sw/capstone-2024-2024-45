@@ -43,11 +43,6 @@ class _qrScannerState extends State<qrScanner> {
       if (value["statusCode"] == 200) { //서버 응답
         if(value["status"] == 200){ //검증 완료
           scannedUser.userInitializeData(value["data"]);
-          // print("-----------------------------------");
-          // print(value);
-          // print(scannedUser.accountId);
-
-          // 데이터를 사용하여 setState() 호출
           setState(() {
             dataUpdate = true;
           });
@@ -193,7 +188,7 @@ class _qrScannerState extends State<qrScanner> {
             // print(data);
             // print(hmac);
 
-            await fetchData(hmac,data, testAccountData.accountId);
+            await fetchData(hmac,data, testAccountData.accountNumber);
 
             // print("=-------------------------------");
             // print(testAccountData.username);

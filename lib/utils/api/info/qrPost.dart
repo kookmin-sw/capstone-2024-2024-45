@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 Future<Map<String, dynamic>> qrPost(String accountId, String userId) async {
 
   String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
-  String baseUrl = '${url}/api/exchange/qr/create';
+  String baseUrl = '${url}/timebank-service/api/qr/create';
 
   try {
     http.Response response =
