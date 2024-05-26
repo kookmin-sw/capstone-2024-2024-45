@@ -30,7 +30,7 @@ jobs:
           export BANK_DB_USERNAME=${{ secrets.BANK_DB_USERNAME }}
           export BANK_DB_PASSWORD=${{ secrets.BANK_DB_PASSWORD }}
           export EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
-          envsubst < src/main/resources/application.yml.template > src/main/resources/application.yml
+          envsubst < /EUM-Bank/src/main/resources/application.yml.template > /EUM-Bank/src/main/resources/application.yml
 
       - name: Build with Gradle
         run: |
