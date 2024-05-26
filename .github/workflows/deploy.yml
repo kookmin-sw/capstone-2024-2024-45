@@ -32,17 +32,19 @@ jobs:
           spring.datasource.password: ${{ secrets.BANK_DB_PASSWORD }}
           eureka.client.service-url.defaultZone: EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
 
+      # - name: Build with Gradle
+      #   run: |
+      #     cd ./EUM-Bank
+      #     chmod +x gradlew
+      #     echo "ls gradle/wrapper: $(ls gradle/wrapper)"
+      #     ./gradlew bootJar
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        
       - name: Build with Gradle
         run: |
           cd ./EUM-Bank
-          chmod +x gradlew
-          echo "ls gradle/wrapper: $(ls gradle/wrapper)"
-          ./gradlew bootJar
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
-          working-directory: ./EUM-Bank
+          ./gradlew build
 
       - name: Docker build & push to docker hub
         run: |
