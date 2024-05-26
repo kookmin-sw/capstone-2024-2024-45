@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/inquiries")
+@RequestMapping("/timebank-admin-service/api/admin/inquiries")
 public class AdminInquireController {
 
     private final InquireService inquireService;

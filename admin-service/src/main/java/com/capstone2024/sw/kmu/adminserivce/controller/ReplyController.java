@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/inquiries")
+@RequestMapping("/timebank-admin-service/api/admin/inquiries")
 public class ReplyController {
 
     private final ReplyService replyService;
