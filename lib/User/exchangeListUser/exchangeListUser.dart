@@ -14,13 +14,20 @@ class exchangeListUser {
 
   exchangeListUser({required this.transId, required this.amount, required this.senderNickname, required this.receiverNickname, required this.senderProfileImg, required this.receiverProfileImg, required this.createdAt});
 
+  // 기본 이미지 URL 설정
+  static const String defaultProfileImg = 'assets/images/nullProfile.jpg';
+
   exchangeListUser.fromJson(Map<String, dynamic> json) {
     transId = json['transId'];
     send = json['send'];
     senderNickname = json['senderNickname'] ?? '';
     receiverNickname = json['receiverNickname']?? '';
-    senderProfileImg = json['senderProfileImg']?? '';
-    receiverProfileImg = json['receiverProfileImg']?? '';
+    senderProfileImg = (json['senderProfileImg'] != null && json['senderProfileImg'].isNotEmpty)
+        ? json['senderProfileImg']
+        : defaultProfileImg;
+    receiverProfileImg = (json['receiverProfileImg'] != null && json['receiverProfileImg'].isNotEmpty)
+        ? json['receiverProfileImg']
+        : defaultProfileImg;
     amount = json['amount'];
     createdAt = json['createdAt'];
     createdAtToDaily = DateFormat('yyyy-MM-dd').format(DateTime.parse(json['createdAt']));

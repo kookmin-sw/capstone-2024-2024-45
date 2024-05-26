@@ -4,15 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-
 /*
 type : ALL, SEND, RECEIVE
  */
 Future<Map<String, dynamic>> listPost(String type, String accountId) async {
 
   String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
-  String baseUrl = '${url}/api/exchange/remittance/history'; //base
-
+  String baseUrl = '${url}/timebank-service/api/remittance/history'; //base
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl), body: jsonEncode({
