@@ -3,6 +3,7 @@ name: deploy
 on:
   push:
     branches: [ "55-back-타임페이와-연동" ]
+  workflow_dispatch:
 
 
 jobs:
