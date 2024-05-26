@@ -26,7 +26,7 @@ public class UserInquireController {
     @Operation(summary = "일반 문의 등록", description = "사용자가 문의하기 기능을 사용합니다.")
     @PostMapping("")
     public ResponseEntity<APIResponse> createInquire(
-            @RequestHeader Long userId,
+            @RequestHeader String userId,
             @RequestBody InquireRequestDto.Inquire dto
     ) {
         try {
@@ -40,7 +40,7 @@ public class UserInquireController {
     @Operation(summary = "거래 취소 문의 등록", description = "사용자가 거래 취소 문의하기 기능을 사용합니다.")
     @PostMapping("/remittance")
     public ResponseEntity<APIResponse> createRemittanceInquire(
-            @RequestHeader Long userId,
+            @RequestHeader String userId,
             @RequestBody InquireRequestDto.RemittanceInquire dto
     ) {
         try {
@@ -54,7 +54,7 @@ public class UserInquireController {
     @Operation(summary = "내 문의 리스트로 보기", description = "사용자가 자신의 문의했던 문의 리스트를 봅니다.")
     @GetMapping("")
     public ResponseEntity<APIResponse> getMyInquires(
-            @RequestHeader Long userId
+            @RequestHeader String userId
     ) {
         List<Inquire> inquires = inquireService.getMyInquires(userId);
         return ResponseEntity.ok(APIResponse.of(SuccessCode.SELECT_SUCCESS, inquires));

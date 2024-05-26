@@ -42,9 +42,9 @@ public class Inquire {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public static Inquire from(Long userId, int type, String inquire) {
+    public static Inquire from(String userId, int type, String inquire) {
         return Inquire.builder()
-                .inquirerId(userId)
+                .inquirerId(Long.parseLong(userId))
                 .inquireType(type)
                 .inquireText(inquire)
                 .isCompleted(false)

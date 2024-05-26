@@ -21,12 +21,12 @@ public class InquireService {
     private final InquireRepository inquireRepository;
     private final ReplyRepository replyRepository;
 
-    public void createInquire(Long userId, String inquire) {
+    public void createInquire(String userId, String inquire) {
 
         inquireRepository.save(Inquire.from(userId, 1, inquire));
     }
 
-    public void createRemittanceInquire(Long userId, InquireRequestDto.RemittanceInquire dto) {
+    public void createRemittanceInquire(String userId, InquireRequestDto.RemittanceInquire dto) {
 
         String inquire = formToText(dto.getTransId(), dto.getExpectedAmount(), dto.getInquire());
 
@@ -69,8 +69,8 @@ public class InquireService {
         inquireRepository.findByInquireIdAndUpdateInquire(inquireId, inquire);
     }
 
-    public List<Inquire> getMyInquires(Long userId) {
-        return inquireRepository.findByInquirerId(userId);
+    public List<Inquire> getMyInquires(String userId) {
+        return inquireRepository.findByInquirerId(Long.parseLong(userId));
     }
 
     @Transactional
