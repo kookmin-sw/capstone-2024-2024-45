@@ -1,0 +1,43 @@
+name: deploy
+
+on:
+  push:
+    branches: [ "dev/back/admin" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: "temurin"
+
+      - name: Build with Gradle
+        run: |
+          cd ./admin-service
+          ./gradlew bootJar
+
+      - name: Docker build & push to docker hub
+        run: |
+          cd ./admin-service
+          docker login -u ${{ secrets.DOCKER_USERNAME_YSY }} -p ${{ secrets.DOCKER_PASSWORD_YSY }}
+          docker build -t ${{ secrets.DOCKER_REPO_ADMIN }} .
+          docker push ${{ secrets.DOCKER_REPO_ADMIN }}
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_ADMIN_HOST }}
+          username: ${{ secrets.SSH_ADMIN_USERNAME }}
+          password: ${{ secrets.SSH_ADMIN_PWD }}
+          script: |
+            docker pull ${{ secrets.DOCKER_REPO_ADMIN }}
+            cd EUM-Bank-docker
+            echo "${{ secrets.ADMIN_ENV }}" > .env
+            docker-compose up --build -d
+            docker image prune -f
