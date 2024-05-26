@@ -20,13 +20,14 @@ jobs:
 
       - name: Make application.yml
         run: |
-          cd ./src/main/resources
+          cd ./EUM-Bank/src/main/resources
           touch ./application.yml
           echo "${{ secrets.BANK_YML }}" > ./application.yml
         shell: bash
 
       - name: Build with Gradle
         run: |
+          cd ./EUM-Bank
           chmod +x ./gradlew
           ./gradlew clean build -x test
 
