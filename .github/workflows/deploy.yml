@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.SSH_ADMIN_PWD }}
           script: |
             docker pull ${{ secrets.DOCKER_REPO_ADMIN }}
-            cd EUM-Bank-docker
+            cd dev-admin-service
             echo "${{ secrets.ADMIN_ENV }}" > .env
             docker-compose up --build -d
             docker image prune -f
