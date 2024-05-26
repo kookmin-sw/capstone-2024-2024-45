@@ -44,8 +44,8 @@ jobs:
           host: ${{ secrets.HOST_BANK }}
           username: ${{ secrets.HOSTNAME_BANK }}
           key: ${{ secrets.KEY_BANK }}
-        script: |
-          docker pull ${{ secrets.DOCKER_REPO_BANK }}
-          cd EUM-Bank-docker
-          docker-compose up --build
-          docker image prune -f
+          script: |
+            docker pull ${{ secrets.DOCKER_REPO_BANK }}
+            cd EUM-Bank-docker
+            docker-compose up --build
+            docker image prune -f
