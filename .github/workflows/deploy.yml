@@ -36,9 +36,13 @@ jobs:
         run: |
           cd ./EUM-Bank
           chmod +x gradlew
-          echo "Current directory pwd: $(pwd)"
-          echo "Current directory ls: $(ls)"
+          echo "ls gradle/wrapper: $(ls gradle/wrapper)"
           ./gradlew bootJar
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
+          working-directory: ./EUM-Bank
 
       - name: Docker build & push to docker hub
         run: |
