@@ -56,7 +56,7 @@ jobs:
         with:
           host: ${{ secrets.HOST_BANK }}
           username: ${{ secrets.HOSTNAME_BANK }}
-          key: ${{ secrets.KEY_BANK }}
+          password: ${{ secrets.SSH_BANK_PWD }}
           script: |
             docker pull ${{ secrets.DOCKER_REPO_BANK }}
             cd EUM-Bank-docker
