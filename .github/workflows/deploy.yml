@@ -35,6 +35,7 @@ jobs:
       - name: Build with Gradle
         run: |
           cd ./EUM-Bank
+          chmod +x gradlew
           ./gradlew bootJar
 
       - name: Docker build & push to docker hub
