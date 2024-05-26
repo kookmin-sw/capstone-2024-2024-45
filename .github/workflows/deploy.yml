@@ -19,12 +19,18 @@ jobs:
           java-version: '17'
           distribution: "temurin"
 
-      - name: Make application.yml
+      - name: Replace env variables in application.yml
         run: |
-          cd ./EUM-Bank/src/main/resources
-          touch ./application.yml
-          echo "${{ secrets.BANK_YML }}" > ./application.yml
-        shell: bash
+          export QR_KEY=${{ secrets.QR_KEY }}
+          export QR_ALGORITHM=${{ secrets.QR_ALGORITHM }}
+          export HAETSAL_URL=${{ secrets.HAETSAL_URL }}
+          export BANK_DB_IP=${{ secrets.BANK_DB_IP }}
+          export BANK_DB_PORT=${{ secrets.BANK_DB_PORT }}
+          export BANK_DB_NAME=${{ secrets.BANK_DB_NAME }}
+          export BANK_DB_USERNAME=${{ secrets.BANK_DB_USERNAME }}
+          export BANK_DB_PASSWORD=${{ secrets.BANK_DB_PASSWORD }}
+          export EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
+          envsubst < src/main/resources/application.yml.template > src/main/resources/application.yml
 
       - name: Build with Gradle
         run: |
