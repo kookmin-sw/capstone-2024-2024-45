@@ -18,7 +18,3 @@ spring:
 
   profiles:
     active: prod
-
-server:
-  servlet:
-    context-path: /timebank-admin-service
