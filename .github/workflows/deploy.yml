@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +46,7 @@ jobs:
 
       - name: Docker build & push to docker hub
         run: |
+          cd ./EUM-Bank
           docker login -u ${{ secrets.DOCKER_USERNAME_YSY }} -p ${{ secrets.DOCKER_PASSWORD_YSY }}
           docker build -t ${{ secrets.DOCKER_REPO_BANK }} .
           docker push ${{ secrets.DOCKER_REPO_BANK }}
