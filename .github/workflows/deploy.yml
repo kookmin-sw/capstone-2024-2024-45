@@ -22,7 +22,7 @@ jobs:
       - name: Set Yaml
         uses: microsoft/variable-substitution@v1
         with:
-          files: /EUM-Bank/src/main/resources/application.yml 
+          files: ./EUM-Bank/src/main/resources/application.yml 
         env:
           app.qr.key: ${{ secrets.QR_KEY }}
           app.qr.algorithm: ${{ secrets.QR_ALGORITHM }}
