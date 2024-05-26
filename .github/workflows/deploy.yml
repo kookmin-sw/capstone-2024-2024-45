@@ -36,6 +36,8 @@ jobs:
         run: |
           cd ./EUM-Bank
           chmod +x gradlew
+          echo "Current directory pwd: $(pwd)"
+          echo "Current directory ls: $(ls)"
           ./gradlew bootJar
 
       - name: Docker build & push to docker hub
