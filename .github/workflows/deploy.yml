@@ -19,18 +19,18 @@ jobs:
           java-version: '17'
           distribution: "temurin"
 
-      - name: Set Yaml
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ./EUM-Bank/src/main/resources/application.yml 
-        env:
-          app.qr.key: ${{ secrets.QR_KEY }}
-          app.qr.algorithm: ${{ secrets.QR_ALGORITHM }}
-          haetsal-url: ${{ secrets.HAETSAL_URL }}
-          spring.datasource.url: ${{ secrets.BANK_URL }}
-          spring.datasource.username: ${{ secrets.BANK_DB_USERNAME }}
-          spring.datasource.password: ${{ secrets.BANK_DB_PASSWORD }}
-          eureka.client.service-url.defaultZone: EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
+      # - name: Set Yaml
+      #   uses: microsoft/variable-substitution@v1
+      #   with:
+      #     files: ./EUM-Bank/src/main/resources/application.yml 
+      #   env:
+      #     app.qr.key: ${{ secrets.QR_KEY }}
+      #     app.qr.algorithm: ${{ secrets.QR_ALGORITHM }}
+      #     haetsal-url: ${{ secrets.HAETSAL_URL }}
+      #     spring.datasource.url: ${{ secrets.BANK_URL }}
+      #     spring.datasource.username: ${{ secrets.BANK_DB_USERNAME }}
+      #     spring.datasource.password: ${{ secrets.BANK_DB_PASSWORD }}
+      #     eureka.client.service-url.defaultZone: EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
 
       # - name: Build with Gradle
       #   run: |
@@ -61,5 +61,6 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_REPO_BANK }}
             cd EUM-Bank-docker
+            echo "${{ secrets.BANK_ENV }}" > .env
             docker-compose up --build
             docker image prune -f
