@@ -19,18 +19,18 @@ jobs:
           java-version: '17'
           distribution: "temurin"
 
-      - name: Replace env variables in application.yml
-        run: |
-          export QR_KEY=${{ secrets.QR_KEY }}
-          export QR_ALGORITHM=${{ secrets.QR_ALGORITHM }}
-          export HAETSAL_URL=${{ secrets.HAETSAL_URL }}
-          export BANK_DB_IP=${{ secrets.BANK_DB_IP }}
-          export BANK_DB_PORT=${{ secrets.BANK_DB_PORT }}
-          export BANK_DB_NAME=${{ secrets.BANK_DB_NAME }}
-          export BANK_DB_USERNAME=${{ secrets.BANK_DB_USERNAME }}
-          export BANK_DB_PASSWORD=${{ secrets.BANK_DB_PASSWORD }}
-          export EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
-          envsubst < /EUM-Bank/src/main/resources/application.yml.template > /EUM-Bank/src/main/resources/application.yml
+      - name: Set Yaml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: /EUM-Bank/src/main/resources/application.yml 
+        env:
+          app.qr.key: ${{ secrets.QR_KEY }}
+          app.qr.algorithm: ${{ secrets.QR_ALGORITHM }}
+          haetsal-url: ${{ secrets.HAETSAL_URL }}
+          spring.datasource.url: ${{ secrets.BANK_URL }}
+          spring.datasource.username: ${{ secrets.BANK_DB_USERNAME }}
+          spring.datasource.password: ${{ secrets.BANK_DB_PASSWORD }}
+          eureka.client.service-url.defaultZone: EUREKA_SERVICE_URL=${{ secrets.EUREKA_SERVICE_URL }}
 
       - name: Build with Gradle
         run: |
