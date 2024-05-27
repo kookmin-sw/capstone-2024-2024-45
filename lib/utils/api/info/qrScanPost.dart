@@ -7,9 +7,10 @@ import 'package:http/http.dart' as http;
 Future<Map<String, dynamic>> qrScanPost(
     {required String hmac,
     required String data,
-    required String senderAccountId}) async {
+    required String senderAccountId,
+    required String token}) async {
 
-  String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
+  String url = dotenv.env['AUTH_URL']!;
   String baseUrl = '${url}/timebank-service/api/qr/scan';
 
   try {
@@ -22,6 +23,7 @@ Future<Map<String, dynamic>> qrScanPost(
         headers: {
           "Content-Type": "application/json",
           "accept": "*/*",
+          "Authorization": "Bearer $token",
         });
 
     print("-----------qr 송금으로 보낸 데이터....------------");

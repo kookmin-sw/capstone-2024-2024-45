@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> testMainAccountDetailGet(String userId) async {
-  String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
+Future<Map<String, dynamic>> testMainAccountDetailGet(String token, String userId) async {
+  String url = dotenv.env['AUTH_URL']!;
   String baseUrl = '${url}/timebank-service/api/account';
 
   print("-----------------baseUrl------------------");
@@ -18,6 +18,7 @@ Future<Map<String, dynamic>> testMainAccountDetailGet(String userId) async {
     await http.get(Uri.parse(baseUrl), headers: {
       "accept": "*/*",
       'Content-Type': 'application/json',
+      "Authorization": "Bearer $token",
       "userId": userId
     });
 

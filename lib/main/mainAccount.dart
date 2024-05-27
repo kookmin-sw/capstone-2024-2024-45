@@ -77,25 +77,28 @@ class _MainAccountState extends State<MainAccount> {
   }
 
   Future<void> fetchAccountData(String userId) async {
-    try {
-      final Map<String, dynamic> response =
-          await testMainAccountDetailGet(userId);
+    final String? token = await secureStorage.read(key: 'accessToken');
+    if (token != null) {
+      try {
+        final Map<String, dynamic> response =
+        await testMainAccountDetailGet(token,userId);
 
-      if (response["statusCode"] == 200) {
-        //서버 응답
-        testAccountData.initializeData(response["data"]);
-        setState(() {
-          changeToTime(testAccountData.availableBudget);
-          dataLoad = true;
-        });
-      } else {
+        if (response["statusCode"] == 200) {
+          //서버 응답
+          testAccountData.initializeData(response["data"]);
+          setState(() {
+            changeToTime(testAccountData.availableBudget);
+            dataLoad = true;
+          });
+        } else {
+          ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
+          print(response);
+          debugPrint('서버 에러입니다. 다시 시도해주세요');
+        }
+      } catch (e) {
         ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
-        print(response);
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
+        debugPrint('API 요청 중 오류가 발생했습니다: $e');
       }
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context, MainAccount());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
 

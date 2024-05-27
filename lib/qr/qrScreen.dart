@@ -7,6 +7,7 @@ import 'qrScreenContent.dart';
 import 'qrScreenProvider.dart';
 
 class QrScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = ScreenSizeUtil.screenHeight(context);

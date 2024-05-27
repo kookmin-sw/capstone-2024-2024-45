@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import '../User/test/testAccountData.dart';
@@ -27,6 +28,8 @@ class _qrScannerState extends State<qrScanner> {
   late bool dataUpdate;
   late bool pushPopup;
 
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
   TestAccountData testAccountData = TestAccountData();
 
   @override
@@ -37,28 +40,35 @@ class _qrScannerState extends State<qrScanner> {
     pushPopup = false;
   }
 
-  Future<void> fetchData(String hmac, String data, String senderAccountId) async { //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
-    try {
-      final value = await qrScanPost(hmac: hmac, data: data, senderAccountId: senderAccountId); //여기서 2가 id이다.
-      if (value["statusCode"] == 200) { //서버 응답
-        if(value["status"] == 200){ //검증 완료
-          scannedUser.userInitializeData(value["data"]);
-          setState(() {
-            dataUpdate = true;
-          });
-        }else if(value["status"] == 400){ //유효기간 지난 코드
+  Future<void> fetchData(String hmac, String data, String senderAccountId) async {
+    //의문, 이미 앞단에서 한 번 가져와서 클래스에 저장하는데 또 요청을 해야하나?
+    final String? token = await secureStorage.read(key: 'accessToken');
+    if (token != null) {
+      try {
+        final value = await qrScanPost(hmac: hmac,
+            data: data,
+            senderAccountId: senderAccountId,
+        token: token); //여기서 2가 id이다.
+        if (value["statusCode"] == 200) { //서버 응답
+          if (value["status"] == 200) { //검증 완료
+            scannedUser.userInitializeData(value["data"]);
+            setState(() {
+              dataUpdate = true;
+            });
+          } else if (value["status"] == 400) { //유효기간 지난 코드
 
-          setState(() {
-            pushPopup = true;
-          });
+            setState(() {
+              pushPopup = true;
+            });
+          }
+        } else {
+          ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
+          debugPrint('서버 에러입니다. 다시 시도해주세요');
         }
-      } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
+      } catch (e) {
+        ApiRequestFailAlert.showExpiredCodeDialog(context, qrScanner());
+        debugPrint('API 요청 중 오류가 발생했습니다: $e');
       }
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context,qrScanner());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
 

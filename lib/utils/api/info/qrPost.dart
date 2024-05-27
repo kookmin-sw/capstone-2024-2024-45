@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> qrPost(String accountId, String userId) async {
+Future<Map<String, dynamic>> qrPost(String token, String accountId, String userId) async {
 
-  String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
+  String url = dotenv.env['AUTH_URL']!;
   String baseUrl = '${url}/timebank-service/api/qr/create';
 
   try {
@@ -15,6 +15,7 @@ Future<Map<String, dynamic>> qrPost(String accountId, String userId) async {
       "accountId": accountId
     }), headers: {
       "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
       "userId" : userId, //예시 userId
     });
 

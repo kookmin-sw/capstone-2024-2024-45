@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import 'package:suntown/User/test/testAccountData.dart';
@@ -26,6 +27,8 @@ class _LoadingExchangeState extends State<LoadingExchange> {
   ScannedUser scannedUser = ScannedUser();
   late HmacGenerator hmacGenerator; //hmac 암호화 추가
 
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
   @override
   void initState() {
     super.initState();
@@ -35,31 +38,38 @@ class _LoadingExchangeState extends State<LoadingExchange> {
   }
 
   Future<void> fetchData() async {
-    try {
-      //hmac 사용시 사용함.
-      hmacGenerator.generateHmacAsync(sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
-      // API 요청을 보냅니다.
-      final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount, userId: testAccountData.userId);
+    final String? token = await secureStorage.read(key: 'accessToken');
+    if (token != null) {
+      try {
 
-      print("---------------------------------------");
-      print(value);
+        String hmac = await hmacGenerator.generateHmacAsync(
+            sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
 
-      if (value['statusCode'] == 200) {
-        // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
-        if(value["status"] == 201){ //검증 완료
+        String data = hmacGenerator.makeEncodingData(sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
+        // API 요청을 보냅니다.
+        final value = await sendPost(hmac : hmac, remittanceInfo: data,
+            userId: testAccountData.userId, token: token);
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FinishExchange()),
-          );
+        print("---------------------------------------");
+        print(value);
+
+        if (value['statusCode'] == 200) {
+          // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
+          if (value["status"] == 201) { //검증 완료
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FinishExchange()),
+            );
+          }
+        } else {
+          ApiRequestFailAlert.showExpiredCodeDialog(context, LoadingExchange());
+          debugPrint('서버 에러입니다. 다시 시도해주세요');
         }
-      } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingExchange());
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
+      } catch (e) {
+        ApiRequestFailAlert.showExpiredCodeDialog(context, LoadingExchange());
+        debugPrint('API 요청 중 오류가 발생했습니다: $e');
       }
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingExchange());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
 
