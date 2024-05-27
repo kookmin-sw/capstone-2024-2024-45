@@ -36,18 +36,17 @@ class _LoadingExchangeState extends State<LoadingExchange> {
 
   Future<void> fetchData() async {
     try {
+      //hmac 사용시 사용함.
       hmacGenerator.generateHmacAsync(sendApi.sendAccountId, sendApi.receiverAccountId, sendApi.amount);
       // API 요청을 보냅니다.
       final value = await sendPost(senderAccountId: sendApi.sendAccountId, receiverAccountId: sendApi.receiverAccountId, amount: sendApi.amount, userId: testAccountData.userId);
-      print('-----------------------');
+
+      print("---------------------------------------");
       print(value);
+
       if (value['statusCode'] == 200) {
         // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
         if(value["status"] == 201){ //검증 완료
-
-          /*print("---------------------------------------");
-          print(value);
-          I/flutter (23869): {status: 201, code: 201, msg: INSERT SUCCESS, detailMsg: , data: {senderAccountId: 11111111-1111-1111-111111111111, receiverAccountId: 00000000-0000-0000-000000000000, amount: 2, senderBalanceAfter: 366, receiverBalanceAfter: 5634, createdAt: 2024-05-11T11:56:25.93111}, statusCode: 200}*/
 
           Navigator.push(
             context,

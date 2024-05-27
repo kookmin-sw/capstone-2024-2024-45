@@ -10,7 +10,7 @@ Future<Map<String, dynamic>> qrScanPost(
     required String senderAccountId}) async {
 
   String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
-  String baseUrl = '${url}/api/exchange/qr/scan';
+  String baseUrl = '${url}/timebank-service/api/qr/scan';
 
   try {
     http.Response response = await http.post(Uri.parse(baseUrl),

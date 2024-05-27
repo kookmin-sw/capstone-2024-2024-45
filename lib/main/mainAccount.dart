@@ -25,12 +25,17 @@ import '../utils/time/changeTimeToAmount.dart';
 import 'Exchange/inputTransfor.dart';
 import 'alert/apiFail/ApiRequestFailAlert.dart';
 import 'accountList/exchangeList.dart';
+import 'alert/blocked/BlockedAccountAlert.dart';
 import 'manage/userInfoManage.dart';
 
 /*
 흐름
 포그라운드로 돌아오면 didChangeAppLifecycleState를 통해
 _checkCameraPermission()을 다시 실행. 권한 허용여부를 볼 수 있어야 한다.
+ */
+
+/*
+차후 block 계좌 연동해야함
  */
 
 class MainAccount extends StatefulWidget {
@@ -52,10 +57,6 @@ class _MainAccountState extends State<MainAccount> {
   late int totalTime;
   late String timeStr;
 
-
-  // String testUserId = "7bc63565df6747e5986172da311d37ab"; //김국민
-  // String testUserId = "5577de5a376442ac95fc06dceaa699e1"; //윤서영
-
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
   ChangeTimeToAmount changeTimeToAmount = ChangeTimeToAmount();
 
@@ -71,43 +72,20 @@ class _MainAccountState extends State<MainAccount> {
   // _userId를 초기화하는 메서드
   Future<void> _initializeUserId() async {
     userId = await secureStorage.read(key: 'userId') ?? "";
-    fetchAccountListData(userId);
+    testAccountData.userId = userId;
+    fetchAccountData(userId);
   }
 
-  //accountList를 가져오는 method
-  Future<void> fetchAccountListData(String userId) async {
-    try {
-      final Map<String, dynamic> response = await testMainAccountGet(userId);
-      if (response['statusCode'] == 200) {
-        for (var i = 0; i < response['data'].length; i++) {
-          userAccountIds.add(response['data'][i]);
-          fetchAccountData(userAccountIds[0]);
-          print("--------------UserId-------------");
-          print(userId);
-          print("--------------accountId-------------");
-          print(userAccountIds[0]);
-        }
-        //일단 이렇게 받아오는 방식을 써야할듯... 그리고 이게 짜피 계좌 하나라 상관 없을 것 같음
-      } else {
-        // Handle error
-        print('Error: ${response['statusCode']}');
-      }
-    } catch (e) {
-      // Handle error
-      print('Error: $e');
-    }
-  }
-
-  Future<void> fetchAccountData(String accountId) async {
+  Future<void> fetchAccountData(String userId) async {
     try {
       final Map<String, dynamic> response =
-          await testMainAccountDetailGet(accountId);
+          await testMainAccountDetailGet(userId);
 
       if (response["statusCode"] == 200) {
         //서버 응답
-        testAccountData.initializeData(response["result"]);
+        testAccountData.initializeData(response["data"]);
         setState(() {
-          changeToTime(testAccountData.balance);
+          changeToTime(testAccountData.availableBudget);
           dataLoad = true;
         });
       } else {
@@ -142,7 +120,7 @@ class _MainAccountState extends State<MainAccount> {
     return RefreshIndicator(
       onRefresh: () async {
         // 새로고침 작업을 수행하는 비동기 함수를 호출합니다.
-        await fetchAccountListData(userId); // 데이터를 다시 가져오는 메서드 호출
+        await fetchAccountData(userId); // 데이터를 다시 가져오는 메서드 호출
       },
       child: WillPopScope(
         onWillPop: () async {
@@ -210,7 +188,7 @@ class _MainAccountState extends State<MainAccount> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              '${testAccountData.accountName}',
+                                              '${testAccountData.nickName}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Color(0xFF624A43),
@@ -265,11 +243,13 @@ class _MainAccountState extends State<MainAccount> {
                                 ),
                               ),
                               onPressed: () {
+                                testAccountData.isBlocked ?
+                                Blockedaccountalert.showExpiredCodeDialog(context) :
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => qrScanner()))
                                       .then((_) {
-                                    fetchAccountListData(userId);
+                                    fetchAccountData(userId);
                                   });
                                 });
                               },
@@ -298,11 +278,13 @@ class _MainAccountState extends State<MainAccount> {
                                 ),
                               ),
                               onPressed: () {
+                                testAccountData.isBlocked ?
+                                Blockedaccountalert.showExpiredCodeDialog(context) :
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => QrScreen())
                                   ).then((_) {
-                                    fetchAccountListData(userId);
+                                    fetchAccountData(userId);
                                   });
                                 });
                               },
@@ -335,7 +317,7 @@ class _MainAccountState extends State<MainAccount> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => exchangeList())).
                                   then((_) {
-                                    fetchAccountListData(userId);
+                                    fetchAccountData(userId);
                                   });
                                 });
                               },

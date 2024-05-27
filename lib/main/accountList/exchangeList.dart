@@ -42,7 +42,7 @@ class _exchangeListState extends State<exchangeList> {
   @override
   void initState() {
     super.initState();
-    fetchData(testAccountData.accountId);
+    fetchData(testAccountData.accountNumber);
     dataUpdate = false;
   }
 
@@ -79,8 +79,16 @@ class _exchangeListState extends State<exchangeList> {
     // 여기에서 새로고침 로직을 구현합니다.
     await Future.delayed(Duration(seconds: 2)); // 예시로 2초를 기다립니다.
     setState(() {
-      fetchData(testAccountData.accountId); //새로운 데이터 불러오기
+      fetchData(testAccountData.accountNumber); //새로운 데이터 불러오기
     });
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    if (imageUrl.startsWith('http')) {
+      return NetworkImage(imageUrl);
+    } else {
+      return AssetImage(imageUrl);
+    }
   }
 
   @override
@@ -106,8 +114,8 @@ class _exchangeListState extends State<exchangeList> {
         ],
       ),
       body: RefreshIndicator(
-      onRefresh: _refreshList,
-      child: Padding(
+        onRefresh: _refreshList,
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
@@ -128,7 +136,7 @@ class _exchangeListState extends State<exchangeList> {
                           type = newType;
                           filterType = newFilteringType;
                         });
-                        fetchData(testAccountData.accountId);
+                        fetchData(testAccountData.accountNumber);
                       },
                     ); // 콜백 함수 전달);
                   },
@@ -186,7 +194,6 @@ class _exchangeListState extends State<exchangeList> {
                                   style: TextStyle(
                                     fontSize: 17,
                                     color: Color(0xff737373),
-
                                   ),
                                 ),
                                 SizedBox(
@@ -214,13 +221,9 @@ class _exchangeListState extends State<exchangeList> {
                                     Expanded(
                                       flex: 2,
                                       child: CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                          transactions[index].send == true
-                                              ? transactions[index]
-                                                  .receiverProfileImg
-                                              : transactions[index]
-                                                  .senderProfileImg,
-                                        ),
+                                        backgroundImage: transactions[index].send == true
+                                            ? _getImageProvider(transactions[index].receiverProfileImg)
+                                            : _getImageProvider(transactions[index].senderProfileImg),
                                         radius: 30, // 원의 반지름 설정
                                       ),
                                     ),
@@ -231,8 +234,10 @@ class _exchangeListState extends State<exchangeList> {
                                       flex: 4,
                                       child: Text(
                                         transactions[index].send == true
-                                            ? transactions[index].receiverNickname
-                                            : transactions[index].senderNickname,
+                                            ? transactions[index]
+                                                .receiverNickname
+                                            : transactions[index]
+                                                .senderNickname,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(fontSize: 20),
                                       ),
@@ -241,9 +246,9 @@ class _exchangeListState extends State<exchangeList> {
                                     Expanded(
                                       flex: 4,
                                       child: Text(
-                                        transactions[index].send == true
-                                            ? '- ${timeStr}'
-                                            : '+ ${timeStr}',
+                                        transactions[index].send == false
+                                            ? '+${timeStr}'
+                                            : '${timeStr}',
                                         style: TextStyle(
                                             color:
                                                 transactions[index].send == true
@@ -261,8 +266,7 @@ class _exchangeListState extends State<exchangeList> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => listDetail(
-                                            transId: transactions[index].transId,
-                                            send: transactions[index].send)),
+                                            user : transactions[index])),
                                   );
                                 },
                               );

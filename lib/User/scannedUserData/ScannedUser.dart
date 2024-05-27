@@ -17,14 +17,14 @@ class ScannedUser {
   ScannedUser._internal() {
     accountId = '';
     name = '';
-    profile = 'https://reqres.in/img/faces/7-image.jpg'; //임시..
+    profile = ''; //임시..
     senderBalance = ''; //임시
   }
 
   // user에서 얻을 정보
   void userInitializeData(Map<String, dynamic> data) {
     name = _getStringValue(data, 'receiverNickname');
-    // profile = _getStringValue(data, 'profile');
+    profile = _getStringValue(data, 'receiverProfileImg');
     accountId =_getStringValue(data, 'receiverAccountId');
     senderBalance =_getStringValue(data, 'senderBalance');
   }
