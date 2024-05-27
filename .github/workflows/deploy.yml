@@ -2,9 +2,9 @@ name: deploy
 
 on:
   push:
-    branches: [ "55-back-타임페이와-연동" ]
-  workflow_dispatch:
-
+    branches: [ "dev/back/exchange" ]
+  pull_request:
+    branches: [ "dev/back/exchange" ]
 
 jobs:
   build:
