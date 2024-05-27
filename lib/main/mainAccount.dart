@@ -25,6 +25,7 @@ import '../utils/time/changeTimeToAmount.dart';
 import 'Exchange/inputTransfor.dart';
 import 'alert/apiFail/ApiRequestFailAlert.dart';
 import 'accountList/exchangeList.dart';
+import 'alert/blocked/BlockedAccountAlert.dart';
 import 'manage/userInfoManage.dart';
 
 /*
@@ -242,6 +243,8 @@ class _MainAccountState extends State<MainAccount> {
                                 ),
                               ),
                               onPressed: () {
+                                testAccountData.isBlocked ?
+                                Blockedaccountalert.showExpiredCodeDialog(context) :
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => qrScanner()))
@@ -275,6 +278,8 @@ class _MainAccountState extends State<MainAccount> {
                                 ),
                               ),
                               onPressed: () {
+                                testAccountData.isBlocked ?
+                                Blockedaccountalert.showExpiredCodeDialog(context) :
                                 setState(() {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => QrScreen())

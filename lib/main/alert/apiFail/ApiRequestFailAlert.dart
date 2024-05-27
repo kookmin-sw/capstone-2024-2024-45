@@ -42,7 +42,7 @@ class ApiRequestFailAlert {
                     textAlign: TextAlign.center,
                     '서버와의 연결이 끊어졌습니다.\n다시 시도 해주세요!',
                     style: TextStyle(
-                      color: Color(0xFF7D303D8),
+                      color: Color(0xFF7D303D),
                       fontSize: 18,
                       fontFamily: 'Noto Sans KR',
                       fontWeight: FontWeight.w400,

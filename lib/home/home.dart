@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
                   width: 250,
                   height: 250,
                   child: Image(
-                    image: AssetImage('assets/images/timebank.png'),
+                    image: AssetImage('assets/images/timebankLogo.png'),
                   ),
                 ),
               SizedBox(

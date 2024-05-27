@@ -52,15 +52,9 @@ class _TestWidget2State extends State<listDetail> {
         ? "${changeAmountToTime.changeAmountToTime(testDetailUser.amount)[1]} 분"
         : "${changeAmountToTime.changeAmountToTime(testDetailUser.amount)[0]} 시간 ${changeAmountToTime.changeAmountToTime(testDetailUser.amount)[1]} 분";
 
-    // String amountTimeStr = testDetailUser.send == true
-    //     ? changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[0] == 0 ?
-    // "${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[1]} 분" :
-    // "${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[0]} 시간 ${changeAmountToTime.changeAmountToTime(testDetailUser.senderBalanceAfter)[1]} 분"
-    //     : changeAmountToTime.changeAmountToTime(testDetailUser.receiverBalanceAfter)[0] == 0 ?
-    // "${changeAmountToTime.changeAmountToTime(testDetailUser.receiverBalanceAfter)[1]} 분" :
-    // "${changeAmountToTime.changeAmountToTime(testDetailUser.receiverBalanceAfter)[0]} 시간 ${changeAmountToTime.changeAmountToTime(testDetailUser.receiverBalanceAfter)[1]} 분";
-
-    String amountTimeStr = ""; //임시
+    String amountTimeStr = changeAmountToTime.changeAmountToTime(testDetailUser.postBalance)[0] == 0 ?
+    "${changeAmountToTime.changeAmountToTime(testDetailUser.postBalance)[1]} 분" :
+    "${changeAmountToTime.changeAmountToTime(testDetailUser.postBalance)[0]} 시간 ${changeAmountToTime.changeAmountToTime(testDetailUser.postBalance)[1]} 분";
 
     print("---------testDetailUser.receiverProfileImg-----------");
     print(testDetailUser.receiverProfileImg);

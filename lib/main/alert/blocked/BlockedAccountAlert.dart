@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/screenSizeUtil.dart';
+import '../../drawer/inquiry/inquiryStart.dart';
 
-class ApiRequestFailAlert {
+class Blockedaccountalert {
   static Future<void> showExpiredCodeDialog(
       BuildContext context) async {
     double screenHeight = ScreenSizeUtil.screenHeight(context);
@@ -35,6 +36,8 @@ class ApiRequestFailAlert {
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text.rich(
                     TextSpan(
@@ -58,7 +61,7 @@ class ApiRequestFailAlert {
                           ),
                         ),
                         TextSpan(
-                          text: '매듭이',
+                          text: '매듭이 ',
                           style: TextStyle(
                             color: Color(0xFF4B4A48),
                             fontSize: 18,
@@ -101,7 +104,7 @@ class ApiRequestFailAlert {
                           '홈으로',
                           style: TextStyle(
                             color: Color(0xFF2C533C),
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                           ),
@@ -116,21 +119,23 @@ class ApiRequestFailAlert {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          backgroundColor: Color(0xFF4B4A48),
+                          backgroundColor: Color(0xFFDDE9E2),
                         ),
                       ),
                       ElevatedButton(
                         child: Text(
                           '문의하기',
                           style: TextStyle(
-                            color: Color(0xFF2C533C),
-                            fontSize: 20,
+                            color: Color(0xFFDDE9E2),
+                            fontSize: 17,
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         onPressed: () {
                           //관리자 문의 페이지로 이동
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => inquiryStart()));
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(115, 60),
