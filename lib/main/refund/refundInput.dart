@@ -9,7 +9,7 @@ import '../../utils/time/changeTimeToAmount.dart';
 import '../alert/filter/chooseMinute.dart';
 import 'loadingRefund.dart';
 
-//30분 단위...삭제 예정
+//분 단위 고정 없음. 현재는 입력 시 여기 연결됌!!!
 
 typedef void TextFieldCallback(String value);
 
