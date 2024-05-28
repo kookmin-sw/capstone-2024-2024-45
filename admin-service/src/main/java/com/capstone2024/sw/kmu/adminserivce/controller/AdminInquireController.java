@@ -31,10 +31,12 @@ public class AdminInquireController {
     @Operation(summary = "(관리자) 문의 리스트로 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
     @GetMapping("")
     public ResponseEntity<APIResponse> getInquires(
-            @Schema(description = "문의 타입.  " +
+            @Schema(description = "문의 타입 필터.  " +
                     "\n아무것도 입력하지 않으면 전체 리스트를 반환합니다.  " +
                     "\n일반 문의: GENERAL, 송금 문의: REFUND")
             @RequestParam(value = "type", required = false) InquireType type,
+            @Schema(description = "완료/미완료 필터.  " +
+                    "\n아무것도 입력하지 않으면 전체 리스트를 반환합니다.")
             @RequestParam(value = "completion", required = false) Boolean completion
 
     ) {
