@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> refundPost({required transId, required expectedAmount, required inquire}) async {
+Future<Map<String, dynamic>> refundPost({required transId, required expectedAmount, required inquire, required token}) async {
 
-  String url = dotenv.env['ADMIN_LOCAL_URL']!;
-  String baseUrl = '${url}/api/admin/inquiries/remittance';
+  String url = dotenv.env['AUTH_URL']!;
+  String baseUrl = '${url}/timebank-admin-service/api/admin/inquiries/remittance';
 
   try {
     http.Response response =
@@ -19,6 +19,7 @@ Future<Map<String, dynamic>> refundPost({required transId, required expectedAmou
       "Content-Type": "application/json",
       "userId" : "1", //임시,
       "accept" : "*/*",
+      "Authorization": "Bearer $token",
     });
 
     try {

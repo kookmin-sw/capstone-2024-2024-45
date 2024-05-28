@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/User/scannedUserData/ScannedUser.dart';
 import 'package:suntown/main/Exchange/finishExchange.dart';
@@ -25,6 +26,7 @@ class LoadingRefund extends StatefulWidget {
 class _LoadingExchangeState extends State<LoadingRefund> {
   late int amount;
   late RefundUser refundUser;
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   @override
   void initState() {
@@ -34,25 +36,29 @@ class _LoadingExchangeState extends State<LoadingRefund> {
   }
 
   Future<void> fetchData(int transId, String expectedAmount, String inquire) async {
-    try {
-      // API 요청을 보냅니다.
-      final value = await refundPost(transId: transId, expectedAmount: expectedAmount, inquire: inquire);
+    final String? token = await secureStorage.read(key: 'accessToken');
+    if (token != null) {
+      try {
+        // API 요청을 보냅니다.
+        final value = await refundPost(
+            transId: transId, expectedAmount: expectedAmount, inquire: inquire, token: token);
 
-      if (value['statusCode'] == 200) {
-        // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
-        if(value["status"] == 201){ //검증 완료
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FinishRefund()),
-          );
+        if (value['statusCode'] == 200) {
+          // 성공적으로 응답을 받았을 때 FinishExchange 화면으로 이동합니다.
+          if (value["status"] == 201) { //검증 완료
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FinishRefund()),
+            );
+          }
+        } else {
+          ApiRequestFailAlert.showExpiredCodeDialog(context, LoadingRefund());
+          debugPrint('서버 에러입니다. 다시 시도해주세요');
         }
-      } else {
-        ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingRefund());
-        debugPrint('서버 에러입니다. 다시 시도해주세요');
+      } catch (e) {
+        ApiRequestFailAlert.showExpiredCodeDialog(context, LoadingRefund());
+        debugPrint('API 요청 중 오류가 발생했습니다: $e');
       }
-    } catch (e) {
-      ApiRequestFailAlert.showExpiredCodeDialog(context,LoadingRefund());
-      debugPrint('API 요청 중 오류가 발생했습니다: $e');
     }
   }
 
