@@ -9,6 +9,7 @@ import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
 import com.capstone2024.sw.kmu.adminserivce.service.InquireService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "User Inquires", description = "사용자의 문의 API")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/timebank-admin-service/api/user/inquiries")

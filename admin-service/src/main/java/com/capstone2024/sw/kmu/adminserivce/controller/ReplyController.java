@@ -9,12 +9,13 @@ import com.capstone2024.sw.kmu.adminserivce.domain.Reply;
 import com.capstone2024.sw.kmu.adminserivce.service.ReplyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
+@Tag(name = "Reply", description = "문의에 대한 관리자의 답변 API")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/timebank-admin-service/api/admin/inquiries")
