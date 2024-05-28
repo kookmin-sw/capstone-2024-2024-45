@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Flutter App</title>
+  <script src="main.dart.js" defer></script>
+  <script>
+    var serviceWorkerVersion = '{{flutter_service_worker_version}}';
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=' + serviceWorkerVersion);
+      });
+    }
+  </script>
+</head>
+<body>
+<script>
+  FlutterLoader.loadEntrypoint({
+    serviceWorker: {
+      serviceWorkerVersion: '{{flutter_service_worker_version}}',
+    },
+  });
+</script>
+</body>
+</html>
+

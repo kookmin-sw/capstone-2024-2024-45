@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:admin_web/user/adminUserList.dart';
@@ -17,6 +16,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
 
   late AdminUserList adminUserList;
   List<AdminUserList> users = [];
+
 // 데이터를 그룹화할 Map 생성
   late List<AdminUserList> groupedData;
 
@@ -52,45 +52,38 @@ class _TransactionListPageState extends State<TransactionListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Transaction List'),
-      ),
-      body: FutureBuilder<List<dynamic>>( //이거 리스트뷰로 변경
-        future: _transactions,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No transactions found'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final transaction = snapshot.data![index];
-                return ListTile(
-                  title: Text('${transaction['sender']} -> ${transaction['receiver']}'),
-                  subtitle: Text('Amount: ${transaction['amount']} TP'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
+        appBar: AppBar(
+          title: Text('Transaction List'),
+        ),
+        body: ListView.builder(
+            itemCount: users.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              var transactions = users[index]!;
+              return Column(children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () => _showEditDialog(transaction),
+                      SizedBox(
+                        height: 15,
                       ),
-                      // IconButton(
-                      //   icon: Icon(Icons.cancel),
-                      //   onPressed: () => _cancelTransaction(transaction['id']),
-                      // ),
+                      Text(
+                        transactions.first_name,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Color(0xff737373),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      )
                     ],
                   ),
-                );
-              },
-            );
-          }
-        },
-      ),
-    );
+                ),
+              ]);
+            }));
   }
 }
