@@ -74,7 +74,7 @@ public class InquireService {
     }
 
     public List<Inquire> getMyInquires(String userId) {
-        return inquireRepository.findByInquirerId(Long.parseLong(userId));
+        return inquireRepository.findByInquirerIdOrderByInquireId(Long.parseLong(userId));
     }
 
     @Transactional
