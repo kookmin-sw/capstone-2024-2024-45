@@ -2,7 +2,7 @@ name: deploy
 
 on:
   push:
-    branches: [ "dev/back/exchange" ]
+    branches: [ "75-back-retrieve-userinfos-from-haetsal-service" ]
   pull_request:
     branches: [ "dev/back/exchange" ]
 
