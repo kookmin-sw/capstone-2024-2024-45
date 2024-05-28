@@ -29,6 +29,11 @@ jobs:
           docker build -t ${{ secrets.DOCKER_REPO_ADMIN }} .
           docker push ${{ secrets.DOCKER_REPO_ADMIN }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
