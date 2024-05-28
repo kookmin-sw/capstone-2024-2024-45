@@ -34,6 +34,6 @@ public interface InquireRepository extends JpaRepository<Inquire, Long> {
     @Query("SELECT i FROM Inquire i " +
             "WHERE (:typeInt IS NULL OR i.inquireType = :typeInt)" +
             "AND (:isCompleted IS NULL OR i.isCompleted = :isCompleted)" +
-            "ORDER BY i.createdAt DESC")
+            "ORDER BY i.inquireId DESC")
     List<Inquire> findAllByFiltersOrderByCreatedAtDesc(@Param("typeInt") Integer typeInt, @Param("isCompleted") Boolean isCompleted);
 }
