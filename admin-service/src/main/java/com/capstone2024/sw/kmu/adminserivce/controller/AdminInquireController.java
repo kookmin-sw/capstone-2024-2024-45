@@ -5,6 +5,7 @@ import com.capstone2024.sw.kmu.adminserivce.base.dto.ErrorCode;
 import com.capstone2024.sw.kmu.adminserivce.base.dto.SuccessCode;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.response.InquireReplyResponseDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
+import com.capstone2024.sw.kmu.adminserivce.domain.InquireType;
 import com.capstone2024.sw.kmu.adminserivce.service.InquireService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,10 +29,12 @@ public class AdminInquireController {
     private final InquireService inquireService;
 
     @Operation(summary = "(관리자) 문의 리스트로 보기", description = "관리자가 문의 유형에 따라 문의 리스트를 봅니다.")
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<APIResponse> getInquires(
-            @Schema(description = "문의 타입", example = "all / general / refund 중 하나 입력")
-            @RequestParam(value = "type", defaultValue="all") String type,
+            @Schema(description = "문의 타입.  " +
+                    "\n아무것도 입력하지 않으면 전체 리스트를 반환합니다.  " +
+                    "\n일반 문의: GENERAL, 송금 문의: REFUND")
+            @RequestParam(value = "type", required = false) InquireType type,
             @RequestParam(value = "completion", required = false) Boolean completion
 
     ) {

@@ -3,6 +3,7 @@ package com.capstone2024.sw.kmu.adminserivce.service;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.request.InquireRequestDto;
 import com.capstone2024.sw.kmu.adminserivce.controller.dto.response.InquireReplyResponseDto;
 import com.capstone2024.sw.kmu.adminserivce.domain.Inquire;
+import com.capstone2024.sw.kmu.adminserivce.domain.InquireType;
 import com.capstone2024.sw.kmu.adminserivce.domain.Reply;
 import com.capstone2024.sw.kmu.adminserivce.repository.InquireRepository;
 import com.capstone2024.sw.kmu.adminserivce.repository.ReplyRepository;
@@ -37,15 +38,18 @@ public class InquireService {
         return "거래 id: " + transId + "\n\n원래 보내려고 했던 금액: " + expectedAmount + "\n\n추가 문의사항: " + inquire;
     }
 
-    public List<Inquire> getInquires(String type, Boolean isCompleted) {
-
+    public List<Inquire> getInquires(InquireType type, Boolean isCompleted) {
         Integer typeInt;
-        switch (type) {
-            case "all" -> typeInt = null;
-            case "general" -> typeInt = 1;
-            case "refund" -> typeInt = 2;
-            default -> throw new IllegalArgumentException("잘못된 타입을 입력했습니다.: " + type);
-        };
+
+        if(type == null){
+            typeInt = null;
+        }else{
+            switch (type) {
+                case GENERAL -> typeInt = 1;
+                case REFUND -> typeInt = 2;
+                default -> throw new IllegalArgumentException("잘못된 타입을 입력했습니다.: " + type);
+            };
+        }
 
         return inquireRepository.findAllByFiltersOrderByCreatedAtDesc(typeInt, isCompleted);
     }
