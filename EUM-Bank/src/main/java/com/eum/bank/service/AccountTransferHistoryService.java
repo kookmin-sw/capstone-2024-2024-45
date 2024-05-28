@@ -8,21 +8,32 @@ import com.eum.bank.domain.account.entity.Account;
 import com.eum.bank.domain.account.entity.AccountTransferHistory;
 import com.eum.bank.repository.AccountRepository;
 import com.eum.bank.repository.AccountTransferHistoryRepository;
+import com.eum.bank.timeBank.client.HaetsalClient;
+import com.eum.bank.timeBank.client.HaetsalRequestDto;
+import com.eum.bank.timeBank.client.HaetsalResponseDto;
+import com.eum.bank.timeBank.domain.TransactionType;
 import com.eum.bank.timeBank.domain.User;
 import com.eum.bank.timeBank.controller.dto.request.RemittanceRequestDto;
 import com.eum.bank.timeBank.controller.dto.response.TransactionHistoryResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eum.bank.timeBank.domain.TransactionType.RECEIVE;
+import static com.eum.bank.timeBank.domain.TransactionType.SEND;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountTransferHistoryService {
 
     private final AccountTransferHistoryRepository accountTransferHistoryRepository;
     private final AccountRepository accountRepository;
+
+    private final HaetsalClient haetsalClient;
 
     public void generateAccountHistory(Account senderAccount, Account receiverAccount, Long amount, String transferType) {
         // 각 계좌 거래내역 생성
@@ -41,43 +52,40 @@ public class AccountTransferHistoryService {
         accountTransferHistoryRepository.save(dto.toEntity());
     }
 
-    public APIResponse getUserHistory(RemittanceRequestDto.History dto) {
+    public APIResponse getUserHistory(TransactionType type, RemittanceRequestDto.History dto) {
 
         if(accountRepository.findByAccountNumber(dto.getAccountId()).isEmpty()){
             return APIResponse.of(ErrorCode.INVALID_PARAMETER, "존재하지 않는 계좌번호입니다.");
         }
 
-        List<AccountTransferHistory> transferHistories = new ArrayList<>();
+        List<AccountTransferHistory> transferHistories =
+                accountTransferHistoryRepository.findByOwnerAccount_AccountNumberOrderByIdDesc(dto.getAccountId());
 
-        switch (dto.getType()){
-            case ALL:
-                transferHistories = accountTransferHistoryRepository.findByOwnerAccount_AccountNumberOrderByIdDesc(dto.getAccountId());
-                break;
-//            case SEND:
-//                transferHistories = accountTransferHistoryRepository.findBySenderAccount_AccountNumber(dto.getAccountId());
-//                break;
-//            case RECEIVE:
-//                transferHistories = accountTransferHistoryRepository.findByReceiverAccount_AccountNumber(dto.getAccountId());
-        }
-
-        User user = new User(null, null);
-
-        List<TransactionHistoryResponseDto.RemittanceList> list = transferHistories.stream()
-                .map( i -> {
-                    if( i.getTransferAmount() < 0){ // 내가 보낸이면
-                        // TODO: User api 완성 시 연결
-//                        UserClientResponseDto.UserInfo receiverInfo = haetsalClient.getProfile(i.getReceiverAccountId());
-//                        user.setUserNickname(receiverInfo.getNickname());
-//                        user.setUserProfileImg(receiverInfo.getProfile_img());
-                        return TransactionHistoryResponseDto.RemittanceList.receiverInfoFrom(i, user);
-                    }else{
-//                        UserClientResponseDto.UserInfo senderInfo = haetsalClient.getProfile(i.getSenderAccountId()));
-//                        user.setUserNickname(senderInfo.getNickname());
-//                        user.setUserProfileImg(senderInfo.getProfile_img());
-                        return TransactionHistoryResponseDto.RemittanceList.senderInfoFrom(i, user);
-                    }
-                })
+        List<String> opponentAccountNumbers = transferHistories.stream()
+                .map(history -> history.getOppenentAccount().getAccountNumber())
                 .toList();
+
+        List<HaetsalResponseDto.UserInfo> userInfos =
+                haetsalClient.getUserInfos(new HaetsalRequestDto.AccountNumberList(opponentAccountNumbers));
+
+        log.error("Size mismatch: transferHistories size is {}, but userInfos size is {}" +
+                        "\nError caused by userAccountId: {}",
+                transferHistories.size(), userInfos.size(), dto.getAccountId());
+
+        List<TransactionHistoryResponseDto.RemittanceList> list = new ArrayList<>();
+        for (int i = 0; i < transferHistories.size(); i++) {
+            AccountTransferHistory history = transferHistories.get(i);
+            HaetsalResponseDto.UserInfo userInfo = userInfos.get(i);
+            User user = new User(userInfo.getNickName(), userInfo.getProfileImage());
+
+            if (history.getTransferAmount() < 0) { // 내가 보낸 경우
+                if(type == RECEIVE)   continue;
+                list.add(TransactionHistoryResponseDto.RemittanceList.receiverInfoFrom(history, user));
+            } else { // 내가 받은 경우
+                if(type == SEND)   continue;
+                list.add(TransactionHistoryResponseDto.RemittanceList.senderInfoFrom(history, user));
+            }
+        }
 
         return APIResponse.of(SuccessCode.SELECT_SUCCESS, list);
     }
