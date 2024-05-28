@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:suntown/utils/api/inquiry/questionDetailGet.dart';
 import 'package:suntown/utils/screenSizeUtil.dart';
@@ -15,7 +16,7 @@ class QuestionDetail extends StatefulWidget {
 
 class _QuestionDetailState extends State<QuestionDetail> {
   DateTime createdAt = DateTime.now(); // 변경: createdAt 변수를 DateTime 타입으로 변경
-
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   late String inquireText;
   String? reply;
   bool dataLoad = false;
@@ -27,7 +28,9 @@ class _QuestionDetailState extends State<QuestionDetail> {
 
   // 데이터 가져오기
   Future<void> fetchData() async {
-    final response = await QuestionDetailGet(inquireId: widget.inquireId);
+    final String? accessToken = await secureStorage.read(key: 'accessToken');
+    String inquireId = widget.inquireId;
+    final response = await QuestionDetailGet(inquireId: inquireId, accessToken: accessToken);
     if (response['status'] == 200) {
       setState(() {
         createdAt = DateTime.parse(response['data']['inquire']['createdAt']); // 변경: DateTime.parse를 사용하여 문자열을 DateTime으로 변환

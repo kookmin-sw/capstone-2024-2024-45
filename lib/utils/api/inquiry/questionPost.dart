@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> QuestionPost({required user_id, required memoText }) async {
-
-  String baseUrl = 'http://223.130.154.131/api/admin/inquiries';
+Future<Map<String, dynamic>> QuestionPost({required user_id, required memoText, required accessToken}) async {
+  String url = dotenv.env['AUTH_URL']!;
+  String baseUrl = '${url}/timebank-admin-service/api/admin/inquiries';
 
   try {
     http.Response response =
@@ -13,7 +14,8 @@ Future<Map<String, dynamic>> QuestionPost({required user_id, required memoText }
       "inquire": memoText,
     }), headers: {
       "Content-Type": "application/json",
-      "userId" : user_id,
+      "userId" : user_id.toString(),
+      "Authorization": "Bearer $accessToken"
     });
 
     try {

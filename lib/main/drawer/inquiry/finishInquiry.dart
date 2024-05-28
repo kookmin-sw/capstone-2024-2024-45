@@ -118,7 +118,7 @@ class _FinishInquiryState extends State<FinishInquiry> {
                   ),
                 ),
                 Spacer(),
-                SizedBox(height: screenHeight * 0.025),
+                SizedBox(height: screenHeight * 0.020),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(

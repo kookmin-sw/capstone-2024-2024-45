@@ -25,10 +25,11 @@ class _QuestionListState extends State<QuestionList> {
 
   // 데이터 가져오기
   Future<void> fetchData() async {
+    final String? accessToken = await secureStorage.read(key: 'accessToken');
     try {
       userId = await secureStorage.read(key: 'userId') ?? "";
       if (userId.isNotEmpty) {
-        final response = await QuestionListGet(user_id: userId);
+        final response = await QuestionListGet(user_id: userId, accessToken:accessToken);
         if (response['statusCode'] == 200) {
           List<Map<String, dynamic>> tempList = [];
           for (var item in response['data']) {

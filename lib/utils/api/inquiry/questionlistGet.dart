@@ -3,17 +3,21 @@ user_id로 account id 가져오는 api
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
-Future<Map<String, dynamic>> QuestionListGet({required user_id}) async {
-  String baseUrl = 'http://223.130.154.131:80/api/admin/inquiries'; //base
+Future<Map<String, dynamic>> QuestionListGet({required user_id,required accessToken}) async {
+  String url = dotenv.env['AUTH_URL']!;
+  String baseUrl = '${url}/timebank-admin-service/api/admin/inquiries'; //base
+
   try {
     http.Response response = await http.get(Uri.parse(baseUrl), headers: {
       "accept": "application/json",
       "Content-Type": "application/json",
-      "userId" : user_id,
+    "Authorization": "Bearer $accessToken",
+      "userId" : user_id.toString(),
     });
     try {
       Map<String, dynamic> resBody =

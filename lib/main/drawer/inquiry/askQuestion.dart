@@ -42,8 +42,9 @@ class _askQuestionState extends State<askQuestion> {
 
   fetchInquiry({required userId, required memoText}) async {
     bool state = false;
+    final String? accessToken = await secureStorage.read(key: 'accessToken');
     try {
-      final value = await QuestionPost(user_id: userId, memoText: memoText);
+      final value = await QuestionPost(user_id: userId, memoText: memoText, accessToken: accessToken);
       if (value["statusCode"] == 200) {
         print(value['message']);
         state = true;
