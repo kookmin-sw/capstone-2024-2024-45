@@ -1,5 +1,7 @@
-# 타임뱅크 v 2.0 (2024 다학제간캡스톤디자인1 45팀)
- 
+# 타임뱅크 v.2 (2024 다학제간캡스톤디자인1 45팀)
+> **Latest Release**: 2.1.0  
+> Released: 2024.05.27  
+
 이 프로젝트는 '시간은행' 개념을 도입하여 2023학년도 캡스톤디자인1 팀45가 만든 기존의 '타임뱅크' 어플의  
 단점을 개선하고 성북구 정릉동에 특화되도록 만든 어플이다.
 
@@ -31,9 +33,44 @@
 
 <br>  
 
-## 👍🏻  개선, 추가한 기능
+## ✏️  버전 기록
 
-### **1. 디지털 약자 사용층 고려**
+## **v 2.1.0**
+Released: 2024.05.27
+
+### 🎉 Changes
+- **'타임페이' 어플과 연동** : 거래글을 작성하는 커뮤니티 어플인 '타임페이'와 '시간 은행' 어플 간의 서비스와 시스템이 연동됩니다.
+
+<table>
+    <tbody>
+        <tr>
+            <td align='center'><b>어플 '타임 페이'</b></td>
+            <td align='center'><b>어플 '시간 은행'</b></td>
+        </tr>
+        <tr>
+            <td align='center'><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/1f8435e7-1c1b-4989-b521-dd3a9fa7c472" height="300"></td>
+            <td align='center'><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/61fa06e8-b281-4894-b6f6-98b581fdf326" height="300"><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/afcfb53c-c66b-41b7-bc91-26474c1c9757" width=150></td> 
+        </tr>
+    </tbody>
+</table>
+
+## **v 2.0.0** 
+Released: 2024.05.13
+
+### 🎉 Changes
+- **새로운 기술 스택** : 기존의 코틀린(스프링부트)과 리액트를 기반으로 한 개발에서 자바(스프링부트)와 Flutter로 완전히 새롭게 개발되었습니다.
+- **새로운 아키텍쳐** : 기존의 모놀리식 구조에서 마이크로서비스 아키텍처(MSA)로 전환하였습니다.
+- **새로운 UI** : 사용자 인터페이스가 새롭게 단장되었습니다. 이번 디자인은 특히 정릉 3동 지역의 40대 후반부터 70대 초반까지의 사용자들의 필요와 선호를 고려하여 개발되었습니다.
+- **1인 다계좌 보유 가능** : 기존 1인 1계좌만 개설이 가능했으나, 개인 계좌는 최대 1개까지, 기업/단체 계좌는 관리자의 인증이 되는 만큼 생성하고 보유할 수 있게 되었습니다.
+- **관리자 활동 감사 로깅** : 관리자가 관리자 권한으로 송금을 진행할 때, 관리자의 정보를 함께 기록하여 권한 남용을 방지할 수 있습니다.
+
+### 🚀 기능
+- **QR 송금** : 정릉 3동의 연령층을 고려하여, 외우거나 입력하기 번거로운 계좌번호 대신 QR 코드를 이용한 송금 기능을 도입했습니다.
+- **오송금 거래취소 간편화** : 정릉 3동의 연령층을 고려하여, 오송금 시, 문의 절차를 간편화했습니다.  
+
+<br>
+
+**1. 디지털 약자 사용층 고려**
 <table>
     <tbody>
         <tr>
@@ -87,21 +124,6 @@
 </table>
 <br>
 
-### **4. 사용성 확장 - '타임페이' 어플과의 연동**
-<table>
-    <tbody>
-        <tr>
-            <td align='center'><b>어플 '타임 페이'</b></td>
-            <td align='center'><b>어플 '시간 은행'</b></td>
-            <td rowspan="2" width="220">· 거래글을 작성하는 커뮤니티 어플인 '타임페이'와 '시간 은행' 어플 간의 유저 정보와 송금 서비스가 연동!<br><br>· 게시글로부터 주고받은 거래내역을 은행어플에서 확인<br><br>· 개인적인 추가 송금도 가능</td>
-        </tr>
-        <tr>
-            <td align='center'><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/1f8435e7-1c1b-4989-b521-dd3a9fa7c472" height="300"></td>
-            <td align='center'><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/61fa06e8-b281-4894-b6f6-98b581fdf326" height="300"><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/102743371/afcfb53c-c66b-41b7-bc91-26474c1c9757" width=150></td> 
-        </tr>
-    </tbody>
-</table>
-<br>
 
 ## ⚙️  시스템 구조도
 
@@ -113,18 +135,31 @@
 
 [![매듭창고 프로토 영상](https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/a4203f1f-82d5-44aa-802f-a3c3ab921ed2)](https://youtu.be/_o-ZQuQ-7Tg?si=8TNE8q36nFtD4x_z)
 
-
-
-<hr/></br>
+<hr/><br>
 
 ## 👩🏻‍💻  팀 소개
 > 개발기간 : 2024.03.12~ present.
 
-
-|[허지은](https://github.com/Heo-jieun)<br>****3228|[오선정](https://github.com/sunJ0120)<br>****2697|[송수인](https://github.com/IngenieurSong)<br>****3086|[윤서영](https://github.com/ytjdud)<br>****0153|
-|:---:|:---:|:---:|:---:|
-|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078"><br>jieunheo192@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17"><br>sspure123@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025"><br>ingenieur_song@kookmin.ac.kr|<img width="120" alt="image" src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd"><br>ytjdud01@kookmin.ac.kr|
-|Frontend, UI/UX|Frontend, UI/UX|Backend|Backend|
+<table>
+    <tr>
+        <th><a href="https://github.com/Heo-jieun">허지은</a><br>****3228</th>
+        <th><a href="https://github.com/sunJ0120">오선정</a><br>****2697</th>
+        <th><a href="https://github.com/IngenieurSong">송수인</a><br>****3086</th>
+        <th><a href="https://github.com/ytjdud">윤서영</a><br>****0153</th>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/66fe635e-2b51-4808-940e-43b92556c078" alt="허지은" width="120"></td>
+        <td><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d9f07e6b-d2db-471b-afd5-7c9a56e16b17" alt="오선정" width="120"></td>
+        <td><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/9810ea8d-c0ee-450d-b783-6451093e7025" alt="송수인" width="120"></td>
+        <td><img src="https://github.com/kookmin-sw/capstone-2024-45/assets/134828984/d21dd72a-fa63-4cab-bc35-b06b32f2c7dd" alt="윤서영" width="120"></td>
+    </tr>
+    <tr>
+        <td align="center">Frontend, UI/UX</td>
+        <td align="center">Frontend, UI/UX</td>
+        <td align="center">Backend</td>
+        <td align="center">PM, Backend, Infra</td>
+    </tr>
+</table>
 
 ## ⚒️  기술 스택
 ### Front End
@@ -138,13 +173,13 @@
 
 ### Back End
 
-| 역할                   | 종류                                                                                                       |
-|------------------------|------------------------------------------------------------------------------------------------------------|
-| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) |
-| Database            | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
-| Programming Language| ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) |
-| Deploy             |![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white) |
-| CI/CD              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
+| 역할                   | 종류                                                                                                                                                                                                                                   |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)                       |
+| Database            | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)                                                                                                                                   |
+| Programming Language| ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)                                |
+| Deploy             | ![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white)                                                                                                                     |
+| CI/CD              | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/-GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white) |
 
 
 # 사용법
@@ -181,6 +216,7 @@ $ flutter build apk # Android
 
 
 # 📚  자료
+- 📒 [TimeBank v2.0 포스터](https://drive.google.com/file/d/1O5rynh7p7e_r7tfz43ZDFO_aZL76Jxs3/view?usp=sharing)
 - 📒 [TimeBank v2.0 최종발표 PPT](https://drive.google.com/file/d/1foxIw_RV7WrvAODMt029uvwp2Ok4uQWr/view?usp=sharing)
 - 📒 [TimeBank v2.0 화면 명세 FIGMA](https://www.figma.com/design/NFf8cyvJen9I37cYv2ZQzn/%ED%96%87%EC%82%B4-%EC%B0%BD%EA%B3%A0_veta?node-id=836%3A7498&t=G4qg1GNqj9hlkFON-1)
 
