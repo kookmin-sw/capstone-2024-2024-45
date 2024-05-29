@@ -84,7 +84,7 @@ class listFilteringAlert {
                           ),
                         ),
                         onPressed: () {
-                          updateTypeCallback("ALL", "전체");
+                          updateTypeCallback("", "전체");
                           Navigator.of(context).pop(); // 다이얼로그 닫기
                         },
                         style: ElevatedButton.styleFrom(

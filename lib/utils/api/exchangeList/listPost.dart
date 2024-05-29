@@ -7,19 +7,27 @@ import 'package:http/http.dart' as http;
 /*
 type : ALL, SEND, RECEIVE
  */
-Future<Map<String, dynamic>> listPost(String type, String accountId) async {
+Future<Map<String, dynamic>> listPost(String type, String accountId, String token) async {
 
-  String url = dotenv.env['EXCHANGE_LOCAL_URL']!;
-  String baseUrl = '${url}/timebank-service/api/remittance/history'; //base
+  String url = dotenv.env['AUTH_URL']!;
+  String baseUrl = '${url}/timebank-service/api/remittance/history';
 
   try {
-    http.Response response = await http.post(Uri.parse(baseUrl), body: jsonEncode({
-      "type": type,
-      "accountId": accountId
-    }), headers: {
-      "Content-Type": "application/json",
-      "accept": "*/*",
+    Uri uri = Uri.parse(baseUrl).replace(queryParameters: {
+      'type': type,
     });
+
+    http.Response response = await http.post(
+      uri,
+      body: jsonEncode({
+        "accountId": accountId,
+      }),
+      headers: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+        "accept": "*/*",
+      },
+    );
 
     try {
       final Map<String, dynamic> responseJson = json.decode(utf8.decode(response.bodyBytes));

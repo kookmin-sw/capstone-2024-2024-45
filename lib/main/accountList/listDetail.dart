@@ -203,7 +203,7 @@ class _TestWidget2State extends State<listDetail> {
                         onPressed: () {
                           setState(() {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ChooseRefundAndCancel()));
+                                builder: (context) => ChooseRefundAndCancel( user: testDetailUser,)));
                           });
                         },
                         style: ElevatedButton.styleFrom(

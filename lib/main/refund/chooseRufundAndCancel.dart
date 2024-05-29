@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:suntown/main/refund/minutesRefundInput.dart';
 import 'package:suntown/main/refund/refundInput.dart';
 
+import '../../User/exchangeListUser/exchangeListUser.dart';
 import '../../User/exchangeListUser/listDetailUser.dart';
 import '../../User/refundUserData/RefundUser.dart';
 import '../../utils/screenSizeUtil.dart';
@@ -12,14 +13,16 @@ import 'finishRefund.dart';
 import 'loadingRefund.dart';
 
 class ChooseRefundAndCancel extends StatefulWidget {
-  const ChooseRefundAndCancel({super.key});
+  final exchangeListUser user;
+  const ChooseRefundAndCancel({Key? key, required this.user})
+      : super(key: key);
 
   @override
   State<ChooseRefundAndCancel> createState() => _ChooseRefundAndCancelState();
 }
 
 class _ChooseRefundAndCancelState extends State<ChooseRefundAndCancel> {
-  late listDetailUser detailUser;
+  late exchangeListUser detailUser;
   late RefundUser refundUser;
 
   ChangeAmountToTime changeAmountToTime = ChangeAmountToTime();
@@ -27,7 +30,7 @@ class _ChooseRefundAndCancelState extends State<ChooseRefundAndCancel> {
   @override
   void initState() {
     super.initState();
-    detailUser = listDetailUser();
+    detailUser = widget.user;
     refundUser = RefundUser();
   }
 

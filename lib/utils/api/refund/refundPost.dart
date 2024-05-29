@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 Future<Map<String, dynamic>> refundPost({required transId, required expectedAmount, required inquire, required token}) async {
 
   String url = dotenv.env['AUTH_URL']!;
-  String baseUrl = '${url}/timebank-admin-service/api/admin/inquiries/remittance';
+  String baseUrl = '${url}/timebank-admin-service/api/user/inquiries/remittance';
 
   try {
     http.Response response =
@@ -21,6 +21,12 @@ Future<Map<String, dynamic>> refundPost({required transId, required expectedAmou
       "accept" : "*/*",
       "Authorization": "Bearer $token",
     });
+
+    print("-----------request 결과 출력 시작------------");
+    print(transId);
+    print(expectedAmount);
+    print(inquire);
+    print("-----------request 결과 출력 완료------------");
 
     try {
       Map<String, dynamic> resBody =

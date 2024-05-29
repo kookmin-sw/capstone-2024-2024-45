@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:suntown/main/alert/filter/listFilteringAlert.dart';
 import 'package:suntown/main/accountList/listDetail.dart';
@@ -25,9 +26,10 @@ class exchangeList extends StatefulWidget {
 }
 
 class _exchangeListState extends State<exchangeList> {
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   late bool dataUpdate;
   late exchangeListUser testUser;
-  String type = "ALL";
+  String type = "";
   String filterType = "전체";
   Map<String, List<exchangeListUser>> users = {};
 
@@ -47,31 +49,34 @@ class _exchangeListState extends State<exchangeList> {
   }
 
   Future<void> fetchData(String accountId) async {
-    try {
-      final Map<String, dynamic> response = await listPost(type, accountId);
-      if (response['statusCode'] == 200) {
-        groupedData = {}; //한 번 초기화
-        for (var i = 0; i < response['data'].length; i++) {
-          String date =
-              exchangeListUser.fromJson(response['data'][i]).createdAtToDaily;
-          if (!groupedData.containsKey(date)) {
-            groupedData[date] = [];
+    final String? token = await secureStorage.read(key: 'accessToken');
+    if (token != null) {
+      try {
+        final Map<String, dynamic> response = await listPost(type, accountId, token);
+        if (response['statusCode'] == 200) {
+          groupedData = {}; //한 번 초기화
+          for (var i = 0; i < response['data'].length; i++) {
+            String date =
+                exchangeListUser.fromJson(response['data'][i]).createdAtToDaily;
+            if (!groupedData.containsKey(date)) {
+              groupedData[date] = [];
+            }
+            groupedData[date]!
+                .add(exchangeListUser.fromJson(response['data'][i]));
           }
-          groupedData[date]!
-              .add(exchangeListUser.fromJson(response['data'][i]));
+          setState(() {
+            users = groupedData;
+            // print("-----------------user 정보------------------------");
+            // print(users);
+          });
+        } else {
+          // Handle error
+          print('Error: ${response['statusCode']}');
         }
-        setState(() {
-          users = groupedData;
-          // print("-----------------user 정보------------------------");
-          // print(users);
-        });
-      } else {
+      } catch (e) {
         // Handle error
-        print('Error: ${response['statusCode']}');
+        print('Error: $e');
       }
-    } catch (e) {
-      // Handle error
-      print('Error: $e');
     }
   }
 
@@ -221,9 +226,14 @@ class _exchangeListState extends State<exchangeList> {
                                     Expanded(
                                       flex: 2,
                                       child: CircleAvatar(
-                                        backgroundImage: transactions[index].send == true
-                                            ? _getImageProvider(transactions[index].receiverProfileImg)
-                                            : _getImageProvider(transactions[index].senderProfileImg),
+                                        backgroundImage:
+                                            transactions[index].send == true
+                                                ? _getImageProvider(
+                                                    transactions[index]
+                                                        .receiverProfileImg)
+                                                : _getImageProvider(
+                                                    transactions[index]
+                                                        .senderProfileImg),
                                         radius: 30, // 원의 반지름 설정
                                       ),
                                     ),
@@ -266,7 +276,7 @@ class _exchangeListState extends State<exchangeList> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => listDetail(
-                                            user : transactions[index])),
+                                            user: transactions[index])),
                                   );
                                 },
                               );
