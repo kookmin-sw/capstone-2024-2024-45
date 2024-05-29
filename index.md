@@ -1,4 +1,4 @@
-# 타임뱅크 v 2.0
+# 타임뱅크 v 2
 > **Latest Release**: 2.1.0  
 > Released: 2024.05.27  
 
