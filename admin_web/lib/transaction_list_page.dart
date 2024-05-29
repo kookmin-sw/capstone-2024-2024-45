@@ -28,15 +28,15 @@ class _TransactionListPageState extends State<TransactionListPage> {
 
   Future<void> fetchData() async {
     try {
-      final Map<String, dynamic> response = await getTransactions();
+      final Map<String, dynamic> response = await getTransactions(type: "REFUND", completion: false);
       if (response['statusCode'] == 200) {
         groupedData = []; //한 번 초기화
         for (var i = 0; i < response['data'].length; i++) {
           groupedData.add(AdminUserList.fromJson(response['data'][i]));
           setState(() {
             users = groupedData;
-            // print("-----------------user 정보------------------------");
-            // print(users);
+            print("-----------------user 정보------------------------");
+            print(users);
           });
         }
       } else {
@@ -49,41 +49,41 @@ class _TransactionListPageState extends State<TransactionListPage> {
     }
   }
 
+  //일단 표가 잘 나오는지 먼저 봐야함
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Transaction List'),
         ),
-        body: ListView.builder(
-            itemCount: users.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              var transactions = users[index]!;
-              return Column(children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        transactions.first_name,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Color(0xff737373),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      )
-                    ],
-                  ),
-                ),
+        body: users.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: DataTable(
+            columns: const <DataColumn>[
+              DataColumn(label: Text('Inquire ID')),
+              DataColumn(label: Text('Inquirer ID')),
+              DataColumn(label: Text('Type')),
+              DataColumn(label: Text('Text')),
+              DataColumn(label: Text('Created At')),
+              DataColumn(label: Text('Updated At')),
+              DataColumn(label: Text('Completed')),
+            ],
+            rows: users.map((transaction) {
+              return DataRow(cells: [
+                DataCell(Text(transaction.inquireId.toString())),
+                DataCell(Text(transaction.inquirerId.toString())),
+                DataCell(Text(transaction.inquireType.toString())),
+                DataCell(Text(transaction.inquireText)),
+                DataCell(Text(transaction.createdAt)),
+                DataCell(Text(transaction.updatedAt)),
+                DataCell(Text(transaction.completed.toString())),
               ]);
-            }));
+            }).toList(),
+          ),
+        ),
+    );
   }
 }
