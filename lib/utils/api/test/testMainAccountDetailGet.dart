@@ -13,6 +13,9 @@ Future<Map<String, dynamic>> testMainAccountDetailGet(String token, String userI
   print("-----------------baseUrl------------------");
   print(baseUrl);
 
+  print("-----------------userId------------------");
+  print(userId);
+
   try {
     http.Response response =
     await http.get(Uri.parse(baseUrl), headers: {
