@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  application:
+    container_name: bank
+    hostname: bank
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
