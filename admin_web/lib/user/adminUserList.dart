@@ -12,6 +12,13 @@
     "completed": false
 },
  */
+
+/*
+"거래 id: 71
+원래 보내려고 했던 금액: 10
+추가 문의사항: 수정",
+ */
+
 class AdminUserList {
   late int inquireId; //문의 신청자..?
   late int inquirerId; //문의 대상...?
@@ -20,6 +27,11 @@ class AdminUserList {
   late String createdAt;
   late String updatedAt;
   late bool completed;
+
+  // 추가할 필드
+  late int transactionId;
+  late int originalAmount;
+  late String additionalRequest;
 
   AdminUserList({required this.inquireId, required this.inquirerId, required this.inquireType, required this.inquireText, required this.createdAt, required this.updatedAt, required this.completed});
 
@@ -34,5 +46,11 @@ class AdminUserList {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     completed = json['completed'];
+
+    // inquireText 필드를 분할하여 각 값을 추출
+    var lines = inquireText.split('\n');
+    transactionId = int.parse(lines[0].split(': ')[1]);
+    originalAmount = int.parse(lines[2].split(': ')[1]);
+    additionalRequest = lines[4].split(': ')[1];
   }
 }

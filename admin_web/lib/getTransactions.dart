@@ -5,6 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+/*
+"거래 id: 71
+원래 보내려고 했던 금액: 10
+추가 문의사항: 수정",
+ */
+
 Future<Map<String, dynamic>> getTransactions({required String type, required bool completion}) async {
   final apiUrl = dotenv.env['ADMIN_LOCAL_SERVER'];
   String baseUrl = '${apiUrl}/timebank-admin-service/api/admin/inquiries';
