@@ -1,56 +1,85 @@
 {
   "project_info": {
-    "project_number": "662443950906",
-    "project_id": "kepstone-9eb20",
-    "storage_bucket": "kepstone-9eb20.appspot.com"
+    "project_number": "761364583261",
+    "firebase_url": "https://k-eum2023-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "k-eum2023",
+    "storage_bucket": "k-eum2023.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:662443950906:android:431f049f6387c475780603",
+        "mobilesdk_app_id": "1:761364583261:android:6d38f947cafb39fa0f8eb4",
         "android_client_info": {
-          "package_name": "com.example.suntown"
+          "package_name": "com.sese.eum"
         }
       },
       "oauth_client": [
         {
-          "client_id": "662443950906-845paq970teumpdnro84btdr7f4ntcvh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.suntown",
-            "certificate_hash": "29f4c019bd9ae4acfefa29add7f981ad62d1c61f"
-          }
-        },
-        {
-          "client_id": "662443950906-bpkpnotperrq7hqpo18hjjumi0g8d7hq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.suntown",
-            "certificate_hash": "ada97937e545e7fda96697f6adb2928d207ac53a"
-          }
-        },
-        {
-          "client_id": "662443950906-ncvdln3m89hnhcjov93d5kn03oqfmijp.apps.googleusercontent.com",
+          "client_id": "761364583261-4qtot7adh00k37f71ipn087pkb31i354.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDDXA_iOU6q2IOYy411klIpdaQlTTwme98"
+          "current_key": "AIzaSyCJ0MNUD2Fd2G31O_R-5CFFFtZhwdpvb38"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "662443950906-ncvdln3m89hnhcjov93d5kn03oqfmijp.apps.googleusercontent.com",
+              "client_id": "761364583261-4qtot7adh00k37f71ipn087pkb31i354.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "662443950906-1jhtsc1giapp9esq2vi7d45cfseb2dd8.apps.googleusercontent.com",
+              "client_id": "761364583261-nd511ss7gqqng0cp7i0ch6pikb8d90ti.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.suntown"
+                "bundle_id": "kr.k-eum.App"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761364583261:android:931ba39a3435d8270f8eb4",
+        "android_client_info": {
+          "package_name": "time.pay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761364583261-ase11t8bvhal1dealjrvb65fo4bnd7u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "time.pay",
+            "certificate_hash": "7839990043cae4ee1be486fa5413b02e340e9b1b"
+          }
+        },
+        {
+          "client_id": "761364583261-4qtot7adh00k37f71ipn087pkb31i354.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ0MNUD2Fd2G31O_R-5CFFFtZhwdpvb38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761364583261-4qtot7adh00k37f71ipn087pkb31i354.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "761364583261-nd511ss7gqqng0cp7i0ch6pikb8d90ti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kr.k-eum.App"
               }
             }
           ]

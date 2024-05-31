@@ -1,4 +1,4 @@
-package com.example.suntown;
+package com.sese.eum;
 
 import io.flutter.embedding.android.FlutterActivity;
 
